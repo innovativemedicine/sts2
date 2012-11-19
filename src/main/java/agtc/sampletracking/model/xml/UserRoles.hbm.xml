@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="agtc.sampletracking.model">
+	<class
+		name="UserRoles"
+		table="USER_ROLES"
+	>
+		<id
+			name="id"
+			type="integer"
+			column="ID"
+			unsaved-value="-1"
+		>
+	
+	<generator class="native" />
+		</id>
+
+		<many-to-one
+			name="Role"
+			column="ROLE_ID"
+			class="Roles"
+			not-null="false"
+		>
+		</many-to-one>
+		<many-to-one
+			name="User"
+			column="USER_ID"
+			class="User"
+			not-null="false"
+		>
+		</many-to-one>
+
+
+	</class>	
+</hibernate-mapping>

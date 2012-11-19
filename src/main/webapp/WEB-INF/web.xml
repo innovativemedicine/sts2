@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE web-app PUBLIC
+	"-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+	"http://java.sun.com/dtd/web-app_2_3.dtd">
+
+<web-app>
+
+	<display-name>Sample Tracking</display-name>
+
+	<description>Sample Tracking</description>
+
+
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>
+  			<!-- /WEB-INF/ApplicationContext_ACEGI_Security.xml-->
+			/WEB-INF/applicationContext.xml
+		</param-value>
+	</context-param>
+
+<!-- Web Application Security configuration with ACEGI 
+			Jianan Xiao 2005-09-23
+			******BEGIN********
+--> 
+    <filter>
+        <filter-name>Acegi Security System</filter-name>
+        <filter-class>net.sf.acegisecurity.util.FilterToBeanProxy</filter-class>
+        <init-param>
+            <param-name>targetClass</param-name>
+            <param-value>net.sf.acegisecurity.util.FilterChainProxy</param-value>
+        </init-param>
+    </filter>
+
+ 	
+	<filter-mapping>
+	    <filter-name>Acegi Security System</filter-name>
+	    <url-pattern>/*</url-pattern>
+	</filter-mapping>
+<!-- 
+ Web Application Security configuration with ACEGI 
+			Jianan Xiao 2005-09-23
+			******END********
+ -->
+	
+ 
+	
+	<listener>
+	          <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+         </listener>
+
+	<servlet>
+		<servlet-name>stsApp</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<load-on-startup>2</load-on-startup>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>stsApp</servlet-name>
+		<url-pattern>*.htm</url-pattern>
+	</servlet-mapping>
+
+	<session-config>
+		<session-timeout>600</session-timeout>
+	</session-config>
+	
+
+
+	<welcome-file-list>
+		<!-- Redirects to "index.htm" for dispatcher handling -->
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+	
+	
+	<taglib>
+	    <taglib-uri>/spring</taglib-uri>
+	    <taglib-location>/WEB-INF/spring.tld</taglib-location>
+  	</taglib>
+	
+</web-app>

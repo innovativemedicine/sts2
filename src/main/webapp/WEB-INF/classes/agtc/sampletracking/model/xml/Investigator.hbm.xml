@@ -1,0 +1,138 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+    
+<hibernate-mapping>
+<!-- 
+    Created by the Middlegen Hibernate plugin
+
+    http://boss.bekk.no/boss/middlegen/
+    http://hibernate.sourceforge.net/
+-->
+
+<class 
+    name="agtc.sampletracking.model.Investigator" 
+    table="INVESTIGATOR"
+>
+ 
+    <id
+        name="investigatorId"
+        type="java.lang.Integer"
+        column="INVESTIGATOR_ID"
+        unsaved-value="-1"
+    >
+    
+       	<generator class="native" />
+    </id>
+
+    <component name="name" class="agtc.sampletracking.model.Name">
+    <property
+        name="fname"
+        type="java.lang.String"
+        column="FNAME"
+        not-null="true"
+        length="32"
+    >
+        <meta attribute="field-description">
+           @hibernate.property
+            column="FNAME"
+            length="32"
+            not-null="true"
+        </meta>    
+    </property>
+    <property
+        name="mname"
+        type="java.lang.String"
+        column="MNAME"
+        length="32"
+    >
+   
+    </property>
+    <property
+        name="lname"
+        type="java.lang.String"
+        column="LNAME"
+        not-null="true"
+        length="32"
+    >
+   
+    </property>
+    </component>
+    <component name="contact" class="agtc.sampletracking.model.Contact">
+    <property
+        name="address"
+        type="java.lang.String"
+        column="ADDRESS"
+        length="128"
+    >
+      
+    </property>
+    <property
+        name="city"
+        type="java.lang.String"
+        column="CITY"
+        length="32"
+    >
+  
+    </property>
+    <property
+        name="provice"
+        type="java.lang.String"
+        column="PROVICE"
+        length="10"
+    >
+  
+    </property>
+    <property
+        name="phone"
+        type="java.lang.String"
+        column="PHONE"
+        length="10"
+    >
+ 
+    </property>
+    <property
+        name="fax"
+        type="java.lang.String"
+        column="FAX"
+        length="10"
+    >
+  
+    </property>
+    <property
+        name="postalCode"
+        type="java.lang.String"
+        column="POSTAL_CODE"
+        length="6"
+    >
+   
+    </property>
+    <property
+        name="email"
+        type="java.lang.String"
+        column="EMAIL"
+        length="32"
+    >
+   
+    </property>
+    </component>
+
+    <!-- associations -->
+    <!-- bi-directional one-to-many association to Project -->
+    <set
+        name="projects"
+        lazy="true"
+        inverse="true"
+    >
+       
+        <key>
+            <column name="INVESTIGATOR_ID" />
+        </key>
+        <one-to-many 
+            class="agtc.sampletracking.model.Project"
+        />
+    </set>
+
+</class>
+</hibernate-mapping>

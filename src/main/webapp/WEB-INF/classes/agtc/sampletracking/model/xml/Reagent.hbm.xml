@@ -1,0 +1,93 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+    
+<hibernate-mapping>
+<!-- 
+    Created by the Middlegen Hibernate plugin
+
+    http://boss.bekk.no/boss/middlegen/
+    http://hibernate.sourceforge.net/
+-->
+
+<class 
+    name="agtc.sampletracking.model.Reagent" 
+    table="REAGENT"
+>
+
+    <id
+        name="reagentId"
+        type="java.lang.Integer"
+        column="REAGENT_ID"
+        unsaved-value="-1"
+    >
+			<generator class="native" />
+    </id>
+
+    <property
+        name="name"
+        type="java.lang.String"
+        column="NAME"
+        not-null="true"
+        unique="true"
+        length="64"
+    >
+   
+    </property>
+    <property
+        name="concentration"
+        type="java.lang.Float"
+        column="CONCENTRATION"
+      
+    >
+     
+    </property>
+    <property
+        name="manufacture"
+        type="java.lang.String"
+        column="MANUFACTURE"
+        length="64"
+    >
+  
+    </property>
+    
+    <property
+        name="note"
+        type="java.lang.String"
+        column="note"
+        length="128"
+    >
+  
+    </property>
+    
+    <property
+        name="seq"
+        type="java.lang.String"
+        column="SEQ"
+        length="128"
+    >
+    </property>
+    
+    <property
+        name="amount"
+        type="java.lang.Integer"
+        column="amount"
+    >
+  
+    </property>
+
+    <!-- associations -->
+    <!-- bi-directional many-to-one association to Container -->
+    <many-to-one
+        name="container"
+        class="agtc.sampletracking.model.Container"
+        not-null="true"
+    >
+      
+        <column name="CONTAINER_ID" />
+    </many-to-one>
+    
+
+</class>
+</hibernate-mapping>

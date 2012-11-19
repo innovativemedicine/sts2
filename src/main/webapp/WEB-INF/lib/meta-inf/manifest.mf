@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+
+Name: com.java4less.rbarcode/BarCodeBean.class
+Java-Bean: True
+
+Name: com.java4less.rbarcode/BarCodePDF417Bean.class
+Java-Bean: True
+
+Name: com.java4less.rdatamatrix/RDataMatrixBean.class
+Java-Bean: True
+

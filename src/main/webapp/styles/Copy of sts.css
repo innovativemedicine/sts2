@@ -1,0 +1,78 @@
+.TEXT {
+	FONT-SIZE: 12pt; FONT-FAMILY: arial,helvetica,sans-serif
+}
+.SMALL1 {
+	FONT-SIZE: 10pt; FONT-FAMILY: arial,helvetica,sans-serif
+}
+.SMALL2 {
+	FONT-SIZE: 10pt; FONT-FAMILY: verdana
+}
+.SMALL3 {
+	FONT-SIZE: 10pt; FONT-FAMILY: courier
+}
+.GUTTER1 {
+	FONT-SIZE: 12pt; COLOR: #ffcc66; FONT-FAMILY: arial,helvetica,sans-serif
+}
+.GUTTER2 {
+	FONT-SIZE: 10pt; COLOR: #ffffff; FONT-FAMILY: arial,helvetica,sans-serif
+}
+.GUTTER3 {
+	FONT-SIZE: 10pt; COLOR: #ccccff; FONT-FAMILY: verdana
+}
+A.BAR {
+	FONT-SIZE: 10pt; COLOR: #ffffff; FONT-FAMILY: arial,helvetica,sans-serif; TEXT-DECORATION: none
+}
+A.HELPBAR {
+	FONT-SIZE: 10pt; COLOR: #000000; FONT-FAMILY: arial,helvetica,sans-serif; TEXT-DECORATION: none
+}
+A.GUTTER1 {
+	FONT: 12pt arial,helvetica,sans-serif; COLOR: #ffcc66; TEXT-DECORATION: none
+}
+A.GUTTER2 {
+	FONT-SIZE: 10pt; COLOR: #ffffff; FONT-FAMILY: arial,helvetica,sans-serif; TEXT-DECORATION: none
+}
+A.H1 {
+	FONT-WEIGHT: bold; FONT-SIZE: 18pt; COLOR: #000000; FONT-FAMILY: arial,helvetica,sans-serif; TEXT-DECORATION: none
+}
+A.H6 {
+	FONT-WEIGHT: bold; FONT-SIZE: 10pt; COLOR: #000000; FONT-FAMILY: arial,helvetica,sans-serif; TEXT-DECORATION: none
+}
+A.TEXT {
+	MARGIN-TOP: -4pt; FONT: 12pt arial,helvetica,sans-serif; COLOR: #000000; TEXT-DECORATION: none
+}
+H1 {
+	FONT-WEIGHT: bold; FONT-SIZE: 18pt; FONT-FAMILY: arial,helvetica,sans-serif
+}
+.H1 {
+	FONT-WEIGHT: bold; FONT-SIZE: 18pt; FONT-FAMILY: arial,helvetica,sans-serif
+}
+H2 {
+	FONT-WEIGHT: bold; FONT-SIZE: 16pt; FONT-FAMILY: arial,helvetica,sans-serif
+}
+.H2 {
+	FONT-WEIGHT: bold; FONT-SIZE: 16pt; FONT-FAMILY: arial,helvetica,sans-serif
+}
+H3 {
+	FONT-WEIGHT: bold; FONT-SIZE: 14pt; FONT-FAMILY: arial,helvetica,sans-serif
+}
+.H3 {
+	FONT-WEIGHT: bold; FONT-SIZE: 14pt; FONT-FAMILY: arial,helvetica,sans-serif
+}
+H4 {
+	FONT-WEIGHT: bold; FONT-SIZE: 12pt; FONT-FAMILY: arial,helvetica,sans-serif
+}
+.H4 {
+	FONT-WEIGHT: bold; FONT-SIZE: 12pt; FONT-FAMILY: arial,helvetica,sans-serif
+}
+H5 {
+	FONT-WEIGHT: bold; FONT-SIZE: 12pt; FONT-STYLE: italic; FONT-FAMILY: arial,helvetica,sans-serif
+}
+.H5 {
+	FONT-WEIGHT: bold; FONT-SIZE: 12pt; FONT-STYLE: italic; FONT-FAMILY: arial,helvetica,sans-serif
+}
+H6 {
+	FONT-WEIGHT: bold; FONT-SIZE: 10pt; FONT-FAMILY: arial,helvetica,sans-serif
+}
+.H6 {
+	FONT-WEIGHT: bold; FONT-SIZE: 10pt; FONT-FAMILY: arial,helvetica,sans-serif
+}

@@ -1,0 +1,7 @@
+body {
+    font: 8pt/16pt Georgia, serif; 
+    color: #555753; 
+    background: #F5F7EC url(../images/springtime/bg.jpg); 
+    margin: 0px; 
+    background-repeat: repeat-x;
+}

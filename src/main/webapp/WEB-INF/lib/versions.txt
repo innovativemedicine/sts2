@@ -1,0 +1,53 @@
+This file lists the versions of the different open source packages 
+(and their JARs) contained in this directory.
+
+EasyMock 1.1
+    JARs: easymock.jar
+    
+Hibernate 2.1.4
+    JARs: c3p0-0.8.4.5.jar
+          cglib-full-2.0.1.jar
+          dom4j-1.4.jar
+          ehcache-0.7.jar
+          hibernate2.jar
+          jta.jar
+          odmg-3.0.jar
+          oscache-2.0.1.jar
+
+HSQLDB 1.7.1
+    JARs: hsqldb.jar
+    
+JSTL 1.0.5
+    JARs: standard.jar
+          jstl.jar
+
+JUnit 3.8.1
+    JARs: junit.jar
+
+Log4j 1.2.8
+    JARs: log4j-1.2.8.jar
+    
+SiteMesh 2.0.2
+    JARs: sitemesh-2.0.2.jar
+
+Spring 1.0.2
+    JARs: aopalliance.jar
+          spring.jar
+          
+Struts 1.1
+    JARs: commons-beanutils.jar
+          commons-collections.jar
+          commons-digester.jar
+          commons-fileupload.jar
+          commons-lang.jar
+          commons-logging.jar
+          commons-validator.jar
+          jakarta-oro.jar
+          struts.jar
+          struts-el.jar
+
+StrutsTestCase 2.1.0
+    JARs: strutstest-2.1.0.jar
+          
+
+

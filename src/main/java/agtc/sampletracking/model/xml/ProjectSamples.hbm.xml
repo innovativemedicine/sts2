@@ -1,0 +1,149 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+    
+<hibernate-mapping>
+<!-- 
+    Created by the Middlegen Hibernate plugin
+
+    http://boss.bekk.no/boss/middlegen/
+    http://hibernate.sourceforge.net/
+-->
+
+<class 
+    name="agtc.sampletracking.model.ProjectSamples" 
+    table="PROJECT"
+>
+
+    <id
+        name="projectId"
+        type="java.lang.Integer"
+        column="PROJECT_ID"
+        unsaved-value="-1"
+    >
+    
+       	<generator class="native" />
+    </id>
+
+    <property
+        name="name"
+        type="java.lang.String"
+        column="NAME"
+        length="32"
+        unique="true"
+        not-null="true"
+    >
+    
+    </property>
+    <property
+        name="description"
+        type="java.lang.String"
+        column="DESCRIPTION"
+        length="256"
+    >
+   
+    </property>
+    <property
+        name="status"
+         type="java.lang.String"
+        column="STATUS"
+        length="32"
+    >
+    
+    </property>
+    <property
+        name="createdOn"
+        type="java.sql.Timestamp"
+        column="CREATED_ON"
+        length="7"
+    >
+     
+    </property>
+
+    <!-- associations -->
+    <!-- bi-directional many-to-many association to ProjectAssay -->
+    <set
+        name="assays"
+        table="project_assay"
+        lazy="true"
+        inverse="true"
+    >
+    
+        <key>
+            <column name="PROJECT_ID" />
+        </key>
+        <many-to-many 
+            class="agtc.sampletracking.model.Assay" >
+            <column name="assay_id" />
+        </many-to-many>
+    </set>
+    
+    <!-- bi-directional one-to-many association to Container -->
+    <set
+        name="containers"
+        lazy="true"
+        inverse="true"
+    >
+        
+        <key>
+            <column name="PROJECT_ID" />
+        </key>
+        <one-to-many 
+            class="agtc.sampletracking.model.Container"
+        />
+    </set>
+    
+    <!-- bi-directional one-to-many association to Test -->
+    <set
+        name="tests"
+        lazy="true"
+        inverse="true"
+    >
+        
+        <key>
+            <column name="PROJECT_ID" />
+        </key>
+        <one-to-many 
+            class="agtc.sampletracking.model.Test"
+        />
+    </set>
+    
+    <!-- bi-directional one-to-many association to Run -->
+    <set
+        name="runs"
+        lazy="true"
+        inverse="true"
+    >
+        
+        <key>
+            <column name="PROJECT_ID" />
+        </key>
+        <one-to-many 
+            class="agtc.sampletracking.model.Run"
+        />
+    </set>
+
+	 <!-- bi-directional one-to-many association to Patient -->
+    <set
+        name="patients"
+        lazy="true"
+        inverse="true"
+    >
+        
+        <key>
+            <column name="INT_SAMPLE_ID" />
+        </key>
+        <one-to-many 
+            class="agtc.sampletracking.model.Patient"
+        />
+    </set>
+    
+    <!-- bi-directional many-to-one association to Investigator -->
+    <many-to-one
+        name="investigator"
+        class="agtc.sampletracking.model.Investigator"
+        column="INVESTIGATOR_ID" 
+    />  
+</class>
+</hibernate-mapping>

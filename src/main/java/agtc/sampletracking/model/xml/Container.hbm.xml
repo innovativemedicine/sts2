@@ -1,0 +1,169 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+    
+<hibernate-mapping>
+<!-- 
+    Created by the Middlegen Hibernate plugin
+
+    http://boss.bekk.no/boss/middlegen/
+    http://hibernate.sourceforge.net/
+-->
+
+<class 
+    name="agtc.sampletracking.model.Container" 
+    table="CONTAINER"
+>
+ 
+    <id
+        name="containerId"
+        type="java.lang.Integer"
+        column="CONTAINER_ID"
+        unsaved-value="-1"
+    >
+    
+      	<generator class="native" />
+    </id>
+
+    <property
+        name="name"
+        type="java.lang.String"
+        column="NAME"
+        not-null="true"
+        unique="true"
+        length="128"
+    >
+    
+    </property>
+    <property
+        name="extContainerId"
+        type="java.lang.String"
+        column="EXT_CONTAINER_ID"
+        length="32"
+    >
+    
+    </property>
+    <property
+        name="createdDate"
+        type="java.sql.Timestamp"
+        column="CREATED_DATE"
+        length="7"
+    >
+    
+    </property>
+    <property
+        name="comments"
+        type="java.lang.String"
+        column="COMMENTS"
+        length="256"
+    >
+    
+    </property>
+    <property
+        name="status"
+        type="java.lang.String"
+        column="STATUS"
+        length="10"
+    >
+  
+    </property>
+    
+    <property
+        name="concentration"
+        type="java.lang.Float"
+        column="CONCENTRATION"
+    >
+   
+    </property>
+
+    <!-- associations -->
+    <!-- bi-directional many-to-one association to Location -->
+    <many-to-one
+        name="location"
+        class="agtc.sampletracking.model.Location"
+        not-null="true"
+    >
+      
+        <column name="LOCATION_ID" />
+    </many-to-one>
+    
+    <!-- bi-directional many-to-one association to Mother_container -->
+    <many-to-one
+        name="motherContainer"
+        class="agtc.sampletracking.model.Container"
+    >
+      
+        <column name="MOTHER_CONTAINER_ID" />
+    </many-to-one>
+    
+    <!-- bi-directional one-to-many association to SamplesInContainer -->
+    <set
+        name="samplesInContainers"
+		lazy="true"
+		cascade="save-update"
+		inverse="true"
+		where="operation='I'"
+	
+    >
+        
+        <key>
+            <column name="CONTAINER_ID" />
+        </key>
+        <one-to-many 
+            class="agtc.sampletracking.model.SamplesInContainer"
+        />
+    </set>
+    <!-- bi-directional one-to-many association to Reagent -->
+    <set
+        name="reagents"
+        lazy="true"
+        inverse="true"
+		cascade="save-update"
+		sort="agtc.sampletracking.model.Reagent"
+    >
+      
+        <key>
+            <column name="CONTAINER_ID" />
+        </key>
+        <one-to-many 
+            class="agtc.sampletracking.model.Reagent"
+        />
+    </set>
+    
+    <!-- bi-directional one-to-many association to Container , child container-->
+    <set
+        name="childContainers"
+        lazy="true"
+        inverse="true"
+		cascade="save-update"
+    >
+      
+        <key>
+            <column name="MOTHER_CONTAINER_ID" />
+        </key>
+        <one-to-many 
+            class="agtc.sampletracking.model.Container"
+        />
+    </set>
+    
+    <!-- bi-directional many-to-one association to Project -->
+    <many-to-one
+        name="project"
+        class="agtc.sampletracking.model.Project"
+        not-null="true"
+    >
+      
+        <column name="PROJECT_ID" />
+    </many-to-one>
+    <!-- bi-directional many-to-one association to ContainerType -->
+    <many-to-one
+        name="containerType"
+        class="agtc.sampletracking.model.ContainerType"
+        not-null="true"
+    >
+        <column name="CONTAINER_TYPE_ID" />
+    </many-to-one>
+
+</class>
+</hibernate-mapping>

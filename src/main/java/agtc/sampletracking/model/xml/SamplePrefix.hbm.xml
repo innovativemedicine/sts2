@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+    
+<hibernate-mapping>
+<!-- 
+    Created by the Middlegen Hibernate plugin 
+    modified by Gloria Deng generate long mapping for longerger of Oracle, change it to lang
+
+    http://boss.bekk.no/boss/middlegen/
+    http://hibernate.sourceforge.net/
+-->
+
+<class 
+    name="agtc.sampletracking.model.SamplePrefix" 
+    table="SAMPLEPREFIX"
+>
+
+    <id
+        name="samplePrefixId"
+        type="java.lang.Integer"
+        column="SAMPLE_PREFIX_ID"
+        unsaved-value="-1"
+    >
+  
+       	<generator class="native" />
+
+    </id>
+
+    <property
+        name="prefix"
+        type="java.lang.String"
+        column="PREFIX"
+        length="5"
+        
+    >
+    </property>
+    <property
+        name="note"
+        type="java.lang.String"
+        column="NOTE"
+        length="128"
+       
+    >
+    </property>
+    
+    <property
+        name="description"
+        type="java.lang.String"
+        column="DESCRIPTION"
+        length="32"
+		unique="true"
+        not-null="true"
+       
+    >
+    </property>
+
+	<property
+        name="digitNumber"
+        type="java.lang.Integer"
+        column="DIGITNUMBER" 
+    >
+    </property>
+
+	<property
+        name="columns"
+        type="java.lang.String"
+        column="COLUMNS"
+        length="256"
+       
+    >
+    </property>
+</class>
+</hibernate-mapping>

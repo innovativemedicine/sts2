@@ -1,0 +1,684 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"  "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+
+   <bean id="urlMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+        <property name="interceptors">
+         <list>
+              
+              <ref bean="openSessionInViewInterceptor"/>
+              <!--ref bean="checkUserRoleInterceptor"/-->
+         </list>
+       </property>
+        <property name="mappings">
+            <props>
+			  <prop key="/index.htm">loginController</prop>
+			<!--
+    	 search controllers
+    	 -->
+                <prop key="/samples.htm">samplesSearchController</prop>
+                <prop key="/simpleSamples.htm">simpleSamplesSearchController</prop>
+                <prop key="/aliasSamples.htm">aliasSamplesSearchController</prop>
+				<prop key="/containers.htm">containersSearchController</prop>
+                <prop key="/projects.htm">projectsSearchController</prop>	 	
+               	<prop key="/tests.htm">testsSearchController</prop>
+               	<prop key="/assays.htm">assaysSearchController</prop>
+               	<prop key="/projectsamples.htm">projectSamplesSearchController</prop>
+				<prop key="/results.htm">resultsSearchController</prop>
+				<prop key="/runs.htm">runsSearchController</prop>
+				<prop key="/reagents.htm">reagentsSearchController</prop>
+				<prop key="/searchPatient.htm">searchPatientController</prop>
+
+				<!--
+    	 edit controllers
+    	  -->
+				<prop key="/editSample.htm">editSampleController</prop>
+				<prop key="/addSingleSample.htm">addSingleSampleController</prop>
+				<prop key="/editContainer.htm">editContainerController</prop>
+				<prop key="/editProject.htm">editProjectController</prop>
+				<prop key="/editTest.htm">editTestController</prop>
+				
+			   	<prop key="/editAssay.htm">editAssayController</prop>
+			   	<prop key="/editReagent.htm">editReagentController</prop>
+			  
+				<prop key="/editRun.htm">editRunController</prop>
+				<prop key="/editResult.htm">editResultController</prop>
+				<prop key="/containerType.htm">containerTypeAddEditController</prop>
+				<prop key="/instrument.htm">instrumentController</prop>
+				<prop key="/investigator.htm">investigatorController</prop>
+				<prop key="/location.htm">locationController</prop>
+				<prop key="/sampleType.htm">sampleTypeController</prop>
+				<!--
+				<prop key="/editSamplesInContainer.htm">editSamplesInContainerController</prop>
+				-->
+				<prop key="/samplePrefix.htm">samplePrefixController</prop>
+				<prop key="/updateResultToCGG.htm">updateResultToCGGController</prop>
+				<prop key="/modifyRun.htm">modifyRunController</prop>
+				<prop key="/editPatient.htm">editPatientController</prop>
+				<prop key="/addSample2Container.htm">addSample2ContainerController</prop>
+				
+
+			<!--
+    			 multiaction controllers
+    		-->
+
+			 	<prop key="/successLogin.htm">stsController</prop>
+			  	<prop key="/sampleDetails.htm">stsController</prop>
+			   	<prop key="/containerDetails.htm">stsController</prop>
+			   	<prop key="/projectDetails.htm">stsController</prop>
+			   	<prop key="/derivedContainerDetails.htm">stsController</prop>
+			   	<prop key="/assayDetails.htm">stsController</prop>
+			   	<prop key="/testDetails.htm">stsController</prop>
+				<prop key="/reagentDetails.htm">stsController</prop>
+				<prop key="/runDetails.htm">stsController</prop>
+			  	<prop key="/resultDetails.htm">stsController</prop>
+				<prop key="/sampleIdList.htm">stsController</prop>
+				<prop key="/sampleIdMap.htm">stsController</prop>
+				<prop key="/deleteTest.htm">stsController</prop>
+				<prop key="/deleteRun.htm">stsController</prop>
+				<prop key="/deleteAssay.htm">stsController</prop>
+				<prop key="/deleteRunAssay.htm">stsController</prop>
+				<prop key="/deleteReagent.htm">stsController</prop>
+				<prop key="/deleteSample.htm">stsController</prop>
+
+				<prop key="/deleteProject.htm">stsController</prop>
+				<prop key="/deleteContainer.htm">stsController</prop>
+				<prop key="/deleteResult.htm">stsController</prop>
+				<prop key="/emptyContainer.htm">stsController</prop>
+				<prop key="/shuffleSamplesInContainer.htm">stsController</prop>
+				<prop key="/deleteAllSamplesInContainer.htm">stsController</prop>
+				<prop key="/resultList.htm">stsController</prop>
+				<prop key="/patientDetails.htm">stsController</prop>
+				 
+			<!--
+    			 other controllers
+    		-->
+			
+				
+				<prop key="/saveSamplesInBatch.htm">saveSamplesInBatchController</prop>
+				<prop key="/addResult.htm">addResultController</prop>
+				<prop key="/sampleList4select.htm">sampleList4selectController</prop>
+				<prop key="/plateList4select.htm">plateList4selectController</prop>
+				<prop key="/printLabel.htm">printLabelController</prop>
+				<prop key="/printLabel4BloodCollection.htm">printLabel4BloodCollectionController</prop>
+				<prop key="/printSampleLabel.htm">printSampleLabelController</prop>
+				
+				<prop key="/makePlate.htm">makePlateController</prop>
+				<prop key="/selectSampleInfo4Output.htm">selectSampleInfo4OutputController</prop>
+				<prop key="/containerContents.htm">containerContentsController</prop>
+				<prop key="/deleteSampleFromContainer.htm">deleteSampleFromContainerController</prop>
+				
+				<!-- Contorller for System User management 
+						Jianan Xiao 2005-09-29
+				-->
+				<prop key="/adminAddEditUser.htm">
+					addEditUserController</prop>
+				<prop key="/EditProfile.htm">
+					editProfileController</prop>
+           </props>	           
+        </property>
+    </bean>
+    
+     <bean name="openSessionInViewInterceptor"  
+            class="org.springframework.orm.hibernate3.support.OpenSessionInViewInterceptor">
+               <property name="sessionFactory"><ref bean="sessionFactory"/></property>
+    </bean>
+  
+    <bean id="loginController" class="agtc.sampletracking.web.controller.LoginFormController">
+    </bean>
+
+	<!--
+    	 search controllers
+    -->
+    <bean id="samplesSearchController" class="agtc.sampletracking.web.controller.SamplesSearchController">
+		<property name="sessionForm"><value>true</value></property>
+		<property name="requireSession"><value>true</value></property>
+		<property name="formView"><value>samples</value></property>
+		<property name="successView"><value>sampleDetails.htm</value></property>
+	 	<property name="sampleManager"><ref bean="sampleManager"/></property>
+     	<property name="searchFields"><ref bean="sampleSearchFields"/></property>
+    	<property name="operatorList"><ref bean="operatorList"/></property>
+   </bean>
+
+	<!-- Added by Jianan Xiao 2005-09-12 -->
+    <bean id="simpleSamplesSearchController" class="agtc.sampletracking.web.controller.SimpleSampleSearchController">
+		<property name="sessionForm"><value>true</value></property>
+		<property name="requireSession"><value>true</value></property>
+		<property name="formView"><value>simpleSearchSamples</value></property>
+		<property name="successView"><value>sampleDetails.htm</value></property>
+	 	<property name="sampleManager"><ref bean="sampleManager"/></property>
+   </bean>
+
+    <bean id="aliasSamplesSearchController" class="agtc.sampletracking.web.controller.AliasSampleSearchController">
+		<property name="sessionForm"><value>true</value></property>
+		<property name="requireSession"><value>true</value></property>
+		<property name="formView"><value>aliasSearchSamples</value></property>
+		<property name="successView"><value>sampleDetails.htm</value></property>
+	 	<property name="aliasManager"><ref bean="aliasManager"/></property>
+    	<property name="projectManager"><ref bean="projectManager"/></property>
+   </bean>
+
+    <bean id="containersSearchController" class="agtc.sampletracking.web.controller.ContainersSearchController">
+    	<property name="sessionForm"><value>true</value></property>
+    	<property name="requireSession"><value>true</value></property>
+    	<property name="formView"><value>containers</value></property>
+    	<property name="successView"><value>containerDetails.htm</value></property>
+       	<property name="containerManager"><ref bean="containerManager"/></property>
+        <property name="searchFields"><ref bean="containerSearchFields"/></property>
+        <property name="operatorList"><ref bean="operatorList"/></property>
+    </bean>
+
+    <bean id="projectsSearchController" class="agtc.sampletracking.web.controller.ProjectsSearchController">
+	    <property name="sessionForm"><value>true</value></property>
+	    <property name="requireSession"><value>true</value></property>
+        <property name="formView"><value>projects</value></property>
+        <property name="successView"><value>projectDetails.htm</value></property>
+	    <property name="projectManager"><ref bean="projectManager"/></property>
+	    <property name="searchFields"><ref bean="projectSearchFields"/></property>
+	    <property name="operatorList"><ref bean="operatorList"/></property>
+    </bean>
+
+    <bean id="projectSamplesSearchController" class="agtc.sampletracking.web.controller.ProjectSamplesSearchController">
+		<property name="sessionForm"><value>true</value></property>
+		<property name="requireSession"><value>true</value></property>
+		<property name="formView"><value>projectSamples</value></property>
+		<property name="successView"><value>projectSamplesDetails.htm</value></property>
+	 	<property name="projectManager"><ref bean="projectManager"/></property>
+     	<property name="searchFields"><ref bean="projectSamplesSearchFields"/></property>
+    	<property name="operatorList"><ref bean="operatorList"/></property>
+   </bean>
+	
+	<bean id="testsSearchController" class="agtc.sampletracking.web.controller.TestsSearchController">
+		<property name="sessionForm"><value>true</value></property>
+		<property name="requireSession"><value>true</value></property>
+		<property name="formView"><value>tests</value></property>
+		<property name="successView"><value>testDetails.htm</value></property>
+		<property name="testManager"><ref bean="testManager"/></property>
+        <property name="searchFields"><ref bean="testSearchFields"/></property>
+       	<property name="operatorList"><ref bean="operatorList"/></property>
+	</bean>
+   
+   <bean id="assaysSearchController" class="agtc.sampletracking.web.controller.AssaysSearchController">
+		<property name="sessionForm"><value>true</value></property>
+		<property name="requireSession"><value>true</value></property>
+       	<property name="formView"><value>assays</value></property>
+		<property name="successView"><value>assayDetails.htm</value></property>
+		<property name="testManager"><ref bean="testManager"/></property>
+    	<property name="searchFields"><ref bean="assaySearchFields"/></property>
+    	<property name="operatorList"><ref bean="operatorList"/></property>
+   </bean>
+
+    <bean id="resultsSearchController" class="agtc.sampletracking.web.controller.ResultsSearchController">
+    	<property name="sessionForm"><value>true</value></property>
+    	<property name="requireSession"><value>true</value></property>
+    	<property name="formView"><value>results</value></property>		
+       	<property name="testManager"><ref bean="testManager"/></property>
+        <property name="searchFields"><ref bean="resultSearchFields"/></property>
+		<property name="operatorList"><ref bean="operatorList"/></property>
+    </bean>
+
+	<bean id="runsSearchController" class="agtc.sampletracking.web.controller.RunsSearchController">
+		<property name="sessionForm"><value>true</value></property>
+		<property name="requireSession"><value>true</value></property>
+		<property name="formView"><value>runs</value></property>
+		<property name="testManager"><ref bean="testManager"/></property>
+		<property name="operatorList"><ref bean="operatorList"/></property>
+		<property name="searchFields"><ref bean="runSearchFields"/></property>
+  		<property name="idListResolver"><ref bean="idListResolver"/></property>
+   </bean>
+
+   <bean id="reagentsSearchController" class="agtc.sampletracking.web.controller.ReagentsSearchController">
+		<property name="sessionForm"><value>true</value></property>
+		<property name="requireSession"><value>true</value></property>
+		<property name="formView"><value>reagents</value></property>
+		<property name="successView"><value>reagentDetails.htm</value></property>
+		<property name="sampleManager"><ref bean="sampleManager"/></property>
+		<property name="operatorList"><ref bean="operatorList"/></property>
+		<property name="searchFields"><ref bean="reagentSearchFields"/></property>
+   </bean>
+
+    <bean id="searchPatientController" class="agtc.sampletracking.web.controller.SearchPatientController">
+		<property name="sessionForm"><value>true</value></property>
+		<property name="requireSession"><value>true</value></property>
+       	<property name="formView"><value>searchPatient</value></property>
+		<property name="successView"><value>patientDetails.htm</value></property>
+		<property name="sampleManager"><ref bean="sampleManager"/></property>
+   </bean>
+
+
+
+
+	<!--
+    	 edit controllers in order of sample, container, project, test, assay, reagent, run, result, management
+    	 -->
+    <bean id="editSampleController" class="agtc.sampletracking.web.controller.EditSampleController">
+ 		<property name="sessionForm"><value>true</value></property>
+ 		<property name="requireSession"><value>true</value></property>
+ 		<property name="formView"><value>editSample</value></property>
+        <property name="successView"><value>sampleDetails.htm</value></property>
+		<property name="validator"><ref local="sampleValidator"/></property>
+ 		<property name="sampleManager"><ref bean="sampleManager"/></property>
+ 		<property name="containerManager"><ref bean="containerManager"/></property>
+		<property name="agtcManager"><ref bean="agtcManager"/></property>
+    </bean>
+
+	 <bean id="addSingleSampleController" class="agtc.sampletracking.web.controller.AddSingleSampleController">
+ 		<property name="sessionForm"><value>true</value></property>
+ 		<property name="requireSession"><value>true</value></property>
+ 		<property name="formView"><value>addSingleSample</value></property>
+        <property name="successView"><value>patientDetails.htm</value></property>
+		<property name="validator"><ref local="sampleValidator"/></property>
+ 		<property name="sampleManager"><ref bean="sampleManager"/></property>
+ 		<property name="containerManager"><ref bean="containerManager"/></property>
+		<property name="agtcManager"><ref bean="agtcManager"/></property>
+		 <property name="projectManager"><ref bean="projectManager"/></property>
+    </bean>
+
+	<bean id="sampleValidator" 
+		class="agtc.sampletracking.web.validator.SampleValidator"/>
+
+	<bean id="editContainerController" class="agtc.sampletracking.web.controller.EditContainerController">
+     	<property name="sessionForm"><value>true</value></property>
+     	<property name="requireSession"><value>true</value></property>
+     	<property name="formView"><value>editContainer</value></property>
+        <property name="validator"><ref local="containerValidator"/></property>
+		<property name="successView"><value>containerDetails.htm</value></property>
+     	<property name="containerManager"><ref bean="containerManager"/></property>
+     	<property name="projectManager"><ref bean="projectManager"/></property>
+		<property name="agtcManager"><ref bean="agtcManager"/></property>
+    </bean>
+	<bean id="containerValidator" 
+		class="agtc.sampletracking.web.validator.ContainerValidator"/>
+
+	
+
+	<bean id="editProjectController" class="agtc.sampletracking.web.controller.EditProjectController">
+		<property name="sessionForm"><value>true</value></property>
+		<property name="requireSession"><value>true</value></property>
+		<property name="formView"><value>editProject</value></property>
+		<property name="validator"><ref local="projectValidator"/></property>
+	
+        <property name="successView"><value>projectDetails.htm</value></property>
+		<property name="projectManager"><ref bean="projectManager"/></property>
+		<property name="agtcManager"><ref bean="agtcManager"/></property>
+    </bean>
+	<bean id="projectValidator" 
+		class="agtc.sampletracking.web.validator.ProjectValidator"/>
+   
+   <bean id="editTestController" class="agtc.sampletracking.web.controller.EditTestController">
+		<property name="sessionForm"><value>true</value></property>
+		<property name="requireSession"><value>true</value></property>
+		<property name="formView"><value>editTest</value></property>
+    	<property name="successView"><value>testDetails.htm</value></property>
+		<property name="validator"><ref local="testValidator"/></property>
+		<property name="testManager"><ref bean="testManager"/></property>
+		<property name="projectManager"><ref bean="projectManager"/></property>
+		<property name="idListResolver"><ref bean="idListResolver"/></property>
+		<property name="agtcManager"><ref bean="agtcManager"/></property>
+    </bean>
+	<bean id="testValidator" 
+		class="agtc.sampletracking.web.validator.TestValidator"/>
+     
+    <bean id="editAssayController" class="agtc.sampletracking.web.controller.EditAssayController">
+		<property name="sessionForm"><value>true</value></property>
+		<property name="requireSession"><value>true</value></property>
+		<property name="formView"><value>editAssay</value></property>
+    	<property name="successView"><value>assayDetails.htm</value></property>
+		<property name="validator"><ref local="assayValidator"/></property>
+		<property name="testManager"><ref bean="testManager"/></property>
+		<property name="projectManager"><ref bean="projectManager"/></property>
+    </bean>
+	<bean id="assayValidator" 
+		class="agtc.sampletracking.web.validator.AssayValidator"/>
+    
+    <bean id="editReagentController" class="agtc.sampletracking.web.controller.EditReagentController">
+    	<property name="sessionForm"><value>true</value></property>
+    	<property name="requireSession"><value>true</value></property>
+    	<property name="formView"><value>editReagent</value></property>
+        <property name="successView"><value>reagentDetails.htm</value></property>
+		<property name="validator"><ref local="reagentValidator"/></property>
+    	<property name="sampleManager"><ref bean="sampleManager"/></property>
+    	<property name="containerManager"><ref bean="containerManager"/></property>
+    </bean>
+	<bean id="reagentValidator" 
+		class="agtc.sampletracking.web.validator.ReagentValidator"/>
+
+   <bean id="editRunController" class="agtc.sampletracking.web.controller.EditRunController">
+    	<property name="sessionForm"><value>true</value></property>
+    	<property name="requireSession"><value>true</value></property>
+    	<property name="formView"><value>editRun</value></property>
+        <property name="successView"><value>successComplete.htm</value></property>
+    	<property name="testManager"><ref bean="testManager"/></property>
+    	<property name="projectManager"><ref bean="projectManager"/></property>
+		<property name="agtcManager"><ref bean="agtcManager"/></property>
+		<property name="containerManager"><ref bean="containerManager"/></property>
+		<property name="idListResolver"><ref bean="idListResolver"/></property>
+    </bean>
+
+	 <bean id="modifyRunController" class="agtc.sampletracking.web.controller.ModifyRunController">
+    	<property name="sessionForm"><value>true</value></property>
+    	<property name="requireSession"><value>true</value></property>
+    	<property name="formView"><value>modifyRun</value></property>
+        <property name="successView"><value>runDetails.htm</value></property>
+    	<property name="testManager"><ref bean="testManager"/></property>
+    	<property name="projectManager"><ref bean="projectManager"/></property>
+		<property name="agtcManager"><ref bean="agtcManager"/></property>
+		<property name="containerManager"><ref bean="containerManager"/></property>
+		<property name="idListResolver"><ref bean="idListResolver"/></property>
+    </bean>
+
+	<bean id="editResultController" class="agtc.sampletracking.web.controller.EditResultController">
+    	<property name="sessionForm"><value>true</value></property>
+    	<property name="requireSession"><value>true</value></property>
+    	<property name="formView"><value>editResult</value></property>
+		<property name="successView"><value>resultDetails.htm</value></property>
+    	<property name="testManager"><ref bean="testManager"/></property>
+    </bean>
+
+	<bean id="containerTypeAddEditController" class="agtc.sampletracking.web.controller.ContainerTypeAddEditController">
+    	<property name="sessionForm"><value>true</value></property>
+    	<property name="requireSession"><value>true</value></property>
+    	<property name="formView"><value>containerType</value></property>
+        <property name="successView"><value>containerType.htm</value></property>
+        <property name="validator"><ref local="containerTypeAddEditValidator"/></property>
+    	<property name="agtcManager"><ref bean="agtcManager"/></property>
+    </bean>
+	<bean id="containerTypeAddEditValidator" 
+		class="agtc.sampletracking.web.validator.ContainerTypeAddEditValidator"/>
+
+	<bean id="instrumentController" class="agtc.sampletracking.web.controller.InstrumentController">
+    	<property name="sessionForm"><value>true</value></property>
+    	<property name="requireSession"><value>true</value></property>
+    	<property name="formView"><value>instrument</value></property>
+        <property name="successView"><value>instrument.htm</value></property>
+        <property name="validator"><ref local="instrumentValidator"/></property>
+    	<property name="agtcManager"><ref bean="agtcManager"/></property>
+    </bean>
+	<bean id="instrumentValidator" 
+		class="agtc.sampletracking.web.validator.InstrumentValidator"/>
+
+	<bean id="investigatorController" class="agtc.sampletracking.web.controller.InvestigatorController">
+    	<property name="sessionForm"><value>true</value></property>
+    	<property name="requireSession"><value>true</value></property>
+    	<property name="formView"><value>investigator</value></property>
+        <property name="successView"><value>investigator.htm</value></property>
+        <property name="validator"><ref local="investigatorValidator"/></property>
+    	<property name="agtcManager"><ref bean="agtcManager"/></property>
+    </bean>
+	<bean id="investigatorValidator" 
+		class="agtc.sampletracking.web.validator.InvestigatorValidator"/>
+		
+	<bean id="locationController" class="agtc.sampletracking.web.controller.LocationController">
+    	<property name="sessionForm"><value>true</value></property>
+    	<property name="requireSession"><value>true</value></property>
+    	<property name="formView"><value>location</value></property>
+        <property name="successView"><value>location.htm</value></property>
+        <property name="validator"><ref local="locationValidator"/></property>
+    	<property name="agtcManager"><ref bean="agtcManager"/></property>
+    </bean>
+	<bean id="locationValidator" 
+		class="agtc.sampletracking.web.validator.LocationValidator"/>
+		
+	<bean id="sampleTypeController" class="agtc.sampletracking.web.controller.SampleTypeController">
+    	<property name="sessionForm"><value>true</value></property>
+    	<property name="requireSession"><value>true</value></property>
+    	<property name="formView"><value>sampleType</value></property>
+        <property name="successView"><value>sampleType.htm</value></property>
+        <property name="validator"><ref local="sampleTypeValidator"/></property>
+    	<property name="agtcManager"><ref bean="agtcManager"/></property>
+    </bean>
+	<bean id="sampleTypeValidator" 
+		class="agtc.sampletracking.web.validator.SampleTypeValidator"/>
+
+	<bean id="deleteSampleFromContainerController" class="agtc.sampletracking.web.controller.DeleteSampleFromContainerController">
+	<property name="sessionForm"><value>true</value></property>
+	<property name="requireSession"><value>true</value></property>
+	<property name="formView"><value>deleteSampleFromContainer</value></property>
+	<property name="successView"><value>containerContents.htm</value></property>
+	
+	<property name="sampleManager"><ref bean="sampleManager"/></property>
+	<property name="containerManager"><ref bean="containerManager"/></property>
+    </bean>
+
+	<bean id="addSample2ContainerController" class="agtc.sampletracking.web.controller.AddSample2ContainerController">
+	<property name="sessionForm"><value>true</value></property>
+	<property name="requireSession"><value>true</value></property>
+	<property name="formView"><value>addSample2Container</value></property>
+	<property name="successView"><value>addSample2Container.htm</value></property>
+	<property name="sampleManager"><ref bean="sampleManager"/></property>
+	<property name="agtcManager"><ref bean="agtcManager"/></property>
+	<property name="containerManager"><ref bean="containerManager"/></property>
+    </bean>
+
+	<bean id="samplesInContainerValidator" 
+		class="agtc.sampletracking.web.validator.SamplesInContainerValidator"/>
+
+	<bean id="samplePrefixController" class="agtc.sampletracking.web.controller.SamplePrefixController">
+    	<property name="sessionForm"><value>true</value></property>
+    	<property name="requireSession"><value>true</value></property>
+    	<property name="formView"><value>samplePrefix</value></property>
+        <property name="successView"><value>samplePrefix.htm</value></property>
+    	<property name="agtcManager"><ref bean="agtcManager"/></property>
+    	<property name="validator"><ref local="samplesSourceTypeValidator"/></property>
+    </bean>
+	<bean id="samplesSourceTypeValidator" 
+		class="agtc.sampletracking.web.validator.SampleSourceTypeValidator"/>
+
+	<bean id="updateResultToCGGController" class="agtc.sampletracking.web.controller.UpdateResultToCGGController">
+    	<property name="sessionForm"><value>true</value></property>
+    	<property name="requireSession"><value>true</value></property>
+    	<property name="formView"><value>updateResultToCGG</value></property>
+    	<property name="agtcManager"><ref bean="agtcManager"/></property>
+    </bean>
+
+	 <bean id="editPatientController" class="agtc.sampletracking.web.controller.EditPatientController">
+		<property name="sessionForm"><value>true</value></property>
+		<property name="requireSession"><value>true</value></property>
+		<property name="formView"><value>editPatient</value></property>
+    	<property name="successView"><value>patientDetails.htm</value></property>
+		<property name="sampleManager"><ref bean="sampleManager"/></property>
+		 <property name="projectManager"><ref bean="projectManager"/></property>
+    </bean>
+		
+	<!--
+    	other controllers 
+    	  -->
+	<bean id="saveSamplesInBatchController" class="agtc.sampletracking.web.controller.SaveSamplesInBatchController">
+     	<property name="sessionForm"><value>true</value></property>
+     	<property name="requireSession"><value>true</value></property>
+     	<property name="formView"><value>saveSamples</value></property>
+        <property name="successView"><value>containerDetails.htm</value></property>
+     	<property name="sampleManager"><ref bean="sampleManager"/></property>
+		<property name="containerManager"><ref bean="containerManager"/></property>
+		<property name="agtcManager"><ref bean="agtcManager"/></property>
+		<property name="projectManager"><ref bean="projectManager"/></property>
+    </bean>
+
+	<bean id="addResultController" class="agtc.sampletracking.web.controller.AddResultController">
+    	<property name="sessionForm"><value>true</value></property>
+    	<property name="requireSession"><value>true</value></property>
+    	<property name="formView"><value>addResult</value></property>
+        <property name="successView"><value>editResult.htm</value></property>
+    	<property name="testManager"><ref bean="testManager"/></property>
+    	<property name="projectManager"><ref bean="projectManager"/></property>
+    </bean>
+
+	<bean id="sampleList4selectController" class="agtc.sampletracking.web.controller.SampleList4selectController">
+    	<property name="sessionForm"><value>true</value></property>
+    	<property name="requireSession"><value>true</value></property>
+    	<property name="formView"><value>sampleList4select</value></property>
+        <property name="successView"><value>index.htm</value></property>
+    </bean>
+
+	<bean id="plateList4selectController" class="agtc.sampletracking.web.controller.PlateList4selectController">
+    	<property name="sessionForm"><value>true</value></property>
+    	<property name="requireSession"><value>true</value></property>
+    	<property name="formView"><value>plateList4select</value></property>
+        <property name="successView"><value>index.htm</value></property>
+    </bean>
+
+	<bean id="printLabelController" class="agtc.sampletracking.web.controller.PrintLabelController">
+    	<property name="sessionForm"><value>true</value></property>
+    	<property name="requireSession"><value>true</value></property>
+    	<property name="formView"><value>printLabel</value></property>
+    </bean>
+
+	<bean id="printLabel4BloodCollectionController" class="agtc.sampletracking.web.controller.PrintLabel4BloodCollectionController">
+    	<property name="sessionForm"><value>true</value></property>
+    	<property name="requireSession"><value>true</value></property>
+    	<property name="formView"><value>printLabel4BloodCollection</value></property>
+    </bean>
+
+	<bean id="printSampleLabelController" class="agtc.sampletracking.web.controller.PrintSampleLabelController">
+    	<property name="sessionForm"><value>true</value></property>
+    	<property name="requireSession"><value>true</value></property>
+    	<property name="formView"><value>printSampleLabel</value></property>
+		
+		<property name="sampleManager"><ref bean="sampleManager"/></property>
+		<property name="agtcManager"><ref bean="agtcManager"/></property>
+    </bean>
+
+	<bean id="selectSampleInfo4OutputController" class="agtc.sampletracking.web.controller.SelectSampleInfo4OutputController">
+    	<property name="sessionForm"><value>true</value></property>
+    	<property name="requireSession"><value>true</value></property>
+    	<property name="formView"><value>selectSampleInfo4Output</value></property>
+		<property name="sampleManager"><ref bean="sampleManager"/></property>
+    </bean>
+
+	
+
+	<bean id="makePlateController" class="agtc.sampletracking.web.controller.MakePlateController">
+    	<property name="sessionForm"><value>true</value></property>
+    	<property name="requireSession"><value>true</value></property>
+    	<property name="formView"><value>makePlate</value></property>
+		<property name="successView"><value>containerDetails.htm</value></property>
+		<property name="validator"><ref local="containerValidator"/></property>
+    	<property name="sampleManager"><ref bean="sampleManager"/></property>
+		<property name="containerManager"><ref bean="containerManager"/></property>
+		<property name="projectManager"><ref bean="projectManager"/></property>
+		<property name="agtcManager"><ref bean="agtcManager"/></property>
+    </bean>
+
+	<bean id="containerContentsController" class="agtc.sampletracking.web.controller.ContainerContentsController">
+    	<property name="sessionForm"><value>true</value></property>
+    	<property name="requireSession"><value>true</value></property>
+    	<property name="formView"><value>containerContents</value></property>
+    	 <property name="successView"><value>containerContents.htm</value></property>
+		<property name="sampleManager"><ref bean="sampleManager"/></property>
+		<property name="containerManager"><ref bean="containerManager"/></property>
+		<property name="agtcManager"><ref bean="agtcManager"/></property>
+    </bean>
+
+	
+    
+    <!--
+     - This bean is a MultiActionController that manages general View rendering.
+    - It uses the "stsControllerResolver" bean below for method name resolution.
+    -->
+    <bean id="stsController" class="agtc.sampletracking.web.controller.StsController">
+		<property name="methodNameResolver"><ref local="stsControllerResolver"/></property>
+		<property name="projectManager"><ref bean="projectManager"/></property>
+		<property name="testManager"><ref bean="testManager"/></property>
+    	<property name="sampleManager"><ref bean="sampleManager"/></property>
+    	<property name="containerManager"><ref bean="containerManager"/></property>
+    	<property name="idListResolver"><ref bean="idListResolver"/></property>
+    </bean>
+    
+    	<!--
+    	  - This bean is a MethodNameResolver definition for a MultiActionController.
+    	  - It maps URLs to methods for the "stsController" bean.
+    	  -->
+	<bean id="stsControllerResolver" class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
+		<property name="mappings">
+			<props>
+				<prop key="/successLogin.htm">successLoginHandler</prop>
+				<prop key="/assayDetails.htm">assayDetailsHandler</prop>
+				<prop key="/resultDetails.htm">resultDetailsHandler</prop>
+				<prop key="/sampleDetails.htm">sampleDetailsHandler</prop>
+				<prop key="/containerDetails.htm">containerDetailsHandler</prop>
+				<prop key="/projectDetails.htm">projectDetailsHandler</prop>
+				<prop key="/projectSamplesDetails.htm">projectSamplesDetailsHandler</prop>
+				<prop key="/testDetails.htm">testDetailsHandler</prop>
+				<prop key="/reagentDetails.htm">reagentDetailsHandler</prop>
+				<prop key="/runDetails.htm">runDetailsHandler</prop>
+				<prop key="/sampleIdList.htm">sampleIdListHandler</prop>
+				<prop key="/sampleIdMap.htm">sampleIdMapHandler</prop>
+				<prop key="/deleteTest.htm">deleteTestHandler</prop>
+				<prop key="/deleteRun.htm">deleteRunHandler</prop>
+				<prop key="/deleteAssay.htm">deleteAssayHandler</prop>
+				<prop key="/deleteRunAssay.htm">deleteRunAssayHandler</prop>
+				<prop key="/deleteReagent.htm">deleteReagentHandler</prop>
+				<prop key="/deleteSample.htm">deleteSampleHandler</prop>
+				<prop key="/deleteResult.htm">deleteResultHandler</prop>
+				<prop key="/deleteSampleFromContainer.htm">deleteSampleFromContainerHandler</prop>
+				<prop key="/deleteProject.htm">deleteProjectHandler</prop>
+				<prop key="/deleteContainer.htm">deleteContainerHandler</prop>
+				<prop key="/emptyContainer.htm">emptyContainerHandler</prop>
+				<prop key="/shuffleSamplesInContainer.htm">shuffleSamplesInContainerHandler</prop>
+				<prop key="/deleteAllSamplesInContainer.htm">deleteAllSamplesInContainerHandler</prop>
+				<prop key="/resultList.htm">resultListHandler</prop>
+				<prop key="/patientDetails.htm">patientDetailsHandler</prop>
+				
+
+			</props>
+		</property>
+	</bean>
+    
+    
+<!--    
+    <bean name="checkUserRoleInterceptor"  
+        class="agtc.sampletracking.web.CheckUserRoleInterceptor">
+    </bean>
+-->
+    
+    <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+        <property name="basename"><value>messages</value></property>
+    </bean>
+
+     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="viewClass">
+           <value>org.springframework.web.servlet.view.JstlView</value>
+        </property>
+        <property name="prefix"><value>/WEB-INF/jsp/</value></property>
+        <property name="suffix"><value>.jsp</value></property>
+    </bean>
+    
+    <bean id="multipartResolver" 
+        class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+    
+        <!-- one of the properties available; the maximum file size in bytes -->
+        <property name="maxUploadSize">
+            <value>10000000</value>
+        </property>
+    </bean>
+
+<!-- beans for user management 
+		Jianan Xiao 2005-09-29
+-->
+     <bean id="addEditUserController" 
+     	class="agtc.sampletracking.web.controller.admin.AddEditUserController">
+	<property name="sessionForm"><value>true</value></property>
+	<property name="requireSession"><value>true</value></property>
+	<property name="formView"><value>adminAddEditUser</value></property>
+	<property name="successView"><value>adminAddEditUser.htm</value></property>
+	<property name="userManager"><ref bean="systemUserManager"/></property>
+	<property name="validator"><ref local="addEditUserValidator"/></property>
+   </bean>
+
+	<bean id="addEditUserValidator"
+		class="agtc.sampletracking.web.validator.AddEditUserValidator"/>
+
+	<bean id="editProfileController" 
+     	class="agtc.sampletracking.web.controller.EditProfileController">
+	<property name="sessionForm"><value>true</value></property>
+	<property name="requireSession"><value>true</value></property>
+	<property name="formView"><value>editProfile</value></property>
+	<property name="successView"><value>successComplete.htm</value></property>
+	<property name="userManager"><ref bean="systemUserManager"/></property>
+	<property name="validator"><ref local="EditProfileValidator"/></property>
+   </bean>
+
+	<bean id="EditProfileValidator"
+		class="agtc.sampletracking.web.validator.EditProfileValidator"/>
+</beans>
