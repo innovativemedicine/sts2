@@ -10,6 +10,6 @@ test/reports
 .link_to_grails_plugins*
 target
 target-eclipse
-/web-app/WEB-INF/classes
+/web-app/WEB-INF/classes/**
 CVS
 
