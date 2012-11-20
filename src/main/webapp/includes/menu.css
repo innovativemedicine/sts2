@@ -53,16 +53,12 @@ text-indent: 3px;
 color:	white;
 }
 
-html>body .submenus li a{ /* non IE browsers */
-width: auto;
-}
-
 .submenus li a:hover{
-background-color: #00a000;
+background-color: #ccffff;
 color: black;
 }
 
-#csstopmenu li>ul {/* non IE browsers */
+#csstopmenu li>ul { /*non IE browsers*/
 top: auto;
 left: auto;
 }
@@ -71,7 +67,7 @@ left: auto;
 display: block;
 }
 
-html>body #clearmenu{ /* non IE browsers */
+html>body #clearmenu{ /*non IE browsers*/
 height: 3px;
 }
 
