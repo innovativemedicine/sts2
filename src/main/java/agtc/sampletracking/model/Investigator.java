@@ -93,9 +93,6 @@ public class Investigator implements Serializable {
         this.projects = projects;
     }
     
-    
-    
-     
 	/**
 	 * @return Returns the fullName.
 	 */

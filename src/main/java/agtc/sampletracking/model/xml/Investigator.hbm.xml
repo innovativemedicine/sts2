@@ -60,54 +60,14 @@
     </property>
     </component>
     <component name="contact" class="agtc.sampletracking.model.Contact">
-    <property
-        name="address"
-        type="java.lang.String"
-        column="ADDRESS"
-        length="128"
-    >
-      
-    </property>
-    <property
-        name="city"
-        type="java.lang.String"
-        column="CITY"
-        length="32"
-    >
   
-    </property>
-    <property
-        name="provice"
-        type="java.lang.String"
-        column="PROVICE"
-        length="10"
-    >
-  
-    </property>
     <property
         name="phone"
         type="java.lang.String"
         column="PHONE"
         length="10"
-    >
- 
-    </property>
-    <property
-        name="fax"
-        type="java.lang.String"
-        column="FAX"
-        length="10"
-    >
-  
-    </property>
-    <property
-        name="postalCode"
-        type="java.lang.String"
-        column="POSTAL_CODE"
-        length="6"
-    >
-   
-    </property>
+    ></property>
+
     <property
         name="email"
         type="java.lang.String"
@@ -116,6 +76,7 @@
     >
    
     </property>
+    
     </component>
 
     <!-- associations -->
