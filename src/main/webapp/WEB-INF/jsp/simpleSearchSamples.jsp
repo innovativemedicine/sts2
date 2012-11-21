@@ -10,11 +10,11 @@
 <h2><fmt:message key="sample.search.title"/></h2>
 <form method="post" enctype="multipart/form-data">
   <table width="70%" class="details">
-	 
-
+	 	
+	<a href="<c:url value="/samples.htm"></c:url>">Advanced Sample Search</a>
    <tr> 
 	 <td>
-		Upload or enter a list of internal sample Id,
+		 Upload or enter a list of internal sample Id,
 		 will give you all samples with these sample ids. 
 		 If you specify the sample type at the same time, 
 		 will give you all samples with these sample ids of 
