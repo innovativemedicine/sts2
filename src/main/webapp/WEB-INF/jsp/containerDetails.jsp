@@ -8,7 +8,7 @@
 
 <a href="<c:url value="/emptyContainer.htm"><c:param name="containerId" value="${command.containerId}"/></c:url>" onclick="return (confirm('Are you sure you want to empty this container? Read the warning carefully before you confirm!')) ">Empty it</a>&nbsp; Remove all samples from this container, but keep  samples in the STS <br>
 
-<a href="<c:url value="/deleteContainer.htm"><c:param name="containerId" value="${command.containerId}"/></c:url>" onclick="return (confirm('Are you sure you want to delete this container? Read the warning carefully before you confirm!')) " >Delete it</a> &nbsp;<font color="red">Warning:</font> You can not delete this container unless there is no samples and reagents in this container.<br>
+<a href="<c:url value="/deleteContainer.htm"><c:param name="containerId" value="${command.containerId}"/></c:url>" onclick="return (confirm('Are you sure you want to delete this container? Read the warning carefully before you confirm!')) " >Delete it</a> &nbsp;<font color="red">Warning:</font> You can not delete this container unless there are no samples in this container.<br>
 
 <c:if test="${command.sampleBoxOrPlate}">
 <a href="<c:url value="/deleteAllSamplesInContainer.htm"><c:param name="containerId" value="${command.containerId}"/></c:url>" onclick="return (confirm('Are you sure you want to delete all samples in this container? Read the warning carefully before you confirm!')) " >Delete All</a> &nbsp;<font color="red">Warning:</font> Will delete all samples in this container from STS, including the sample located at other container as well as all genotype results 
@@ -139,7 +139,6 @@ related to this sample.
        <tr>
     	<th>Internal ID</th>
     	<th>External ID</th>
-    	<th>Family ID</th>
     	<th>Sample Type</th>
     	<th>Status</th>
         </tr>
@@ -150,11 +149,8 @@ related to this sample.
     	<a href="<c:url value="/sampleDetails.htm"><c:param name="sampleId" value="${sample.sampleId}"/></c:url>"><c:out value="${sample.patient.intSampleId}"/></a>&nbsp;
     	</td>
     	<td><c:out value="${sample.patient.extSampleId}"/>&nbsp;</td>
-    	<td><c:out value="${sample.patient.familyId}"/>&nbsp;</td>
     	<td><c:out value="${sample.sampleType.name}"/>&nbsp;</td>
-    	<td><c:out value="${sample.status}"/>&nbsp;</td>
-    	
-       
+    	<td><c:out value="${sample.status}"/>&nbsp;</td> 
         
         </tr>
        </c:forEach>
@@ -190,30 +186,6 @@ related to this sample.
 
 	  <br>
 
-
-    <c:if test="${command.reagentBox}">
-      <h3>Reagent:</h3>
-      
-      <p><a href="<c:url value="/editReagent.htm"><c:param name="containerId" value="${command.containerId}"/></c:url>">Add A New Reagent in This Container</a>
-	  <table width="80%" border="0" class="details">    
-			<tr>
-			<th>Reagent Name</th>
-			<th>Concentration</th>
-			<th>Note</th>
-			</tr>
-            
-            <c:forEach items="${command.reagents}" var="reagent">
-            <tr> 
-			<td>
-			<a href="<c:url value="/reagentDetails.htm"><c:param name="reagentId" value="${reagent.reagentId}"/></c:url>"><c:out value="${reagent.name}"/></a>
-			</td>
-			<td><c:out value="${reagent.concentration}"/>&nbsp;</td>
-			<td><c:out value="${reagent.note}"/> &nbsp;</td>
-			
-			</tr>
-            </c:forEach>
-      </table>
-	  </c:if>
       <br><br>
 
 </td></tr>
