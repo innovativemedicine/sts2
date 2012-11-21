@@ -58,45 +58,6 @@
    </td>
    </tr>
 
-
-   <tr> 
-      <td>Patient First Name: </td>
-      <td> 
-	   <spring:bind path="command.fname">
-    	   <INPUT type="text" maxlength="255" size="30" name="fname" value="<c:out value="${status.value}"/>">
-    	</spring:bind>
-   </td>
-   </tr>
-
-
-
-   <tr> 
-      <td>Patient Middle Name: </td>
-      <td> 
-	   <spring:bind path="command.mname">
-    	   <INPUT type="text" maxlength="255" size="30" name="mname" value="<c:out value="${status.value}"/>">
-    	</spring:bind>
-   </td>
-   </tr>
-
-   <tr> 
-      <td>Patient Last Name: </td>
-      <td> 
-	   <spring:bind path="command.lname">
-    	   <INPUT type="text" maxlength="255" size="30" name="lname" value="<c:out value="${status.value}"/>">
-    	</spring:bind>
-   </td>
-   </tr>
-
-   <tr> 
-          <td>Family Id</td>
-          <td> 
-            <spring:bind path="command.familyId">
-    	   <INPUT type="text" maxlength="255" size="30" name="familyId" value="<c:out value="${status.value}"/>">
-    	</spring:bind>
-          </td>
-    </tr>
-
 	<tr> 
       <td>Is control? </td>
       <td> 
@@ -110,42 +71,6 @@
       </spring:bind>
       </td>
     </tr>
-
-   <tr> 
-      <td>Patient Age: </td>
-      <td> 
-	  <spring:bind path="command.age">
-    	   <INPUT type="text" maxlength="255" size="30" name="age" value="<c:out value="${status.value}"/>">
-		    <FONT color="red">
-		    <B><c:out value="${status.errorMessage}"/></B>
-		</FONT>
-    	</spring:bind>
-   </td>
-   </tr>
-
-   <tr> 
-      <td>Patient Date of Birth: </td>
-      <td> 
-	  <spring:bind path="command.birthDate">
-    	   <INPUT type="text" maxlength="255" size="30" name="birthDate" value="<c:out value="${status.value}"/>">
-		    <FONT color="red">
-		    <B><c:out value="${status.errorMessage}"/></B>
-		</FONT>
-    	</spring:bind> (<fmt:message key="format.date"/>)
-   </td>
-   </tr>
-
-   <tr> 
-      <td>Patient Gender: </td>
-      <td> 
-	  <spring:bind path="command.gender">
-    	   <INPUT type="text" maxlength="255" size="30" name="gender" value="<c:out value="${status.value}"/>">
-		    <FONT color="red">
-		    <B><c:out value="${status.errorMessage}"/></B>
-		</FONT>
-    	</spring:bind> (F or M)
-   </td>
-   </tr>
   
     <tr> 
       <td colspan="2">

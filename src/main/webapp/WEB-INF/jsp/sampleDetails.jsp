@@ -6,9 +6,7 @@
 <p><h2>Sample Details</h2> 
 <a href="<c:url value="/editSample.htm"><c:param name="sampleId" value="${command.sampleId}"/></c:url>">Edit Sample Information</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-
 <a href="<c:url value="/deleteSample.htm"><c:param name="sampleId" value="${command.sampleId}"/></c:url>" onclick="return (confirm('Are you sure you want to delete this sample? Read the warning carefully before you confirm!')) " >Delete it</a>&nbsp;<font color="red">Warning:</font> Deleting the sample will delete it from all the containers !<br>
-
 
 </p>
 
@@ -24,11 +22,13 @@
   <table border="0" class="details">
     
     <tr> 
-      <td>Internal Id:</td><td>
+    <td>Internal Id:</td><td>
         <c:out value="${command.patient.intSampleId}"/>&nbsp;
       </td>
 	</tr>
-        
+	
+	<tr> 
+
 	 <tr> 
       <td>Sample Type: </td><td>
       <c:out value="${command.sampleType.name}"/>&nbsp;
@@ -104,38 +104,30 @@
           <c:out value="${command.sampleDupNo}"/>&nbsp;
           </td>
     </tr>
+
     
  </table>
  </td>
  <td> &nbsp</td>
  <td valign="top">
  <table border="0" class="details">
- <tr><td>First Name</td>
- 	<td><c:out value="${command.patient.fname }"/></td></tr>
- <tr><td>Middle Name</td>
- 	<td><c:out value="${command.patient.mname }"/></td></tr>
- <tr><td>Last Name</td>
- 	<td><c:out value="${command.patient.lname }"/></td></tr>
- <tr><td>Age</td>
- 	<td><c:out value="${command.patient.age }"/></td></tr>
- <tr><td>Birthday</td>
- 	<td><c:out value="${command.patient.birthDate }"/></td></tr>
- <tr><td>Gender</td>
- 	<td><c:out value="${command.patient.gender }"/></td></tr>
- <tr><td>Family ID</td>
- 	<td><c:out value="${command.patient.familyId }"/></td></tr>
- <tr><td>Is Controlled</td>
- 	<td><c:out value="${command.patient.isControl }"/></td></tr>
-    <tr> 
- <td>External Id 1:</td><td>
-    <c:out value="${command.patient.extSampleId}"/>      
-        </td></tr>
- <tr> <td>External Id 2:</td><td>
-    <c:out value="${command.patient.anotherExtSampleId}"/>;
-      </td>	</tr>
-
- <tr><td>Note</td>
- 	<td><c:out value="${command.patient.note }"/></td></tr>
+ 
+     	<tr>
+	  <td>External ID:</td><td>
+          <c:out value="${command.patient.extSampleId}"/>&nbsp;
+          </td>
+    </tr>
+    <tr>
+	  <td>External ID 2:</td><td>
+          <c:out value="${command.patient.anotherExtSampleId}"/>&nbsp;
+          </td>
+    </tr>
+	 <tr><td>Is Controlled</td>
+	 	<td><c:out value="${command.patient.isControl }"/></td></tr>
+	    <tr> 
+	
+	 <tr><td>Note</td>
+	 	<td><c:out value="${command.patient.note }"/></td></tr>
 
  </table>
  </td></tr>

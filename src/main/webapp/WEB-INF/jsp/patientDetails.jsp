@@ -37,43 +37,6 @@
       </td>
     </tr>
   
-   <tr> 
-      <td>Patient Name: </td>
-      <td> 
-      <c:out value="${command.fname}"/>&nbsp;<c:out value="${command.mname}"/>&nbsp;<c:out value="${command.lname}"/>&nbsp;
-
-   </td>
-   </tr>
-
-    <tr> 
-      <td>Patient Age: </td>
-      <td> 
-      <c:out value="${command.age}"/>&nbsp;
-   </td>
-   </tr>
-
-    <tr> 
-      <td>Patient Date of Birth: </td>
-      <td> 
-      <c:out value="${command.birthDate}"/>&nbsp;
-   </td>
-   </tr>
-
-   <tr> 
-      <td>Patient Gender: </td>
-      <td> 
-      <c:out value="${command.gender}"/>&nbsp;
-   </td>
-   </tr>
-
-
-   <tr> 
-          <td>Family Id</td>
-          <td>
-            <c:out value="${command.familyId}"/>&nbsp;
-          </td>
-    </tr>
-
   
 
     <tr> 
@@ -101,9 +64,7 @@
 		<th>Concentration</th>
 		<th></th>
 		<th></th>
-		
-		
-		
+
     </tr>
     
     <c:forEach items="${command.samples}" var="sample">
@@ -114,9 +75,6 @@
     	<td><c:out value="${sample.od}"/>&nbsp;</td>
 		<td><a href="<c:url value="/sampleDetails.htm"><c:param name="sampleId" value="${sample.sampleId}"/></c:url>">Details</a></td>
 		<td><a href="<c:url value="/editSample.htm"><c:param name="sampleId" value="${sample.sampleId}"/></c:url>">Edit It</a></td>
-		<!--
-		<td><a href="<c:url value="/editSamplesInContainer.htm"><c:param name="sampleId" value="${sample.sampleId}"/></c:url>">Put it into container</a></td>
-		-->
 
     </tr>
     </c:forEach>

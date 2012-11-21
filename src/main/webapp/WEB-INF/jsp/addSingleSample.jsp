@@ -99,96 +99,96 @@
 	
 
 
-   <tr> 
-      <td>Patient First Name: </td>
-      <td> 
-	   <spring:bind path="command.patient.fname">
-    	   <INPUT type="text" maxlength="255" size="30" name="patient.fname" value="<c:out value="${status.value}"/>">
-    	</spring:bind>
-   </td>
-   </tr>
+<!--    <tr>  -->
+<!--       <td>Patient First Name: </td> -->
+<!--       <td>  -->
+<%-- 	   <spring:bind path="command.patient.fname"> --%>
+<%--     	   <INPUT type="text" maxlength="255" size="30" name="patient.fname" value="<c:out value="${status.value}"/>"> --%>
+<%--     	</spring:bind> --%>
+<!--    </td> -->
+<!--    </tr> -->
 
 
 
-   <tr> 
-      <td>Patient Middle Name: </td>
-      <td> 
-	   <spring:bind path="command.patient.mname">
-    	   <INPUT type="text" maxlength="255" size="30" name="patient.mname" value="<c:out value="${status.value}"/>">
-    	</spring:bind>
-   </td>
-   </tr>
+<!--    <tr>  -->
+<!--       <td>Patient Middle Name: </td> -->
+<!--       <td>  -->
+<%-- 	   <spring:bind path="command.patient.mname"> --%>
+<%--     	   <INPUT type="text" maxlength="255" size="30" name="patient.mname" value="<c:out value="${status.value}"/>"> --%>
+<%--     	</spring:bind> --%>
+<!--    </td> -->
+<!--    </tr> -->
 
-   <tr> 
-      <td>Patient Last Name: </td>
-      <td> 
-	   <spring:bind path="command.patient.lname">
-    	   <INPUT type="text" maxlength="255" size="30" name="patient.lname" value="<c:out value="${status.value}"/>">
-    	</spring:bind>
-   </td>
-   </tr>
+<!--    <tr>  -->
+<!--       <td>Patient Last Name: </td> -->
+<!--       <td>  -->
+<%-- 	   <spring:bind path="command.patient.lname"> --%>
+<%--     	   <INPUT type="text" maxlength="255" size="30" name="patient.lname" value="<c:out value="${status.value}"/>"> --%>
+<%--     	</spring:bind> --%>
+<!--    </td> -->
+<!--    </tr> -->
 
-   <tr> 
-          <td>Family Id</td>
-          <td> 
-            <spring:bind path="command.patient.familyId">
-    	   <INPUT type="text" maxlength="255" size="30" name="patient.familyId" value="<c:out value="${status.value}"/>">
-    	</spring:bind>
-          </td>
-    </tr>
+<!--    <tr>  -->
+<!--           <td>Family Id</td> -->
+<!--           <td>  -->
+<%--             <spring:bind path="command.patient.familyId"> --%>
+<%--     	   <INPUT type="text" maxlength="255" size="30" name="patient.familyId" value="<c:out value="${status.value}"/>"> --%>
+<%--     	</spring:bind> --%>
+<!--           </td> -->
+<!--     </tr> -->
 
-	<tr> 
-      <td>Is control? </td>
-      <td> 
-	   <spring:bind path="command.patient.isControl">
-      <select name="patient.isControl" size="1">
-		 <option value="N">No</option>
-	     <option value="Y">Yes</option>
+<!-- 	<tr>  -->
+<!--       <td>Is control? </td> -->
+<!--       <td>  -->
+<%-- 	   <spring:bind path="command.patient.isControl"> --%>
+<!--       <select name="patient.isControl" size="1"> -->
+<!-- 		 <option value="N">No</option> -->
+<!-- 	     <option value="Y">Yes</option> -->
 		
 	 
-      </select>
-      </spring:bind>
-      </td>
-    </tr>
+<!--       </select> -->
+<%--       </spring:bind> --%>
+<!--       </td> -->
+<!--     </tr> -->
 
-   <tr> 
-      <td>Patient Age: </td>
-      <td> 
-	  <spring:bind path="command.patient.age">
-    	   <INPUT type="text" maxlength="255" size="30" name="patient.age" value="<c:out value="${status.value}"/>">
-		    <FONT color="red">
-		    <B><c:out value="${status.errorMessage}"/></B>
-		</FONT>
-    	</spring:bind>
-   </td>
-   </tr>
+<!--    <tr>  -->
+<!--       <td>Patient Age: </td> -->
+<!--       <td>  -->
+<%-- 	  <spring:bind path="command.patient.age"> --%>
+<%--     	   <INPUT type="text" maxlength="255" size="30" name="patient.age" value="<c:out value="${status.value}"/>"> --%>
+<!-- 		    <FONT color="red"> -->
+<%-- 		    <B><c:out value="${status.errorMessage}"/></B> --%>
+<!-- 		</FONT> -->
+<%--     	</spring:bind> --%>
+<!--    </td> -->
+<!--    </tr> -->
 
-   <tr> 
-      <td>Patient Date of Birth: </td>
-      <td> 
-	  <spring:bind path="command.patient.birthDate">
-    	   <INPUT type="text" maxlength="255" size="30" name="patient.birthDate" value="<c:out value="${status.value}"/>">
-		    <FONT color="red">
-		    <B><c:out value="${status.errorMessage}"/></B>
-		</FONT>
-    	</spring:bind> (<fmt:message key="format.date"/>)
-   </td>
-   </tr>
+<!--    <tr>  -->
+<!--       <td>Patient Date of Birth: </td> -->
+<!--       <td>  -->
+<%-- 	  <spring:bind path="command.patient.birthDate"> --%>
+<%--     	   <INPUT type="text" maxlength="255" size="30" name="patient.birthDate" value="<c:out value="${status.value}"/>"> --%>
+<!-- 		    <FONT color="red"> -->
+<%-- 		    <B><c:out value="${status.errorMessage}"/></B> --%>
+<!-- 		</FONT> -->
+<%--     	</spring:bind> (<fmt:message key="format.date"/>) --%>
+<!--    </td> -->
+<!--    </tr> -->
 
-   <tr> 
-      <td>Patient Gender: </td>
-      <td> 
-	  <spring:bind path="command.patient.gender">
-    	   <select name="patient.gender" size="1">
-		 <option value="N">Unknown</option>
-		 <option value="M">Male</option>
-	     <option value="F">Female</option>
+<!--    <tr>  -->
+<!--       <td>Patient Gender: </td> -->
+<!--       <td>  -->
+<%-- 	  <spring:bind path="command.patient.gender"> --%>
+<!--     	   <select name="patient.gender" size="1"> -->
+<!-- 		 <option value="N">Unknown</option> -->
+<!-- 		 <option value="M">Male</option> -->
+<!-- 	     <option value="F">Female</option> -->
 		
 	 
-      </select>
-    	</spring:bind> 
-   </td>
-   </tr>
+<!--       </select> -->
+<%--     	</spring:bind>  --%>
+<!--    </td> -->
+<!--    </tr> -->
     
 	 <tr> 
       <td>Sample Received On: </td>
