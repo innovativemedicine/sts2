@@ -24,21 +24,6 @@
 			not-null="true"
 			length="32"
 		/>
-		<property
-			name="description"
-			column="DESCRIPTION"
-			type="string"
-			not-null="false"
-			length="32"
-		/>
-		<property
-			name="note"
-			column="NOTE"
-			type="string"
-			not-null="false"
-			length="64"
-		/>
-	
 
 		<set name="UserRoles" inverse="true">
 			<key column="ROLE_ID"/>
