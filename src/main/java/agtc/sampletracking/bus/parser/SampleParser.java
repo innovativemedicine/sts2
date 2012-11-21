@@ -103,7 +103,8 @@ public abstract class SampleParser extends TextFileHanlder {
  				
  			}else if(fieldTitles[a].compareTo("External ID")== 0){
  				patient.setExtSampleId(oneSampleField);
- 			}else if(fieldTitles[a].compareTo("Patient First Name")== 0){
+ 			}
+ 			else if(fieldTitles[a].compareTo("Patient First Name")== 0){
  				patient.setFname(oneSampleField);
  			}else if(fieldTitles[a].compareTo("Patient Middle Name")== 0){
  				patient.setMname(oneSampleField);
@@ -140,7 +141,8 @@ public abstract class SampleParser extends TextFileHanlder {
 	 					sb.append("in the " + lineNumber + " line the Birth date format is not correct <br>");
 	 				}
  				}
- 			}else if(fieldTitles[a].compareTo("Sample Receive Date")== 0){
+ 			}
+ 			else if(fieldTitles[a].compareTo("Sample Receive Date")== 0){
  				if(!oneSampleField.equals("")){		
 	 				Date date = parseDate(oneSampleField);
 	 				if(date != null){

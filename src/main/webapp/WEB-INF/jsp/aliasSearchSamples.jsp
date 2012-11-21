@@ -13,8 +13,7 @@
     <tr><td>If you do not check sample projects, It will not search.</td></tr>
     <c:forEach items="${projectList}" var="project">
     <tr> 
-    	<td><input type="checkbox" name="sampleProjects" 
-    			value="<c:out value="${project.projectId}"/>">
+    	<td><input type="checkbox" name="sampleProjects" value="<c:out value="${project.projectId}"/>">
 			<c:out value="${project.name}"/>
     	</td>
     </tr>

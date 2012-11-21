@@ -23,7 +23,6 @@
                 <value>agtc/sampletracking/model/xml/Instrument.hbm.xml</value>
                 <value>agtc/sampletracking/model/xml/Investigator.hbm.xml</value>
                 <value>agtc/sampletracking/model/xml/Location.hbm.xml</value>
-                <value>agtc/sampletracking/model/xml/Reagent.hbm.xml</value>
                 <value>agtc/sampletracking/model/xml/Project.hbm.xml</value>
                 <value>agtc/sampletracking/model/xml/ProjectSamples.hbm.xml</value>
                 <value>agtc/sampletracking/model/xml/Result.hbm.xml</value>
@@ -68,25 +67,6 @@
            <property name="sessionFactory"><ref bean="sessionFactory"/></property>
       </bean>
 
-<!--        
-      <bean id="dbManagerTarget" class="agtc.sampletracking.bus.manager.DbManager">
-	<property name="userDAO"><ref local="userDAO"/></property>
-      </bean>
-SystemUserManager
-      <bean id="dbManager" 
-	  class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
-	     <property name="transactionManager"><ref bean="transactionManager"/></property>
-	     <property name="target"><ref bean="dbManagerTarget"/></property>
-	     <property name="proxyTargetClass"><value>true</value></property>
-	     <property name="transactionAttributes">
-	       <props>
-		 <prop key="save*">PROPAGATION_REQUIRED</prop>
-		 <prop key="check*">PROPAGATION_REQUIRED</prop>
-		 <prop key="remove*">PROPAGATION_REQUIRED</prop>
-	       </props>
-	     </property>
-     </bean>
--->
       <bean id="systemUserManagerTarget" class="agtc.sampletracking.bus.manager.SystemUserManager">
 	<property name="userDAO"><ref local="userDAO"/></property>
 	<property name="roleDAO"><ref local="roleDAO"/></property>
@@ -106,9 +86,6 @@ SystemUserManager
 	       </props>
 	     </property>
      </bean>
-
-
-
 
      <bean id="projectManagerTarget" class="agtc.sampletracking.bus.manager.ProjectManager">
        <property name="projectDAO"><ref local="projectDAO"/></property>
@@ -132,7 +109,6 @@ SystemUserManager
 	  <property name="sampleDAO"><ref local="sampleDAO"/></property>
 	  <property name="patientDAO"><ref local="patientDAO"/></property>
 	  <property name="containerDAO"><ref local="containerDAO"/></property>
-	  <property name="reagentDAO"><ref local="reagentDAO"/></property>
 	  <property name="sampleTypeDAO"><ref local="sampleTypeDAO"/></property>
 	  <property name="samplesInContainerDAO"><ref local="samplesInContainerDAO"/></property>
    </bean>
@@ -155,7 +131,6 @@ SystemUserManager
 	  <property name="sampleDAO"><ref local="sampleDAO"/></property>
 	  <property name="patientDAO"><ref local="patientDAO"/></property>
 	  <property name="containerDAO"><ref local="containerDAO"/></property>
-	  <property name="reagentDAO"><ref local="reagentDAO"/></property>
 	  <property name="sampleTypeDAO"><ref local="sampleTypeDAO"/></property>
 	  <property name="samplesInContainerDAO"><ref local="samplesInContainerDAO"/></property>
    </bean>
@@ -219,25 +194,7 @@ SystemUserManager
     </props>
     </property>
    </bean>
-<!-- 
-   <bean id="projectSamplesManagerTarget" class="agtc.sampletracking.bus.manager.ProjectSamplesManager">
-	<property name="projectSamplesDAO"><ref local="projectSamplesDAO"/></property>
-   </bean>
 
-   <bean id="projectSamplesManager" 
-		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
-    <property name="transactionManager"><ref bean="transactionManager"/></property>
-    <property name="target"><ref bean="projectSamplesManagerTarget"/></property>
-    <property name="proxyTargetClass"><value>true</value></property>
-    <property name="transactionAttributes">
-    <props>
-	  	<prop key="save*">PROPAGATION_REQUIRED</prop>
-	  	<prop key="check*">PROPAGATION_REQUIRED</prop>
-		<prop key="remove*">PROPAGATION_REQUIRED</prop>
-    </props>
-    </property>
-   </bean>
- -->
    <bean id="testManagerTarget" class="agtc.sampletracking.bus.manager.TestManager">
    	<property name="testDAO"><ref local="testDAO"/></property>
    	<property name="assayDAO"><ref local="assayDAO"/></property>
@@ -280,10 +237,6 @@ SystemUserManager
      <bean id="locationDAO" class="agtc.sampletracking.dao.hibernate.LocationDAOHbImpl">
     	<property name="sessionFactory"><ref local="sessionFactory"/></property>
     </bean>
-     <bean id="reagentDAO" class="agtc.sampletracking.dao.hibernate.ReagentDAOHbImpl">
-    	<property name="sessionFactory"><ref local="sessionFactory"/></property>
-    </bean>
-     
      <bean id="projectDAO" class=
     "agtc.sampletracking.dao.hibernate.ProjectDAOHbImpl">
     	<property name="sessionFactory"><ref local="sessionFactory"/></property>
@@ -360,8 +313,6 @@ SystemUserManager
 	<bean id="runSearchFields" class="agtc.sampletracking.web.searchFields.RunSearchFields">
     </bean>
 
-	<bean id="reagentSearchFields" class="agtc.sampletracking.web.searchFields.ReagentSearchFields">
-    </bean>
     <bean id="idListResolver" class="agtc.sampletracking.bus.IdListResolver">
     	<property name="testManager"><ref local="testManager"/></property>
 		<property name="containerManager"><ref local="containerManager"/></property>

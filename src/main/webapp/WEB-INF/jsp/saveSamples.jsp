@@ -21,7 +21,7 @@
 			   selected
 		  </c:if>
 		 
-		 value="<c:out value="${sampleType.sampleTypeId}"/>"><c:out value="${sampleType.name}"/></option>
+		 	<c:out value="${sampleType.sampleTypeId}"/>"><c:out value="${sampleType.name}"/></option>
 	  </c:forEach>
       </select>
       </spring:bind>

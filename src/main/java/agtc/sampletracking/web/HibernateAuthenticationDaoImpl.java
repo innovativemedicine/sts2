@@ -25,8 +25,8 @@ public class HibernateAuthenticationDaoImpl
 	public UserDetails loadUserByUsername(String username)
 						throws UsernameNotFoundException, 
 						DataAccessException {
-		//userDAO = (UserDAO) new UserDAOHbImpl();
-		System.out.println("User Name="+username);
+		
+		//System.out.println("User Name="+username);
 		User user = userDAO.getUser(username);
 		if (user==null) {
 			throw new UsernameNotFoundException("User: "+username+" not Found");

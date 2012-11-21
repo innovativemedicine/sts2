@@ -52,10 +52,6 @@
 	  </td>
     </tr>
     
-
-
-    
-    
     <tr> 
       <td>Concentration :</td>
       <td> 

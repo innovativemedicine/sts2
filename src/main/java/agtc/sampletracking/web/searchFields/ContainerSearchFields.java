@@ -65,10 +65,9 @@ public class ContainerSearchFields extends BasicSearchFiels {
 		}
 		
 		addOperator(fieldExp,searchCommand,crt);
-		crt.setFetchMode("containerType",FetchMode.EAGER);
-		crt.setFetchMode("location",FetchMode.EAGER);
-		crt.setFetchMode("project",FetchMode.EAGER);
-		
+		crt.setFetchMode("containerType",FetchMode.JOIN);
+		crt.setFetchMode("location",FetchMode.JOIN);
+		crt.setFetchMode("project",FetchMode.JOIN);
 		
 	}
 

@@ -26,13 +26,7 @@
         	<generator class="native" />
 
     </id>
-
     
-
-	
-    
-    
-   
     <property
         name="od"
         type="java.lang.Float"
