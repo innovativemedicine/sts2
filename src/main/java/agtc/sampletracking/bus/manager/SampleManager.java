@@ -25,11 +25,9 @@ public class SampleManager {
 	private Log log = LogFactory.getLog(SampleManager.class);
 	private SampleDAO sampleDAO;
 	private ContainerDAO containerDAO;
-	private ReagentDAO reagentDAO;
 	private PatientDAO patientDAO;
 	private SamplesInContainerDAO samplesInContainerDAO;
 	private SampleTypeDAO sampleTypeDAO;
-	
 	
 	public Sample getSample(Integer sampleId){
 		return sampleDAO.getSample(sampleId);
@@ -117,10 +115,7 @@ public class SampleManager {
 
 	
 	public void saveSample(Sample sample) throws Exception{
-		//log.debug("sampleType is " + sample.getSampleType().getName());
-		//log.debug("sampleId is "+ sample.getSampleId());
-		//log.debug("intSampelId is " + sample.getPatient().getIntSampleId());
-		//log.debug("sample dup No is "+sample.getSampleDupNo());
+
 		if(sample.getSampleId().intValue()==-1){
 			
 			Patient patient = sample.getPatient();
@@ -528,26 +523,6 @@ public class SampleManager {
 		return samplesInContainerDAO.getSamplesInContainersInBySample(sampleId);
 	}
 	
-	public Reagent getReagent(Integer i){
-		return reagentDAO.getReagent(i);
-	}
-	
-	public void saveReagent(Reagent reagent) throws Exception {
-		reagentDAO.saveReagent(reagent);
-	}
-	
-	/**
-	 * 
-	 * see comments of ReagentSearchField.java
-	 */
-	public List searchReagent(List crtList,List lgcList){
-		return reagentDAO.getReagents(crtList,lgcList);
-	}
-	
-	public void removeReagent(Integer sampleId){
-		reagentDAO.removeReagent(sampleId);
-	}
-	
 	public void removeSamplesInContainer(Integer sicId){
 		samplesInContainerDAO.removeSamplesInContainer(sicId);
 	}
@@ -563,19 +538,7 @@ public class SampleManager {
 	public SamplesInContainer getSamplesInContainer(Integer sicId){
 		return samplesInContainerDAO.getSamplesInContainer(sicId);
 	}
-	
-	/**
-	 * @return Returns the reagentDAO.
-	 */
-	public ReagentDAO getReagentDAO() {
-		return reagentDAO;
-	}
-	/**
-	 * @param reagentDAO The reagentDAO to set.
-	 */
-	public void setReagentDAO(ReagentDAO reagentDAO) {
-		this.reagentDAO = reagentDAO;
-	}
+
 	/**
 	 * @return
 	 */

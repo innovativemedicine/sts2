@@ -23,7 +23,6 @@ public class AliasManager {
 	private Log log = LogFactory.getLog(AliasManager.class);
 	private SampleDAO sampleDAO;
 	private ContainerDAO containerDAO;
-	private ReagentDAO reagentDAO;
 	private PatientDAO patientDAO;
 	private SamplesInContainerDAO samplesInContainerDAO;
 	private SampleTypeDAO sampleTypeDAO;
@@ -525,27 +524,7 @@ public class AliasManager {
 	public List getSamplesInContainersInBySample(Integer sampleId){
 		return samplesInContainerDAO.getSamplesInContainersInBySample(sampleId);
 	}
-	
-	public Reagent getReagent(Integer i){
-		return reagentDAO.getReagent(i);
-	}
-	
-	public void saveReagent(Reagent reagent) throws Exception {
-		reagentDAO.saveReagent(reagent);
-	}
-	
-	/**
-	 * 
-	 * see comments of ReagentSearchField.java
-	 */
-	public List searchReagent(List crtList,List lgcList){
-		return reagentDAO.getReagents(crtList,lgcList);
-	}
-	
-	public void removeReagent(Integer sampleId){
-		reagentDAO.removeReagent(sampleId);
-	}
-	
+
 	public void removeSamplesInContainer(Integer sicId){
 		samplesInContainerDAO.removeSamplesInContainer(sicId);
 	}
@@ -562,18 +541,6 @@ public class AliasManager {
 		return samplesInContainerDAO.getSamplesInContainer(sicId);
 	}
 	
-	/**
-	 * @return Returns the reagentDAO.
-	 */
-	public ReagentDAO getReagentDAO() {
-		return reagentDAO;
-	}
-	/**
-	 * @param reagentDAO The reagentDAO to set.
-	 */
-	public void setReagentDAO(ReagentDAO reagentDAO) {
-		this.reagentDAO = reagentDAO;
-	}
 	/**
 	 * @return
 	 */
