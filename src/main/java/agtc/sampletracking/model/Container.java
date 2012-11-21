@@ -43,9 +43,6 @@ public class Container  implements Serializable,ConstantInterface {
 
     /** persistent field */
     private Set samplesInContainers;
-
-    /** persistent field */
-    private Set reagents;
     
     private Container motherContainer;
     
@@ -261,31 +258,7 @@ public class Container  implements Serializable,ConstantInterface {
     public void setContainerType(ContainerType containerType) {
         this.containerType = containerType;
     }
-
-
-    /** 
-     *            @hibernate.set
-     *             lazy="true"
-     *             inverse="true"
-     * 	       @hibernate.collection-key
-     * 	        column="STOCK_ID"
-     *            @hibernate.collection-one-to-many
-     *             class="agtc.sampletracking.model.Reagent"
-     *         
-     */
-    public Set getReagents() {
-        return this.reagents;
-    }
-
-    public void setReagents(Set reagents) {
-        this.reagents = reagents;
-    }
     
-	public void setReagentsFromApp(Set reagents) {
-		this.reagents = reagents;
-	}
-
-  
 	/**
 	 * @return
 	 */

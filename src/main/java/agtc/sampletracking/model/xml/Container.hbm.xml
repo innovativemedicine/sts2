@@ -114,22 +114,6 @@
             class="agtc.sampletracking.model.SamplesInContainer"
         />
     </set>
-    <!-- bi-directional one-to-many association to Reagent -->
-    <set
-        name="reagents"
-        lazy="true"
-        inverse="true"
-		cascade="save-update"
-		sort="agtc.sampletracking.model.Reagent"
-    >
-      
-        <key>
-            <column name="CONTAINER_ID" />
-        </key>
-        <one-to-many 
-            class="agtc.sampletracking.model.Reagent"
-        />
-    </set>
     
     <!-- bi-directional one-to-many association to Container , child container-->
     <set
