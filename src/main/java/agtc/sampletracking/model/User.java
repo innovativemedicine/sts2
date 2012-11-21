@@ -21,14 +21,9 @@ public class User implements Serializable,UserDetails  {
 
     private java.lang.String loginname;
 	private java.lang.String password;
-	private java.lang.Integer reference;
 	private java.lang.String activity;
 	private java.lang.String firstName;
 	private java.lang.String lastName;
-	private java.lang.String address;
-	private java.lang.String homePhone;
-	private java.lang.String officePhone;
-	private java.lang.String emailAddress;
 
 	// collections
 	private java.util.Set userRoles;
@@ -91,7 +86,6 @@ public class User implements Serializable,UserDetails  {
     public void setUserId(Integer userId) {
         this.userId = userId;
     }
-
     
     /** 
      *            @hibernate.property
@@ -116,36 +110,12 @@ public class User implements Serializable,UserDetails  {
 		this.activity = activity;
 	}
 
-	public java.lang.String getAddress() {
-		return address;
-	}
-
-	public void setAddress(java.lang.String address) {
-		this.address = address;
-	}
-
-	public java.lang.String getEmailAddress() {
-		return emailAddress;
-	}
-
-	public void setEmailAddress(java.lang.String emailAddress) {
-		this.emailAddress = emailAddress;
-	}
-
 	public java.lang.String getFirstName() {
 		return firstName;
 	}
 
 	public void setFirstName(java.lang.String firstName) {
 		this.firstName = firstName;
-	}
-
-	public java.lang.String getHomePhone() {
-		return homePhone;
-	}
-
-	public void setHomePhone(java.lang.String homePhone) {
-		this.homePhone = homePhone;
 	}
 
 	public java.lang.String getLastName() {
@@ -164,21 +134,6 @@ public class User implements Serializable,UserDetails  {
 		this.loginname = loginname;
 	}
 
-	public java.lang.String getOfficePhone() {
-		return officePhone;
-	}
-
-	public void setOfficePhone(java.lang.String officePhone) {
-		this.officePhone = officePhone;
-	}
-
-	public java.lang.Integer getReference() {
-		return reference;
-	}
-
-	public void setReference(java.lang.Integer reference) {
-		this.reference = reference;
-	}
 
 	public java.util.Set getROLESs() {
 		return ROLESs;

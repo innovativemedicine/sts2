@@ -31,13 +31,7 @@
 			not-null="true"
 			length="64"
 		/>
-		<property
-			name="reference"
-			column="REFERENCE"
-			type="integer"
-			not-null="false"
-			length="22"
-		/>
+
 		<property
 			name="activity"
 			column="ACTIVITY"
@@ -59,35 +53,6 @@
 			not-null="false"
 			length="20"
 		/>
-		<property
-			name="address"
-			column="ADDRESS"
-			type="string"
-			not-null="false"
-			length="20"
-		/>
-		<property
-			name="homePhone"
-			column="HOME_PHONE"
-			type="string"
-			not-null="false"
-			length="20"
-		/>
-		<property
-			name="officePhone"
-			column="OFFICE_PHONE"
-			type="string"
-			not-null="false"
-			length="20"
-		/>
-		<property
-			name="emailAddress"
-			column="EMAIL_ADDRESS"
-			type="string"
-			not-null="false"
-			length="20"
-		/>
-	
 
 		<set name="UserRoles" inverse="true">
 			<key column="USER_ID"/>

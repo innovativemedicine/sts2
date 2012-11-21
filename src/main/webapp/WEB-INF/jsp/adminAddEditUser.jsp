@@ -83,58 +83,7 @@
       </td>
     </tr>
 
-    <tr> 
-      <td>address</td>
-      <td> 
-	<spring:bind path="command.address">
-	   <INPUT type="text" maxlength="32" size="30" 
-	   	name="address" value="<c:out value="${status.value}"/>">
-        <FONT color="red">
-            <B><c:out value="${status.errorMessage}"/></B>
-        </FONT>
-	</spring:bind>
-      </td>
-    </tr>
-
-    <tr> 
-      <td>Home Phone</td>
-      <td> 
-	<spring:bind path="command.homePhone">
-	   <INPUT type="text" maxlength="32" size="30" 
-	   	name="homePhone" value="<c:out value="${status.value}"/>">
-        <FONT color="red">
-            <B><c:out value="${status.errorMessage}"/></B>
-        </FONT>
-	</spring:bind>
-      </td>
-    </tr>
-
-    <tr> 
-      <td>Office Phone</td>
-      <td> 
-	<spring:bind path="command.officePhone">
-	   <INPUT type="text" maxlength="32" size="30" 
-	   	name="officePhone" value="<c:out value="${status.value}"/>">
-        <FONT color="red">
-            <B><c:out value="${status.errorMessage}"/></B>
-        </FONT>
-	</spring:bind>
-      </td>
-    </tr>
-
-    <tr> 
-      <td>Email Address</td>
-      <td> 
-	<spring:bind path="command.emailAddress">
-	   <INPUT type="text" maxlength="32" size="30" 
-	   	name="emailAddress" value="<c:out value="${status.value}"/>">
-        <FONT color="red">
-            <B><c:out value="${status.errorMessage}"/></B>
-        </FONT>
-	</spring:bind>
-      </td>
-    </tr>
-	
+ 
 	<tr> <td>Role<FONT color=RED>*</FONT></td>
 	<td> 
       <spring:bind path="command.ROLESs">	  
