@@ -126,20 +126,6 @@ public class StsController extends MultiActionController implements Initializing
 		return new ModelAndView("assayDetails", models);
 	}
 	
-	public ModelAndView reagentDetailsHandler(HttpServletRequest request, HttpServletResponse response) 
-		throws ServletException {
-		Reagent reagent = sampleManager.getReagent(
-				new Integer(RequestUtils.getIntParameter(request, "reagentId", -1)));
-	
-		Map models = new HashMap();
-		models.put("command",reagent);
-		String message = RequestUtils.getStringParameter(request, "message","");
-		if(!message.equals("")){
-			models.put("message",message);
-		}
-		return new ModelAndView("reagentDetails", models);
-	}
-	
 	public ModelAndView runDetailsHandler(HttpServletRequest request, HttpServletResponse response) 
 		throws ServletException {
 		Run run = testManager.getRun(
@@ -377,14 +363,6 @@ public class StsController extends MultiActionController implements Initializing
 		testManager.removeResult(new Integer(resultId));
 		return new ModelAndView("successDelete","entityName","result");
 		
-	}
-	
-	public ModelAndView deleteReagentHandler(HttpServletRequest request, HttpServletResponse response) 
-		throws ServletException {
-		int id = RequestUtils.getRequiredIntParameter(request, "reagentId");
-		
-		sampleManager.removeReagent(new Integer(id));
-		return new ModelAndView("successDelete","entityName","reagent");
 	}
 	
 	public ModelAndView deleteSampleHandler(HttpServletRequest request, HttpServletResponse response) 
