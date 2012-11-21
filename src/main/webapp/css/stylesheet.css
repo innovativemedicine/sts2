@@ -1,0 +1,24 @@
+table.details {
+    cellspacing:5;
+	border:2;
+}
+
+table.details tr td{
+    background:#f0f8ff;
+}
+
+table.details tr th{
+    font-weight: bold;
+    text-align:left;
+    background:#a6caf0;
+}
+
+A.bar:link {
+	COLOR: #ffffff; FONT-STYLE: normal; TEXT-DECORATION: none; font-familty: Arial,Helvetica
+}
+A.bar:active {
+	COLOR: #ff0000; FONT-STYLE: normal; TEXT-DECORATION: none; font-familty: Arial,Helvetica
+}
+A.bar:visited {
+	COLOR: #ffffff; FONT-STYLE: normal; TEXT-DECORATION: none; font-familty: Arial,Helvetica
+}
