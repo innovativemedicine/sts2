@@ -20,7 +20,7 @@ External SampleId
 <spring:bind path="command.outAnotherExtSampleId"> 
 <%@ include file="/WEB-INF/jsp/includes/checkBoxCore.jsp" %>
 </spring:bind> 
-Another External SampleId
+External SampleId 2
 </td></tr>
 
 <tr><td>
@@ -119,48 +119,6 @@ Sample location
 </td></tr>
 
 <tr><td>
-<spring:bind path="command.outFname"> 
-<%@ include file="/WEB-INF/jsp/includes/checkBoxCore.jsp" %>
-</spring:bind> 
-Patient First Name
-</td></tr>
-
-<tr><td>
-<spring:bind path="command.outLname"> 
-<%@ include file="/WEB-INF/jsp/includes/checkBoxCore.jsp" %>
-</spring:bind> 
-Patient Last Name
-</td></tr>
-
-<tr><td>
-<spring:bind path="command.outMname"> 
-<%@ include file="/WEB-INF/jsp/includes/checkBoxCore.jsp" %>
-</spring:bind> 
-Patient Middle Name
-</td></tr>
-
-<tr><td>
-<spring:bind path="command.outAge"> 
-<%@ include file="/WEB-INF/jsp/includes/checkBoxCore.jsp" %>
-</spring:bind> 
-Patient Age
-</td></tr>
-
-<tr><td>
-<spring:bind path="command.outBirthDate"> 
-<%@ include file="/WEB-INF/jsp/includes/checkBoxCore.jsp" %>
-</spring:bind> 
-Patient Birthdate
-</td></tr>
-
-<tr><td>
-<spring:bind path="command.outGender"> 
-<%@ include file="/WEB-INF/jsp/includes/checkBoxCore.jsp" %>
-</spring:bind> 
-Patient Gender
-</td></tr>
-
-<tr><td>
 <spring:bind path="command.outPatientNote"> 
 <%@ include file="/WEB-INF/jsp/includes/checkBoxCore.jsp" %>
 </spring:bind> 
@@ -173,14 +131,6 @@ Patient Note
 </spring:bind> 
 Is control Sample?
 </td></tr>
-
-<tr><td>
-<spring:bind path="command.outFamilyId"> 
-<%@ include file="/WEB-INF/jsp/includes/checkBoxCore.jsp" %>
-</spring:bind> 
-Patient family ID
-</td></tr>
-
 
  <tr> 
       <td>
