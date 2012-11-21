@@ -29,37 +29,7 @@
         </td>
 
     </tr>
-    <tr>
-        <td>Address</td>
-        <td colspan="0" > 
-        <spring:bind path="command.contact.address">
-        <INPUT type="text" maxlength="128" size="60" name="contact.address" value="<c:out value="${status.value}"/>">
-        </spring:bind>
-        </td>
-    </tr>
-
-    <tr> 
-        <td>City</td>
-        <td> 
-        <spring:bind path="command.contact.city">
-        <INPUT type="text" maxlength="32" size="15" name="contact.city" value="<c:out value="${status.value}"/>">
-        </spring:bind>
-        </td>
-        <td>Province</td>
-        <td> 
-        <spring:bind path="command.contact.provice">
-        <INPUT type="text" maxlength="10" size="15" name="contact.provice" value="<c:out value="${status.value}"/>">
-        </spring:bind>
-        </td>
-        <td>Postal Code</td>
-        <td> 
-        <spring:bind path="command.contact.postalCode">
-        <INPUT type="text" maxlength="6" size="15" name="contact.postalCode" value="<c:out value="${status.value}"/>">
-        </spring:bind>
-        </td>
-
-    </tr>
-
+    
     <tr> 
         <td>Phone</td>
         <td> 
@@ -67,12 +37,7 @@
         <INPUT type="text" maxlength="10" size="15" name="contact.phone" value="<c:out value="${status.value}"/>">
         </spring:bind>
         </td>
-        <td>fax</td>
-        <td> 
-        <spring:bind path="command.contact.fax">
-        <INPUT type="text" maxlength="10" size="15" name="contact.fax" value="<c:out value="${status.value}"/>">
-        </spring:bind>
-        </td>
+
         <td>E-Mail</td>
         <td> 
         <spring:bind path="command.contact.email">
@@ -103,6 +68,7 @@
     <tr>
     	<th>Investigator Name</th>
     	<th>Telephone Number</th>
+    	<th>Email</th>
     </tr>
     
     <c:forEach items="${LInvestigators}" var="container">
@@ -114,7 +80,8 @@
 			<c:out value="${container.name.lname}"/></a>
     	</td>
     	<td><c:out value="${container.contact.phone}"/></td>
-        
+        <td><c:out value="${container.contact.email}"/></td>
+        	
     </tr>
     </c:forEach>
    
