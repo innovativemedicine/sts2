@@ -27,7 +27,6 @@
                	<prop key="/projectsamples.htm">projectSamplesSearchController</prop>
 				<prop key="/results.htm">resultsSearchController</prop>
 				<prop key="/runs.htm">runsSearchController</prop>
-				<prop key="/reagents.htm">reagentsSearchController</prop>
 				<prop key="/searchPatient.htm">searchPatientController</prop>
 
 				<!--
@@ -38,10 +37,7 @@
 				<prop key="/editContainer.htm">editContainerController</prop>
 				<prop key="/editProject.htm">editProjectController</prop>
 				<prop key="/editTest.htm">editTestController</prop>
-				
 			   	<prop key="/editAssay.htm">editAssayController</prop>
-			   	<prop key="/editReagent.htm">editReagentController</prop>
-			  
 				<prop key="/editRun.htm">editRunController</prop>
 				<prop key="/editResult.htm">editResultController</prop>
 				<prop key="/containerType.htm">containerTypeAddEditController</prop>
@@ -70,7 +66,6 @@
 			   	<prop key="/derivedContainerDetails.htm">stsController</prop>
 			   	<prop key="/assayDetails.htm">stsController</prop>
 			   	<prop key="/testDetails.htm">stsController</prop>
-				<prop key="/reagentDetails.htm">stsController</prop>
 				<prop key="/runDetails.htm">stsController</prop>
 			  	<prop key="/resultDetails.htm">stsController</prop>
 				<prop key="/sampleIdList.htm">stsController</prop>
@@ -79,7 +74,6 @@
 				<prop key="/deleteRun.htm">stsController</prop>
 				<prop key="/deleteAssay.htm">stsController</prop>
 				<prop key="/deleteRunAssay.htm">stsController</prop>
-				<prop key="/deleteReagent.htm">stsController</prop>
 				<prop key="/deleteSample.htm">stsController</prop>
 
 				<prop key="/deleteProject.htm">stsController</prop>
@@ -228,16 +222,6 @@
   		<property name="idListResolver"><ref bean="idListResolver"/></property>
    </bean>
 
-   <bean id="reagentsSearchController" class="agtc.sampletracking.web.controller.ReagentsSearchController">
-		<property name="sessionForm"><value>true</value></property>
-		<property name="requireSession"><value>true</value></property>
-		<property name="formView"><value>reagents</value></property>
-		<property name="successView"><value>reagentDetails.htm</value></property>
-		<property name="sampleManager"><ref bean="sampleManager"/></property>
-		<property name="operatorList"><ref bean="operatorList"/></property>
-		<property name="searchFields"><ref bean="reagentSearchFields"/></property>
-   </bean>
-
     <bean id="searchPatientController" class="agtc.sampletracking.web.controller.SearchPatientController">
 		<property name="sessionForm"><value>true</value></property>
 		<property name="requireSession"><value>true</value></property>
@@ -250,7 +234,7 @@
 
 
 	<!--
-    	 edit controllers in order of sample, container, project, test, assay, reagent, run, result, management
+    	 edit controllers in order of sample, container, project, test, assay, run, result, management
     	 -->
     <bean id="editSampleController" class="agtc.sampletracking.web.controller.EditSampleController">
  		<property name="sessionForm"><value>true</value></property>
@@ -331,18 +315,6 @@
     </bean>
 	<bean id="assayValidator" 
 		class="agtc.sampletracking.web.validator.AssayValidator"/>
-    
-    <bean id="editReagentController" class="agtc.sampletracking.web.controller.EditReagentController">
-    	<property name="sessionForm"><value>true</value></property>
-    	<property name="requireSession"><value>true</value></property>
-    	<property name="formView"><value>editReagent</value></property>
-        <property name="successView"><value>reagentDetails.htm</value></property>
-		<property name="validator"><ref local="reagentValidator"/></property>
-    	<property name="sampleManager"><ref bean="sampleManager"/></property>
-    	<property name="containerManager"><ref bean="containerManager"/></property>
-    </bean>
-	<bean id="reagentValidator" 
-		class="agtc.sampletracking.web.validator.ReagentValidator"/>
 
    <bean id="editRunController" class="agtc.sampletracking.web.controller.EditRunController">
     	<property name="sessionForm"><value>true</value></property>
@@ -600,7 +572,6 @@
 				<prop key="/projectDetails.htm">projectDetailsHandler</prop>
 				<prop key="/projectSamplesDetails.htm">projectSamplesDetailsHandler</prop>
 				<prop key="/testDetails.htm">testDetailsHandler</prop>
-				<prop key="/reagentDetails.htm">reagentDetailsHandler</prop>
 				<prop key="/runDetails.htm">runDetailsHandler</prop>
 				<prop key="/sampleIdList.htm">sampleIdListHandler</prop>
 				<prop key="/sampleIdMap.htm">sampleIdMapHandler</prop>
@@ -608,7 +579,6 @@
 				<prop key="/deleteRun.htm">deleteRunHandler</prop>
 				<prop key="/deleteAssay.htm">deleteAssayHandler</prop>
 				<prop key="/deleteRunAssay.htm">deleteRunAssayHandler</prop>
-				<prop key="/deleteReagent.htm">deleteReagentHandler</prop>
 				<prop key="/deleteSample.htm">deleteSampleHandler</prop>
 				<prop key="/deleteResult.htm">deleteResultHandler</prop>
 				<prop key="/deleteSampleFromContainer.htm">deleteSampleFromContainerHandler</prop>
