@@ -93,25 +93,6 @@ public class EditPatientController extends BasicController {
 		return models;
 	}
 	
-	
-	
-	/*
-	protected ModelAndView processFormSubmission(javax.servlet.http.HttpServletRequest request,
-													 javax.servlet.http.HttpServletResponse response,
-													 java.lang.Object command,
-													 BindException errors)
-											  throws java.lang.Exception
-	{
-		Sample sample = (Sample) command;
-		log.debug(sample);
-		log.debug(errors);
-		return null;
-	}
-	*/
-	
-	
-	
-
 	/**
 	 * @return Returns the projectManager.
 	 */

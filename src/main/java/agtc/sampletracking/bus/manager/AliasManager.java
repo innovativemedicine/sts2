@@ -333,27 +333,6 @@ public class AliasManager {
 				if(sample.getVolumnDate()!=null){
 					sample1.setVolumnDate(sample.getVolumnDate());
 				}
-				
-				
-				if(sample.getPatient().getAge()!=null){
-					sample1.getPatient().setAge(sample.getPatient().getAge());
-				}
-				
-				if(sample.getPatient().getBirthDate()!=null){
-					sample1.getPatient().setBirthDate(sample.getPatient().getBirthDate());
-				}
-				if(sample.getPatient().getFname()!=null){
-					sample1.getPatient().setFname(sample.getPatient().getFname());
-				}
-				if(sample.getPatient().getGender()!=null){
-					sample1.getPatient().setGender(sample.getPatient().getGender());
-				}
-				if(sample.getPatient().getLname()!=null){
-					sample1.getPatient().setLname(sample.getPatient().getLname());
-				}
-				if(sample.getPatient().getMname()!=null){
-					sample1.getPatient().setMname(sample.getPatient().getMname());
-				}
 				if(sample.getPatient().getNote()!=null){
 					sample1.getPatient().setNote(sample.getPatient().getNote());
 				}

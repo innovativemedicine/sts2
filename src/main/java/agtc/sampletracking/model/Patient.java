@@ -17,11 +17,6 @@ import java.io.Serializable;
  */
 public class Patient implements Serializable{
 	 private String intSampleId;
-     private String fname;
-     private String lname;
-     private String mname;
-     private Integer age;
-     private String gender;
      private String note;
      private Date birthDate;
      private Set samples;
@@ -78,56 +73,7 @@ public class Patient implements Serializable{
 	public void setBirthDate(Date birthDate) {
 		this.birthDate = birthDate;
 	}
-	/**
-	 * @return Returns the gender.
-	 */
-	public String getGender() {
-		return gender;
-	}
-	/**
-	 * @param gender The gender to set.
-	 */
-	public void setGender(String gender) {
-		this.gender = gender;
-	}
-	
-	
-	/**
-	 * @return Returns the fname.
-	 */
-	public String getFname() {
-		return fname;
-	}
-	/**
-	 * @param fname The fname to set.
-	 */
-	public void setFname(String fname) {
-		this.fname = fname;
-	}
-	/**
-	 * @return Returns the lname.
-	 */
-	public String getLname() {
-		return lname;
-	}
-	/**
-	 * @param lname The lname to set.
-	 */
-	public void setLname(String lname) {
-		this.lname = lname;
-	}
-	/**
-	 * @return Returns the mname.
-	 */
-	public String getMname() {
-		return mname;
-	}
-	/**
-	 * @param mname The mname to set.
-	 */
-	public void setMname(String mname) {
-		this.mname = mname;
-	}
+
 	/**
 	 * @return Returns the note.
 	 */
@@ -140,20 +86,6 @@ public class Patient implements Serializable{
 	public void setNote(String note) {
 		this.note = note;
 	}
-	
-	/**
-	 * @return Returns the age.
-	 */
-	public Integer getAge() {
-		return age;
-	}
-	/**
-	 * @param age The age to set.
-	 */
-	public void setAge(Integer age) {
-		this.age = age;
-	}
-	
 	
 	/**
 	 * @return Returns the samples.

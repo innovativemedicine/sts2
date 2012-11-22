@@ -101,38 +101,11 @@ public abstract class SampleParser extends TextFileHanlder {
 	 				}
  				}
  				
- 			}else if(fieldTitles[a].compareTo("External ID")== 0){
+ 			}
+ 			else if(fieldTitles[a].compareTo("External ID")== 0){
  				patient.setExtSampleId(oneSampleField);
  			}
- 			else if(fieldTitles[a].compareTo("Patient First Name")== 0){
- 				patient.setFname(oneSampleField);
- 			}else if(fieldTitles[a].compareTo("Patient Middle Name")== 0){
- 				patient.setMname(oneSampleField);
- 			}else if(fieldTitles[a].compareTo("Patient Last Name")== 0){
- 				patient.setLname(oneSampleField);
- 			}else if(fieldTitles[a].compareTo("Patient Gender")== 0){
- 				if(oneSampleField!= null && (oneSampleField.startsWith("F") || oneSampleField.startsWith("f"))){
- 					patient.setGender("F");
- 				}else if(oneSampleField!= null && (oneSampleField.startsWith("M") ||oneSampleField.startsWith("m"))){
- 					patient.setGender("M");	
- 				}else if(oneSampleField.startsWith("1") ||oneSampleField.startsWith("2") ){
- 					if(oneSampleField.startsWith("1")){
- 						patient.setGender("M");
- 					}else{
- 						patient.setGender("F");	
- 					}
- 				}
- 			}else if(fieldTitles[a].compareTo("Patient Age")== 0){
- 				if(!oneSampleField.equals("")){		
-	 				try{
-			 			Integer age = new Integer(oneSampleField);
-			 			patient.setAge(age);
-						
-			 		}catch(Exception e){
-			 			sb.append("in the " +lineNumber + " line the age format is not correct <br>");
-			 		}
- 				}
- 			}else if(fieldTitles[a].compareTo("Patient Birth Date")== 0){
+ 			else if(fieldTitles[a].compareTo("Patient Birth Date")== 0){
  				if(!oneSampleField.equals("")){		
 	 				Date date = parseDate(oneSampleField);
 	 				if(date != null){
@@ -151,7 +124,8 @@ public abstract class SampleParser extends TextFileHanlder {
 	 					sb.append("in the " + lineNumber + " line the sample receive date format is not correct <br>");
 	 				}
  				}
- 			}else if(fieldTitles[a].compareTo("Sample Made Date")== 0){
+ 			}
+ 			else if(fieldTitles[a].compareTo("Sample Made Date")== 0){
  				if(!oneSampleField.equals("")){		
 	 				Date date = parseDate(oneSampleField);
 	 				if(date != null){
@@ -160,7 +134,8 @@ public abstract class SampleParser extends TextFileHanlder {
 	 					sb.append("in the " +lineNumber + " line the sample made date format is not correct <br>");
 	 				}
  				}
- 			}else if(fieldTitles[a].compareTo("Sample Concentration")== 0){
+ 			}
+ 			else if(fieldTitles[a].compareTo("Sample Concentration")== 0){
  				if(!oneSampleField.equals("")){		
  					oneSampleField = oneSampleField.replaceAll(",","");
  					try{
@@ -171,11 +146,14 @@ public abstract class SampleParser extends TextFileHanlder {
 			 			sb.append("in the " + lineNumber + " line the concentration format is not correct <br>");
 			 		}
  				}
- 			}else if(fieldTitles[a].compareTo("Sample Another External ID")== 0){
+ 			}
+ 			else if(fieldTitles[a].compareTo("Sample Another External ID")== 0){
  				patient.setAnotherExtSampleId(oneSampleField);
- 			}else if(fieldTitles[a].compareTo("Patient Note")== 0){
+ 			}
+ 			else if(fieldTitles[a].compareTo("Patient Note")== 0){
  				patient.setNote(oneSampleField);
- 			}else if(fieldTitles[a].compareTo("Sample Transfer Date")== 0){
+ 			}
+ 			else if(fieldTitles[a].compareTo("Sample Transfer Date")== 0){
  				if(!oneSampleField.equals("")){		
 	 				Date date = parseDate(oneSampleField);
 	 				if(date != null){

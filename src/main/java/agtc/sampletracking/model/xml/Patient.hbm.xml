@@ -40,44 +40,6 @@
     >
        
     </property>
-    
-    <property
-        name="fname"
-        type="java.lang.String"
-        column="FNAME"
-        length="64"
-    >
-       
-    </property>
-    
-    <property
-        name="lname"
-        type="java.lang.String"
-        column="LNAME"
-        length="64"
-    >
-       
-    </property>
-    
-    <property
-        name="mname"
-        type="java.lang.String"
-        column="MNAME"
-        length="32"
-    >
-       
-    </property>
-
-	 <property
-        name="gender"
-        type="java.lang.String"
-        column="GENDER"
-        length="128"
-    >
-       
-    </property>
-    
-   
    
     <property
         name="birthDate"
@@ -86,16 +48,6 @@
     >
     
     </property>
-
-	<property
-        name="age"
-        type="java.lang.Integer"
-        column="AGE"
-    >
-    
-    </property>
-   
-
     
     <property
         name="note"
