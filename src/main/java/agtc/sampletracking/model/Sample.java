@@ -18,11 +18,9 @@ import agtc.sampletracking.bus.parser.ResultParser;
 public class Sample implements Serializable,Comparator,Cloneable {
 	private Log log = LogFactory.getLog(Sample.class);
     /** identifier field */
-    private Integer sampleId;
-
+    private Integer sampleId;    
     
-    
-    /** nullable persistent field */
+    /** nullable persistent field */	
     private Float od;
 
     /** nullable persistent field */
@@ -65,8 +63,6 @@ public class Sample implements Serializable,Comparator,Cloneable {
   
     private Patient patient;
     
-        
-
     /** default constructor */
     public Sample() {
     }
@@ -300,4 +296,5 @@ public class Sample implements Serializable,Comparator,Cloneable {
 	public void setSampleType(SampleType sampleType) {
 		this.sampleType = sampleType;
 	}
+	
 }
