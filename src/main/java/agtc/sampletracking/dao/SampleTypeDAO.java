@@ -20,6 +20,7 @@ public interface SampleTypeDAO {
 	public List getSampleTypes();
 	public List getSampleTypesWOVials();
 	public SampleType getSampleType(Integer sampleTypeId);
+	public void updateSampleType(SampleType sampleType);
 	public SampleType getSampleTypeBySuffix(String suffix);
 	public void saveSampleType(SampleType sampelType) throws Exception;
 	public void removeSampleType(Integer sampleTypeId); 

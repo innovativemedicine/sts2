@@ -152,8 +152,13 @@ public class SampleManager {
 		patientDAO.updatePatient(patient);
 	}
 	
+	public SampleType getSampleType(Integer sampleTypeId){
+		return sampleTypeDAO.getSampleType(sampleTypeId);
+	}
 	
-	
+	public void updateSampleType(SampleType sampleType){
+		sampleTypeDAO.updateSampleType(sampleType);
+	}
 	
 	/**
 	 * This method is for add a batch of new samples in a container
