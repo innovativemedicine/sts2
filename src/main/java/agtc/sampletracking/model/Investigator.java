@@ -26,8 +26,8 @@ public class Investigator implements Serializable {
     private Set projects;
     
     private String fullName;
+    private String firstName;
 
- 
 
     /** default constructor */
     public Investigator() {
@@ -115,5 +115,22 @@ public class Investigator implements Serializable {
 	 */
 	public void setFullName(String fullName) {
 		this.fullName = fullName;
+	}
+	
+	/**
+	 * @return Returns the firstname.
+	 */
+	public String getFirstName() {
+		String result = "";
+		if(name.getFname()!=null && !name.getFname().equals("-")){
+			result+= name.getFname()+" ";
+		}
+		return result;
+	}
+	/**
+	 * @param The firstname to set.
+	 */
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
 }
