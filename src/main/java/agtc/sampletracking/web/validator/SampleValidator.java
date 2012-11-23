@@ -34,17 +34,18 @@ public class SampleValidator implements Validator {
 
 	public void validate(Object obj, Errors errors) {
 		Sample s = (Sample)obj;
-		ValidationUtils.rejectIfEmpty(errors, "patient.intSampleId", "required", "required");
+		
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "patient.intSampleId", "Internal ID required", "Internal ID required");
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "patient.extSampleId", "External ID required", "External ID required");
 		
 		Pattern pattern = Pattern.compile("[A-Za-z]{1,4}[0-9]{1,6}");
 		Matcher matcher = pattern.matcher(s.getPatient().getIntSampleId());
-
-		//log.debug("the matching result is " + matcher.matches());
 		
 		if(!matcher.matches()){
 			errors.rejectValue( "patient.intSampleId","error.wrongFormat","Wrong format");
 		}
 		
+	
 	}
 
 }

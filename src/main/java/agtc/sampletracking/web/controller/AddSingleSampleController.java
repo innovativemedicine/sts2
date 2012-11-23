@@ -69,7 +69,7 @@ public class AddSingleSampleController extends BasicController {
 		Iterator ist = allSampleTypes.iterator();
 		int counter = 0;
 		if(sample.getPatient().getProject()==null){
-			errors.reject("error.required",new String[]{"sample source"},"Sample Source is required");
+			errors.reject("error.required",new String[]{"sample source"},"Project is required");
 			return showForm(request, response, errors);
 		}
 		while(ist.hasNext()){
