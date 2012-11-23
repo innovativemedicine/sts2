@@ -34,6 +34,7 @@
     	  -->
 				<prop key="/editSample.htm">editSampleController</prop>
 				<prop key="/addSingleSample.htm">addSingleSampleController</prop>
+				<prop key="/addMultiSamples.htm">addMultiSamplesController</prop>
 				<prop key="/editContainer.htm">editContainerController</prop>
 				<prop key="/editProject.htm">editProjectController</prop>
 				<prop key="/editTest.htm">editTestController</prop>
@@ -230,7 +231,13 @@
 		<property name="sampleManager"><ref bean="sampleManager"/></property>
    </bean>
 
-
+<!--     <bean id="numMultiSamplesController" class="agtc.sampletracking.web.controller.SearchPatientController"> -->
+<!-- 		<property name="sessionForm"><value>true</value></property> -->
+<!-- 		<property name="requireSession"><value>true</value></property> -->
+<!--        	<property name="formView"><value>numMultiSamples</value></property> -->
+<!-- 		<property name="successView"><value>addMultiSamples.htm</value></property> -->
+<!-- 		<property name="sampleManager"><ref bean="sampleManager"/></property> -->
+<!--    </bean> -->
 
 
 	<!--
@@ -258,7 +265,19 @@
 		<property name="agtcManager"><ref bean="agtcManager"/></property>
 		 <property name="projectManager"><ref bean="projectManager"/></property>
     </bean>
-
+    
+    <bean id="addMultiSamplesController" class="agtc.sampletracking.web.controller.AddMultiSamplesController">
+ 		<property name="sessionForm"><value>true</value></property>
+ 		<property name="requireSession"><value>true</value></property>
+ 		<property name="formView"><value>addMultiSamples</value></property>
+        <property name="successView"><value>patientDetails.htm</value></property>
+		<property name="validator"><ref local="sampleValidator"/></property>
+ 		<property name="sampleManager"><ref bean="sampleManager"/></property>
+ 		<property name="containerManager"><ref bean="containerManager"/></property>
+		<property name="agtcManager"><ref bean="agtcManager"/></property>
+		 <property name="projectManager"><ref bean="projectManager"/></property>
+    </bean>
+    
 	<bean id="sampleValidator" 
 		class="agtc.sampletracking.web.validator.SampleValidator"/>
 
@@ -518,8 +537,6 @@
 		<property name="sampleManager"><ref bean="sampleManager"/></property>
     </bean>
 
-	
-
 	<bean id="makePlateController" class="agtc.sampletracking.web.controller.MakePlateController">
     	<property name="sessionForm"><value>true</value></property>
     	<property name="requireSession"><value>true</value></property>
@@ -588,8 +605,7 @@
 				<prop key="/shuffleSamplesInContainer.htm">shuffleSamplesInContainerHandler</prop>
 				<prop key="/deleteAllSamplesInContainer.htm">deleteAllSamplesInContainerHandler</prop>
 				<prop key="/resultList.htm">resultListHandler</prop>
-				<prop key="/patientDetails.htm">patientDetailsHandler</prop>
-				
+				<prop key="/patientDetails.htm">patientDetailsHandler</prop>				
 
 			</props>
 		</property>
