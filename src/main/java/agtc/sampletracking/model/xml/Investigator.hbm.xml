@@ -35,7 +35,7 @@
         length="32"
     >
         <meta attribute="field-description">
-           @hibernate.property
+           	@hibernate.property
             column="FNAME"
             length="32"
             not-null="true"

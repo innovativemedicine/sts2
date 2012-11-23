@@ -68,6 +68,7 @@ public class SaveSamplesInBatchController extends BasicController {
 									HttpServletResponse response,
 									Object command,
 									BindException errors) throws Exception {
+		
 		SaveSamplesCommand ssc = (SaveSamplesCommand) command;
 		String format = RequestUtils.getStringParameter(request, "format","");
 		//String project = RequestUtils.getStringParameter(request, "","");
