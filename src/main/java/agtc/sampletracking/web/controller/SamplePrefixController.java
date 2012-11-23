@@ -136,11 +136,6 @@ public class SamplePrefixController extends BasicController {
 		allFields.add("");
 		allFields.add("Internal ID");
 		allFields.add("External ID");
-		allFields.add("Patient First Name");
-		allFields.add("Patient Middle Name");
-		allFields.add("Patient Last Name");
-		allFields.add("Patient Gender");
-		allFields.add("Patient Age");
 		allFields.add("Patient Birth Date");
 		allFields.add("Patient Note");
 		allFields.add("Sample Receive Date");

@@ -135,36 +135,14 @@ public class SelectSampleInfo4OutputController extends BasicController {
 		if(ssoutC.isOutSampleLoci()){
 			content.append("Sample location").append("\t");
 		}
-		
-		if(ssoutC.isOutFname()){
-			content.append("Patient First Name").append("\t");
-		}
-		
 	
-		if(ssoutC.isOutLname()){
-			content.append("Patient Last Name").append("\t");
-		}
-		
-		if(ssoutC.isOutMname()){
-			content.append("Patient Middle Name").append("\t");
-		}
-		
-		if(ssoutC.isOutAge()){
-			content.append("Patient Age").append("\t");
-		}
-		
 		if(ssoutC.isOutBirthDate()){
 			content.append("Patient Birthdate").append("\t");
-		}
-		
-		if(ssoutC.isOutGender()){
-			content.append("Patient Gender").append("\t");
 		}
 		
 		if(ssoutC.isOutPatientNote()){
 			content.append("Patient Note").append("\t");
 		}
-		
 		
 		
 		if(ssoutC.isOutIsControl()){
@@ -295,44 +273,9 @@ public class SelectSampleInfo4OutputController extends BasicController {
 			content.append("\t");
 		}
 		
-		if(ssoutC.isOutFname()){
-			if(sample.getPatient().getFname()!=null){
-				content.append(sample.getPatient().getFname());
-			}
-			content.append("\t");
-		}
-		
-		if(ssoutC.isOutLname()){
-			if(sample.getPatient().getLname()!=null){
-				content.append(sample.getPatient().getLname());
-			}
-			content.append("\t");
-		}
-		
-		if(ssoutC.isOutMname()){
-			if(sample.getPatient().getMname()!=null){
-				content.append(sample.getPatient().getMname());
-			}
-			content.append("\t");
-		}
-		
-		if(ssoutC.isOutAge()){
-			if(sample.getPatient().getAge()!=null){
-				content.append(sample.getPatient().getAge());
-			}
-			content.append("\t");
-		}
-		
 		if(ssoutC.isOutBirthDate()){
 			if(sample.getPatient().getBirthDate()!=null){
 				content.append(formatDate(sample.getPatient().getBirthDate()));
-			}
-			content.append("\t");
-		}
-		
-		if(ssoutC.isOutGender()){
-			if(sample.getPatient().getGender()!=null){
-				content.append(sample.getPatient().getGender());
 			}
 			content.append("\t");
 		}
@@ -367,8 +310,6 @@ public class SelectSampleInfo4OutputController extends BasicController {
 		return dateFormat.format(date);
 	}
 	
-	
-		
 	
 	/**
 	 * @return Returns the sampleManager.

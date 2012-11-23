@@ -4,67 +4,67 @@
 <tr><td>
 <%@ include file="/WEB-INF/jsp/includes/success.jsp" %>
 
-<p><h2>Sample <c:out value="${command.intSampleId}"/>&nbsp;</h2> 
+<h2>Sample <c:out value="${command.intSampleId}"/></h2> 
 
-
-<a href="<c:url value="/editPatient.htm"><c:param name="intSampleId" value="${command.intSampleId}"/></c:url>">Edit Patient Information</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
-<a href="<c:url value="/editSample.htm"><c:param name="intSampleId" value="${command.intSampleId}"/></c:url>">Add Other Sample Types</a><br>
-
-<a href="<c:url value="/deletePatient.htm"><c:param name="intSampleId" value="${command.intSampleId}"/></c:url>" onclick="return (confirm('Are you sure you want to delete this Patient? Read the warning carefully before you confirm!')) " >Delete Patient</a>&nbsp;<font color="red">Warning:</font> Deleting the patient will delete all the samples of this patient as well as all the genotype results of those samples<br>
-</p>
-
-  <table width="60%" border="0" class="details">
+	<div style="display:table-cell; vertical-align:bottom"> 
+		<font style="vertical-align:bottom"size=5> Patient Information </font>
+   		<a class="button" href="<c:url value="/editPatient.htm"><c:param name="intSampleId" value="${command.intSampleId}"/></c:url>"><span>Edit Patient</span></a>
+   		<a class="button" href="<c:url value="/deletePatient.htm"><c:param name="intSampleId" value="${command.intSampleId}"/></c:url>" onclick="return (confirm('Warning: Deleting the patient will delete all the samples of this patient as well as all the genotype results of those samples. \n\nAre you sure you want to delete this Patient?')) " ><span>Delete Patient</span></a>
+   	</div>
+<p>
+  
+  <table width = "40%" border="0" class="details">
     
     <tr> 
-      <td>External Id 1:</td>
+      <th>External ID 1:</th>
       <td> 
         <c:out value="${command.extSampleId}"/>&nbsp;
       </td>
     </tr>
 
 	<tr> 
-      <td>External Id 2:</td>
+      <th>External ID 2:</th>
       <td> 
         <c:out value="${command.anotherExtSampleId}"/>&nbsp;
       </td>
     </tr>
 
 	<tr> 
-      <td>Sample Source: </td>
+      <th>Project: </th>
       <td> 
         <c:out value="${command.project.investigator.fullName}"/>&nbsp;<c:out value="${command.project.name}"/>&nbsp;
       </td>
     </tr>
-  
-  
-
+ 
     <tr> 
-      <td>Control? </td>
+      <th>Control? </th>
       <td> 
       <c:out value="${command.isControl}"/>&nbsp;
    </td>
   </tr>
 
    <tr> 
-      <td>Patient Note</td>
+      <th>Note:</th>
       <td> 
         <c:out value="${command.note}"/>&nbsp;
       </td>
     </tr>
   </table>
 
-   <h3>Existing Sample Types </h3>
-
+  
+	<p>
+	<div> 	
+  		<font style="vertical-align: bottom" size=5>Existing Sample Types </font>      	
+   		<a class="button" href="<c:url value="/editSample.htm"><c:param name="intSampleId" value="${command.intSampleId}"/></c:url>"><span>Add Sample</span></a>
+    </div>
+	<p>
+	
    <table width="70%" border="0" class="details">
     <tr>
     	<th>Sample Type</th>
 		<th>Sample Duplication Number</th>
     	<th>Sample Receive Date</th>
 		<th>Concentration</th>
-		<th></th>
-		<th></th>
-
     </tr>
     
     <c:forEach items="${command.samples}" var="sample">
@@ -73,8 +73,10 @@
 		<td><c:out value="${sample.sampleDupNo}"/>&nbsp;</td>
 		<td><c:out value="${sample.receiveDate}"/>&nbsp;</td>
     	<td><c:out value="${sample.od}"/>&nbsp;</td>
-		<td><a href="<c:url value="/sampleDetails.htm"><c:param name="sampleId" value="${sample.sampleId}"/></c:url>">Details</a></td>
-		<td><a href="<c:url value="/editSample.htm"><c:param name="sampleId" value="${sample.sampleId}"/></c:url>">Edit It</a></td>
+		<td>
+			<a class="button" href="<c:url value="/sampleDetails.htm"><c:param name="sampleId" value="${sample.sampleId}"/></c:url>"><span>Details</span></a>
+			<a class="button" href="<c:url value="/editSample.htm"><c:param name="sampleId" value="${sample.sampleId}"/></c:url>"><span>Edit</span></a>
+		</td>
 
     </tr>
     </c:forEach>

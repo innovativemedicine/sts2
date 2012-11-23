@@ -31,29 +31,11 @@ public class SelectSampleInfo4OutputCommand {
 	private boolean outSampleDupNo;
     private boolean outSampleType;  
     private boolean outSampleLoci;  
-    private boolean outFname;
-    private boolean outLname;
-    private boolean outMname;
-    private boolean outAge;
-    private boolean outGender;
     private boolean outPatientNote;
     private boolean outBirthDate;
     private boolean outIsControl;
     private boolean outFamilyId;
        
-    
-	/**
-	 * @return Returns the outAge.
-	 */
-	public boolean isOutAge() {
-		return outAge;
-	}
-	/**
-	 * @param outAge The outAge to set.
-	 */
-	public void setOutAge(boolean outAge) {
-		this.outAge = outAge;
-	}
 	/**
 	 * @return Returns the outAnotherExtSampleId.
 	 */
@@ -102,30 +84,7 @@ public class SelectSampleInfo4OutputCommand {
 	public void setOutFamilyId(boolean outFamilyId) {
 		this.outFamilyId = outFamilyId;
 	}
-	/**
-	 * @return Returns the outFname.
-	 */
-	public boolean isOutFname() {
-		return outFname;
-	}
-	/**
-	 * @param outFname The outFname to set.
-	 */
-	public void setOutFname(boolean outFname) {
-		this.outFname = outFname;
-	}
-	/**
-	 * @return Returns the outGender.
-	 */
-	public boolean isOutGender() {
-		return outGender;
-	}
-	/**
-	 * @param outGender The outGender to set.
-	 */
-	public void setOutGender(boolean outGender) {
-		this.outGender = outGender;
-	}
+	
 	/**
 	 * @return Returns the outIsControl.
 	 */
@@ -139,18 +98,6 @@ public class SelectSampleInfo4OutputCommand {
 		this.outIsControl = outIsControl;
 	}
 	/**
-	 * @return Returns the outLname.
-	 */
-	public boolean isOutLname() {
-		return outLname;
-	}
-	/**
-	 * @param outLname The outLname to set.
-	 */
-	public void setOutLname(boolean outLname) {
-		this.outLname = outLname;
-	}
-	/**
 	 * @return Returns the outMadeDate.
 	 */
 	public boolean isOutMadeDate() {
@@ -162,19 +109,6 @@ public class SelectSampleInfo4OutputCommand {
 	public void setOutMadeDate(boolean outMadeDate) {
 		this.outMadeDate = outMadeDate;
 	}
-	/**
-	 * @return Returns the outMname.
-	 */
-	public boolean isOutMname() {
-		return outMname;
-	}
-	/**
-	 * @param outMname The outMname to set.
-	 */
-	public void setOutMname(boolean outMname) {
-		this.outMname = outMname;
-	}
-	
 	/**
 	 * @return Returns the outPatientNote.
 	 */
