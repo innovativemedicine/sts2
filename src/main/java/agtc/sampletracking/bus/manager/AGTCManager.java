@@ -1,10 +1,25 @@
 package agtc.sampletracking.bus.manager;
 
-import agtc.sampletracking.dao.*;
-import agtc.sampletracking.model.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import java.util.List;
+
+import agtc.sampletracking.dao.ContainerTypeDAO;
+import agtc.sampletracking.dao.InstrumentDAO;
+import agtc.sampletracking.dao.InvestigatorDAO;
+import agtc.sampletracking.dao.LocationDAO;
+import agtc.sampletracking.dao.SamplePrefixDAO;
+import agtc.sampletracking.dao.SampleTypeDAO;
+import agtc.sampletracking.dao.UpdateResultToCGGDAO;
+import agtc.sampletracking.model.ContainerType;
+import agtc.sampletracking.model.Instrument;
+import agtc.sampletracking.model.Investigator;
+import agtc.sampletracking.model.Location;
+import agtc.sampletracking.model.SamplePrefix;
+import agtc.sampletracking.model.SampleType;
 
 public class AGTCManager{
 	private Log log = LogFactory.getLog(AGTCManager.class);
