@@ -195,6 +195,9 @@ public class SampleDAOHbImpl extends STSBasicDAO implements SampleDAO {
 	public void saveSample(Sample sample) throws Exception{
 		sample.getPatient().setIntSampleId(
 				sample.getPatient().getIntSampleId().toUpperCase());
+		
+		sample.getSampleType().setSampleTypeId(sample.getSampleType().getSampleTypeId());
+		
 		Integer sampleId = sample.getSampleId();
 		if(sampleId.intValue()==-1){
 			if(sample.getSampleDupNo()==null){
