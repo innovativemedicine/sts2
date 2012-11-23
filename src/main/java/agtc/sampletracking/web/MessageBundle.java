@@ -9,7 +9,9 @@ public class MessageBundle extends ListResourceBundle {
     return contents;
   }
   static final Object[][] contents = {
-  {"sample.search.title", "Sample Search"},
-  {"format.date", "DD-MM-YYYY"},
+	  {"sample.search.title", "Search Sample:"},
+	  {"format.date", "DD-MM-YYYY"},
+	  {"project.search.title", "Search Project:"},
+	  {"run.search.title", "Search Run:"},
   };
 }

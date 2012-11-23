@@ -6,7 +6,7 @@ Your search criteria:
 <c:out value="${currentCriteria}" escapeXml="false" />
 <br>
 <%@ include file="/WEB-INF/jsp/includes/success.jsp" %>
-<h2><fmt:message key="assay.search.title"/></h2>
+<h2>Search Assays:</h2>
 <form method="post" >
   <table width="70%" class="details">
     <%@ include file="/WEB-INF/jsp/includes/searchCore.jsp" %>

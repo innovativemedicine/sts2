@@ -10,11 +10,13 @@
     <title>
       Sample Tracking System 
     </title>
-   <link title="Style" type="text/css" rel="stylesheet" href="css/menu.css">
-   <link title="Style" type="text/css" rel="stylesheet" href="css/stylesheet.css">
+    
+    <script type="text/javascript" src="js/formBuilder.js"></script>
+   
+   <link type="text/css" rel="stylesheet" href="css/menu.css">
+   <link type="text/css" rel="stylesheet" href="css/stylesheet.css">
 
-<%--    <fmt:setBundle basename="agtc.sampletracking.web.MessageBundle" var="msgfmt"></fmt:setBundle> --%>
-	 <fmt:setBundle basename="agtc.sampletracking.web.MessageBundle"></fmt:setBundle>
+	<fmt:setBundle basename="agtc.sampletracking.web.MessageBundle"></fmt:setBundle>
 	 
 	</head>
   <body >
@@ -30,7 +32,6 @@
 	<tr><td align="center"> <div>
 		<%@ include file="/WEB-INF/jsp/includes/menu.html" %>
 	</div></td></tr>
-	
 	
 	</table>
 

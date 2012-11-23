@@ -1,4 +1,4 @@
-<h3> Poject List </h3>
+<h3> Project List </h3>
   <table width="70%" border="0" class="details">
     <tr>
     	<th>Project Name</th>

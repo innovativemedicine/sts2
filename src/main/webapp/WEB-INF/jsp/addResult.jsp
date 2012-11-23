@@ -2,7 +2,7 @@
 
 
 <tr><td>
-<p><h2>Add a manually test result</h2></p>
+<p><h2>Add results:</h2></p>
 <%@ include file="/WEB-INF/jsp/includes/errorMessage.jsp" %>
 <form method="post" >
   <table width="60%" border="0" class="details">

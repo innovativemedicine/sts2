@@ -7,7 +7,7 @@ Your search criteria:
 <br>
 <%@ include file="/WEB-INF/jsp/includes/success.jsp" %>
 
-<h2><fmt:message key="container.search.title"/></h2>
+<h2>Search Containers:</h2>
 <form method="post" >
   <table width="70%" class="details">
    <%@ include file="/WEB-INF/jsp/includes/searchCore.jsp" %>

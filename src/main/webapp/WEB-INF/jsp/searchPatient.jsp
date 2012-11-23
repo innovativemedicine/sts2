@@ -4,26 +4,23 @@
 <tr><td>
 <%@ include file="/WEB-INF/jsp/includes/errorMessage.jsp" %>
 
-<table width="70%" border="0" class="details">
-    
-<form method="post">
-	<tr><td>
-	Please enter your internal sample Id: 
-	<br>
-	<input type="text" name="intSampleId">
-	</td></tr>
+<h2>Update Sample</h2>
+	<form method="post">
+		<table class="details">
 
-	
-
-	<tr><td>
-	<input type="submit" name="Submit" value="Submit">
- 	<input type="reset" name="Reset" value="Reset">
-
-	</td></tr>
- 
-    
-</form> 
-</table>
-
+				<tr><td>
+				Please enter your internal sample Id: 
+				<br>
+				<input type="text" name="intSampleId">
+				</td></tr>
+			
+				<tr><td>
+				<input type="submit" name="Submit" value="Submit">
+			 	<input type="reset" name="Reset" value="Reset">
+			
+				</td></tr>
+		 
+		</table>
+	</form>
 </td></tr>
 <%@ include file="/WEB-INF/jsp/includes/foot.jsp" %>
