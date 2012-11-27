@@ -1,6 +1,5 @@
 package agtc.sampletracking.model;
 
-import java.util.Date;
 import java.util.*;
 import java.io.Serializable;
 
@@ -65,6 +64,9 @@ public class Sample implements Serializable,Comparator,Cloneable {
     
     /** default constructor */
     public Sample() {
+		patient = new Patient();
+		sampleType = new SampleType();
+		sampleId = new Integer(-1);
     }
     
     public Object clone()
@@ -254,7 +256,6 @@ public class Sample implements Serializable,Comparator,Cloneable {
 	public void setPatient(Patient patient) {
 		this.patient = patient;
 	}
-	
 	
 	/**
 	 * @return Returns the sampleDupNo.
