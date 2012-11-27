@@ -44,13 +44,6 @@ public class Project implements Serializable {
     public Project() {
     }
 
-    /** 
-     *            @hibernate.id
-     *             generator-class="assigned"
-     *             type="long"
-     *             column="PROJECT_ID"
-     *         
-     */
     public Integer getProjectId() {
         if(projectId!=null){
 			return this.projectId;

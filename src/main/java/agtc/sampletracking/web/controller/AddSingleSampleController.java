@@ -44,19 +44,14 @@ public class AddSingleSampleController extends BasicController {
 	
 	public AddSingleSampleController(){
 		//initialize the form from the formBackingObject
-		 setBindOnNewForm(true);
+		setBindOnNewForm(true);
 	
 	}
 	
 	protected Object formBackingObject(HttpServletRequest request) throws ServletException {
 		
 			Sample sample = new Sample();
-			
-			Patient patient = new Patient();
-			sample.setPatient(patient);
-			
 
-			sample.setSampleId(new Integer(-1));
 			return sample;
 		
 	}

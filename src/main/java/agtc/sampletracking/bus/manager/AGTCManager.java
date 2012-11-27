@@ -18,6 +18,7 @@ import agtc.sampletracking.model.ContainerType;
 import agtc.sampletracking.model.Instrument;
 import agtc.sampletracking.model.Investigator;
 import agtc.sampletracking.model.Location;
+import agtc.sampletracking.model.Sample;
 import agtc.sampletracking.model.SamplePrefix;
 import agtc.sampletracking.model.SampleType;
 
@@ -122,6 +123,7 @@ public class AGTCManager{
 		}
 		return sampleTypes;
 	}
+	
 	public UpdateResultToCGGDAO getUpdateResultToCGGDAO(){
 		return this.updateResultToCGGDAO;
 	}

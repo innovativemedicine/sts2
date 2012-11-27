@@ -3,48 +3,27 @@ package agtc.sampletracking.model;
 import java.util.Set;
 import java.io.Serializable;
 
-
-/** 
- *        @hibernate.class
- *         table="SAMPLE_TYPE"
- *     
-*/
 public class SampleType implements Serializable {
 
     /** identifier field */
     private Integer sampleTypeId;
 
-    /** persistent field */
     private String name;
 
-    /** nullable persistent field */
     private String suffix;
-    
-    /** nullable persistent field */
+
     private String vials;
     
-    /** nullable persistent field */
     private Integer initialLabelNo;
     
     //Is register required which sample type can accept external samples.
     private String isSource;
 
-    /** persistent field */
     private Set samples;
 
-   
-    /** default constructor */
     public SampleType() {
     }
 
-
-    /** 
-     *            @hibernate.id
-     *             generator-class="assigned"
-     *             type="long"
-     *             column="SAMPLE_TYPE_ID"
-     *         
-     */
     public Integer getSampleTypeId() {
         return this.sampleTypeId;
     }
@@ -53,13 +32,6 @@ public class SampleType implements Serializable {
         this.sampleTypeId = sampleTypeId;
     }
 
-    /** 
-     *            @hibernate.property
-     *             column="NAME"
-     *             length="32"
-     *             not-null="true"
-     *         
-     */
     public String getName() {
         return this.name;
     }

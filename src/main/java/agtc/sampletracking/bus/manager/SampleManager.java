@@ -122,8 +122,8 @@ public class SampleManager {
 			log.debug("internalId is "+patient.getIntSampleId());
 			if(!patientDAO.containsPatient(patient.getIntSampleId())){
 				patientDAO.savePatient(patient);
-	
-			}else{
+			}
+			else{
 				patient = patientDAO.getPatient(patient.getIntSampleId());
 			}
 			sample.setPatient(patient);
