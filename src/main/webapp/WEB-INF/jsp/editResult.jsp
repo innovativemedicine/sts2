@@ -2,11 +2,11 @@
 
 <tr><td>
 
-<p><h2>Edit Result </h2></p>
+ <h2>Edit Result </h2>
 <%@ include file="/WEB-INF/jsp/includes/errorMessage.jsp" %>
 
 <form method="post" >
-  <table width="60%" border="0" class="details">
+  <table class="details">
 	<tr> 
       <td colspan="2">
         Sample: <c:out value="${command.intSampleId}"/><br>
