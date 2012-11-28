@@ -1,11 +1,13 @@
-<p><h2> <c:out value="${container.name}"/></h2>
+<p>
+
+<h2> <c:out value="${container.name}"/></h2>
 
  <form method="post">
        <p>
           <input type="submit" name="Submit" value="Save">
 		  <input type="reset" name="Submit2" value="Reset">
         </p>
-      <table border="0" class="details" cellspacing="3">
+      <table class="details">
 
 	  <c:forEach begin="0" end="${command.rowNo-1}"  var="rowCount">
 		 <tr>

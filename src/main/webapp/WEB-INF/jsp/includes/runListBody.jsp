@@ -1,5 +1,5 @@
   <h3>Run List</h3>
-  <table width="70%" border="0" class="details">
+  <table class="details">
     <tr>
     	<th>&nbsp;</th>
 		<th>Project </th>
@@ -12,7 +12,10 @@
     <c:forEach items="${runList}" var="run">
     <tr> 
     	<td>
-    	<a href="<c:url value="/runDetails.htm"><c:param name="runId" value="${run.runId}"/></c:url>">View Details</a>&nbsp;
+    	<a class="button"
+    		href="<c:url value="/runDetails.htm"><c:param name="runId" value="${run.runId}"/></c:url>">
+    		<span>Details</span>
+    	</a>&nbsp;
     	</td>
     	<td><c:out value="${run.project.name}"/>&nbsp;</td>
     	<td><c:out value="${run.runDate}"/>&nbsp;</td>

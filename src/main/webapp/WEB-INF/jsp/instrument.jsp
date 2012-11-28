@@ -2,17 +2,17 @@
  
 
 <tr><td>
-<p><h2>Edit /New Instrument</h2></p>
+<h2>Edit /New Instrument</h2>
     
     <form method="post" action="instrument.htm" >
           
-	<table width="60%" border="0" class="details">
+	<table class="details">
           
     <tr> 
         <td>Instrument Name</td>
         <td> 
     	<spring:bind path="command.name">
-        <INPUT type="text" maxlength="64" size="30" name="name" value="<c:out value="${status.value}"/>">
+        <INPUT type="text" maxlength="64" size="20" name="name" value="<c:out value="${status.value}"/>">
 		<FONT color="red">
 		    <B><c:out value="${status.errorMessage}"/></B>
 		</FONT>
@@ -24,23 +24,22 @@
       <td>Note</td>
       <td> 
 	<spring:bind path="command.note">
-	   <INPUT type="text" maxlength="128" size="30" name="note" value="<c:out value="${status.value}"/>">
+	   <INPUT type="text" maxlength="100" size="20" name="note" value="<c:out value="${status.value}"/>">
 	</spring:bind>
       </td>
     </tr>
        
     <tr> 
       <td colspan="2">
-        <p>
           <input type="submit" name="Submit" value="Edit">
           <input type="submit" name="Submit" value="New">
-        </p>
         </td>
     </tr>
   </table>
 
+	<p>
     </form>
-    <table width="70%" border="0" class="details">
+    <table class="details">
     <tr>
     	<th>Instrument Name</th>
     	<th>Note</th>

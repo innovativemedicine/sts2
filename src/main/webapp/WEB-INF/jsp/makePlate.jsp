@@ -9,7 +9,6 @@
     <tr> 
       <td>Plate Name</td>
       <td> 
-         Maxmum length of name is 128 including space <br>
 		<spring:bind path="command.name">
 	  <INPUT type="text" maxlength="255" size="30" name="name" value="<c:out value="${status.value}"/>" > 
 	  <FONT color="red">

@@ -265,21 +265,23 @@
 		<property name="agtcManager"><ref bean="agtcManager"/></property>
 		 <property name="projectManager"><ref bean="projectManager"/></property>
     </bean>
-    
+    <bean id="sampleValidator" 
+		class="agtc.sampletracking.web.validator.SampleValidator"/>
+		
     <bean id="addMultiSamplesController" class="agtc.sampletracking.web.controller.AddMultiSamplesController">
  		<property name="sessionForm"><value>true</value></property>
  		<property name="requireSession"><value>true</value></property>
  		<property name="formView"><value>addMultiSamples</value></property>
         <property name="successView"><value>patientDetails.htm</value></property>
-		<property name="validator"><ref local="sampleValidator"/></property>
+		<property name="validator"><ref local="multiSamplesValidator"/></property>
  		<property name="sampleManager"><ref bean="sampleManager"/></property>
  		<property name="containerManager"><ref bean="containerManager"/></property>
 		<property name="agtcManager"><ref bean="agtcManager"/></property>
-		 <property name="projectManager"><ref bean="projectManager"/></property>
+		<property name="projectManager"><ref bean="projectManager"/></property>
     </bean>
     
-	<bean id="sampleValidator" 
-		class="agtc.sampletracking.web.validator.SampleValidator"/>
+    <bean id="multiSamplesValidator" 
+		class="agtc.sampletracking.web.validator.MultiSamplesValidator"/>
 
 	<bean id="editContainerController" class="agtc.sampletracking.web.controller.EditContainerController">
      	<property name="sessionForm"><value>true</value></property>

@@ -1,17 +1,16 @@
 <%@ include file="/WEB-INF/jsp/includes/head.jsp" %>
  
 <tr><td>
-<p><h2>Update Test Result to CGG System</h2></p>
+<h2>Update Test Result to CGG System</h2>
     
     <form method="post" action="updateResultToCGG.htm" >
           
-	<table width="60%" border="0" class="details">
+	<table class="details">
           
     <tr> 
         <td>Do you want to update test result to CGG system?</td>
     </tr>
     
-       
     <tr> 
       <td>
           <input type="submit" name="Submit" value="UPDATE">
@@ -20,7 +19,7 @@
   </table>
 
     </form>
-    <table width="70%" border="0" class="details">
+    <table class="details">
     
     <c:if test="${ListData!=null}">
     <tr>

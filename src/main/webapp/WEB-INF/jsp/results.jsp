@@ -2,13 +2,9 @@
 
 
 <tr><td>
-<!-- 
-Your search criteria:
-<c:out value="${currentCriteria}" escapeXml="false" />
--->
-<br>
+
 <%@ include file="/WEB-INF/jsp/includes/success.jsp" %>
-<h2><fmt:message key="result.search.title"/></h2>
+<h2>Search Results</h2>
 <%@ include file="/WEB-INF/jsp/includes/errorMessage.jsp" %>
 <form method="post" enctype="multipart/form-data">
   <table width="70%" class="details">
