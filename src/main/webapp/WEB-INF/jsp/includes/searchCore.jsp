@@ -1,8 +1,7 @@
    <tr><td> 
     	 <input type="submit" name="action" value="AND">
 		  <input type="submit" name="action" value="SEARCH">
-		  <!--  input type="submit" name="action" value="PREVIEW"-->
-		  <!--  input type="submit" name="action" value="CLEAR"-->
+
     </td></tr>
     <tr>     
 	<td>

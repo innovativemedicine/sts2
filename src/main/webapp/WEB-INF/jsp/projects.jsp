@@ -1,13 +1,14 @@
 <%@ include file="/WEB-INF/jsp/includes/head.jsp" %>
 
 <tr><td>
+<br>
 Your search criteria:
 <c:out value="${currentCriteria}" escapeXml="false" />
 <br>
 <%@ include file="/WEB-INF/jsp/includes/success.jsp" %>
 <h2><fmt:message key="project.search.title"/></h2>
 <form method="post" action="<c:url value="/projects.htm"/>">
-  <table width="70%" class="details">
+  <table class="details">
   <%@ include file="/WEB-INF/jsp/includes/searchCore.jsp" %>
     </table>
 </form> 

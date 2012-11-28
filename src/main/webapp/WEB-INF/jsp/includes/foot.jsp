@@ -1,4 +1,3 @@
-
-    </table>
-  </body>
+</div>
+</body>
 </html>

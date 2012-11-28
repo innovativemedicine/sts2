@@ -4,9 +4,9 @@
 <tr><td>
 <%@ include file="/WEB-INF/jsp/includes/errorMessage.jsp" %>
 
-    
+
 <form method="post">
-<table width="70%" border="0" class="details">
+<table class="details">
 	 
 	 <tr> 
 
@@ -57,4 +57,5 @@
 </form> 
 
 </td></tr>
+</div>
 <%@ include file="/WEB-INF/jsp/includes/foot.jsp" %>

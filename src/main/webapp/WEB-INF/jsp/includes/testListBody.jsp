@@ -1,5 +1,5 @@
   <h3>Test List</h3>
-  <table width="70%" border="0" class="details">
+  <table class="details">
     <tr>
     	<th>Name </th>
     	<th>Instrument</th>

@@ -1,5 +1,6 @@
 <h3> Project List </h3>
-  <table width="70%" border="0" class="details">
+
+  <table class="details">
     <tr>
     	<th>Project Name</th>
     	<th>Description</th>

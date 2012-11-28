@@ -18,7 +18,7 @@
 	      	<td> 
 	      
 	        	<spring:bind path="command.multiSamples[${row}].patient.intSampleId">
-				   		<INPUT type="text" maxlength="255" size="20" 
+				   		<INPUT type="text" maxlength="255" size="15" 
 				   		name="<c:out value="${status.expression}"/>" 
 				   		value="<c:out value="${status.value}"/>">
 				   		
@@ -30,7 +30,7 @@
 		 
 	     	<td> 
 	        	<spring:bind path="command.multiSamples[${row}].patient.extSampleId">
-			  		<INPUT type="text" maxlength="64" size="20" 
+			  		<INPUT type="text" maxlength="64" size="15" 
 			  			name="<c:out value="${status.expression}"/>" 
 			  			value="<c:out value="${status.value}"/>" > 
 					   	
@@ -42,7 +42,7 @@
 	    
 	        <td> 
 	        	<spring:bind path="command.multiSamples[${row}].patient.anotherExtSampleId">
-			  		<INPUT type="text" maxlength="64" size="20" 
+			  		<INPUT type="text" maxlength="64" size="15" 
 			  		name="<c:out value="${status.expression}"/>" 
 			  		value="<c:out value="${status.value}"/>" > 
 				</spring:bind>
@@ -64,8 +64,7 @@
 			 				
 			 				value="<c:out value="${sampleTypeOpt.sampleTypeId}"/>">
 			 				
-							<c:out value="${sampleTypeOpt.name}"/> - 
-							<c:out value="${sampleTypeOpt.sampleTypeId}"/>
+							<c:out value="${sampleTypeOpt.name}"/>
 					 	</option>
 					 	
 				  		</c:forEach>
@@ -97,7 +96,7 @@
 	
 		    <td> 
 				<spring:bind path="command.multiSamples[${row}].patient.note">
-				   	<textarea rows="1" cols="20" name="<c:out value="${status.expression}"/>"><c:out value="${status.value}"/></textarea> 
+				   	<textarea rows="1" cols="15" name="<c:out value="${status.expression}"/>"><c:out value="${status.value}"/></textarea> 
 				</spring:bind>
 	      	</td>
 	      	
