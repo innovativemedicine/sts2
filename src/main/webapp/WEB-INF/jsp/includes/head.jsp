@@ -19,21 +19,13 @@
 	<fmt:setBundle basename="agtc.sampletracking.web.MessageBundle"></fmt:setBundle>
 	 
 	</head>
-  <body >
+  <body>
 	
-    <table width="800">
-      <tr>
-        <td align="center">
+	<div style="width: 900px; align: center; text-align: center">
           <h1>
             Sample Tracking System
           </h1>
-        </td>
-      </tr>
-	<tr><td align="center"> <div>
 		<%@ include file="/WEB-INF/jsp/includes/menu.html" %>
-	</div></td></tr>
+	</div>
 	
-	</table>
-
-  </body>
-</html>
+    <div style="width: 900px">
