@@ -8,24 +8,22 @@
 <html>
   <head>
     <title>
-      Sample Tracking System 
+      Sample Tracking System v2
     </title>
     
     <script type="text/javascript" src="js/formBuilder.js"></script>
-   
-   <link type="text/css" rel="stylesheet" href="css/menu.css">
-   <link type="text/css" rel="stylesheet" href="css/stylesheet.css">
-
+   	<link type="text/css" rel="stylesheet" href="css/menu.css">
+   	<link type="text/css" rel="stylesheet" href="css/stylesheet.css">
 	<fmt:setBundle basename="agtc.sampletracking.web.MessageBundle"></fmt:setBundle>
 	 
 	</head>
   <body>
 	
-	<div style="width: 900px; align: center; text-align: center">
+	<div class="header">
           <h1>
             Sample Tracking System
           </h1>
 		<%@ include file="/WEB-INF/jsp/includes/menu.html" %>
 	</div>
 	
-    <div style="width: 900px">
+    <div class="content">

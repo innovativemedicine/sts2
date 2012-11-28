@@ -1,6 +1,5 @@
 
 <%@ include file="/WEB-INF/jsp/includes/head.jsp"%>
-<br>
 <%@ include file="/WEB-INF/jsp/includes/success.jsp"%>
 
 <h2>

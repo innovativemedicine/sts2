@@ -9,7 +9,7 @@ Your search criteria:
 
 <h2>Search Containers:</h2>
 <form method="post" >
-  <table width="70%" class="details">
+  <table class="details">
    <%@ include file="/WEB-INF/jsp/includes/searchCore.jsp" %>
       
     </tr>
