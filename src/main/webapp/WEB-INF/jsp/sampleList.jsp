@@ -3,22 +3,27 @@
 
 <tr><td>
 
-<%@ include file="/WEB-INF/jsp/includes/success.jsp" %>
+	<div style="display:table-cell; vertical-align:bottom"> 
+		<font style="vertical-align:bottom"size=5> Sample List </font>
+   		<a class="button" href="<c:url value="/selectSampleInfo4Output.htm"></c:url>"><span>Export Data</span></a>
+		<a class="button" href="<c:url value="/addSample2Container.htm"></c:url>"><span>Assign Container</span></a>
 
+   	</div>	
+   	<p>
+   	<%@ include file="/WEB-INF/jsp/includes/success.jsp" %>
 
-<a href="<c:url value="/selectSampleInfo4Output.htm"></c:url>">
-	Export data for these samples</a>&nbsp;
-
-<a href="<c:url value="/addSample2Container.htm"></c:url>">
-	Add these samples to containers</a>&nbsp;
-
-<h2>Sample List </h2>
-  <table width="80%" border="0" class="details">
+  <table class="details">
     <tr>
     	<th>Internal ID</th>
     	<th>External ID</th>
+    	<th>External ID 2</th>
     	<th>Sample Type</th>
-		<th>Sample Duplicaton Number</th>
+		<th>Project</th>
+		<th>Note</th>
+		<th>Sample Type Name</th>
+		<th>ST Suffix</th>
+		<th>ST Vial</th>
+		
     </tr>
     
     <c:forEach items="${sampleList}" var="sample">
@@ -28,18 +33,18 @@
 		<td>
     	<a href="<c:url value="/sampleDetails.htm">
     		<c:param name="sampleId" value="${sample.sampleId}"/></c:url>">
-    		<c:out value="${sample.patient.intSampleId}"/></a>&nbsp;
+    		<c:out value="${sample.patient.intSampleId}"/></a>
     	</td>
-    	<td><c:out value="${sample.patient.extSampleId}"/>&nbsp;</td>
-    	<td><c:out value="${sample.sampleType.name}"/>&nbsp;</td>
-		<td><c:out value="${sample.sampleDupNo}"/>&nbsp;</td>
+    	<td><c:out value="${sample.patient.extSampleId}"/></td>
+    	<td><c:out value="${sample.patient.anotherExtSampleId}"/></td>
+    	<td><c:out value="${sample.sampleType.sampleTypeId}"/></td>
+    	<td><c:out value="${sample.patient.project.name}"/></td>	
+		<td><c:out value="${sample.patient.note}"/></td>
+    	<td><c:out value="${sample.sampleType.name}"/></td>
+ 	    <td><c:out value="${sample.sampleType.suffix}"/></td>
+ 	    <td><c:out value="${sample.sampleType.vials}"/></td>
 	  </c:if>
 	  
-<!-- 
-sample.sampleId==-1 mean: this sample does not exist!
-Thanks, Gloria!
-Jianan Xiao 2005-09-12
- -->
 	  <c:if test="${sample.sampleId == -1}">
 		<td>
     	<c:out value="${sample.patient.intSampleId}"/>&nbsp;

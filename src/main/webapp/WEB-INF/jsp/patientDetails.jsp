@@ -9,45 +9,35 @@
 	<div style="display:table-cell; vertical-align:bottom"> 
 		<font style="vertical-align:bottom"size=5> Patient Information </font>
    		<a class="button" href="<c:url value="/editPatient.htm"><c:param name="intSampleId" value="${command.intSampleId}"/></c:url>"><span>Edit Patient</span></a>
-   		<a class="button" href="<c:url value="/deletePatient.htm"><c:param name="intSampleId" value="${command.intSampleId}"/></c:url>" onclick="return (confirm('Warning: Deleting the patient will delete all the samples of this patient as well as all the genotype results of those samples. \n\nAre you sure you want to delete this Patient?')) " ><span>Delete Patient</span></a>
+<%--    		<a class="button" href="<c:url value="/deletePatient.htm"><c:param name="intSampleId" value="${command.intSampleId}"/></c:url>" onclick="return (confirm('Warning: Deleting the patient will delete all the samples of this patient as well as all the genotype results of those samples. \n\nAre you sure you want to delete this Patient?')) " ><span>Delete Patient</span></a> --%>
    	</div>
 <p>
   
-  <table width = "40%" border="0" class="details">
+  <table border="0" class="details">
     
     <tr> 
-      <th>External ID 1:</th>
-      <td> 
-        <c:out value="${command.extSampleId}"/>&nbsp;
-      </td>
-    </tr>
-
-	<tr> 
-      <th>External ID 2:</th>
-      <td> 
-        <c:out value="${command.anotherExtSampleId}"/>&nbsp;
-      </td>
-    </tr>
-
-	<tr> 
-      <th>Project: </th>
-      <td> 
-        <c:out value="${command.project.investigator.fullName}"/>&nbsp;<c:out value="${command.project.name}"/>&nbsp;
-      </td>
-    </tr>
- 
-    <tr> 
+      <th>External ID 1</th>
+      <th>External ID 2</th>
+      <th>Project </th>
       <th>Control? </th>
-      <td> 
-      <c:out value="${command.isControl}"/>&nbsp;
-   </td>
-  </tr>
-
-   <tr> 
-      <th>Note:</th>
-      <td> 
-        <c:out value="${command.note}"/>&nbsp;
-      </td>
+      <th>Note </th>
+     </tr>
+     <tr>
+      	<td> 
+        	<c:out value="${command.extSampleId}"/>&nbsp;
+      	</td> 
+      	<td>
+        	<c:out value="${command.anotherExtSampleId}"/>&nbsp;
+      	</td>
+      	<td> 
+        	<c:out value="${command.project.investigator.firstName}"/>&nbsp;<c:out value="${command.project.name}"/>&nbsp;
+      	</td>
+      	<td> 
+   	  		<c:out value="${command.isControl}"/>&nbsp;
+	  	</td>
+  		<td> 
+        	<c:out value="${command.note}"/>&nbsp;
+      	</td>
     </tr>
   </table>
 
@@ -55,15 +45,18 @@
 	<p>
 	<div> 	
   		<font style="vertical-align: bottom" size=5>Existing Sample Types </font>      	
-   		<a class="button" href="<c:url value="/editSample.htm"><c:param name="intSampleId" value="${command.intSampleId}"/></c:url>"><span>Add Sample</span></a>
+   		<a class="button" 
+   			href="<c:url value="/editSample.htm"><c:param name="intSampleId" value="${command.intSampleId}"/></c:url>">
+   			<span>Add Sample Type</span>
+   		</a>
     </div>
 	<p>
 	
-   <table width="70%" border="0" class="details">
+   <table class="details">
     <tr>
     	<th>Sample Type</th>
-		<th>Sample Duplication Number</th>
-    	<th>Sample Receive Date</th>
+		<th>Duplication No.</th>
+    	<th>Receive Date</th>
 		<th>Concentration</th>
     </tr>
     
