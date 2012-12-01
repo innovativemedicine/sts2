@@ -1,4 +1,8 @@
-/* Table - Details Class */
+input.barcodeAdd {
+	display: none;
+}
+
+/* Div CSS */
 
 div.header {
 	width: 900px;
@@ -8,14 +12,21 @@ div.header {
 
 div.content {
 	width: 900px;
-	margin-left: 20px;
+	margin-left: 10px;
 }
-	<div class="header" style="width: 900px; align: center; text-align: center">
 
+div.left {
+	float: left;
+	margin-right: 30px;
+}
 
-/* Table - Details Class */
+div.clear {
+	clear: both;	
+}
 
-table.details {
+/* Table CSS */
+
+table {
     cellspacing:5;
     padding:5;
 	border:2;
@@ -31,7 +42,7 @@ table.details {
 
 }
 
-table.details td{
+table td{
     background:#f0f8ff;
     padding:3px 5px;
     min-width:70px;
@@ -39,50 +50,64 @@ table.details td{
   
 }
 
-table.details th{
+table.searchCriteria{
+    height: 120px; 
+    min-width: 300px;
+  
+}
+
+table.searchCriteria td{
+	  vertical-align: top;
+}
+
+table.searchBuilder {
+    height: 120px; 
+}
+
+
+table th{
   	   background:#a6caf0;
 	   padding:3px 5px;
 }
 
- table.details tr:first-child th:first-child {
+ table tr:first-child th:first-child {
     -moz-border-radius: 6px 0 0 0;
     -webkit-border-radius: 6px 0 0;
     border-radius: 6px 0 0 0;
 }
 
- table.details tr:first-child th:last-child {
+ table tr:first-child th:last-child {
     -moz-border-radius: 0 6px 0 0;
     -webkit-border-radius: 0 6px 0 0;
     border-radius: 0 6px 0 0;
 }
 
- table.details tr:first-child th:only-child {
+ table tr:first-child th:only-child {
     -moz-border-radius: 6px 6px 0 0;
     -webkit-border-radius: 6px 6px 0 0;
     border-radius: 6px 6px 0 0;
 }
 
- table.details tr:last-child th:first-child {
+ table tr:last-child th:first-child {
     -moz-border-radius: 0 0 0 6px;
     -webkit-border-radius: 0 0 0 6px;
     border-radius: 0 0 0 6px;
 }
 
- table.details tr:last-child th:last-child {
+ table tr:last-child th:last-child {
     -moz-border-radius: 0 0 6px 6px;
     -webkit-border-radius: 0 0 6px 6px;
     border-radius: 0 0 6px 6px;
 }
 
- table.details tr:last-child th:only-child {
+ table tr:last-child th:only-child {
     -moz-border-radius: 0 0 6px 6px;
     -webkit-border-radius: 0 0 6px 6px;
     border-radius: 0 0 6px 6px;
 }
 
 
-
-/* Button Class. Adjust ##em to adjust size */
+/* Links As CSS Button. Adjust ##em to adjust size */
 .button
 {
     margin: 1px;
@@ -181,23 +206,97 @@ table.details th{
    
 }
 
-/* a.bar:link { */
-/* 	COLOR: #ffffff; */
-/* 	FONT-STYLE: normal; */
-/* 	TEXT-DECORATION: none; */
-/* 	font-familty: Arial, Helvetica */
-/* } */
+/* Menu CSS */
 
-/* a.bar:active { */
-/* 	COLOR: #ff0000; */
-/* 	FONT-STYLE: normal; */
-/* 	TEXT-DECORATION: none; */
-/* 	font-familty: Arial, Helvetica */
-/* } */
+nav ul {
+	background: #003366; 
 
-/* a.bar:visited { */
-/* 	COLOR: #ffffff; */
-/* 	FONT-STYLE: normal; */
-/* 	TEXT-DECORATION: none; */
-/* 	font-familty: Arial, Helvetica */
-/* } */
+	box-shadow: 0px 0px 9px rgba(0,0,0,0.15);
+
+	padding: 0 40px;
+	border-radius: 10px;  
+	list-style: none;
+	position: relative;
+	display: inline-table;	
+
+	border: 2px solid #6b727c;
+	
+}
+
+	nav ul li {
+		float: left;
+	}
+	
+	nav ul li a {
+		display: block;
+		padding: 5px 28px;
+		color: #d9d9d9;
+		text-decoration: none;
+	}
+	
+	nav ul li:hover {
+		background: #00264d;		
+
+		background: -moz-radial-gradient(center, circle farthest-corner, #00264D 80%, #003366 100%);
+		background: -o-radial-gradient(center, circle farthest-corner, #00264D 80%, #003366 100%);
+		background: -webkit-gradient(radial, center center, 0, center center, 497, color-stop(0.8, #00264D), color-stop(1, #003366));
+		background: -webkit-radial-gradient(center, circle farthest-corner, #00264D 80%, #003366 100%);
+		
+	}
+	
+	nav ul li:hover a{
+		color: #fff;
+	}
+	
+
+	nav ul:after {
+		content: ""; clear: both; display: block;
+	}
+
+	nav ul ul {
+		opacity: 0.9;
+	
+		display: none;
+		border-radius: 0px;
+		padding: 0px 20px;
+		position: relative;
+		top: 100%;
+		color: white;
+	}
+	
+	nav ul li:hover ul {
+		display: block;
+	}
+	
+
+	/* submenu */
+	nav ul ul {
+		background: #003366; 
+		border-radius: 0 0 10px 10px; 
+		padding: 0;
+		position: absolute; top: 100%;
+		text-align: left;
+	}
+	nav ul ul li {
+		float: none; 
+		border-left: 2px solid #6b727c;
+		border-right: 2px solid #6b727c;
+		border-top: 1px solid #6b727c;
+		border-bottom: 1px solid #6b727c;
+		position: relative;
+	}
+	
+	nav ul ul li:last-child {
+		border-radius: 0 0 10px 10px;
+	}
+	
+	nav ul ul li:hover {
+		background: #5f6975;
+		border-top: 1px solid #fff;
+		border-bottom: 1px solid #fff;
+		
+	}
+	nav ul ul li:last-child:hover {
+		border-bottom: 1px solid #6b727c;
+		border-radius: 0 0 10px 10px;
+	}
