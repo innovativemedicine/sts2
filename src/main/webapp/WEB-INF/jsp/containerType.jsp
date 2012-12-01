@@ -2,8 +2,9 @@
  
 
 <tr><td>
-<h2>Edit /New Container Type</h2>
-	Note:Container type name must start with "Sample","Reagent" or "Plate" in order for the system to get containers by container type.
+<h2>Edit Container Types</h2>
+	Note:Container type name must start with "Sample","Reagent" or "Plate".
+	<p>
     
     <form method="post" action="containerType.htm" >
           
