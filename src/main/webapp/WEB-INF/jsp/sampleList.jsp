@@ -1,8 +1,5 @@
 <%@ include file="/WEB-INF/jsp/includes/head.jsp" %>
 
-
-<tr><td>
-
 	<div style="display:table-cell; vertical-align:bottom"> 
 		<font style="vertical-align:bottom"size=5> Sample List </font>
    		<a class="button" href="<c:url value="/selectSampleInfo4Output.htm"></c:url>"><span>Export Data</span></a>
@@ -20,10 +17,8 @@
     	<th>Sample Type</th>
 		<th>Project</th>
 		<th>Note</th>
-		<th>Sample Type Name</th>
-		<th>ST Suffix</th>
-		<th>ST Vial</th>
-		
+		<th>Dup. No</th>
+		<th>Status</th>
     </tr>
     
     <c:forEach items="${sampleList}" var="sample">
@@ -37,12 +32,11 @@
     	</td>
     	<td><c:out value="${sample.patient.extSampleId}"/></td>
     	<td><c:out value="${sample.patient.anotherExtSampleId}"/></td>
-    	<td><c:out value="${sample.sampleType.sampleTypeId}"/></td>
+    	<td><c:out value="${sample.sampleType.name}"/></td>
     	<td><c:out value="${sample.patient.project.name}"/></td>	
 		<td><c:out value="${sample.patient.note}"/></td>
-    	<td><c:out value="${sample.sampleType.name}"/></td>
- 	    <td><c:out value="${sample.sampleType.suffix}"/></td>
- 	    <td><c:out value="${sample.sampleType.vials}"/></td>
+    	<td><c:out value="${sample.sampleDupNo}"/></td>
+    	<td><c:out value="${sample.status}"/></td>
 	  </c:if>
 	  
 	  <c:if test="${sample.sampleId == -1}">
@@ -56,5 +50,5 @@
     </c:forEach>
    
   </table>
-</td></tr>
+
 <%@ include file="/WEB-INF/jsp/includes/foot.jsp" %>
