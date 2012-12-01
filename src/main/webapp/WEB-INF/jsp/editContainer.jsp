@@ -2,7 +2,7 @@
 
 <tr>
 	<td>
-		<h2>Edit /New Container</h2> <c:if
+		<h2>Edit Containers</h2> <c:if
 			test="${command.motherContainer != null}">
 	Mother Container: <c:out value="${command.motherContainer.name}" />
 			<br>

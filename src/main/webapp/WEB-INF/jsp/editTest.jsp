@@ -1,11 +1,10 @@
 <%@ include file="/WEB-INF/jsp/includes/head.jsp" %>
 
 
-<tr><td>
-<p><h2>Edit /New Test</h2></p>
+<h2>Edit Tests</h2>
 
 <form method="post" enctype="multipart/form-data">
-  <table border="0" class="details">
+  <table class="details">
     <tr> 
       <td>Test Name</td>
       <td> 
@@ -85,7 +84,4 @@
   </table>
   </form>
 
-  
- 
-</td></tr>
 <%@ include file="/WEB-INF/jsp/includes/foot.jsp" %>

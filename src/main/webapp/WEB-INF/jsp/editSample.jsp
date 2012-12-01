@@ -1,14 +1,11 @@
 <%@ include file="/WEB-INF/jsp/includes/head.jsp" %>
 
-
-<tr><td>
-
-<p><h2>Edit /New Sample</h2></p>
+<h2>Edit Samples</h2>
 
 <form method="post">
 
 
-  <table border="0" class="details">
+  <table class="details">
    
 
 	<tr> 
@@ -68,7 +65,9 @@
           <td>Concentration Reading on: </td>
           <td> 
     	<spring:bind path="command.odDate">
-    	   <INPUT type="text" maxlength="255" size="30" name="odDate" value="<c:out value="${status.value}"/>">
+    	   <INPUT type="text" maxlength="255" size="30" name="odDate" 
+				pattern="(0[1-9]|[12][0-9]|3[01])[-](0[1-9]|1[012])[-](19|20|21)\d\d"
+    	   		value="<c:out value="${status.value}"/>">
 		    <FONT color="red">
 		    <B><c:out value="${status.errorMessage}"/></B>
 		</FONT>
@@ -77,7 +76,7 @@
     </tr>
     
     <tr> 
-	  <td>Volumn</td>
+	  <td>Volume</td>
 	  <td> 
 	    <spring:bind path="command.volumn">
 	   <INPUT type="text" maxlength="255" size="30" name="volumn" value="<c:out value="${status.value}"/>">
@@ -89,10 +88,12 @@
     </tr>
     
     <tr> 
-    	  <td>Volumn Reading On</td>
+    	  <td>Volume Reading On</td>
     	  <td> 
     	    <spring:bind path="command.volumnDate">
-    	   <INPUT type="text" maxlength="255" size="30" name="volumnDate" value="<c:out value="${status.value}"/>">
+    	   <INPUT type="text" maxlength="255" size="30" name="volumnDate" 
+    	   		pattern="(0[1-9]|[12][0-9]|3[01])[-](0[1-9]|1[012])[-](19|20|21)\d\d"
+    	   		value="<c:out value="${status.value}"/>">
 		    <FONT color="red">
 		    <B><c:out value="${status.errorMessage}"/></B>
 		</FONT>
@@ -122,7 +123,9 @@
       <td>Sample Received On: </td>
       <td> 
         <spring:bind path="command.receiveDate">
-	   <INPUT type="text" maxlength="255" size="30" name="receiveDate" value="<c:out value="${status.value}"/>">
+	   <INPUT type="text" maxlength="255" size="30" name="receiveDate" 
+	   	   	pattern="(0[1-9]|[12][0-9]|3[01])[-](0[1-9]|1[012])[-](19|20|21)\d\d"
+	   		value="<c:out value="${status.value}"/>">
 	    <FONT color="red">
 		    <B><c:out value="${status.errorMessage}"/></B>
 		</FONT>
@@ -134,7 +137,9 @@
       <td>Sample Made On: </td>
       <td> 
         <spring:bind path="command.madeDate">
-	   <INPUT type="text" maxlength="255" size="30" name="madeDate" value="<c:out value="${status.value}"/>">
+	   <INPUT type="text"  maxlength="255" size="30" name="madeDate" 
+	   		pattern="(0[1-9]|[12][0-9]|3[01])[-](0[1-9]|1[012])[-](19|20|21)\d\d"
+	   		value="<c:out value="${status.value}"/>">
 	    <FONT color="red">
 		    <B><c:out value="${status.errorMessage}"/></B>
 		</FONT>
@@ -146,7 +151,9 @@
 	  <td>Transformed On: </td>
 	  <td> 
 	    <spring:bind path="command.transDate">
-	   <INPUT type="text" maxlength="255" size="30" name="transDate" value="<c:out value="${status.value}"/>">
+	   <INPUT type="text" maxlength="255" size="30" name="transDate" 
+	   	   		pattern="(0[1-9]|[12][0-9]|3[01])[-](0[1-9]|1[012])[-](19|20|21)\d\d"
+	   	   		value="<c:out value="${status.value}"/>">
 	    <FONT color="red">
 		    <B><c:out value="${status.errorMessage}"/></B>
 		</FONT>
@@ -158,7 +165,9 @@
           <td>Refill On: </td>
           <td> 
             <spring:bind path="command.refillDate">
-    	   <INPUT type="text" maxlength="255" size="30" name="refillDate" value="<c:out value="${status.value}"/>">
+    	   <INPUT type="text" maxlength="255" size="30" name="refillDate" 
+    	   	   		pattern="(0[1-9]|[12][0-9]|3[01])[-](0[1-9]|1[012])[-](19|20|21)\d\d"
+    	   	   		value="<c:out value="${status.value}"/>">
 		    <FONT color="red">
 		    <B><c:out value="${status.errorMessage}"/></B>
 		</FONT>
@@ -172,7 +181,9 @@
       <td>Remove On: </td>
       <td> 
 	<spring:bind path="command.removeDate">
-	   <INPUT type="text" maxlength="255" size="30" name="removeDate" value="<c:out value="${status.value}"/>">
+	   <INPUT type="text" maxlength="255" size="30" name="removeDate" 
+	   	   		pattern="(0[1-9]|[12][0-9]|3[01])[-](0[1-9]|1[012])[-](19|20|21)\d\d"
+	   	   		value="<c:out value="${status.value}"/>">
 	    <FONT color="red">
 		    <B><c:out value="${status.errorMessage}"/></B>
 		</FONT>
@@ -210,5 +221,5 @@
     </tr>
   </table>
   </form>
-</td></tr>
+
 <%@ include file="/WEB-INF/jsp/includes/foot.jsp" %>

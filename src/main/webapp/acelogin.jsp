@@ -4,16 +4,15 @@
 <%@ page import="net.sf.acegisecurity.AuthenticationException" %>
 
 <html>
-  <head>
-    <title>Login</title>
+  <head>   
+    <title>Login</title>  
   </head>
 
   <body>
-    <h1>Login</h1>
+    <h1>Sample Tracking System</h1>
+    
+    <h3>Login</h3>
 	
-    <%-- this form-login-page form is also used as the 
-         form-error-page to ask for a login again.
-         --%>
     <c:if test="${not empty param.login_error}">
       <font color="red">
         Your login attempt was not successful, try again.<BR><BR>
@@ -31,15 +30,12 @@
         		</c:if>>
         	</td></tr>
         <tr><td>Password:</td><td><input type='password' name='j_password'></td></tr>
-         
 
         <tr><td colspan='2'><input name="login" type="submit"><input name="reset" type="reset"></td></tr>
       </table>
 
     </form>
-<br>
-<br>
-<br>
+
 
   </body>
 </html>

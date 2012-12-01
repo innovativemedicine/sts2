@@ -3,7 +3,7 @@
 
 <tr>
 	<td>
-		<h2>Edit /New Assay</h2>
+		<h2>Edit Assay</h2>
 
 		<form method="post">
 

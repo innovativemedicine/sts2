@@ -2,7 +2,7 @@
 
 <tr><td>
 
- <h2>Edit Result </h2>
+ <h2>Edit Results</h2>
 <%@ include file="/WEB-INF/jsp/includes/errorMessage.jsp" %>
 
 <form method="post" >

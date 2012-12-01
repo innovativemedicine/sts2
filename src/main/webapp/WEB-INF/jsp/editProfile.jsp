@@ -8,8 +8,7 @@
 
 <tr>
 	<td>
-		<h2>Edit User's Information and/or change password</h2> <spring:bind
-			path="command.*">
+		<h2>Edit Users</h2> <spring:bind path="command.*">
 			<FONT color="red"> <c:forEach items="${status.errorMessages}"
 					var="container">
 					<B><c:out value="${container}" /></B>

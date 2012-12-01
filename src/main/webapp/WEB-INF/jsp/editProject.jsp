@@ -2,7 +2,7 @@
 
 
 <tr><td>
-<h2>Edit /New project</h2>
+<h2>Edit Projects</h2>
 
 <form method="post">
   <table class="details">
