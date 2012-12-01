@@ -115,7 +115,8 @@ public class SampleManager {
 
 	
 	public void saveSample(Sample sample) throws Exception{
-
+		System.out.println("Entering save");
+		System.out.println(sample.getPatient().getIntSampleId());
 		if(sample.getSampleId().intValue()==-1){
 			
 			Patient patient = sample.getPatient();
@@ -126,8 +127,20 @@ public class SampleManager {
 			else{
 				patient = patientDAO.getPatient(patient.getIntSampleId());
 			}
-			sample.setPatient(patient);
-			
+			sample.setPatient(patient);	
+		}
+		System.out.println(sample.getPatient().getIntSampleId());
+		List<Sample> existingSample = (List<Sample>) sampleDAO.getSampleByIntSampleIdSampleType(sample.getPatient().getIntSampleId(),sample.getSampleType());
+		System.out.println("Fetched Existing Samples");
+
+		if(existingSample != null) {
+			sample.setSampleDupNo(existingSample.size()+1);
+			System.out.println(existingSample.size());
+			System.out.println("Existing sample before");
+		}
+	
+		if(sample.getStatus() == null) {
+			sample.setStatus("Registered");
 		}
 		
 		sampleDAO.saveSample(sample);	
