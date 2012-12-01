@@ -1,18 +1,16 @@
-<%@ include file="/WEB-INF/jsp/includes/head.jsp" %>
+<%@ include file="/WEB-INF/jsp/includes/head.jsp"%>
+<%@ include file="/WEB-INF/jsp/includes/success.jsp"%>
 
-<tr><td>
-<br>
-Your search criteria:
-<c:out value="${currentCriteria}" escapeXml="false" />
-<br>
-<%@ include file="/WEB-INF/jsp/includes/success.jsp" %>
-<h2><fmt:message key="project.search.title"/></h2>
-<form method="post" action="<c:url value="/projects.htm"/>">
-  <table class="details">
-  <%@ include file="/WEB-INF/jsp/includes/searchCore.jsp" %>
-    </table>
-</form> 
-<%@ include file="/WEB-INF/jsp/includes/projectListBody.jsp" %>
 
-</td></tr>
-<%@ include file="/WEB-INF/jsp/includes/foot.jsp" %>
+
+<h2>
+	<fmt:message key="project.search.title" />
+</h2>
+
+<%@ include file="/WEB-INF/jsp/includes/searchCore.jsp"%>
+
+
+<%@ include file="/WEB-INF/jsp/includes/projectListBody.jsp"%>
+
+
+<%@ include file="/WEB-INF/jsp/includes/foot.jsp"%>

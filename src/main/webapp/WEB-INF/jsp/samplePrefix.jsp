@@ -1,11 +1,11 @@
 <%@ include file="/WEB-INF/jsp/includes/head.jsp" %>
  
 <tr><td>
-<p><h2>Edit /New Sample Source Type</h2></p>
+<p><h2>Edit Sample Prefixes</h2></p>
     
     <form method="post" >
           
-	<table width="60%" border="0" class="details">
+	<table class="details">
           
     <tr> 
         <td>Prefix</td>

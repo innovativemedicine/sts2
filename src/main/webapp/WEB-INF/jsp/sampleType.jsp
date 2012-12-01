@@ -2,7 +2,7 @@
 
 <tr>
 	<td>
-		<h2>Edit /New Sample Type</h2>
+		<h2>Edit Sample Types</h2>
 
 		<form method="post" action="sampleType.htm">
 

@@ -147,10 +147,14 @@ public class SimpleSampleSearchController
 						throws java.lang.Exception
 	{
 		Map models = new HashMap();
+		String message = "";
+		
 		LSampleTypes = sampleManager.
 						getSampleTypeDAO().
 						getSampleTypes();
-		models.put("LSampleTypes",LSampleTypes);		
+		models.put("LSampleTypes",LSampleTypes);
+		models.put("message", message);
+		
 	//	referenceData(request,models,"sample");
 		return models;
 	}	
