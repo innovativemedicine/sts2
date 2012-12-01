@@ -6,8 +6,8 @@
 <%@ include file="/WEB-INF/jsp/includes/errorMessage.jsp" %>
  
 	<div>
-		How many samples to register? 
-		<input type="text" id="numSamplesText" name="numSamplesText" />	
+		Number of samples?
+		<input type="text" id="numSamplesText" name="numSamplesText" size="1" value="<c:out value="${param.ns}"/>"/>	
 		<a class="button" href="javascript:void(0)" onclick='multiForm();'><span>Generate Form</span></a>
 	</div>
 	<br>
