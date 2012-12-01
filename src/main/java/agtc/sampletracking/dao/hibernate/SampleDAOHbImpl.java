@@ -11,6 +11,7 @@ import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import agtc.sampletracking.dao.SampleDAO;
+import agtc.sampletracking.model.Container;
 import agtc.sampletracking.model.Sample;
 import agtc.sampletracking.model.SampleType;
 import agtc.sampletracking.web.command.*;
@@ -45,6 +46,24 @@ public class SampleDAOHbImpl extends STSBasicDAO implements SampleDAO {
 		return crt.list();
 	}
 	
+	public Sample getSample(String sampleId, String sampleTypeSuffix,Integer sampleDupNo){
+		Session session = getSession();
+		Criteria crt = session.createCriteria(Sample.class);
+		crt.createAlias("sampleType","sampleType");
+		crt.add(Restrictions.eq("patient.intSampleId",sampleId));
+		crt.add(Restrictions.eq("sampleType.suffix",sampleTypeSuffix));
+		crt.add(Restrictions.eq("sampleDupNo",sampleDupNo));
+		log.debug(" the criteria is " + crt.toString());
+		
+		List result = crt.list();
+		
+		if (result.isEmpty()) {
+			return null;
+		}
+		else {
+			return (Sample)result.get(0);
+		}
+	}
 	
 	
 	public List searchSamples(List crtList,List lgcList) {
