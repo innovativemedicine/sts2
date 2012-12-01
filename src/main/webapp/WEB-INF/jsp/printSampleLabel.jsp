@@ -1,61 +1,59 @@
-<%@ include file="/WEB-INF/jsp/includes/head.jsp" %>
+<%@ include file="/WEB-INF/jsp/includes/head.jsp"%>
+<%@ include file="/WEB-INF/jsp/includes/errorMessage.jsp"%>
 
-
-<tr><td>
-<%@ include file="/WEB-INF/jsp/includes/errorMessage.jsp" %>
-
-
-<form method="post">
-<table class="details">
-	 
-	 <tr> 
-
-	 <td colspan="2"> Enter or paste your Internal sample Id here, 
-	 delimited by comma, or one sample one line <br>
-	<TEXTAREA name="sampleIdsInTextArea" rows="10" cols="60">
+<form method="post" enctype="multipart/form-data">
+	<div class="left">
+		<table class="details">
+			<tr>
+				<th>Sample ID</th>
+			</tr>
+			<tr>
+				<td colspan="2">Enter Sample ID List:<br> (Separate
+					samples by commas or new lines)<br> <TEXTAREA
+						name="sampleIdsInTextArea" rows="10" cols="40">
   
    </TEXTAREA>
-    </td>
-    </tr>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div>
+		<table>
+			<tr>
+				<th colspan="3"><b>Filter Search by Sample Types</b></th>
+			</tr>
+			<c:forEach items="${availableSampleTypes}" var="sampleType" varStatus="row">
+						<c:if test="${row.count % 3 eq 1}">
+							<tr>
+						</c:if>
+						<td><input type="checkbox"
+							name="<c:out value="${sampleType.suffix}"/>"> <c:out
+								value="${sampleType.name}" /></td>
+						<c:if test="${row.count % 3 eq 0}">
+						</tr>
+			</c:if>
 
-   <tr>
-    <td >Sample Type: </td>
-    <td >
-	  <c:forEach items="${availableSampleTypes}" var="sampleType">
-	    <input type="checkbox" name="<c:out value="${sampleType.suffix}"/>" >  
-	    	<c:out value="${sampleType.name}"/>  &nbsp;&nbsp;
-	  </c:forEach>
-    </td>
-  </tr>
-  
-<!--  
-  <tr>
-    <td  >Sample Dup No:<FONT color=RED></FONT> </td><td>
-	   <select size="1" name="sampleDupNo">
-	 <c:forEach items="${numbers}" var="aNumber">
-	     <option value="<c:out value="${aNumber}"/>">
-	     	<c:out value="${aNumber}"/></option>
-	  </c:forEach>
-      </select>
-    </td>
-  </tr>
--->
+			</c:forEach>
+			</td>
+			</tr>
 
-	<tr><td colspan="2">
-	How many labels do you want to print for each sample?&nbsp;&nbsp;
-	<input type="text" name="labelNo">
-	</td></tr>
+			<tr>
+				<td colspan="3">How many labels do you want to print for each
+					sample?&nbsp;&nbsp; <input type="text" name="labelNo">
+				</td>
+			</tr>
 
 
-	<tr><td colspan="2">
-	<input type="submit" name="Submit" value="Print">
- 	<input type="reset" name="Reset" value="Reset">
+			<tr>
+				<td colspan="3"><input type="submit" name="Submit"
+					value="Print"> <input type="reset" name="Reset"
+					value="Reset"></td>
+			</tr>
 
-	</td></tr>
-
-</table>    
-</form> 
-
-</td></tr>
+		</table>
+	</div>
+</form>
+</td>
+</tr>
 </div>
-<%@ include file="/WEB-INF/jsp/includes/foot.jsp" %>
+<%@ include file="/WEB-INF/jsp/includes/foot.jsp"%>
