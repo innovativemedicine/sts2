@@ -41,7 +41,7 @@
         <property name="hibernateProperties">
         <props>
             <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
-			<prop key="hibernate.show_sql">true</prop>
+<!-- 			<prop key="hibernate.show_sql">true</prop> -->
 			<prop key="hibernate.use_outer_join">true</prop>
         </props>
         </property>
@@ -50,6 +50,7 @@
     <!-- Transaction manager for a single Hibernate SessionFactory (alternative to JTA) -->
     <bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
         <property name="sessionFactory"><ref local="sessionFactory"/></property>
+     
     </bean>
     
     
@@ -65,6 +66,7 @@
       <bean name="openSessionInViewInterceptor"  
         class="org.springframework.orm.hibernate3.support.OpenSessionInViewInterceptor">
            <property name="sessionFactory"><ref bean="sessionFactory"/></property>
+           <property name="flushModeName"><value>FLUSH_AUTO</value></property>
       </bean>
 
       <bean id="systemUserManagerTarget" class="agtc.sampletracking.bus.manager.SystemUserManager">
@@ -119,14 +121,15 @@
     <property name="target"><ref bean="sampleManagerTarget"/></property>
     <property name="proxyTargetClass"><value>true</value></property>
     <property name="transactionAttributes">
-      <props>
-	<prop key="save*">PROPAGATION_REQUIRED</prop>
-	<prop key="check*">PROPAGATION_REQUIRED</prop>
-	<prop key="remove*">PROPAGATION_REQUIRED</prop>
-	<prop key="update*">PROPAGATION_REQUIRED</prop>
-      </props>
+	<props>
+		<prop key="save*">PROPAGATION_REQUIRED</prop>
+		<prop key="check*">PROPAGATION_REQUIRED</prop>
+		<prop key="remove*">PROPAGATION_REQUIRED</prop>
+		<prop key="update*">PROPAGATION_REQUIRED</prop>
+	</props>
     </property>
    </bean>
+   
    <bean id="aliasManagerTarget" class="agtc.sampletracking.bus.manager.AliasManager">
 	  <property name="sampleDAO"><ref local="sampleDAO"/></property>
 	  <property name="patientDAO"><ref local="patientDAO"/></property>
@@ -141,15 +144,37 @@
     <property name="target"><ref bean="aliasManagerTarget"/></property>
     <property name="proxyTargetClass"><value>true</value></property>
     <property name="transactionAttributes">
-      <props>
-	<prop key="save*">PROPAGATION_REQUIRED</prop>
-	<prop key="check*">PROPAGATION_REQUIRED</prop>
-	<prop key="remove*">PROPAGATION_REQUIRED</prop>
-	<prop key="update*">PROPAGATION_REQUIRED</prop>
-      </props>
+	<props>
+		<prop key="save*">PROPAGATION_REQUIRED</prop>
+		<prop key="check*">PROPAGATION_REQUIRED</prop>
+		<prop key="remove*">PROPAGATION_REQUIRED</prop>
+		<prop key="update*">PROPAGATION_REQUIRED</prop>
+	</props>
     </property>
    </bean>
    
+     <bean id="barcodeManagerTarget" class="agtc.sampletracking.bus.manager.BarcodeManager">
+ 		<property name="sampleDAO"><ref local="sampleDAO"/></property>
+	  <property name="patientDAO"><ref local="patientDAO"/></property>
+	  <property name="containerDAO"><ref local="containerDAO"/></property>
+	  <property name="sampleTypeDAO"><ref local="sampleTypeDAO"/></property>
+	  <property name="samplesInContainerDAO"><ref local="samplesInContainerDAO"/></property>
+	  </bean>
+          
+  <bean id="barcodeManager" 
+	      class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+	 <property name="transactionManager"><ref bean="transactionManager"/></property>
+	 <property name="target"><ref bean="barcodeManagerTarget"/></property>
+	 <property name="proxyTargetClass"><value>true</value></property>
+	 <property name="transactionAttributes">
+	   <props>
+	     <prop key="save*">PROPAGATION_REQUIRED</prop>
+	     <prop key="check*">PROPAGATION_REQUIRED</prop>
+		 <prop key="remove*">PROPAGATION_REQUIRED</prop>
+		 <prop key="update*">PROPAGATION_REQUIRED</prop>
+	   </props>
+	 </property>
+   </bean>
 
    <bean id="containerManagerTarget" class="agtc.sampletracking.bus.manager.ContainerManager">
 	<property name="containerDAO"><ref local="containerDAO"/></property>
@@ -453,6 +478,7 @@
 			    /index.htm*=ROLE_GUEST,ROLE_USER,ROLE_ADMINISTRATOR
 			    /index.jsp*=ROLE_GUEST,ROLE_USER,ROLE_ADMINISTRATOR
 			    /acelogin.jsp*=ROLE_ANONYMOUS,ROLE_GUEST,ROLE_USER,ROLE_ADMINISTRATOR
+			    /stylesheet.css*=ROLE_ANONYMOUS,ROLE_GUEST,ROLE_USER,ROLE_ADMINISTRATOR
 
 			    /simpleSearchSamples.**=ROLE_GUEST,ROLE_USER,ROLE_ADMINISTRATOR
 			    /simpleSamples.htm*=ROLE_GUEST,ROLE_USER,ROLE_ADMINISTRATOR
@@ -463,6 +489,7 @@
 			    /containerDetails.htm*=ROLE_GUEST,ROLE_USER,ROLE_ADMINISTRATOR
 			    /EditProfile.htm*=ROLE_GUEST,ROLE_USER,ROLE_ADMINISTRATOR
 				/addMultiSamples.htm*=ROLE_GUEST,ROLE_USER,ROLE_ADMINISTRATOR
+				/barcode.htm*=ROLE_GUEST,ROLE_USER,ROLE_ADMINISTRATOR
 			    /admin**=ROLE_ADMINISTRATOR
 				/delete**=ROLE_ADMINISTRATOR
 				/shuffle**=ROLE_ADMINISTRATOR

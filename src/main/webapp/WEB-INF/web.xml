@@ -14,11 +14,30 @@
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>
-  			<!-- /WEB-INF/ApplicationContext_ACEGI_Security.xml-->
+			<!-- /WEB-INF/ApplicationContext_ACEGI_Security.xml -->
 			/WEB-INF/applicationContext.xml
 		</param-value>
 	</context-param>
 
+<!-- 	<filter> -->
+<!-- 		<filter-name>OpenSessionInViewFilter</filter-name> -->
+<!-- 		<filter-class> -->
+<!-- 			org.springframework.orm.hibernate3.support.OpenSessionInViewFilter -->
+<!-- 		</filter-class> -->
+<!-- 		<init-param> -->
+<!-- 			<param-name>sessionFactoryBeanName</param-name> -->
+<!-- 			<param-value>sessionFactory</param-value> -->
+<!-- 		</init-param> -->
+<!-- 		<init-param> -->
+<!-- 			<param-name>singleSession</param-name> -->
+<!-- 			<param-value>true</param-value> -->
+<!-- 		</init-param> -->
+<!-- 		<init-param> -->
+<!-- 			<param-name> flushMode </param-name> -->
+<!-- 			<param-value>AUTO </param-value> -->
+<!-- 		</init-param> -->
+<!-- 	</filter>  -->
+	    
 <!-- Web Application Security configuration with ACEGI 
 			Jianan Xiao 2005-09-23
 			******BEGIN********

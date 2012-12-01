@@ -18,6 +18,7 @@
     	 search controllers
     	 -->
                 <prop key="/samples.htm">samplesSearchController</prop>
+                <prop key="/barcode.htm">barcodeController</prop>
                 <prop key="/simpleSamples.htm">simpleSamplesSearchController</prop>
                 <prop key="/aliasSamples.htm">aliasSamplesSearchController</prop>
 				<prop key="/containers.htm">containersSearchController</prop>
@@ -135,6 +136,16 @@
      	<property name="searchFields"><ref bean="sampleSearchFields"/></property>
     	<property name="operatorList"><ref bean="operatorList"/></property>
    </bean>
+   
+   <bean id="barcodeController" class="agtc.sampletracking.web.controller.BarcodeController">
+		<property name="sessionForm"><value>true</value></property>
+		<property name="requireSession"><value>true</value></property>
+		<property name="formView"><value>barcode</value></property>
+		<property name="successView"><value>projectDetails.htm</value></property>
+	 	<property name="barcodeManager"><ref bean="barcodeManager"/></property>
+	 	<property name="projectManager"><ref bean="projectManager"/></property>
+	 	<property name="sampleManager"><ref bean="sampleManager"/></property>
+   </bean>
 
 	<!-- Added by Jianan Xiao 2005-09-12 -->
     <bean id="simpleSamplesSearchController" class="agtc.sampletracking.web.controller.SimpleSampleSearchController">
@@ -230,15 +241,6 @@
 		<property name="successView"><value>patientDetails.htm</value></property>
 		<property name="sampleManager"><ref bean="sampleManager"/></property>
    </bean>
-
-<!--     <bean id="numMultiSamplesController" class="agtc.sampletracking.web.controller.SearchPatientController"> -->
-<!-- 		<property name="sessionForm"><value>true</value></property> -->
-<!-- 		<property name="requireSession"><value>true</value></property> -->
-<!--        	<property name="formView"><value>numMultiSamples</value></property> -->
-<!-- 		<property name="successView"><value>addMultiSamples.htm</value></property> -->
-<!-- 		<property name="sampleManager"><ref bean="sampleManager"/></property> -->
-<!--    </bean> -->
-
 
 	<!--
     	 edit controllers in order of sample, container, project, test, assay, run, result, management
