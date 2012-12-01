@@ -2,7 +2,7 @@
  
 
 <tr><td>
-<h2>Edit /New Instrument</h2>
+<h2>Edit Instruments</h2>
     
     <form method="post" action="instrument.htm" >
           

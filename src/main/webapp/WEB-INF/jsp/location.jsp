@@ -2,7 +2,7 @@
 
 <tr>
 	<td>
-		<h2>Edit /New Location</h2>
+		<h2>Edit Locations</h2>
 
 		<form method="post" action="location.htm">
 			<table class="details">

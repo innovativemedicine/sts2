@@ -1,8 +1,6 @@
 <%@ include file="/WEB-INF/jsp/includes/head.jsp" %>
  
-
-<tr><td>
-<p><h2>Edit /New Investigator</h2></p>
+<h2>Edit Investigators</h2>
     
     <form method="post" action="investigator.htm" >
        
@@ -72,6 +70,5 @@
     </c:forEach>
    
   </table>
- 
-</td></tr>
+
 <%@ include file="/WEB-INF/jsp/includes/foot.jsp" %>

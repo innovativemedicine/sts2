@@ -3,7 +3,7 @@
         
 <%@ taglib prefix="spring" uri="/WEB-INF/spring.tld" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>       
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt"%>
 
 <html>
   <head>
@@ -11,8 +11,10 @@
       Sample Tracking System v2
     </title>
     
-    <script type="text/javascript" src="js/formBuilder.js"></script>
-   	<link type="text/css" rel="stylesheet" href="css/menu.css">
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js" defer></script>
+    <script type="text/javascript" src="js/myJs.js" defer></script>
+
+    
    	<link type="text/css" rel="stylesheet" href="css/stylesheet.css">
 	<fmt:setBundle basename="agtc.sampletracking.web.MessageBundle"></fmt:setBundle>
 	 
@@ -23,7 +25,14 @@
           <h1>
             Sample Tracking System
           </h1>
+    
+<%--            <c:if test="${fn:contains(header['User-Agent'],'MSIE')}">MSIE</c:if> --%>
+<%--            <c:if test="${fn:contains(header['User-Agent'],'Chrome')}">Chrome</c:if> --%>
+          
+		  <c:out value="${browser}"></c:out>
 		<%@ include file="/WEB-INF/jsp/includes/menu.html" %>
 	</div>
+	
+	
 	
     <div class="content">
