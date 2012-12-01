@@ -26,45 +26,55 @@ public class BarcodeManager {
 	private PatientDAO patientDAO;
 	private SamplesInContainerDAO samplesInContainerDAO;
 	private SampleTypeDAO sampleTypeDAO;
-	
-	public String processBarcode(BarcodeCommand barcodeItem){
-		String barcodeString = barcodeItem.toString();
-		System.out.println(barcodeString);
-		boolean isSample = false;
-		boolean isContainer = false;
 		
-		if(barcodeString.matches("[a-zA-Z]+\\d+-[A-Z]+-\\d+")){
-			isSample=true;
-			System.out.println("Is a Sample. Not a Box");
-		}
+	public Sample getSample(String sampleId, String sampleTypeSuffix, Integer sampleDupNo)
+	{
+		return sampleDAO.getSample(sampleId, sampleTypeSuffix, sampleDupNo);
+	}
+	public Container getContainer(String containerName) {
+		return containerDAO.getContainer(containerName);
+	}
+	
+	public Sample addSample(String sampleId, String sampleTypeSuffix, Integer sampleDupNo)
+	{
+		Sample newSample = new Sample();
+			
+		SampleType st = sampleTypeDAO.getSampleTypeBySuffix(sampleTypeSuffix);
+
+		if (st == null) {
+//			return "Error(Unrecognized sample type):";
+			return null;
+		} 
 		else {
-			if(containerDAO.getContainer(barcodeString) == null) {
-				System.out.println("Not a Box. Not a Sample");	
+			newSample.setSampleType(st);
+			newSample.setSampleDupNo(sampleDupNo);
+			
+			Patient patient = new Patient();
+			
+			if(patientDAO.containsPatient(sampleId)){
+				System.out.println("Old patient");
+				patient = patientDAO.getPatient(sampleId);
+				newSample.setPatient(patient);
+				System.out.println("Patient" + patient);
+				System.out.println("Sample Type" + st);
+				System.out.println("dupNo" + sampleDupNo);
+		
+//				try {
+//					this.saveSample(newSample);
+//				} catch (Exception e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
 			}
 			else
 			{
-				System.out.println("Is a Box. Not a Sample.");
-			}			
+				System.out.println("New patient");
+//				patient.setIntSampleId(sampleId);
+//				patientDAO.savePatient(patient);
+			}
 		}
-
-		return "String";
-	}
-	
-	public Sample getSample(Integer sampleId){
-		return sampleDAO.getSample(sampleId);
-	}
-	
-	public Sample getSample(String intSampleId,String sampleTypeSuffix,Integer dupNo){
-		SampleType sampleType = sampleTypeDAO.getSampleTypeBySuffix(sampleTypeSuffix);
-		Sample sample = sampleDAO.getSampleByIntSampleIdUniKey(intSampleId,sampleType,dupNo);
-		return sample;
-	}
-	public void saveSamplesInContainerList(List samplesInContainers){
-		for(int i=0;i<samplesInContainers.size();i++){
-			SamplesInContainer sic = (SamplesInContainer)samplesInContainers.get(i);
-			saveSamplesInContainer(sic);
-			log.debug("have saved one samplesInContainer!");
-		}
+//			return "AddSample:";
+			return newSample;
 	}
 	
 	public List searchSampleBySampleIntIdList(List sampleIds,String sampleTypeSuffix){
@@ -112,12 +122,10 @@ public class BarcodeManager {
 		sics.clear();
 	}
 
-	
 	public void saveSample(Sample sample) throws Exception{
-		//log.debug("sampleType is " + sample.getSampleType().getName());
-		//log.debug("sampleId is "+ sample.getSampleId());
-		//log.debug("intSampelId is " + sample.getPatient().getIntSampleId());
-		//log.debug("sample dup No is "+sample.getSampleDupNo());
+
+		System.out.println("Saving Sample Now!");
+
 		if(sample.getSampleId().intValue()==-1){
 			
 			Patient patient = sample.getPatient();
@@ -135,14 +143,6 @@ public class BarcodeManager {
 		sampleDAO.saveSample(sample);	
 		
 		log.debug("end of save sample");
-	}
-	
-	public Patient getPatient(String intSampleId){
-		return patientDAO.getPatient(intSampleId);
-	}
-	
-	public void updatePatient(Patient patient){
-		patientDAO.updatePatient(patient);
 	}
 	
 	/**
@@ -372,64 +372,78 @@ public class BarcodeManager {
 		
 	}
 	
-	public List getSamplesInContainersInBySample(Integer sampleId){
-		return samplesInContainerDAO.getSamplesInContainersInBySample(sampleId);
-	}
-
-	public void removeSamplesInContainer(Integer sicId){
-		samplesInContainerDAO.removeSamplesInContainer(sicId);
-	}
-	
-	public void saveSamplesInContainer(SamplesInContainer sic){
-		samplesInContainerDAO.saveSamplesInContainer(sic);
-	}
-	
-	public void removeSamplesInContainerByContainer(Integer containerId){
-		samplesInContainerDAO.removeSamplesInContainersByContainer(containerId);
-	}
-	
-	public SamplesInContainer getSamplesInContainer(Integer sicId){
-		return samplesInContainerDAO.getSamplesInContainer(sicId);
-	}
-	
+	/**
+	 * @return
+	 */
 	public SampleDAO getSampleDAO() {
 		return sampleDAO;
 	}
 
+	/**
+	 * @param sampleDAO
+	 */
 	public void setSampleDAO(SampleDAO sampleDAO) {
 		this.sampleDAO = sampleDAO;
 	}
 
+	
+
+	/**
+	 * @return
+	 */
 	public ContainerDAO getContainerDAO() {
 		return containerDAO;
 	}
 
+	/**
+	 * @param containerDAO
+	 */
 	public void setContainerDAO(ContainerDAO containerDAO) {
 		this.containerDAO = containerDAO;
 	}
+	
 
+
+	/**
+	 * @return Returns the samplesInContainerDAO.
+	 */
 	public SamplesInContainerDAO getSamplesInContainerDAO() {
 		return samplesInContainerDAO;
 	}
-
+	/**
+	 * @param samplesInContainerDAO The samplesInContainerDAO to set.
+	 */
 	public void setSamplesInContainerDAO(
 			SamplesInContainerDAO samplesInContainerDAO) {
 		this.samplesInContainerDAO = samplesInContainerDAO;
 	}
 	
+	
+	/**
+	 * @return Returns the patientDAO.
+	 */
 	public PatientDAO getPatientDAO() {
 		return patientDAO;
 	}
-
+	/**
+	 * @param patientDAO The patientDAO to set.
+	 */
 	public void setPatientDAO(PatientDAO patientDAO) {
 		this.patientDAO = patientDAO;
 	}
-
+	
+	
+	/**
+	 * @return Returns the sampleTypeDAO.
+	 */
 	public SampleTypeDAO getSampleTypeDAO() {
 		return sampleTypeDAO;
 	}
-
+	/**
+	 * @param sampleTypeDAO The sampleTypeDAO to set.
+	 */
 	public void setSampleTypeDAO(SampleTypeDAO sampleTypeDAO) {
 		this.sampleTypeDAO = sampleTypeDAO;
 	}
 }
+	
