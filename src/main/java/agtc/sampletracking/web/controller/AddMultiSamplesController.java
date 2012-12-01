@@ -176,8 +176,6 @@ public class AddMultiSamplesController extends BasicController {
 		containerManager = manager;
 	}
 	
-	
-
 	/**
 	 * @return Returns the agtcManager.
 	 */
