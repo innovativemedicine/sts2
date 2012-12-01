@@ -48,7 +48,16 @@ public class ContainerDAOHbImpl
 	}
 	
 	public Container getContainer(String name) {
-		return (Container)(getHibernateTemplate().find("from Container c where c.name=?",name).get(0));
+		List result = getHibernateTemplate().find("from Container c where c.name=?",name);
+		
+		if (result.isEmpty())
+		{
+			return null;
+		}
+		else
+		{
+			return (Container)result.get(0);
+		}
 	}
 
 	/* (non-Javadoc)

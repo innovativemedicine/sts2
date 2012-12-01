@@ -6,6 +6,8 @@
  */
 package agtc.sampletracking.dao.hibernate;
 
+import java.util.List;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
@@ -13,6 +15,7 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import agtc.sampletracking.dao.PatientDAO;
 import agtc.sampletracking.model.Assay;
 import agtc.sampletracking.model.Patient;
+import agtc.sampletracking.model.SampleType;
 
 /**
  * @author Hongjing
@@ -22,9 +25,17 @@ import agtc.sampletracking.model.Patient;
  */
 public class PatientDAOHbImpl extends HibernateDaoSupport implements PatientDAO {
 	private Log log = LogFactory.getLog(PatientDAOHbImpl.class);
+	
 	public Patient getPatient(String intSampleId){
 		intSampleId = intSampleId.toUpperCase();
-		return (Patient)(getHibernateTemplate().get(Patient.class,intSampleId));
+		List results = getHibernateTemplate().find("select s from Patient s where s.intSampleId='"+intSampleId+"'");
+		if(results.size()>0){
+			return (Patient)results.get(0);
+		}else{
+			return null;
+		}
+		
+		
 	}
 	public boolean containsPatient(String intSampleId){
 		intSampleId = intSampleId.toUpperCase();
