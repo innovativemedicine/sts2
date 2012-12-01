@@ -15,13 +15,13 @@
     	<a class="button"
     		href="<c:url value="/runDetails.htm"><c:param name="runId" value="${run.runId}"/></c:url>">
     		<span>Details</span>
-    	</a>&nbsp;
+    	</a>
     	</td>
-    	<td><c:out value="${run.project.name}"/>&nbsp;</td>
-    	<td><c:out value="${run.runDate}"/>&nbsp;</td>
-    	<td><c:out value="${run.testNameList}"/>&nbsp;</td>
-		<td><c:out value="${run.plateNameList}"/>&nbsp;</td>
-		<td><c:out value="${run.note}"/>&nbsp;</td>
+    	<td><c:out value="${run.project.name}"/></td>
+    	<td style="width: 90px"><fmt:formatDate pattern="yyyy-MM-dd" value="${run.runDate}"/></td>
+    	<td><c:out value="${run.testNameList}"/></td>
+		<td><c:out value="${run.plateNameList}"/></td>
+		<td><c:out value="${run.note}"/></td>
     </tr>
     </c:forEach>
    
