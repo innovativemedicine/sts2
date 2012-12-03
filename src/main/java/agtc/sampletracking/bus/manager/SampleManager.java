@@ -55,8 +55,7 @@ public class SampleManager {
 	}
 	
 	public Sample getSample(String intSampleId,String sampleTypeSuffix,Integer dupNo){
-		SampleType sampleType = sampleTypeDAO.getSampleTypeBySuffix(sampleTypeSuffix);
-		Sample sample = sampleDAO.getSampleByIntSampleIdUniKey(intSampleId,sampleType,dupNo);
+		Sample sample = sampleDAO.getSample(intSampleId,sampleTypeSuffix,dupNo);
 		return sample;
 	}
 	public void saveSamplesInContainerList(List samplesInContainers){
@@ -113,14 +112,14 @@ public class SampleManager {
 		
 	}
 
+	public Container getContainer(String containerName) {
+		return containerDAO.getContainer(containerName);
+	}
 	
 	public void saveSample(Sample sample) throws Exception{
-		System.out.println("Entering save");
-		System.out.println(sample.getPatient().getIntSampleId());
 		if(sample.getSampleId().intValue()==-1){
 			
 			Patient patient = sample.getPatient();
-			log.debug("internalId is "+patient.getIntSampleId());
 			if(!patientDAO.containsPatient(patient.getIntSampleId())){
 				patientDAO.savePatient(patient);
 			}
@@ -129,14 +128,10 @@ public class SampleManager {
 			}
 			sample.setPatient(patient);	
 		}
-		System.out.println(sample.getPatient().getIntSampleId());
 		List<Sample> existingSample = (List<Sample>) sampleDAO.getSampleByIntSampleIdSampleType(sample.getPatient().getIntSampleId(),sample.getSampleType());
-		System.out.println("Fetched Existing Samples");
 
 		if(existingSample != null) {
 			sample.setSampleDupNo(existingSample.size()+1);
-			System.out.println(existingSample.size());
-			System.out.println("Existing sample before");
 		}
 	
 		if(sample.getStatus() == null) {
@@ -146,6 +141,71 @@ public class SampleManager {
 		sampleDAO.saveSample(sample);	
 		
 		log.debug("end of save sample");
+	}
+	
+	public void updateSampleStatus(Sample sample, String sampleStatus) throws Exception{
+		sample.setStatus(sampleStatus);
+		sampleDAO.saveSample(sample);	
+	}
+	
+	public Container storeSampleInContainer(Container container, Sample sample) throws Exception{
+		
+		// Instantiate new SIC
+		SamplesInContainer samplesInContainer = new SamplesInContainer();
+		samplesInContainer.setSicId(new Integer(-1));
+		// Set container to SIC
+		samplesInContainer.setContainer(container);
+
+		// Set well to SIC. Look for empty wells??
+		ContainerType ct = container.getContainerType();
+		
+		Integer maxCol = ct.getColumnNo();
+		Integer maxRow = ct.getRowNo();
+		
+		Integer containerId = container.getContainerId();
+		List wells = samplesInContainerDAO.getWellsInContainersByContainer(containerId);
+
+		// Set operation to SIC
+		samplesInContainer.setOperation("I");
+		samplesInContainer.setOperationDate(new Date());
+
+		// Add Sample to SIC
+		Integer sampleId = sample.getSampleId();
+		
+		if(samplesInContainerDAO.containsSample(sampleId))
+		{
+			throw new Exception("<b>Error</b>(Sample already exists in container):");
+		}
+		else
+		{
+			samplesInContainer.setSample(sample);
+		}
+		
+		// Set well
+		for(int r = 1; r <= maxRow; r++)
+		{
+			int rowASCII = r + 64;
+			char rowLabel = (char) rowASCII;
+			
+			for(int c = 1; c <= maxCol; c++)
+			{				
+				String wellLabel = rowLabel + String.valueOf(c);
+				if(!wells.contains(wellLabel))
+				{
+					samplesInContainer.setWell(wellLabel);
+					
+					// Add SIC into a set and save. 
+					Set sics = new HashSet();
+					sics.add(samplesInContainer);
+					container.setSamplesInContainers(sics);
+					
+					return container;
+				}
+			}
+		}
+		
+		// Return null - Container is full
+		throw new Exception("<b>Error</b>(Container is full):");
 	}
 	
 	public void saveSamples(List samples) throws Exception{
@@ -247,6 +307,7 @@ public class SampleManager {
 			}	
 		}
 		
+		//Row = alphabet, Col = numbers. If, Box + Row + Col = null, then add.
 		if(result.length()==0){
 			i = samples.iterator();
 			while(i.hasNext()){
