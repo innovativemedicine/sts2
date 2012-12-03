@@ -4,7 +4,7 @@
     </tr>
     <c:forEach items="${actionedList}" var="actioned">
     <tr> 
-    	<td><input type="checkbox"><c:out value="${actioned}"/></td>        
+    	<td><input type="checkbox"><c:out value="${actioned}" escapeXml="false"/></td>        
     </tr>
     </c:forEach>
    
