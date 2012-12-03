@@ -12,6 +12,7 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 import agtc.sampletracking.dao.SamplesInContainerDAO;
 import agtc.sampletracking.model.Assay;
+import agtc.sampletracking.model.Container;
 import agtc.sampletracking.model.SamplesInContainer;
 import org.hibernate.type.*;
 
@@ -50,8 +51,28 @@ public class SamplesInContainerDAOHbImpl extends HibernateDaoSupport implements
 		return getHibernateTemplate().find("from SamplesInContainer s where s.container.containerId="+containerId);
 	}
 	
+
+	public List getWellsInContainersByContainer(Integer containerId) {
+		String query = "select s.well from SamplesInContainer s where s.container.containerId=?";
+		List results = getHibernateTemplate().find(query, containerId);
+		
+		return results;
+	}
+	
 	public List getSamplesInContainersInBySample(Integer sampleId){
 		return getHibernateTemplate().find("from SamplesInContainer s where s.operation='I' and s.sample.sampleId="+sampleId);
+	}
+	
+	public boolean containsSample(Integer sampleId){
+		List results = getHibernateTemplate().find("from SamplesInContainer s where s.operation='I' and s.sample.sampleId="+sampleId);
+		if (results.isEmpty())
+		{
+			return false;
+		}
+		else
+		{
+			return true;
+		}
 	}
 	
 	public void removeSamplesInContainersByContainer(Integer containerId){
