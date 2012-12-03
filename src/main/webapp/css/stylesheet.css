@@ -2,22 +2,22 @@ input.barcodeAdd {
 	display: none;
 }
 
+span.heading {
+	style="font-size: 24pt; font-variant: small-caps; font-family: HelveticaNeue-Light; color: #5A5A5A; 
+}
+
 /* Div CSS */
 
 div.header {
-	width: 900px;
-	align: center;
-	text-align: center;
+	width: 900px; align: center; text-align: center;
 }
 
 div.content {
-	width: 900px;
-	margin-left: 10px;
+	width: 900px; margin-left: 10px;
 }
 
 div.left {
-	float: left;
-	margin-right: 30px;
+	float: left; margin-right: 30px;
 }
 
 div.clear {
@@ -27,9 +27,7 @@ div.clear {
 /* Table CSS */
 
 table {
-    cellspacing:5;
-    padding:5;
-	border:2;
+    cellspacing:5; padding:5; border:2;
 	border-collapse: collapse:separate;
 
 	-moz-box-shadow: 0 0 2px #3A66A7;
@@ -51,9 +49,7 @@ table td{
 }
 
 table.searchCriteria{
-    height: 120px; 
-    min-width: 300px;
-  
+    height: 120px; min-width: 300px;  
 }
 
 table.searchCriteria td{
