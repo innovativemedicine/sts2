@@ -27,55 +27,7 @@ public class BarcodeManager {
 	private SamplesInContainerDAO samplesInContainerDAO;
 	private SampleTypeDAO sampleTypeDAO;
 		
-	public Sample getSample(String sampleId, String sampleTypeSuffix, Integer sampleDupNo)
-	{
-		return sampleDAO.getSample(sampleId, sampleTypeSuffix, sampleDupNo);
-	}
-	public Container getContainer(String containerName) {
-		return containerDAO.getContainer(containerName);
-	}
 	
-	public Sample addSample(String sampleId, String sampleTypeSuffix, Integer sampleDupNo)
-	{
-		Sample newSample = new Sample();
-			
-		SampleType st = sampleTypeDAO.getSampleTypeBySuffix(sampleTypeSuffix);
-
-		if (st == null) {
-//			return "Error(Unrecognized sample type):";
-			return null;
-		} 
-		else {
-			newSample.setSampleType(st);
-			newSample.setSampleDupNo(sampleDupNo);
-			
-			Patient patient = new Patient();
-			
-			if(patientDAO.containsPatient(sampleId)){
-				System.out.println("Old patient");
-				patient = patientDAO.getPatient(sampleId);
-				newSample.setPatient(patient);
-				System.out.println("Patient" + patient);
-				System.out.println("Sample Type" + st);
-				System.out.println("dupNo" + sampleDupNo);
-		
-//				try {
-//					this.saveSample(newSample);
-//				} catch (Exception e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
-			}
-			else
-			{
-				System.out.println("New patient");
-//				patient.setIntSampleId(sampleId);
-//				patientDAO.savePatient(patient);
-			}
-		}
-//			return "AddSample:";
-			return newSample;
-	}
 	
 	public List searchSampleBySampleIntIdList(List sampleIds,String sampleTypeSuffix){
 		List results = new ArrayList();
