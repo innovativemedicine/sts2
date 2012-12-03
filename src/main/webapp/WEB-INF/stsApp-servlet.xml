@@ -142,9 +142,10 @@
 		<property name="requireSession"><value>true</value></property>
 		<property name="formView"><value>barcode</value></property>
 		<property name="successView"><value>projectDetails.htm</value></property>
-	 	<property name="barcodeManager"><ref bean="barcodeManager"/></property>
+	 	<property name="agtcManager"><ref bean="agtcManager"/></property>
 	 	<property name="projectManager"><ref bean="projectManager"/></property>
 	 	<property name="sampleManager"><ref bean="sampleManager"/></property>
+	 	<property name="containerManager"><ref bean="containerManager"/></property>
    </bean>
 
 	<!-- Added by Jianan Xiao 2005-09-12 -->
