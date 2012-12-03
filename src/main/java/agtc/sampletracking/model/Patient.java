@@ -26,6 +26,15 @@ public class Patient implements Serializable{
      private String extSampleId;
      private Project project;
      private String anotherExtSampleId;
+   
+     public Patient()
+     {
+     }
+     
+     public Patient(String sampleID)
+     {
+    	 intSampleId = sampleID;
+     }
      
      /**
 	 * @return Returns the project.
