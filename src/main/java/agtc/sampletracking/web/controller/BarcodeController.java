@@ -22,10 +22,11 @@ import agtc.sampletracking.bus.manager.*;
 import org.springframework.validation.BindException;
 
 public class BarcodeController extends BasicController {
-	private BarcodeManager barcodeManager;
 	private ProjectManager projectManager;
 	private SampleManager sampleManager;
-
+	private AGTCManager agtcManager;
+	private ContainerManager containerManager;
+	
 	private Log log = LogFactory.getLog(BarcodeController.class);
 
 	public BarcodeController(){
@@ -56,73 +57,159 @@ public class BarcodeController extends BasicController {
 			String sampleId = bcArray[1];
 			String sampleTypeSuffix = bcArray[2];
 			Integer sampleDupNo = Integer.parseInt(bcArray[3]);
-
-			Sample sample = barcodeManager.getSample(sampleId,
-					sampleTypeSuffix, sampleDupNo);
+			
+			Sample sample = sampleManager.getSample(sampleId, sampleTypeSuffix, sampleDupNo);
 			if (sample == null) {
-//				response += barcodeManager.addSample(sampleId, sampleTypeSuffix,
-//						sampleDupNo);
-				sample = barcodeManager.addSample(sampleId,  sampleTypeSuffix,  sampleDupNo);
-
-				System.out.println("Patient2" + sample.getPatient().getIntSampleId());
-				System.out.println("Sample Type2" + sample.getSampleType());
-				System.out.println("dupNo2" + sample.getSampleDupNo());
+				response += addSampleFromBarcode(sampleId,  sampleTypeSuffix,  sampleDupNo);
 				
-				try {
-					sampleManager.saveSample(sample);
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			} else {
-				if (sample.getStatus() != null) {
-					if (sample.getStatus().equalsIgnoreCase("stored")) {
-						response += "RemoveSample:";
-					} else if (sample.getStatus()
-							.equalsIgnoreCase("registered")) {
-						if (storeContainer.isEmpty()) {
-							response += "ReceiveSample:";
-						} else {
-							response += "StoreSample(";
-							response += storeContainer;
-							response += ")";
-							response += ":";
-						}
-					}
-				}
-				else{
-					response += "UpdateSampleStatus:";
-				}
+			} 
+			else {
+				// Update sample status and sample location
+				response += updateSampleFromBarcode(sample, storeContainer);
 			}
+			
+			response += sampleId;
+			response += sampleTypeSuffix;
+			response += sampleDupNo;
 		}
 			else if(barcodeString.matches("C-\\w+")) {
 				
 				String[] bcArray = barcodeString.split("-");
 				String containerName = bcArray[1];
-				Container container = barcodeManager.getContainer(containerName);
+				Container container = containerManager.getContainer(containerName);
 				
 				if(container == null) {
-					response += "AddContainer:";	
+					response += "<b>Error</b>(Contained does not exist in database):";
+					//To make this work properly, need to open a add Container form and disable barcodes until form is filled.
+				}
+				else if(containerName.equalsIgnoreCase(storeContainer))
+				{
+					response += "<b>FinishedStoreToContainer</b>:";
 				}
 				else
 				{
-					response += "StoreContainer:";
-				}			
+					response += "<b>StoreToContainer</b>:";
+				}
+				
+				response += containerName;
 			}
 			else
 			{
-				response += "Error(Unrecognized barcode format):";
+				response += "<b>Error(Unrecognized barcode format)</b>:";
+				response += barcodeString;
 			}
-
-			response += barcodeString;
 
 			return response;
 	 }
+	 
+	 protected String addContainerFromBarcode(String containerName)
+		{
+		 	//containerManager.saveContainer(containerObject);
+		 	return "<b>AddedContainer</b>:";
+		}
 
+	protected String updateSampleFromBarcode(Sample sample, String storeContainer) {
+		String response = "<b>" + sample.getStatus() + "Sample</b>:";
+		String sampleStatus = sample.getStatus(); // Default is unchanged
+
+		// Do we allow sample to be scanned without an associated container??
+		if (storeContainer.isEmpty()) {
+			if (sampleStatus.equalsIgnoreCase("registered")) {
+				response = "<b>ReceivedSample:</b>";
+				sampleStatus = "Received";
+			} else if (sampleStatus.equalsIgnoreCase("stored")) {
+				
+				// Retrieving Sample by removing sample from SIC table
+				List sics = sampleManager.getSamplesInContainersInBySample(sample.getSampleId());
+				SamplesInContainer sic = (SamplesInContainer) sics.get(0);
+				sampleManager.removeSamplesInContainer(sic.getSicId());
+				
+				response = "<b>RetrievedSample:</b>";
+				sampleStatus = "Retrieved";
+			}
+		} else { // Container scanned. Save Samples in Container
+			
+			Container container = containerManager.getContainer(storeContainer);
+			
+			try {
+				container = sampleManager.storeSampleInContainer(container,
+						sample);
+			} catch (Exception e1) {
+				response = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + e1.getMessage();
+				e1.printStackTrace();
+				return response;
+			}
+
+			try {
+				containerManager.saveContainer(container);
+
+				response = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>StoredSample</b>(";
+				response += storeContainer;
+				response += ")";
+				response += ":";
+				sampleStatus = "Stored";
+
+			} catch (Exception e) {
+				response = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Error</b>(Can't store sample)";
+				e.printStackTrace();
+			}
+		}
+
+		// Special case to deal with legacy samples with no status.
+		if (sample.getStatus() == null) {
+			sampleStatus = "Registered";
+			response = "<b>RegisteredSample:</b>";
+		}
+		
+		// Update Sample Status
+		try {
+			sampleManager.updateSampleStatus(sample, sampleStatus);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			response = "<b>Error</b>(Failed to update sample):";
+		}
+		
+		return response;
+	}
+
+	 protected String addSampleFromBarcode(String sampleId, String sampleTypeSuffix, Integer sampleDupNo)
+		{
+		 	String response = "";
+		 	
+			Sample newSample = new Sample();
+				
+			SampleType st = agtcManager.getSampleTypeBySuffix(sampleTypeSuffix);
+
+			if (st == null) {
+				response = "<b>Error</b>(Unrecognized sample type):";
+			} 
+			else {
+				newSample.setSampleType(st);
+				newSample.setSampleDupNo(sampleDupNo);
+				
+				Patient patient = new Patient(sampleId);
+				newSample.setPatient(patient);
+				
+				try {
+					sampleManager.saveSample(newSample);
+					response = "<b>AddedSample</b<:";
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					response = "<b>Error</b>(Failed to save sample):";
+					e.printStackTrace();
+				}
+				// Activate if we want to prompt user to fill in patient info
+//				patient = sampleManager.getPatient(sampleId);
+//				if(patient != null){
+//					response += "AddPatientAndSample:";
+//				}
+			}
+				return response;
+		}
+	 
 	protected void handleSubmit(HttpServletRequest request, Object command, Map model) {
 		BarcodeCommand barcodeItem = (BarcodeCommand) command;
 		
-//		System.out.println(barcodeItem.getBarcodeItem());
 		List actionList = (List) WebUtils.getOrCreateSessionAttribute(request.getSession(), "actionedList", ArrayList.class);
 		String storeContainer = (String) WebUtils.getOrCreateSessionAttribute(request.getSession(), "storeContainer", String.class);
 
@@ -134,9 +221,13 @@ public class BarcodeController extends BasicController {
 		else if (action.equals("ADD")) {
 			String barcodeResponse = processBarcode(barcodeItem, storeContainer);
 			
-			if(barcodeResponse.startsWith("StoreContainer:"))
+			if(barcodeResponse.startsWith("<b>StoreToContainer</b>:"))
 			{
 				storeContainer = barcodeResponse.split(":")[1];
+			} 
+			else if(barcodeResponse.startsWith("<b>FinishedStoreToContainer</b>:"))
+			{
+				storeContainer = new String();
 			}
 			// Change to barcodeResponse later
 			actionList.add(barcodeResponse);
@@ -148,7 +239,6 @@ public class BarcodeController extends BasicController {
 
 		WebUtils.setSessionAttribute(request, "actionedList", actionList);
 		WebUtils.setSessionAttribute(request, "storeContainer", storeContainer);
-		System.out.println(storeContainer);
 		
 		return;
 	}
@@ -169,14 +259,6 @@ public class BarcodeController extends BasicController {
 
 		return models;
 	}
-
-	public BarcodeManager getBarcodeManager() {
-		return barcodeManager;
-	}
-
-	public void setBarcodeManager(BarcodeManager manager) {
-		barcodeManager = manager;
-	}
 	
 	public ProjectManager getProjectManager() {
 		return projectManager;
@@ -194,5 +276,20 @@ public class BarcodeController extends BasicController {
 		sampleManager = manager;
 	}
 
+	public AGTCManager getAgtcManager() {
+		return agtcManager;
+	}
+
+	public void setAgtcManager(AGTCManager manager) {
+		agtcManager = manager;
+	}
+
+	public ContainerManager getContainerManager() {
+		return containerManager;
+	}
+
+	public void setContainerManager(ContainerManager manager) {
+		containerManager = manager;
+	}
 
 }
