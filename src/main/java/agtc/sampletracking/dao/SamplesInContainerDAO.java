@@ -22,5 +22,7 @@ public interface SamplesInContainerDAO {
 	public void removeSamplesInContainer(Integer sicId);
 	public List getSamplesInContainersByContainer(Integer containerId); 
 	public List getSamplesInContainersInBySample(Integer sampleId);
+	public List getWellsInContainersByContainer(Integer containerId);
+	public boolean containsSample(Integer sampleId);
 	public void removeSamplesInContainersByContainer(Integer containerId); 
 }
