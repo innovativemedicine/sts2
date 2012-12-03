@@ -1,6 +1,7 @@
 <%@ include file="/WEB-INF/jsp/includes/head.jsp"%>
 <%@ include file="/WEB-INF/jsp/includes/errorMessage.jsp"%>
 
+<h2>Print Labels</h2>
 <form method="post" enctype="multipart/form-data">
 	<div class="left">
 		<table class="details">
@@ -15,6 +16,19 @@
    </TEXTAREA>
 				</td>
 			</tr>
+			
+					<tr>
+				<td colspan="3">How many labels to print for each
+					sample? <input type="text" name="labelNo" size="5">
+				</td>
+			</tr>
+			
+			<tr>
+				<td><input type="submit" name="Submit"
+					value="Print"> <input type="reset" name="Reset"
+					value="Reset"></td>
+			</tr>
+
 		</table>
 	</div>
 	<div>
@@ -22,33 +36,27 @@
 			<tr>
 				<th colspan="3"><b>Filter Search by Sample Types</b></th>
 			</tr>
-			<c:forEach items="${availableSampleTypes}" var="sampleType" varStatus="row">
-						<c:if test="${row.count % 3 eq 1}">
-							<tr>
-						</c:if>
-						<td><input type="checkbox"
-							name="<c:out value="${sampleType.suffix}"/>"> <c:out
-								value="${sampleType.name}" /></td>
-						<c:if test="${row.count % 3 eq 0}">
-						</tr>
-			</c:if>
+			<c:forEach items="${availableSampleTypes}" var="sampleType"
+				varStatus="row">
+				<c:if test="${row.count % 3 eq 1}">
+					<tr>
+				</c:if>
+				<td style="font-size: 10pt"><input type="checkbox"
+					name="<c:out value="${sampleType.suffix}"/>"> 
+					<c:out value="${sampleType.name}" />
+				</td>
+				<c:if test="${row.count % 3 eq 0}">
+					</tr>
+				</c:if>
 
 			</c:forEach>
 			</td>
 			</tr>
 
-			<tr>
-				<td colspan="3">How many labels do you want to print for each
-					sample?&nbsp;&nbsp; <input type="text" name="labelNo">
-				</td>
-			</tr>
+	
 
 
-			<tr>
-				<td colspan="3"><input type="submit" name="Submit"
-					value="Print"> <input type="reset" name="Reset"
-					value="Reset"></td>
-			</tr>
+
 
 		</table>
 	</div>

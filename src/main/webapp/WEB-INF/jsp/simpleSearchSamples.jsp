@@ -48,14 +48,14 @@
 				<th colspan="3"><b>Filter Search by Sample Types</b></th>
 			</tr>
 			<tr>
-				<td colspan="3">(If none are selected, all sample types will be
-					retrieved.</td>
+				<td colspan="3" style="font-size: 10pt">(If none are selected, all sample types will be
+					retrieved.)</td>
 			</tr>
 			<c:forEach items="${LSampleTypes}" var="container" varStatus="row">
 				<c:if test="${row.count % 3 eq 1}">
 					<tr>
 				</c:if>
-				<td><input type="checkbox" name="sampleTypes"
+				<td style="font-size: 10pt"><input type="checkbox" name="sampleTypes"
 					value="<c:out value="${container.sampleTypeId}"/>"> <c:out
 						value="${container.name}" /></td>
 
