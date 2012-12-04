@@ -18,6 +18,7 @@ import agtc.sampletracking.model.*;
 public interface SampleDAO {
 	public List getSamples();
 	public List getSamples(List sampleIds,List sampleTypeSuffixes,Integer sampleDupNo);
+	public List simpleSearchSamples(List sampleIds, List sampleTypeIds, List projectIds);
 	public Sample getSample(String sampleId, String sampleTypeSuffix,Integer sampleDupNo);
 	public Sample getSample(Integer sampleId);
 	public void saveSample(Sample sample) throws Exception;
