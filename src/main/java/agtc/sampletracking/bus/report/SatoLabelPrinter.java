@@ -17,27 +17,60 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import agtc.sampletracking.model.Sample;
-import agtc.sampletracking.web.controller.AddSingleSampleController;
 import agtc.sampletracking.bus.comparator.*;
 
 /**
- * @author Hongjing
  *
  * TODO To change the template for this generated type comment go to
  * Window - Preferences - Java - Code Style - Code Templates
  */
 public class SatoLabelPrinter {
 	private SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy ");
-	private Log log = LogFactory.getLog(AddSingleSampleController.class);
+	
+	public void printSampleLabel(List sampleList) throws Exception{
+		
+		Iterator ir = sampleList.iterator();
+//		String filename="e:\\commandFiles\\"+UnqueString.UnqueStr()+".DAT";
+		String filename="/Users/nderoo324/Documents/Workspace/sts2/Label/Samples" + UnqueString.UnqueStr() + ".dat";
+		File outputFile = new File(filename);
+        FileWriter out = new FileWriter(outputFile);
+		
+		StringBuffer content = new StringBuffer();
+		
+	      while (ir.hasNext()){
+	
+	        	Sample sample = (Sample)ir.next();
+	        	String internalId = sample.getPatient().getIntSampleId();
+	        	String externalId = sample.getPatient().getExtSampleId();
+	        	String sampleTypeSuffix = sample.getSampleType().getSuffix();
+	        	String sampleDupNo = sample.getSampleDupNo().toString();
+
+	        	if(externalId==null || externalId.equals("null")){
+	        		externalId = "";
+	        	}
+	        	// For the barcode: It should be in the format S-internalId-sampleTypeSuffix-sampleDupNo
+	        	content.append("S").append("-");	
+	        	content.append(internalId).append("-");
+	         	content.append(sampleTypeSuffix).append("-");
+	        	content.append(sampleDupNo).append(",");
+	        	// Also include the external ID and internal ID as text string if there's room
+	        	content.append(externalId).append(",");
+	        	content.append(internalId).append(",");
+	        	
+	        	content.append("\n");
+	     }
+	      out.write(content.toString());
+	      out.close();
+	  
+	}
 	
 	public void printSatoLabel(List selectList) throws Exception{
 		
 		Iterator ir = selectList.iterator();
-		String filename="e:\\commandFiles\\"+UnqueString.UnqueStr()+".DAT";
+//		String filename="e:\\commandFiles\\"+UnqueString.UnqueStr()+".DAT";
+		String filename="/Users/nderoo324/Documents/Workspace/sts2/" + UnqueString.UnqueStr() + ".dat";
 		File outputFile = new File(filename);
         FileWriter out = new FileWriter(outputFile);
-        
-		
 		
 		StringBuffer content = new StringBuffer();
 		
@@ -75,9 +108,6 @@ public class SatoLabelPrinter {
 	           		date = sample.getReceiveDate();
 	           	}
 	           	
-	           	//log.debug("the date is " + date);	
-	           	//log.debug("formated date is "+ dateFormat.format(date));
-				
 	            if(date != null){
 	            	content.append(dateFormat.format(date)).append(",");
 	            	content.append(dateFormat.format(date)).append(",");
@@ -89,10 +119,8 @@ public class SatoLabelPrinter {
 	            
 	            Float concentration = sample.getOd();
 	            if(concentration!=null && concentration.compareTo(new Float(0.0f))!=0 ){
-	            	log.debug("the original concentration is " + concentration);
 	            	DecimalFormat myFormatter = new DecimalFormat("###.#");
 	            	String cntS = myFormatter.format(concentration.doubleValue());
-	            	log.debug("the formatted concentration is " + cntS);
 
 	            	content.append(cntS).append("ug/ml").append(",");
 	            	content.append(cntS).append("ug/ml").append(",");
@@ -102,7 +130,6 @@ public class SatoLabelPrinter {
 	            }
 	            
 	            Integer sampleDupNo = sample.getSampleDupNo();
-	            log.debug("sample dup no is "+ sampleDupNo);
 	            if(sampleDupNo!=null && sampleDupNo.intValue()!=1){
 	            	String dupNoS = "("+sampleDupNo.intValue()+")";
 	            	content.append(dupNoS).append(",");
