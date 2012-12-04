@@ -22,6 +22,17 @@ agtc.sampletracking.model.User user =
 
 <div style="width: 800px">
 <h2>Update news:</h2>
+<p>2012-12-05: User Interface Update
+<ul>
+ <li> New <b>Barcode</b> functionality. Scan <i>samples</i> to register, store, or remove them. 
+ <li> New <b>Search Sample</b> interface. Replaces:
+ <ul>
+ 	<li><i>Search Project Sample; Simple Search; Search Samples</i>: Combined into one search interface</li>
+ 	<li><i>Update Sample</i>: Search for the sample, and then edit.</li>
+ 	<li><i>Print Sample Labels</i>: Search for the sample, and then print.</li>
+ </ul>
+ <li> New <b>Register Sample</b> interface. </li>
+</ul>
 <p>2009-06-05: New search function finished. Now you can get samples by project.
 <p>2006-09-07: New label format available. The previous format will not be
 supported any more.
