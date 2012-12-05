@@ -54,7 +54,7 @@
 									<c:forEach items="${allSampleTypes}" var="sampleTypeOpt">
 
 										<option
-											<c:if test="${command.multiSamples[0].sampleType != null && command.multiSamples[0].sampleType.sampleTypeId eq sampleTypeOpt.sampleTypeId}">
+											<c:if test="${command.multiSamples[row].sampleType != null && command.multiSamples[row].sampleType.sampleTypeId eq sampleTypeOpt.sampleTypeId}">
 				   				selected
 			 				</c:if>
 											value="<c:out value="${sampleTypeOpt.sampleTypeId}"/>">
