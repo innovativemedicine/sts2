@@ -10,7 +10,6 @@ import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.bind.RequestUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
@@ -18,8 +17,6 @@ import java.util.HashMap;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import agtc.sampletracking.model.*;
-import java.util.*;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.*;
 
@@ -31,10 +28,6 @@ import agtc.sampletracking.bus.manager.AGTCManager;
 import agtc.sampletracking.bus.manager.ContainerManager;
 import agtc.sampletracking.bus.manager.ProjectManager;
 import agtc.sampletracking.bus.manager.SampleManager;
-import agtc.sampletracking.bus.report.SatoLabelPrinter
-;
-import org.apache.commons.collections.list.LazyList;
-import org.apache.commons.collections.FactoryUtils;
 /**
  * @author Hongjing
  *
@@ -68,8 +61,7 @@ public class AddMultiSamplesController extends BasicController {
 		System.out.println("Entering onSubmit");
 		
 		// List to store results.
-		List<Sample> printSampleList = new ArrayList<Sample>();
-		List<Sample> sampleList = multiSamples.getMultiSamples();
+		List<Sample> sampleList = (List<Sample>) multiSamples.getMultiSamples();
 
 		for (int i=0; i<sampleList.size(); i++)
 		{
@@ -85,19 +77,6 @@ public class AddMultiSamplesController extends BasicController {
 					errors.reject("error.required",new String[]{"sample source"},"Project is required");
 					return showForm(request, response, errors);
 				}
-		
-				// Add number of labels to print queue
-//				Sample st = agtcManager.getSampleType(sample)
-				Integer initialLabelNo = sample.getSampleType().getInitialLabelNo();
-				
-				System.out.println(initialLabelNo);
-				
-				if(initialLabelNo!=null){
-					int b = initialLabelNo.intValue();
-					for(int j=0;j<b;j++){
-						printSampleList.add(sample);
-					}
-				}
 			}
 			
 			String message = "";
@@ -111,20 +90,12 @@ public class AddMultiSamplesController extends BasicController {
 					errors.rejectValue( "patient.intSampleId","error.notUnique",new String[]{"Internal Sample ID not unique for selected sample type "},"Not unique");
 				return showForm(request, response, errors);
 			}
-	
-			String labelnu = request.getParameter("labelNo");
-			if(labelnu!=null){
-				SatoLabelPrinter satoP = new SatoLabelPrinter();
-				satoP.printSatoLabel(printSampleList);
-				message += " (Labels are available at the Label printer.)";
-			}		
 			
-			ModelAndView mav = new ModelAndView("sampleList");
-			mav.addObject("sampleList", sampleList);
+			ModelAndView mav = new ModelAndView(new RedirectView(getSuccessView()));
+			WebUtils.setSessionAttribute(request,"sampleList",sampleList);
 			mav.addObject("message", message);
 	
-			return mav;
-			
+			return mav;		
 	}
 
 	protected Map referenceData(HttpServletRequest request,
@@ -148,57 +119,34 @@ public class AddMultiSamplesController extends BasicController {
 	}
 	
 		
-	/**
-	 * @return
-	 */
 	public SampleManager getSampleManager() {
 		return sampleManager;
 	}
 
-	/**
-	 * @param manager
-	 */
 	public void setSampleManager(SampleManager manager) {
 		sampleManager = manager;
 	}
 
-	/**
-	 * @return
-	 */
 	public ContainerManager getContainerManager() {
 		return containerManager;
 	}
 
-	/**
-	 * @param manager
-	 */
 	public void setContainerManager(ContainerManager manager) {
 		containerManager = manager;
 	}
 	
-	/**
-	 * @return Returns the agtcManager.
-	 */
 	public AGTCManager getAgtcManager() {
 		return agtcManager;
 	}
-	/**
-	 * @param agtcManager The agtcManager to set.
-	 */
+
 	public void setAgtcManager(AGTCManager agtcManager) {
 		this.agtcManager = agtcManager;
 	}
 	
-	
-	/**
-	 * @return Returns the projectManager.
-	 */
 	public ProjectManager getProjectManager() {
 		return projectManager;
 	}
-	/**
-	 * @param projectManager The projectManager to set.
-	 */
+
 	public void setProjectManager(ProjectManager projectManager) {
 		this.projectManager = projectManager;
 	}
