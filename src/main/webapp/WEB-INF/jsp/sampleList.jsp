@@ -1,13 +1,16 @@
 <%@ include file="/WEB-INF/jsp/includes/head.jsp" %>
+<%@ include file="/WEB-INF/jsp/includes/success.jsp" %>
 
-	<div style="display:table-cell; vertical-align:bottom"> 
-		<font style="vertical-align:bottom"size=5> Sample List </font>
-   		<a class="button" href="<c:url value="/selectSampleInfo4Output.htm"></c:url>"><span>Export Data</span></a>
-		<a class="button" href="<c:url value="/addSample2Container.htm"></c:url>"><span>Assign Container</span></a>
-
-   	</div>	
+	<form method="post">
+		<div style="display:table-cell; vertical-align:bottom"> 
+			<font style="vertical-align:bottom"size=5> Sample List </font>
+	   		<a class="button" href="<c:url value="/selectSampleInfo4Output.htm"></c:url>"><span>Export Data</span></a>
+			<a class="button" href="<c:url value="/addSample2Container.htm"></c:url>"><span>Assign Container</span></a>
+			<input type="submit" name="Submit" value="Print Labels">
+		</div>	
+	</form>
+   	
    	<p>
-   	<%@ include file="/WEB-INF/jsp/includes/success.jsp" %>
 
   <table class="details">
     <tr>
