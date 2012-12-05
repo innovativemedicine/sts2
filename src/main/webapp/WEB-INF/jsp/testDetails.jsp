@@ -1,67 +1,51 @@
-<%@ include file="/WEB-INF/jsp/includes/head.jsp" %>
+<%@ include file="/WEB-INF/jsp/includes/head.jsp"%>
+<%@ include file="/WEB-INF/jsp/includes/success.jsp"%>
+
+<h2>Test Details</h2>
+<a class="button"
+	href="<c:url value="/editTest.htm"><c:param name="testId" value="${command.testId}"/></c:url>">
+	<span>Edit it</span>
+</a>
+<a class="button"
+	href="<c:url value="/deleteTest.htm"><c:param name="testId" value="${command.testId}"/></c:url>"
+	onclick="return (confirm('Are you sure you want to delete this test?)) ">
+	<span>Delete it</span>
+</a>
+<p>
+<table>
+	<tr>
+		<td>Test Name</td>
+		<td><c:out value="${command.name}" /></td>
+	</tr>
 
 
-<tr><td>
-<%@ include file="/WEB-INF/jsp/includes/success.jsp" %>
-<p><h2>Test Details</h2></p>
-<a href="<c:url value="/editTest.htm"><c:param name="testId" value="${command.testId}"/></c:url>">Edit it</a> &nbsp;&nbsp;
-<a href="<c:url value="/deleteTest.htm"><c:param name="testId" value="${command.testId}"/></c:url>"  onclick="return (confirm('Are you sure you want to delete this test?)) " >Delete it</a>
-</p>
+	<tr>
+		<td>Instrument:</td>
+		<td><c:out value="${command.instrument.name}" /></td>
+	</tr>
 
-  <table width="60%" border="0" class="details">
-    <tr> 
-      <td>Test Name</td>
-      <td> 
-        <c:out value="${command.name}"/>&nbsp;
-      </td>
-    </tr>
-    
-    
-    <tr> 
-          <td>Instrument: </td>
-          <td> 
-          <c:out value="${command.instrument.name}"/>&nbsp;
-       </td>
-    </tr>
-    
-    
-    <tr> 
-          <td>Protocal</td>
-          <td> 
-		   <c:forEach items="${protocals}" var="protocalName">
-           <a href="<c:url value="protocals/${protocalName}"></c:url>"><c:out value="${protocalName}"/></a> ,
-		    </c:forEach>
-          </td>
-    </tr>
-    
-    <tr> 
-	 <td>Assay(s):</td>
-	 <td>
-	    <c:out value="${assayNameList}"/>
-	 </td>
-    </tr>
-    
-    <tr> 
-    	 <td>Note:</td>
-    	 <td>
-    	    <c:out value="${command.note}"/>
-    	 </td>
-    </tr>
-    
-    <tr> 
-	 <td>Project:</td>
-	 <td>
-	    <c:out value="${command.project.name}"/>
-	 </td>
-    </tr>
 
-    
-  </table>
+	<tr>
+		<td>Protocal</td>
+		<td><c:forEach items="${protocals}" var="protocalName">
+				<a href="<c:url value="protocals/${protocalName}"></c:url>"><c:out
+						value="${protocalName}" /></a> ,
+		    </c:forEach></td>
+	</tr>
 
-  
- 
-  
- 
- 
-</td></tr>
-<%@ include file="/WEB-INF/jsp/includes/foot.jsp" %>
+	<tr>
+		<td>Assay(s):</td>
+		<td><c:out value="${assayNameList}" /></td>
+	</tr>
+
+	<tr>
+		<td>Note:</td>
+		<td><c:out value="${command.note}" /></td>
+	</tr>
+
+	<tr>
+		<td>Project:</td>
+		<td><c:out value="${command.project.name}" /></td>
+</table>
+
+<%@ include file="/WEB-INF/jsp/includes/foot.jsp"%>
