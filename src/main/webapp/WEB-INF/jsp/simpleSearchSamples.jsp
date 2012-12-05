@@ -13,13 +13,15 @@
 		<table>
 
 			<tr>
-				<th>Search by Sample ID</th>
+				<th>Filter by Sample ID</th>
 			</tr>
 
 			<tr>
-				<td>Enter Internal Sample ID List to retrieve samples:<br>
-					(Separate samples by commas or new lines) <br> <textarea
-						name="sampleIdsInTextArea" rows="15" cols="40"></textarea>
+				<td>Enter Internal Sample ID:
+				<span style="font-size: 12px">(Separate by commas or new lines)</span>
+					
+					<br> <textarea name="sampleIdsInTextArea" rows="15"
+						cols="40"></textarea>
 
 				</td>
 			</tr>
@@ -31,40 +33,50 @@
 			<tr>
 				<td>&nbsp;</td>
 			</tr>
-
-			<tr>
-				<td><input type="checkbox" name="useFor" value="useFor">
-					For printing labels</td>
-			</tr>
 			<tr>
 				<td><input type="submit" name="Submit" value="SEARCH">
-				<a href="<c:url value="/samples.htm"></c:url>">[Use Advanced Search]</a></td>
+					<a href="<c:url value="/samples.htm"></c:url>">[Use Advanced
+						Search]</a></td>
+			</tr>
+		</table>
+	</div>
+	<div class="left">
+		<table style="width: 200px">
+			<tr>
+				<th>Filter by Project</th>
+			</tr>
+			<tr>
+				<td><select size="25" name="projectFilter" multiple>
+						<option value="" selected>All Projects</option>
+
+						<c:forEach items="${LProjects}" var="project" varStatus="row">
+							<option value="<c:out value="${project.projectId}"/>">
+								<c:out value="${project.name}" />
+							</option>
+						</c:forEach>
+				</select></td>
 			</tr>
 		</table>
 	</div>
 	<div>
-		<table>
+		<table style="width: 200px">
 			<tr>
-				<th colspan="3"><b>Filter Search by Sample Types</b></th>
+				<th><b>Filter by Sample Types</b></th>
 			</tr>
 			<tr>
-				<td colspan="3" style="font-size: 10pt">(If none are selected, all sample types will be
-					retrieved.)</td>
+				<td><select size="25" name="sampleTypeFilter" multiple>
+						<option value="" selected>All Sample Types</option>
+
+						<c:forEach items="${LSampleTypes}" var="sampleType"
+							varStatus="row">
+							<option value="<c:out value="${sampleType.sampleTypeId}"/>">
+								<c:out value="${sampleType.name}" />
+							</option>
+						</c:forEach>
+				</select></td>
 			</tr>
-			<c:forEach items="${LSampleTypes}" var="container" varStatus="row">
-				<c:if test="${row.count % 3 eq 1}">
-					<tr>
-				</c:if>
-				<td style="font-size: 10pt"><input type="checkbox" name="sampleTypes"
-					value="<c:out value="${container.sampleTypeId}"/>"> <c:out
-						value="${container.name}" /></td>
-
-				<c:if test="${row.count % 3 eq 0}">
-					</tr>
-				</c:if>
-			</c:forEach>
-
 		</table>
+
 	</div>
 </form>
 
