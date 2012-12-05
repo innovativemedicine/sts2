@@ -192,7 +192,7 @@ public class BarcodeController extends BasicController {
 				
 				try {
 					sampleManager.saveSample(newSample);
-					response = "<b>AddedSample</b<:";
+					response = "<b>AddedSample</b>:";
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					response = "<b>Error</b>(Failed to save sample):";
