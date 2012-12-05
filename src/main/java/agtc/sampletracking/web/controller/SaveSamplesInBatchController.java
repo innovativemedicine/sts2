@@ -161,7 +161,7 @@ public class SaveSamplesInBatchController extends BasicController {
 				
 			}
 			
-			return new ModelAndView("successComplete","message",message);
+			return new ModelAndView("success","message",message);
 			
 		}
 		

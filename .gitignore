@@ -1,5 +1,6 @@
 *.iws
 *.war
+*.dat
 .DS_Store
 .settings
 /*.launch
