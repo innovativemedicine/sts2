@@ -129,52 +129,6 @@
 	</props>
     </property>
    </bean>
-   
-   <bean id="aliasManagerTarget" class="agtc.sampletracking.bus.manager.AliasManager">
-	  <property name="sampleDAO"><ref local="sampleDAO"/></property>
-	  <property name="patientDAO"><ref local="patientDAO"/></property>
-	  <property name="containerDAO"><ref local="containerDAO"/></property>
-	  <property name="sampleTypeDAO"><ref local="sampleTypeDAO"/></property>
-	  <property name="samplesInContainerDAO"><ref local="samplesInContainerDAO"/></property>
-   </bean>
-
-   <bean id="aliasManager" 
- 	class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
-    <property name="transactionManager"><ref bean="transactionManager"/></property>
-    <property name="target"><ref bean="aliasManagerTarget"/></property>
-    <property name="proxyTargetClass"><value>true</value></property>
-    <property name="transactionAttributes">
-	<props>
-		<prop key="save*">PROPAGATION_REQUIRED</prop>
-		<prop key="check*">PROPAGATION_REQUIRED</prop>
-		<prop key="remove*">PROPAGATION_REQUIRED</prop>
-		<prop key="update*">PROPAGATION_REQUIRED</prop>
-	</props>
-    </property>
-   </bean>
-   
-<!--      <bean id="barcodeManagerTarget" class="agtc.sampletracking.bus.manager.BarcodeManager"> -->
-<!--  		<property name="sampleDAO"><ref local="sampleDAO"/></property> -->
-<!-- 	  <property name="patientDAO"><ref local="patientDAO"/></property> -->
-<!-- 	  <property name="containerDAO"><ref local="containerDAO"/></property> -->
-<!-- 	  <property name="sampleTypeDAO"><ref local="sampleTypeDAO"/></property> -->
-<!-- 	  <property name="samplesInContainerDAO"><ref local="samplesInContainerDAO"/></property> -->
-<!-- 	  </bean> -->
-          
-<!--   <bean id="barcodeManager"  -->
-<!-- 	      class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean"> -->
-<!-- 	 <property name="transactionManager"><ref bean="transactionManager"/></property> -->
-<!-- 	 <property name="target"><ref bean="barcodeManagerTarget"/></property> -->
-<!-- 	 <property name="proxyTargetClass"><value>true</value></property> -->
-<!-- 	 <property name="transactionAttributes"> -->
-<!-- 	   <props> -->
-<!-- 	     <prop key="save*">PROPAGATION_REQUIRED</prop> -->
-<!-- 	     <prop key="check*">PROPAGATION_REQUIRED</prop> -->
-<!-- 		 <prop key="remove*">PROPAGATION_REQUIRED</prop> -->
-<!-- 		 <prop key="update*">PROPAGATION_REQUIRED</prop> -->
-<!-- 	   </props> -->
-<!-- 	 </property> -->
-<!--    </bean> -->
 
    <bean id="containerManagerTarget" class="agtc.sampletracking.bus.manager.ContainerManager">
 	<property name="containerDAO"><ref local="containerDAO"/></property>
