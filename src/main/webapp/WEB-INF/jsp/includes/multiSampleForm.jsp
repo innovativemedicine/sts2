@@ -94,12 +94,6 @@
 							</spring:bind></td>
 				</c:forEach>
 			<tr>
-				<td colspan="20">If print labels: <input type="checkbox"
-					name="labelNo" value="1" checked>
-				</td>
-			</tr>
-
-			<tr>
 				<td colspan="20"><input type="submit" name="Submit"
 					value="Save"> <input type="reset" name="Submit2"
 					value="Reset"></td>
