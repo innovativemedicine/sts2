@@ -105,15 +105,6 @@ public class SamplesSearchController extends BasicSearchController {
 			return view;
 		}
 		
-		String useFor = RequestUtils.getStringParameter(request, "useFor","");
-		
-		if(useFor.equals("useFor")){
-			SampleListHolder sampleListHolder = (SampleListHolder)WebUtils.getOrCreateSessionAttribute(request.getSession(),"sampleListHolder",SampleListHolder.class);
-			sampleListHolder.setOriginalList(searchResults);
-			ModelAndView view = new ModelAndView(new RedirectView("sampleList4select.htm"));
-			return view;
-		}
-			
 		WebUtils.setSessionAttribute(request,"sampleList",searchResults);
 		return new ModelAndView("sampleList", "sampleList", searchResults);
 		
