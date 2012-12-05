@@ -69,6 +69,12 @@ public class Sample implements Serializable,Comparator,Cloneable {
 		sampleId = new Integer(-1);
     }
     
+    public Sample(String intSampleId) {
+		patient = new Patient(intSampleId);
+		sampleType = new SampleType();
+		sampleId = new Integer(-1);
+    }
+    
     public Object clone()
     {
       try
