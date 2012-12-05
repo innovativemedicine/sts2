@@ -49,7 +49,6 @@ public class EditProfileController extends BasicController{
 		 return (Object)user;
 	}
 	
-//	protected ModelAndView onSubmit(Object command) throws ServletException {
 	protected ModelAndView onSubmit(
 			HttpServletRequest request,
 			HttpServletResponse response,
@@ -107,12 +106,9 @@ public class EditProfileController extends BasicController{
 					new String[]{ user.getLoginname()},"Not unique");
 			return showForm(request, response, errors);
 		}
-		
-		log.debug("success view is " + getSuccessView());
-		Map myModel = new HashMap();
-		myModel.put("message","You have successfully updated your profile !");
 
-		return new ModelAndView("successComplete",myModel);
+		ModelAndView mav = new ModelAndView("logout");
+		return mav;
 	}
 
 	public SystemUserManager getUserManager() {

@@ -11,6 +11,7 @@ package agtc.sampletracking.web.controller;
 
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.util.WebUtils;
 import org.springframework.web.bind.RequestUtils;
 import org.springframework.validation.*;
 import javax.servlet.*;
@@ -154,10 +155,12 @@ public class EditRunController extends BasicController {
 				testManager.saveResults(results,run,null);
 				//ModelAndView view = new ModelAndView(new RedirectView(getSuccessView()));
 				
-				Map myModel = new HashMap();
-				myModel.put("message","Have successfully save the run and load the result !");
-				//myModel.put("runId",run.getRunId());
-				return new ModelAndView("successComplete",myModel);
+				ModelAndView mav = new ModelAndView("editRun");
+				String message = "Have successfully save the run and load the result !";
+				mav.addObject("message", message);
+				//myModel.put("runId",run.getRmyModunId());
+				
+				return mav;
 			}catch(Exception e){
 				parseResult = "Could not load the results. Please make sure that all samples and assays in your file are already in the STS ! <br>";
 				parseResult += e.toString();
@@ -165,13 +168,11 @@ public class EditRunController extends BasicController {
 		}
 		
 		// there is some correctable error in the file, let user correct it and upload again
-		Map myModel = new HashMap();
+		ModelAndView mav = new ModelAndView("editRun");
 		String message = "Please correct the following error and upload your file again ! <br>";
+		mav.addObject("message", message);
 		
-		myModel.put("message",message+parseResult);
-	
-		return new ModelAndView("errorPage",myModel);
-		
+		return mav;
 	}
 	
 	/**
