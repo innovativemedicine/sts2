@@ -1,4 +1,5 @@
 <%@ include file="/WEB-INF/jsp/includes/head.jsp" %>
+<%@ include file="/WEB-INF/jsp/includes/success.jsp" %>
  
 <tr><td>
 <h2>Update Test Result to CGG System</h2>
