@@ -2,9 +2,16 @@ input.barcodeAdd {
 	display: none;
 }
 
-span.heading {
-	style="font-size: 24pt; font-variant: small-caps; font-family: HelveticaNeue-Light; color: #5A5A5A; 
+h1 {
+	style="font-size: 24pt; font-variant: small-caps; font-family: HelveticaNeue-Light; color: #003366;
+	font-weight: normal; margin-top: 5px; margin-bottom: 0px; text-shadow:1px 1px 4px #5A5A5A ;
 }
+
+h2 {
+	style="font-size: 14pt; font-family: HelveticaNeue-Light; color: #5A5A5A;
+	font-weight: normal; margin-top: 5px; margin-bottom: 10px
+}
+
 
 /* Div CSS */
 
