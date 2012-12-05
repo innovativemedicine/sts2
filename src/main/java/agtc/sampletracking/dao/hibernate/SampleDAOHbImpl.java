@@ -13,14 +13,12 @@ import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import agtc.sampletracking.dao.SampleDAO;
-import agtc.sampletracking.model.Container;
 import agtc.sampletracking.model.Sample;
 import agtc.sampletracking.model.Patient;
 import agtc.sampletracking.model.SampleType;
 import agtc.sampletracking.web.command.*;
 import agtc.sampletracking.web.searchFields.*;
 import org.hibernate.criterion.*;
-import org.hibernate.proxy.HibernateProxy;
 import org.hibernate.*;
 
 
@@ -37,6 +35,15 @@ public class SampleDAOHbImpl extends STSBasicDAO implements SampleDAO {
 	 */
 	public List getSamples() {
 		return  getHibernateTemplate().find("from Sample");
+	}
+	
+	public String getLargestSampleId(String intSamplePrefix){
+		Session session = getSession();
+		Criteria crit = session.createCriteria(Sample.class).addOrder(Order.desc("sampleId"));
+		crit.add(Restrictions.like("intSampleId",intSamplePrefix + "%"));
+		crit.list();
+		
+		return "";
 	}
 	
 	public List getSamples(List sampleIds,List sampleTypeSuffixes,Integer sampleDupNo){
@@ -193,30 +200,6 @@ public class SampleDAOHbImpl extends STSBasicDAO implements SampleDAO {
 					+ types);
 		} else {
 			results = getSampleByIntSampleId(intId);
-		}
-			
-		return results;
-	}
-	
-	public List getSampleByIntSampleIdSampleProject(String[] sampleProject)
-	{
-		List results=null;
-		if (sampleProject.length>0)
-		{
-			String projects=" (";
-			for(int i=0;i<sampleProject.length;i++){
-				if (i>0) projects+=",";
-				projects+=sampleProject[i];
-			}
-			projects+=" )";
-			results = getHibernateTemplate().
-				find("from Sample s right join fetch s.patient"
-				+" where s.patient.project in" 
-				+ projects);
-		}
-		else
-		{
-			results = null;
 		}
 			
 		return results;
