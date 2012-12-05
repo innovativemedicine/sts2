@@ -6,6 +6,8 @@
  */
 package agtc.sampletracking.dao.hibernate;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.apache.commons.logging.Log;
@@ -13,10 +15,12 @@ import org.apache.commons.logging.LogFactory;
 import agtc.sampletracking.dao.SampleDAO;
 import agtc.sampletracking.model.Container;
 import agtc.sampletracking.model.Sample;
+import agtc.sampletracking.model.Patient;
 import agtc.sampletracking.model.SampleType;
 import agtc.sampletracking.web.command.*;
 import agtc.sampletracking.web.searchFields.*;
 import org.hibernate.criterion.*;
+import org.hibernate.proxy.HibernateProxy;
 import org.hibernate.*;
 
 
@@ -38,7 +42,6 @@ public class SampleDAOHbImpl extends STSBasicDAO implements SampleDAO {
 	public List getSamples(List sampleIds,List sampleTypeSuffixes,Integer sampleDupNo){
 		Session session = getSession();
 		Criteria crt = session.createCriteria(Sample.class);
-		crt.createAlias("sampleType","sampleType");
 		crt.add(Restrictions.in("patient.intSampleId",sampleIds));
 		crt.add(Restrictions.in("sampleType.suffix",sampleTypeSuffixes));
 		crt.add(Restrictions.eq("sampleDupNo",sampleDupNo));
@@ -65,6 +68,38 @@ public class SampleDAOHbImpl extends STSBasicDAO implements SampleDAO {
 		}
 	}
 	
+	public List simpleSearchSamples(List sampleIds, List sampleTypeIds, List projectIds){
+		Session session = getSession();
+		List patients = new ArrayList();
+		
+		// Search for patients that are in projectId
+		if(!projectIds.isEmpty())
+		{
+			Criteria patientCrt = session.createCriteria(Patient.class);
+			patientCrt = patientCrt.add(Restrictions.in("project.projectId",projectIds));
+			patients = patientCrt.list();
+		}
+				
+		Criteria crt = session.createCriteria(Sample.class);
+		crt.setFetchMode("patient", FetchMode.JOIN);
+		crt.setFetchMode("sampleType", FetchMode.JOIN);
+		crt.setFetchMode("patient.project", FetchMode.JOIN);
+
+		if(!sampleIds.isEmpty())
+		{
+			crt.add(Restrictions.in("patient.intSampleId",sampleIds));
+		}
+		if(!sampleTypeIds.isEmpty())
+		{
+			crt.add(Restrictions.in("sampleType.sampleTypeId",sampleTypeIds));
+		}
+		if(!projectIds.isEmpty())
+		{
+			crt.add(Restrictions.in("patient",patients));
+		}
+
+		return crt.list();
+	}
 	
 	public List searchSamples(List crtList,List lgcList) {
 		//log.debug("the whereString is " + whereString);
