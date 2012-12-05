@@ -34,18 +34,10 @@ public class SampleManager {
 	}
 
 	
-	/**
-	 * 
-	 * see comments of SampleSearchField.java
-	 */
 	public List searchSample(List crtList,List lgcList){
 		return sampleDAO.searchSamples(crtList,lgcList);
 	}
-	
-	/**
-	 * 
-	 * see comments of SampleSearchField.java
-	 */
+
 	public List getSamples(List sampleIds,List sampleTypeSuffixes,Integer sampleDupNo){
 		return sampleDAO.getSamples(sampleIds,sampleTypeSuffixes,sampleDupNo);
 	}
@@ -64,6 +56,12 @@ public class SampleManager {
 			saveSamplesInContainer(sic);
 			log.debug("have saved one samplesInContainer!");
 		}
+	}
+	
+	public String getLargestSampleId(String intSamplePrefix){
+		String largestId = sampleDAO.getLargestSampleId(intSamplePrefix);
+		
+		return largestId;
 	}
 	
 	public List searchSampleBySampleIntIdList(List sampleIds,String sampleTypeSuffix){
@@ -110,10 +108,6 @@ public class SampleManager {
 		}
 		sics.clear();
 		
-	}
-
-	public Container getContainer(String containerName) {
-		return containerDAO.getContainer(containerName);
 	}
 	
 	public void saveSample(Sample sample) throws Exception{
@@ -597,76 +591,44 @@ public class SampleManager {
 		return samplesInContainerDAO.getSamplesInContainer(sicId);
 	}
 
-	/**
-	 * @return
-	 */
+
 	public SampleDAO getSampleDAO() {
 		return sampleDAO;
 	}
 
-	/**
-	 * @param sampleDAO
-	 */
 	public void setSampleDAO(SampleDAO sampleDAO) {
 		this.sampleDAO = sampleDAO;
 	}
 
-	
-
-	/**
-	 * @return
-	 */
 	public ContainerDAO getContainerDAO() {
 		return containerDAO;
 	}
 
-	/**
-	 * @param containerDAO
-	 */
 	public void setContainerDAO(ContainerDAO containerDAO) {
 		this.containerDAO = containerDAO;
 	}
 	
-
-
-	/**
-	 * @return Returns the samplesInContainerDAO.
-	 */
 	public SamplesInContainerDAO getSamplesInContainerDAO() {
 		return samplesInContainerDAO;
 	}
-	/**
-	 * @param samplesInContainerDAO The samplesInContainerDAO to set.
-	 */
+
 	public void setSamplesInContainerDAO(
 			SamplesInContainerDAO samplesInContainerDAO) {
 		this.samplesInContainerDAO = samplesInContainerDAO;
 	}
 	
-	
-	/**
-	 * @return Returns the patientDAO.
-	 */
 	public PatientDAO getPatientDAO() {
 		return patientDAO;
 	}
-	/**
-	 * @param patientDAO The patientDAO to set.
-	 */
+
 	public void setPatientDAO(PatientDAO patientDAO) {
 		this.patientDAO = patientDAO;
 	}
 	
-	
-	/**
-	 * @return Returns the sampleTypeDAO.
-	 */
 	public SampleTypeDAO getSampleTypeDAO() {
 		return sampleTypeDAO;
 	}
-	/**
-	 * @param sampleTypeDAO The sampleTypeDAO to set.
-	 */
+
 	public void setSampleTypeDAO(SampleTypeDAO sampleTypeDAO) {
 		this.sampleTypeDAO = sampleTypeDAO;
 	}
