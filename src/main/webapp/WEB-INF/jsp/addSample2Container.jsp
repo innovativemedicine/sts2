@@ -4,7 +4,7 @@
 <tr><td>
   <table>
     <tr VALIGN="top">
-	<td width="15%">
+	<td>
 		<h3>Samples</h3>
 		<c:forEach items="${sampleList}" var="sample">
 		<c:out value="${sample.patient.intSampleId}"/><c:out value="${sample.sampleType.suffix}"/>&nbsp;
@@ -17,7 +17,7 @@
 		</c:forEach>
 	</td>
 
-	<td width="85%">
+	<td>
 		<%@ include file="/WEB-INF/jsp/includes/success.jsp" %>
 
 		<c:if test="${command.noneContainer}">

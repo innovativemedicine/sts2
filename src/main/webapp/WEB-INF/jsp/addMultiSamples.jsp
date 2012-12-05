@@ -1,9 +1,9 @@
 <%@ include file="/WEB-INF/jsp/includes/head.jsp" %>
 		
-<tr><td>
-
 <h2>Register Multiple Sample</h2>
 <%@ include file="/WEB-INF/jsp/includes/errorMessage.jsp" %>
+ 
+ <!-- 				Add File Upload option for addMultiSamples (manifest file). Look at saveSamplesInBatch for ideas -->
  
 	<div>
 		Number of samples?
@@ -13,7 +13,5 @@
 	<br>
 
 <%@ include file="/WEB-INF/jsp/includes/multiSampleForm.jsp" %>
-
-</td></tr>
 
 <%@ include file="/WEB-INF/jsp/includes/foot.jsp" %>

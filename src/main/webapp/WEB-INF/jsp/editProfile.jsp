@@ -5,9 +5,8 @@
  --%>
 
 <%@ include file="/WEB-INF/jsp/includes/head.jsp"%>
+<%@ include file="/WEB-INF/jsp/includes/success.jsp"%>
 
-<tr>
-	<td>
 		<h2>Edit Users</h2> <spring:bind path="command.*">
 			<FONT color="red"> <c:forEach items="${status.errorMessages}"
 					var="container">
@@ -82,9 +81,5 @@
 					</td>
 				</tr>
 			</table>
-
 		</form>
-
-	</td>
-</tr>
 <%@ include file="/WEB-INF/jsp/includes/foot.jsp"%>

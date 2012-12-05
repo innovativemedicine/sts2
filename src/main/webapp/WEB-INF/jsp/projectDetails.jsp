@@ -1,55 +1,77 @@
 <%@ include file="/WEB-INF/jsp/includes/head.jsp" %>
-
-
-<tr><td>
 <%@ include file="/WEB-INF/jsp/includes/success.jsp" %>
-<p><h2>Project Details</h2>
-<a href="<c:url value="/editProject.htm"><c:param name="projectId" value="${command.projectId}"/></c:url>">Edit it</a> <br>
-<a href="<c:url value="/deleteProject.htm"><c:param name="projectId" value="${command.projectId}"/></c:url>" onclick="return (confirm('Are you sure you want to delete this project? Read the warning carefully before you confirm!')) ">Delete it</a> &nbsp;<font color="red">Warning:</font> You can not delete this project unless there is no containers, assays, tests and runs related to this project.
+
+<h2>Project Details</h2>
+<a class="button" href="<c:url value="/editProject.htm"><c:param name="projectId" value="${command.projectId}"/></c:url>">
+<span>Edit it</span></a>
+<a class="button" href="<c:url value="/deleteProject.htm"><c:param name="projectId" value="${command.projectId}"/></c:url>" 
+	onclick="return (confirm('You can not delete this project unless there are no containers, assays, tests and runs related to this project.\n\nAre you sure you want to delete this project?')) ">
+	<span>Delete it</span></a> 
+
 <p>
 
-  <table width="60%" border="0" class="details">
+  <table>
     <tr> 
       <td>Project Name:</td>
       <td> 
-      <c:out value="${command.name}"/>&nbsp;
+      <c:out value="${command.name}"/>
       </td>
     </tr>
     <tr> 
       <td>Description:</td>
       <td> 
-      <c:out value="${command.description}"/>&nbsp;
+      <c:out value="${command.description}"/>
       </td>
     </tr>
     <tr> 
       <td>Status: </td>
       <td> 
-      <c:out value="${command.status}"/>&nbsp;
+      <c:out value="${command.status}"/>
       </td>
     </tr>
     <tr> 
       <td>Created On: </td>
       <td> 
-      <c:out value="${command.createdOn}"/>&nbsp;
+      <c:out value="${command.createdOn}"/>
       </td>
     </tr>
     <tr> 
           <td>Investigator: </td>
           <td> 
           <c:out value="${command.investigator.name.fname}"/>&nbsp;
-          <c:out value="${command.investigator.name.lname}"/>&nbsp;
-    	
+          <c:out value="${command.investigator.name.lname}"/>
           </td>
     </tr>
    </table>
 	<p>
-   <a href="<c:url value="/editContainer.htm"><c:param name="containerId" value="-1"/><c:param name="projectId" value="${command.projectId}"/></c:url>" target="_blank">Add A New Container For This Project</a><br>
+   <a class="button" href="<c:url value="/editContainer.htm">
+   			<c:param name="containerId" value="-1"/><c:param name="projectId" value="${command.projectId}"/>
+   		</c:url>" 
+   		target="_blank">
+   		<span>Add Container</span>
+   	</a>
 
-   <a href="<c:url value="/editAssay.htm"><c:param name="assayId" value="-1"/><c:param name="projectId" value="${command.projectId}"/></c:url>" target="_blank">Add A New Assay For This Project</a><br>
+   <a class="button" href="<c:url value="/editAssay.htm">
+   			<c:param name="assayId" value="-1"/><c:param name="projectId" value="${command.projectId}"/>
+   		</c:url>" 
+   		target="_blank">
+   		<span>Add Assay</span>
+   	</a>
 
-   <a href="<c:url value="/editTest.htm"><c:param name="testId" value="-1"/><c:param name="projectId" value="${command.projectId}"/></c:url>" target="_blank">Add A New Test For This Project</a><br>
+   <a class="button" href="<c:url value="/editTest.htm">
+   			<c:param name="testId" value="-1"/><c:param name="projectId" value="${command.projectId}"/>
+   		</c:url>" 
+   		target="_blank">
+   		<span>Add Test</span>
+   	</a>
+  
 
-   <a href="<c:url value="/editRun.htm"><c:param name="projectId" value="${command.projectId}"/></c:url>" target="_blank">Add A New Run For This Project</a><br>
+   <a class="button" href="<c:url value="/editRun.htm">
+   			<c:param name="projectId" value="${command.projectId}"/>
+   		</c:url>" 
+   		target="_blank">
+   		<span>Add Run</span>
+   	</a>
    
   
  
@@ -71,8 +93,4 @@
    <%@ include file="/WEB-INF/jsp/includes/runListBody.jsp" %>
 	</c:if>
          
-  
-  
-
-</td></tr>
 <%@ include file="/WEB-INF/jsp/includes/foot.jsp" %>
