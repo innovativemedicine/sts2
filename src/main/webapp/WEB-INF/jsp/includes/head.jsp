@@ -22,9 +22,9 @@
   <body>
 	
 	<div class="header">
-          <span style="font-size: 24pt; font-variant: small-caps; font-family: HelveticaNeue-Light; color: #5A5A5A">
+          <h1>
             Sample Tracking System
-          </span>
+          </h1>
     
 <%--            <c:if test="${fn:contains(header['User-Agent'],'MSIE')}">MSIE</c:if> --%>
 <%--            <c:if test="${fn:contains(header['User-Agent'],'Chrome')}">Chrome</c:if> --%>
