@@ -24,7 +24,6 @@
                 <prop key="/projects.htm">projectsSearchController</prop>	 	
                	<prop key="/tests.htm">testsSearchController</prop>
                	<prop key="/assays.htm">assaysSearchController</prop>
-               	<prop key="/projectsamples.htm">projectSamplesSearchController</prop>
 				<prop key="/results.htm">resultsSearchController</prop>
 				<prop key="/runs.htm">runsSearchController</prop>
 				<prop key="/searchPatient.htm">searchPatientController</prop>
@@ -169,16 +168,6 @@
 	    <property name="searchFields"><ref bean="projectSearchFields"/></property>
 	    <property name="operatorList"><ref bean="operatorList"/></property>
     </bean>
-
-    <bean id="projectSamplesSearchController" class="agtc.sampletracking.web.controller.ProjectSamplesSearchController">
-		<property name="sessionForm"><value>true</value></property>
-		<property name="requireSession"><value>true</value></property>
-		<property name="formView"><value>projectSamples</value></property>
-		<property name="successView"><value>projectSamplesDetails.htm</value></property>
-	 	<property name="projectManager"><ref bean="projectManager"/></property>
-     	<property name="searchFields"><ref bean="projectSamplesSearchFields"/></property>
-    	<property name="operatorList"><ref bean="operatorList"/></property>
-   </bean>
 	
 	<bean id="testsSearchController" class="agtc.sampletracking.web.controller.TestsSearchController">
 		<property name="sessionForm"><value>true</value></property>
@@ -539,7 +528,6 @@
 				<prop key="/sampleDetails.htm">sampleDetailsHandler</prop>
 				<prop key="/containerDetails.htm">containerDetailsHandler</prop>
 				<prop key="/projectDetails.htm">projectDetailsHandler</prop>
-				<prop key="/projectSamplesDetails.htm">projectSamplesDetailsHandler</prop>
 				<prop key="/testDetails.htm">testDetailsHandler</prop>
 				<prop key="/runDetails.htm">runDetailsHandler</prop>
 				<prop key="/sampleIdList.htm">sampleIdListHandler</prop>
@@ -562,13 +550,6 @@
 			</props>
 		</property>
 	</bean>
-    
-    
-<!--    
-    <bean name="checkUserRoleInterceptor"  
-        class="agtc.sampletracking.web.CheckUserRoleInterceptor">
-    </bean>
--->
     
     <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
         <property name="basename"><value>messages</value></property>
