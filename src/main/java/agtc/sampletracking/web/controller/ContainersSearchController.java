@@ -7,40 +7,23 @@
 package agtc.sampletracking.web.controller;
 
 import org.springframework.web.bind.RequestUtils;
-import org.springframework.web.servlet.mvc.SimpleFormController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.*;
 import org.springframework.web.util.WebUtils;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
-
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import agtc.sampletracking.dao.*;
 import agtc.sampletracking.model.*;
-import agtc.sampletracking.web.*;
-import agtc.sampletracking.web.command.*;
-import agtc.sampletracking.web.searchFields.ContainerSearchFields;
-import agtc.sampletracking.web.searchFields.OperatorList;
-import agtc.sampletracking.web.searchFields.SampleSearchFields;
 import agtc.sampletracking.bus.SampleListHolder;
 import agtc.sampletracking.bus.manager.*;
 import org.springframework.validation.BindException;
-import java.util.*;
 
-/**
- * @author Gloria Deng
- *
- * To change the template for this generated type comment go to
- * Window>Preferences>Java>Code Generation>Code and Comments
- */
 public class ContainersSearchController extends BasicSearchController {
 	private ContainerManager containerManager;
 	
@@ -83,31 +66,21 @@ public class ContainersSearchController extends BasicSearchController {
 		return containerManager.searchContainer(crtList,lgcList);
 	}
 
-	protected java.util.Map referenceData(javax.servlet.http.HttpServletRequest request)
-							   throws java.lang.Exception
+	protected Map referenceData(HttpServletRequest request)
+							   throws Exception
 	{
 		Map models = new HashMap();
-		List containerList = containerManager.getAllContainers();
+		List containerList = containerManager.getAllBoxes();
 		
 		referenceData(request,models,"container");
 		models.put("containerList",containerList);
 		return models;
 	}
 
-	
-
-	/**
-	 * @return
-	 */
 	public ContainerManager getContainerManager() {
 		return containerManager;
 	}
 
-	
-
-	/**
-	 * @param manager
-	 */
 	public void setContainerManager(ContainerManager manager) {
 		containerManager = manager;
 	}
