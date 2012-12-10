@@ -10,12 +10,15 @@ import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.bind.RequestUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
+import agtc.sampletracking.ConstantInterface;
 import agtc.sampletracking.model.*;
 import javax.servlet.ServletException;
 import javax.servlet.http.*;
@@ -24,8 +27,6 @@ import org.springframework.validation.Errors;
 import org.springframework.web.servlet.view.RedirectView;
 import org.springframework.web.util.WebUtils;
 
-import agtc.sampletracking.bus.manager.AGTCManager;
-import agtc.sampletracking.bus.manager.ContainerManager;
 import agtc.sampletracking.bus.manager.ProjectManager;
 import agtc.sampletracking.bus.manager.SampleManager;
 /**
@@ -34,11 +35,10 @@ import agtc.sampletracking.bus.manager.SampleManager;
  * TODO To change the template for this generated type comment go to
  * Window - Preferences - Java - Code Style - Code Templates
  */
-public class AddMultiSamplesController extends BasicController {
+public class AddMultiSamplesController extends BasicController implements ConstantInterface {
 	private Log log = LogFactory.getLog(AddMultiSamplesController.class);
 	private SampleManager sampleManager;
-	private ContainerManager containerManager;
-	private AGTCManager agtcManager;
+
 	private ProjectManager projectManager;
 	
 	public AddMultiSamplesController(){
@@ -49,16 +49,31 @@ public class AddMultiSamplesController extends BasicController {
 	protected Object formBackingObject(HttpServletRequest request) throws ServletException {
 
 			MultiSamples multiSampleClass = new MultiSamples();
-
-			return multiSampleClass;
 			
+			Integer numSamples = RequestUtils.getIntParameter(request, "ns");
+			
+			String largestSampleId = sampleManager.getLargestSampleId(SAMPLE_PREFIX);
+			Integer largestSampleNum = Integer.parseInt(largestSampleId.replace(SAMPLE_PREFIX, ""));
+			
+			List autoSampleHolder = new ArrayList();
+			
+			for(int i = 1; i <= numSamples; i++)
+			{
+				Integer intSampleNum = largestSampleNum + i;
+				String formatNum = String.format("%06d", intSampleNum);
+				String intSampleId = SAMPLE_PREFIX + formatNum;
+				Sample sample = new Sample(intSampleId);
+				autoSampleHolder.add(sample);
+			}
+			
+			multiSampleClass.setMultiSamples(autoSampleHolder);
+			
+			return multiSampleClass;
 	}
 
 	protected ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response, Object command,BindException errors) throws Exception {
 		
 		MultiSamples multiSamples = (MultiSamples) command;
-
-		System.out.println("Entering onSubmit");
 		
 		// List to store results.
 		List<Sample> sampleList = (List<Sample>) multiSamples.getMultiSamples();
@@ -108,7 +123,7 @@ public class AddMultiSamplesController extends BasicController {
 			models.put("message",message);
 		}
 		
-		List allSampleTypes = agtcManager.getSampleTypesWithVials();
+		List allSampleTypes = sampleManager.getSampleTypeDAO().getSampleTypes();
 		List allProjects = projectManager.getAllProjects();
 		
 		models.put("allSampleTypes",allSampleTypes);
@@ -125,22 +140,6 @@ public class AddMultiSamplesController extends BasicController {
 
 	public void setSampleManager(SampleManager manager) {
 		sampleManager = manager;
-	}
-
-	public ContainerManager getContainerManager() {
-		return containerManager;
-	}
-
-	public void setContainerManager(ContainerManager manager) {
-		containerManager = manager;
-	}
-	
-	public AGTCManager getAgtcManager() {
-		return agtcManager;
-	}
-
-	public void setAgtcManager(AGTCManager agtcManager) {
-		this.agtcManager = agtcManager;
 	}
 	
 	public ProjectManager getProjectManager() {
