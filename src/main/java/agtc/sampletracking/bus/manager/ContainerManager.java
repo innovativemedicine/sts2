@@ -27,14 +27,10 @@ public class ContainerManager {
 	private ContainerTypeDAO containerTypeDAO;
 	private SamplesInContainerDAO samplesInContainerDAO;
 	private List allContainers;
-	private List allReagentBoxes;
+	private List allBoxes;
 	private List allPlates;
 	private boolean refresh = false;
 	
-
-	/**
-	 * @return Returns the allContainers.
-	 */
 	public List getAllContainers() {
 		if(allContainers==null || refresh == true){
 			allContainers = containerDAO.getContainers();
@@ -42,26 +38,29 @@ public class ContainerManager {
 		}
 		return allContainers;
 	}
-	/**
-	 * @return Returns the allPlates.
-	 */
+
 	public List getAllPlates() {
-		//if(allPlates==null || refresh == true ){
+		if(allPlates==null || refresh == true ){
 			allPlates = containerDAO.getAllPlates();
-			//refresh = false;
-		//}
-		return allPlates;
-	}
-	/**
-	 * @return Returns the allReagentBoxes.
-	 */
-	public List getAllReagentBoxes() {
-		if(allReagentBoxes==null || refresh == true ){
-			allReagentBoxes = containerDAO.getAllReagentBoxes();
 			refresh = false;
 		}
-		return allReagentBoxes;
+		return allPlates;
 	}
+	
+	public List getAllBoxes() {
+		if(allBoxes==null || refresh == true ){
+			allBoxes = containerDAO.getAllBoxes();
+			refresh = false;
+		}
+		return allBoxes;
+	}
+	
+	public String getLargestPlateId(String platePrefix){
+		String largestId = containerDAO.getLargestPlateId(platePrefix);
+		
+		return largestId;
+	}
+
 	public Container getContainer(Integer stockId){
 		return containerDAO.getContainer(stockId);
 	}
