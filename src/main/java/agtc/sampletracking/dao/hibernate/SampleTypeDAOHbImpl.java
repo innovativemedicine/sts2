@@ -26,24 +26,11 @@ public class SampleTypeDAOHbImpl
 	extends HibernateDaoSupport
 	implements SampleTypeDAO {
 	private Log log = LogFactory.getLog(SampleTypeDAOHbImpl.class);
-	/* (non-Javadoc)
-	 * @see agtc.sampletracking.dao.SampleTypeDAO#getSampleTypes()
-	 */
-	public List getSampleTypesWithVials() {
-		return  getHibernateTemplate().find("select s from SampleType s where s.isSource='on' order by s.name");
-	}
-	
-	public List getSampleTypesWOVials() {
-		return  getHibernateTemplate().find("select s from SampleType s where s.vials is null order by s.name");
-	}
-	
+		
 	public List getSampleTypes() {
 		return  getHibernateTemplate().find("select s from SampleType s order by s.name");
 	}
 
-	/* (non-Javadoc)
-	 * @see agtc.sampletracking.dao.SampleTypeDAO#getSampleType(java.lang.Integer)
-	 */
 	public SampleType getSampleType(Integer sampleTypeId) {
 		return (SampleType)(getHibernateTemplate().get(SampleType.class,sampleTypeId));
 	}
@@ -56,26 +43,25 @@ public class SampleTypeDAOHbImpl
 			return null;
 		}
 	}
+	
+	public SampleType getSampleTypeByName(String name){
+		List results = getHibernateTemplate().find("select s from SampleType s where s.name='"+name+"'");
+		if(results.size()>0){
+			return (SampleType)results.get(0);
+		}else{
+			return null;
+		}
+	}
 
-	/* (non-Javadoc)
-	 * @see agtc.sampletracking.dao.SampleTypeDAO#saveSampleType(agtc.sampletracking.model.SampleType)
-	 */
 	public void saveSampleType(SampleType sampelType) throws Exception {
 		getHibernateTemplate().saveOrUpdate(sampelType);
-		if(log.isDebugEnabled()){
-			log.debug("sample type id ID set to :" + sampelType.getSampleTypeId());
-		}
-
 	}
 	
 	public void updateSampleType(SampleType sampleType){
 		getHibernateTemplate().update(sampleType);
 	}
-
-	/* (non-Javadoc)
-	 * @see agtc.sampletracking.dao.SampleTypeDAO#removeSampleType(java.lang.Integer)
-	 */
-	public void removeSampleType(Integer sampleTypeId) {
+ 
+	 public void removeSampleType(Integer sampleTypeId) {
 		Object sampleType = getHibernateTemplate().load(SampleType.class,sampleTypeId);
 		getHibernateTemplate().delete(sampleType);
 	}
