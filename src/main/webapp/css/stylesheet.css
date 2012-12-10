@@ -3,15 +3,18 @@ input.barcodeAdd {
 }
 
 h1 {
-	style="font-size: 24pt; font-variant: small-caps; font-family: HelveticaNeue-Light; color: #003366;
+	font-size: 30pt; font-variant: small-caps; font-family: HelveticaNeue-Light; color: #003366;
 	font-weight: normal; margin-top: 5px; margin-bottom: 0px; text-shadow:1px 1px 4px #5A5A5A ;
 }
 
 h2 {
-	style="font-size: 14pt; font-family: HelveticaNeue-Light; color: #5A5A5A;
-	font-weight: normal; margin-top: 5px; margin-bottom: 10px
+	font-size: 20pt; font-family: HelveticaNeue-Light; color: #5A5A5A;
+	font-weight: normal; margin-top: 5px; margin-bottom: 15px
 }
 
+body {
+	font-family: 'Garamond', serif;
+}
 
 /* Div CSS */
 
@@ -34,9 +37,8 @@ div.clear {
 /* Table CSS */
 
 table {
-    cellspacing:5; padding:5; border:2;
 	border-collapse: collapse:separate;
-
+	
 	-moz-box-shadow: 0 0 2px #3A66A7;
 	-webkit-box-shadow: 0 0 2px #3A66A7;
 	box-shadow: 0 0 2px #3A66A7;
@@ -44,7 +46,8 @@ table {
 	-moz-border-radius: 6px;
 	-webkit-border-radius: 6px;
 	border-radius: 6px;
-
+	
+	margin-left:10px;
 }
 
 table td{
@@ -52,8 +55,11 @@ table td{
     padding:3px 5px;
     min-width:70px;
     height:12px;
-  
 }
+
+/* table td input[type="text"] { */
+/* 	background-color:#f0f8ff; */
+/* } */
 
 table.searchCriteria{
     height: 120px; min-width: 300px;  
@@ -215,8 +221,9 @@ nav ul {
 	background: #003366; 
 
 	box-shadow: 0px 0px 9px rgba(0,0,0,0.15);
-
-	padding: 0 40px;
+	font-size: 13pt;
+	font-style: Helvetica-Neue;
+	padding: 0 42px;
 	border-radius: 10px;  
 	list-style: none;
 	position: relative;
@@ -232,7 +239,7 @@ nav ul {
 	
 	nav ul li a {
 		display: block;
-		padding: 5px 28px;
+		padding: 7px 26px;
 		color: #d9d9d9;
 		text-decoration: none;
 	}
@@ -302,4 +309,10 @@ nav ul {
 	nav ul ul li:last-child:hover {
 		border-bottom: 1px solid #6b727c;
 		border-radius: 0 0 10px 10px;
+	}
+	nav ul ul li a {
+		padding-left: 20px;
+		padding-right: 20px;
+		padding-top: 4px;
+		padding-bottom: 4px;
 	}
