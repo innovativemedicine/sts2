@@ -40,10 +40,20 @@ public class SampleDAOHbImpl extends STSBasicDAO implements SampleDAO {
 	public String getLargestSampleId(String intSamplePrefix){
 		Session session = getSession();
 		Criteria crit = session.createCriteria(Sample.class).addOrder(Order.desc("sampleId"));
-		crit.add(Restrictions.like("intSampleId",intSamplePrefix + "%"));
-		crit.list();
+		crit.add(Restrictions.like("patient.intSampleId",intSamplePrefix + "%"));
+		crit.setMaxResults(1);
 		
-		return "";
+		List results = crit.list();
+		
+		if(results.size() < 1)
+		{
+			return intSamplePrefix + "0";
+		}
+		else
+		{
+			Sample sample = (Sample) results.get(0);
+			return sample.getPatient().getIntSampleId();
+		}
 	}
 	
 	public List getSamples(List sampleIds,List sampleTypeSuffixes,Integer sampleDupNo){
