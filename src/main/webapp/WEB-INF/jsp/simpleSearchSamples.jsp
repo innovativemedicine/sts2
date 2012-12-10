@@ -3,7 +3,7 @@
 <%@ include file="/WEB-INF/jsp/includes/success.jsp"%>
 
 <h2>
-	<fmt:message key="sample.search.title" />
+	Search Sample:
 </h2>
 
 

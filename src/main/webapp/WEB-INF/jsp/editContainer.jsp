@@ -36,7 +36,7 @@
 							<FONT color="red"> <B><c:out
 										value="${status.errorMessage}" /></B>
 							</FONT>
-						</spring:bind> (<fmt:message key="format.date" />)</td>
+						</spring:bind> (DD-MM-YYYY)</td>
 				</tr>
 
 				<tr>

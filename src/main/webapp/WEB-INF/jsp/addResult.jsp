@@ -35,7 +35,7 @@
               <td>Test Date:</td>
               <td> 
                 <spring:bind path="command.run.runDate">
-        	   <INPUT type="text" maxlength="255" size="30" name="run.runDate" value="<c:out value="${status.value}"/>"> (<fmt:message key="format.date"/>)
+        	   <INPUT type="text" maxlength="255" size="30" name="run.runDate" value="<c:out value="${status.value}"/>"> (DD-MM-YYYY)
 			    <FONT color="red">
 		    <B><c:out value="${status.errorMessage}"/></B>
 		</FONT> 

@@ -2,7 +2,7 @@
 
 
 <%@ include file="/WEB-INF/jsp/includes/success.jsp" %>
-<h2><fmt:message key="run.search.title"/></h2>
+<h2>Search Run:</h2>
 
 <%@ include file="/WEB-INF/jsp/includes/searchCore.jsp" %>
 
