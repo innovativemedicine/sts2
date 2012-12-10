@@ -116,25 +116,26 @@ public class SampleManager {
 			Patient patient = sample.getPatient();
 			if(!patientDAO.containsPatient(patient.getIntSampleId())){
 				patientDAO.savePatient(patient);
+				sample.setPatient(patient);	
 			}
 			else{
-				patient = patientDAO.getPatient(patient.getIntSampleId());
+				// Option 1: All Sample IDs must be unique. (The patient ID is used as the Barcode ID. 
+				// The External ID can be used to find samples from same patients)
+				throw new Exception("Error: Duplicate Sample ID found. Please reload form and download new manifest.");
 			}
-			sample.setPatient(patient);	
 		}
-		List<Sample> existingSample = (List<Sample>) sampleDAO.getSampleByIntSampleIdSampleType(sample.getPatient().getIntSampleId(),sample.getSampleType());
-
-		if(existingSample != null) {
-			sample.setSampleDupNo(existingSample.size()+1);
-		}
-	
+		
+//		// Option 2: Check Sample ID and Sample Type. IF exists, then update Dup No. Automatically 
+//		List<Sample> existingSample = (List<Sample>) sampleDAO.getSampleByIntSampleIdSampleType(sample.getPatient().getIntSampleId(),sample.getSampleType());
+//
+//		if(existingSample != null) {
+//			sample.setSampleDupNo(existingSample.size()+1);
+//		}
+		
 		if(sample.getStatus() == null) {
 			sample.setStatus("Registered");
 		}
-		
-		sampleDAO.saveSample(sample);	
-		
-		log.debug("end of save sample");
+		sampleDAO.saveSample(sample);			
 	}
 	
 	public void updateSampleStatus(Sample sample, String sampleStatus) throws Exception{
@@ -566,9 +567,6 @@ public class SampleManager {
 		}else{
 			throw new Exception(result);
 		}
-		
-		
-	
 	}
 	
 	public List getSamplesInContainersInBySample(Integer sampleId){
