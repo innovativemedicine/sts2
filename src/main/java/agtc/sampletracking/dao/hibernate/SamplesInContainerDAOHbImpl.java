@@ -23,24 +23,14 @@ import org.hibernate.type.*;
 public class SamplesInContainerDAOHbImpl extends HibernateDaoSupport implements
 		SamplesInContainerDAO {
 
-	/* (non-Javadoc)
-	 * @see agtc.sampletracking.dao.SamplesInContainerDAO#getSamplesInContainer(java.lang.Integer)
-	 */
 	public SamplesInContainer getSamplesInContainer(Integer sicId) {
 		return (SamplesInContainer)(getHibernateTemplate().get(SamplesInContainer.class,sicId));
 	}
 
-	/* (non-Javadoc)
-	 * @see agtc.sampletracking.dao.SamplesInContainerDAO#saveSamplesInContainer(agtc.sampletracking.model.SamplesInContainer)
-	 */
 	public void saveSamplesInContainer(SamplesInContainer result) {
 		getHibernateTemplate().saveOrUpdate(result);
-
 	}
 
-	/* (non-Javadoc)
-	 * @see agtc.sampletracking.dao.SamplesInContainerDAO#removeSamplesInContainer(java.lang.Integer)
-	 */
 	public void removeSamplesInContainer(Integer sicId) {
 		Object sic = getHibernateTemplate().load(SamplesInContainer.class,sicId);
 		getHibernateTemplate().delete(sic);
