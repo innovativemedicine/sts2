@@ -16,12 +16,11 @@ import agtc.sampletracking.model.*;
  */
 
 public interface SampleTypeDAO {
-	public List getSampleTypesWithVials();
 	public List getSampleTypes();
-	public List getSampleTypesWOVials();
 	public SampleType getSampleType(Integer sampleTypeId);
-	public void updateSampleType(SampleType sampleType);
 	public SampleType getSampleTypeBySuffix(String suffix);
+	public SampleType getSampleTypeByName(String name);
+	public void updateSampleType(SampleType sampleType);
 	public void saveSampleType(SampleType sampelType) throws Exception;
 	public void removeSampleType(Integer sampleTypeId); 
 }

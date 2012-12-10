@@ -18,7 +18,6 @@ public interface ProjectSamplesDAO {
 	public List getProjects();
 	public Project getProject(Integer projectId);
 	public Project getProject(String projectName);
-	public List getProjects(List crtList,List lgcList);
 	public void saveProject(Project project) throws Exception;
 	public void removeProject(Integer projectId); 
 	public List getAssayByProjectId(Integer projectId);

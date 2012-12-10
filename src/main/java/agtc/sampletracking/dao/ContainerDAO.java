@@ -19,10 +19,10 @@ public interface ContainerDAO {
 	public List getContainers();
 	public Container getContainer(Integer stockId);
 	public Container getContainer(String name);
+	public String getLargestPlateId(String platePrefix);
 	public void saveContainer(Container stockContainer) throws Exception;
 	public void removeContainer(Integer stockId); 
 	public List getContainers(List crtList,List lgcList);
-	public List getAllReagentBoxes();
-	public List getAllSampleBoxes();
 	public List getAllPlates();
+	public List getAllBoxes();
 }
