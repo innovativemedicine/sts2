@@ -31,7 +31,7 @@ public class SatoLabelPrinter {
 		
 		Iterator ir = sampleList.iterator();
 //		String filename="e:\\commandFiles\\"+UnqueString.UnqueStr()+".DAT";
-		String filename="/Users/nderoo324/Documents/Workspace/sts2/Label/Samples" + UnqueString.UnqueStr() + ".dat";
+		String filename="/Users/nderoo324/Documents/Workspace/sts2/label/samples" + UnqueString.UnqueStr() + ".dat";
 		File outputFile = new File(filename);
         FileWriter out = new FileWriter(outputFile);
 		
