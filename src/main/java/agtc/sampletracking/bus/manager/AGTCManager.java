@@ -1,8 +1,6 @@
 package agtc.sampletracking.bus.manager;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -32,10 +30,9 @@ public class AGTCManager{
 	private UpdateResultToCGGDAO updateResultToCGGDAO;
 	private SamplePrefixDAO samplePrefixDAO;
 	private List sampleTypes;
-	private List sampleTypesWithVials;
-	private List sampleTypesWOVials;
 	private List locations;
 	private List containerTypes;
+	private List plateTypes;
 	private List instruments;
 	private List investigators;
 	private List allSamplePrefixes;
@@ -51,9 +48,7 @@ public class AGTCManager{
 		}
 		return allSamplePrefixes;
 	}
-	/**
-	 * @return Returns the containerTypes.
-	 */
+
 	public List getContainerTypes() {
 		if(containerTypes==null || refresh == true){
 			containerTypes = containerTypeDAO.getContainerTypes();
@@ -61,9 +56,16 @@ public class AGTCManager{
 		}
 		return containerTypes;
 	}
-	/**
-	 * @return Returns the instruments.
-	 */
+	
+	public List getPlateTypes() {
+		if(plateTypes==null || refresh == true){
+			plateTypes = containerTypeDAO.getPlateTypes();
+			refresh = false;
+		}
+		return plateTypes;
+	}
+
+
 	public List getInstruments() {
 		if(instruments==null || refresh == true ){
 			instruments = instrumentDAO.getInstruments();
@@ -91,31 +93,7 @@ public class AGTCManager{
 		}
 		return locations;
 	}
-	/**
-	 * @return Returns the sampleTypes.
-	 */
-	public List getSampleTypesWithVials() {
-		if(sampleTypesWithVials==null || refresh == true){
-			sampleTypesWithVials = sampleTypeDAO.getSampleTypesWithVials();
-			refresh = false;
-		}
-		return sampleTypesWithVials;
-	}
 	
-	/**
-	 * @return Returns the sampleTypes.
-	 */
-	public List getSampleTypesWOVials() {
-		if(sampleTypesWOVials==null || refresh == true){
-			sampleTypesWOVials = sampleTypeDAO.getSampleTypesWOVials();
-			refresh = false;
-		}
-		return sampleTypesWOVials;
-	}
-	
-	/**
-	 * @return Returns the sampleTypes.
-	 */
 	public List getSampleTypes() {
 		if(sampleTypes==null || refresh == true){
 			sampleTypes = sampleTypeDAO.getSampleTypes();
@@ -135,11 +113,6 @@ public class AGTCManager{
 		return updateResultToCGGDAO.updateResult();
 	}
 	
-	/**
-	public SampleType getSampleType(String name){
-		return sampleTypeDAO.getSampleType(name);
-	}
-	*/
 	public SampleType getSampleType(Integer SampleTypeID){
 		return sampleTypeDAO.getSampleType(SampleTypeID);
 	}
@@ -153,31 +126,20 @@ public class AGTCManager{
 		refresh = true;
 	}
 	
-	/**
-	 * @return
-	 */
+
 	public SampleTypeDAO getSampleTypeDAO() {
 		return sampleTypeDAO;
 	}
 
 
-	/**
-	 * @param typeDAO
-	 */
 	public void setSampleTypeDAO(SampleTypeDAO typeDAO) {
 		sampleTypeDAO = typeDAO;
 	}
-/*End Sample Type*/
 
-	/*********For Location
-	 * @return Returns the locationDAO.
-	 */
 	public LocationDAO getLocationDAO() {
 		return locationDAO;
 	}
-	/**
-	 * @param locationDAO The locationDAO to set.
-	 */
+
 	public void setLocationDAO(LocationDAO locationDAO) {
 		this.locationDAO = locationDAO;
 	}
@@ -191,7 +153,6 @@ public class AGTCManager{
 		locationDAO.saveLocation(stock);
 		refresh = true;
 	}
-	/******End Location	 */
 	
 	public ContainerType getContainerType(String name){
 		return containerTypeDAO.getContainerType(name);
@@ -206,16 +167,10 @@ public class AGTCManager{
 		refresh = true;
 	}
 	
-	/**
-	 * @return
-	 */
 	public ContainerTypeDAO getContainerTypeDAO() {
 		return containerTypeDAO;
 	}
 
-	/**
-	 * @param typeDAO
-	 */
 	public void setContainerTypeDAO(ContainerTypeDAO typeDAO) {
 		containerTypeDAO = typeDAO;
 	}
@@ -234,24 +189,13 @@ public class AGTCManager{
 		refresh = true;
 	}
 	
-	/**
-	 * @return
-	 */
 	public InstrumentDAO getInstrumentDAO() {
 		return instrumentDAO;
 	}
 
-
-	/**
-	 * @param typeDAO
-	 */
 	public void setInstrumentDAO(InstrumentDAO typeDAO) {
 		instrumentDAO = typeDAO;
 	}
-
-	/**
-	 * For Investigator
-	 */
 	
 	public Investigator getInvestigator(Integer InvestigatorID){
 		return investigatorDAO.getInvestigator(InvestigatorID);
@@ -262,9 +206,6 @@ public class AGTCManager{
 		refresh = true;
 	}
 	
-	/**
-	 * @return
-	 */
 	public InvestigatorDAO getInvestigatorDAO() {
 		return investigatorDAO;
 	}
@@ -286,15 +227,10 @@ public class AGTCManager{
 		return samplePrefixDAO.getSamplePrefixByDescription(des);
 	}
 
-	/**
-	 * @return Returns the samplePrefixDAO.
-	 */
 	public SamplePrefixDAO getSamplePrefixDAO() {
 		return samplePrefixDAO;
 	}
-	/**
-	 * @param samplePrefixDAO The samplePrefixDAO to set.
-	 */
+
 	public void setSamplePrefixDAO(SamplePrefixDAO samplePrefixDAO) {
 		this.samplePrefixDAO = samplePrefixDAO;
 	}
