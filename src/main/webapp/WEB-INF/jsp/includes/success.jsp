@@ -1,5 +1,5 @@
 <c:if test="${message != ''}">
-	<c:out value="${message}" escapeXml="false" />
+	<span style="color: green"><c:out value="${message}" escapeXml="false" /></span>
 	<br>
 </c:if>
 
