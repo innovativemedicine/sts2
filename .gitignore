@@ -1,4 +1,7 @@
 *.iws
+*.jar
+*.csv
+*.xls
 *.war
 *.dat
 .DS_Store
