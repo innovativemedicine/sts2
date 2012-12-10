@@ -20,6 +20,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 
 import agtc.sampletracking.*;
 
@@ -33,16 +35,11 @@ public class ContainerDAOHbImpl
 	extends STSBasicDAO
 	implements ContainerDAO, ConstantInterface{
 	private Log log = LogFactory.getLog(ContainerDAOHbImpl.class);
-	/* (non-Javadoc)
-	 * @see agtc.sampletracking.dao.StockContainerDAO#getStockContainers()
-	 */
+
 	public List getContainers() {
 		return  getHibernateTemplate().find("from Container c left join fetch c.location left join fetch c.project left join fetch c.containerType order by c.name");
 	}
 
-	/* (non-Javadoc)
-	 * @see agtc.sampletracking.dao.StockContainerDAO#getStockContainer(java.lang.Integer)
-	 */
 	public Container getContainer(Integer stockId) {
 		return (Container)(getHibernateTemplate().get(Container.class,stockId));
 	}
@@ -50,19 +47,34 @@ public class ContainerDAOHbImpl
 	public Container getContainer(String name) {
 		List result = getHibernateTemplate().find("from Container c where c.name=?",name);
 		
-		if (result.isEmpty())
-		{
+		if (result.isEmpty()) {
 			return null;
 		}
-		else
-		{
+		else {
 			return (Container)result.get(0);
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see agtc.sampletracking.dao.StockContainerDAO#saveStockContainer(agtc.sampletracking.model.StockContainer)
-	 */
+	public String getLargestPlateId(String platePrefix)
+	{
+		Session session = getSession();
+		Criteria crit = session.createCriteria(Container.class).addOrder(Order.desc("containerId"));
+		crit.add(Restrictions.like("name",platePrefix + "%"));
+		crit.setMaxResults(1);
+		
+		List results = crit.list();
+		
+		if(results.size() < 1)
+		{
+			return platePrefix + "0";
+		}
+		else
+		{
+			Container container = (Container) results.get(0);
+			return container.getName();
+		}
+	}
+
 	public void saveContainer(Container container) throws Exception {
 		getHibernateTemplate().saveOrUpdate(container);
 		if(log.isDebugEnabled()){
@@ -102,12 +114,8 @@ public class ContainerDAOHbImpl
 		return crt.list();
 	}
 	
-	public List getAllReagentBoxes(){
-		return getHibernateTemplate().find("from Container c where c.containerType.name like '" + REAGENT_BOX + "%'");
-	}
-	
-	public List getAllSampleBoxes(){
-		return getHibernateTemplate().find("from Container c where c.containerType.name like '" + SAMPLE_BOX + "%'");
+	public List getAllBoxes(){
+		return getHibernateTemplate().find("from Container c where c.containerType.name like '%" + BOX + "'");
 	}
 	
 	public List getAllPlates(){
