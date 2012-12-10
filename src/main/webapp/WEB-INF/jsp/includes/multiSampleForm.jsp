@@ -6,7 +6,6 @@
 			<tr>
 				<th>Barcode ID</th>
 				<th>External ID</th>
-				<th>External ID2</th>
 				<th>Sample Type</th>
 				<th>Project</th>
 				<th>Notes</th>
@@ -38,12 +37,7 @@
 								</c:if>
 							</spring:bind></td>
 
-						<td><spring:bind
-								path="command.multiSamples[${row}].patient.anotherExtSampleId">
-								<INPUT type="text" maxlength="64" size="15"
-									name="<c:out value="${status.expression}"/>"
-									value="<c:out value="${status.value}"/>">
-							</spring:bind></td>
+					
 
 						<td><spring:bind
 								path="command.multiSamples[${row}].sampleType">
