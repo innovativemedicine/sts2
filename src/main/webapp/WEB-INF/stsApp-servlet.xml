@@ -26,8 +26,8 @@
                	<prop key="/assays.htm">assaysSearchController</prop>
 				<prop key="/results.htm">resultsSearchController</prop>
 				<prop key="/runs.htm">runsSearchController</prop>
-				<prop key="/searchPatient.htm">searchPatientController</prop>
-
+				<prop key="/searchPlates.htm">platesSearchController</prop>
+				
 				<!--
     	 edit controllers
     	  -->
@@ -158,6 +158,16 @@
         <property name="searchFields"><ref bean="containerSearchFields"/></property>
         <property name="operatorList"><ref bean="operatorList"/></property>
     </bean>
+    
+        <bean id="platesSearchController" class="agtc.sampletracking.web.controller.PlatesSearchController">
+    	<property name="sessionForm"><value>true</value></property>
+    	<property name="requireSession"><value>true</value></property>
+    	<property name="formView"><value>containers</value></property>
+    	<property name="successView"><value>containerDetails.htm</value></property>
+       	<property name="containerManager"><ref bean="containerManager"/></property>
+        <property name="searchFields"><ref bean="containerSearchFields"/></property>
+        <property name="operatorList"><ref bean="operatorList"/></property>
+    </bean>
 
     <bean id="projectsSearchController" class="agtc.sampletracking.web.controller.ProjectsSearchController">
 	    <property name="sessionForm"><value>true</value></property>
@@ -208,17 +218,10 @@
   		<property name="idListResolver"><ref bean="idListResolver"/></property>
    </bean>
 
-    <bean id="searchPatientController" class="agtc.sampletracking.web.controller.SearchPatientController">
-		<property name="sessionForm"><value>true</value></property>
-		<property name="requireSession"><value>true</value></property>
-       	<property name="formView"><value>searchPatient</value></property>
-		<property name="successView"><value>patientDetails.htm</value></property>
-		<property name="sampleManager"><ref bean="sampleManager"/></property>
-   </bean>
-
 	<!--
     	 edit controllers in order of sample, container, project, test, assay, run, result, management
     	 -->
+    	 
     <bean id="editSampleController" class="agtc.sampletracking.web.controller.EditSampleController">
  		<property name="sessionForm"><value>true</value></property>
  		<property name="requireSession"><value>true</value></property>
