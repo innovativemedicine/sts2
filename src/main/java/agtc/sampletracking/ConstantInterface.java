@@ -19,10 +19,13 @@ public interface ConstantInterface {
 	public static int NO_DEF = -1;
 	
 	public static String NOTDEFINED = "-";
-	
+	public static String SAMPLE_PREFIX = "TESTID";
+	public static String PLATE_PREFIX = "TESTPL";
+
 	public static String SAMPLE_BOX = "Sample";
 	public static String REAGENT_BOX = "Reagent";
 	public static String PLATE = "Plate";
+	public static String BOX = "Box";
 	
 	public static int SAMPLEID_FORMAT = 1;
 	public static int PLATE_FORMAT = 2;
