@@ -14,6 +14,7 @@ import org.apache.commons.logging.LogFactory;
 
 import agtc.sampletracking.dao.ContainerTypeDAO;
 import agtc.sampletracking.model.ContainerType;
+import agtc.sampletracking.ConstantInterface;
 
 /**
  * @author Hongjing
@@ -23,18 +24,17 @@ import agtc.sampletracking.model.ContainerType;
  */
 public class ContainerTypeDAOHbImpl
 	extends HibernateDaoSupport
-	implements ContainerTypeDAO {
+	implements ContainerTypeDAO, ConstantInterface {
 	private Log log = LogFactory.getLog(ContainerTypeDAOHbImpl.class);
-	/* (non-Javadoc)
-	 * @see agtc.sampletracking.dao.ContainerTypeDAO#getContainerTypes()
-	 */
+
 	public List getContainerTypes() {
 		return  getHibernateTemplate().find("select c from ContainerType c order by c.name");
 	}
 
-	/* (non-Javadoc)
-	 * @see agtc.sampletracking.dao.ContainerTypeDAO#getContainerType(java.lang.Integer)
-	 */
+	public List getPlateTypes() {
+		return getHibernateTemplate().find("from ContainerType c where c.name like '" + PLATE + "%' order by c.id ");
+	}
+	
 	public ContainerType getContainerType(Integer containerTypeId) {
 		return (ContainerType)(getHibernateTemplate().get(ContainerType.class,containerTypeId));
 	}
@@ -43,9 +43,6 @@ public class ContainerTypeDAOHbImpl
 		return (ContainerType)(getHibernateTemplate().find("from ContainerType c where c.name=?",name).get(0));
 	}
 
-	/* (non-Javadoc)
-	 * @see agtc.sampletracking.dao.ContainerTypeDAO#saveContainerType(agtc.sampletracking.model.ContainerType)
-	 */
 	public void saveContainerType(ContainerType containerType) throws Exception {
 		getHibernateTemplate().saveOrUpdate(containerType);
 		if(log.isDebugEnabled()){
@@ -53,9 +50,6 @@ public class ContainerTypeDAOHbImpl
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see agtc.sampletracking.dao.ContainerTypeDAO#removeContainerType(java.lang.Integer)
-	 */
 	public void removeContainerType(Integer containerTypeId) {
 		Object containerType = getHibernateTemplate().load(ContainerType.class,containerTypeId);
 		getHibernateTemplate().delete(containerType);
