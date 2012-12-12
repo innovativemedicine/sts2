@@ -21,8 +21,9 @@ public interface SampleDAO {
 	public String getLargestSampleId(String intSamplePrefix);
 	// Simple Search searches sampleId using sampleTypeId and projectId;
 	public List simpleSearchSamples(List sampleIds, List sampleTypeIds, List projectIds);
-	public Sample getSample(String sampleId, String sampleTypeSuffix,Integer sampleDupNo);
+	public Sample getSample(String intSampleId, String sampleTypeSuffix,Integer sampleDupNo);
 	public Sample getSample(Integer sampleId);
+	public Sample getSample(String intSmpleId);
 	public void saveSample(Sample sample) throws Exception;
 	public void removeSample(Integer sampleId);
 	public List searchSamples(List crtList,List lgcList);
@@ -32,4 +33,5 @@ public interface SampleDAO {
 	public List getSampleByIntSampleId(String intId);
 	public boolean containsIntSampleId(String intSampleId);
 	public List getExistingSampleTypes(String intSampleId);
+	public List getAllSampleTypes();
 }
