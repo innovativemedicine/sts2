@@ -102,8 +102,7 @@ public class SimpleSampleSearchController extends BasicSearchController {
 		Map models = new HashMap();
 		String message = "";
 
-		LSampleTypes = sampleManager.getSampleTypeDAO().getSampleTypes();
-
+		LSampleTypes = sampleManager.getAllSampleTypes();
 		LProjects = projectManager.getAllProjects();
 
 		models.put("LSampleTypes", LSampleTypes);
@@ -130,20 +129,6 @@ public class SimpleSampleSearchController extends BasicSearchController {
 
 	public void setProjectManager(ProjectManager manager) {
 		projectManager = manager;
-	}
-
-	/*
-	 * Create fake sample to repsented a internale sample ID without searching
-	 * result Jianan Xiao 2005-09-12
-	 */
-	private Sample fakeSample(String intSampleId) {
-		Patient p = new Patient();
-		p.setIntSampleId(intSampleId);
-		Sample s = new Sample();
-		s.setPatient(p);
-		s.setSampleId(new Integer(-1));
-
-		return s;
 	}
 
 	/*
