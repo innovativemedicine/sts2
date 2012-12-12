@@ -66,13 +66,30 @@ public class SampleDAOHbImpl extends STSBasicDAO implements SampleDAO {
 		return crt.list();
 	}
 	
-	public Sample getSample(String sampleId, String sampleTypeSuffix,Integer sampleDupNo){
+	public Sample getSample(String intSampleId, String sampleTypeSuffix,Integer sampleDupNo){
 		Session session = getSession();
 		Criteria crt = session.createCriteria(Sample.class);
 		crt.createAlias("sampleType","sampleType");
-		crt.add(Restrictions.eq("patient.intSampleId",sampleId));
+		crt.add(Restrictions.eq("patient.intSampleId",intSampleId));
 		crt.add(Restrictions.eq("sampleType.suffix",sampleTypeSuffix));
 		crt.add(Restrictions.eq("sampleDupNo",sampleDupNo));
+		log.debug(" the criteria is " + crt.toString());
+		
+		List result = crt.list();
+		
+		if (result.isEmpty()) {
+			return null;
+		}
+		else {
+			return (Sample)result.get(0);
+		}
+	}
+	
+	public Sample getSample(String intSampleId){
+		Session session = getSession();
+		Criteria crt = session.createCriteria(Sample.class);
+		crt.add(Restrictions.eq("patient.intSampleId",intSampleId));
+		
 		log.debug(" the criteria is " + crt.toString());
 		
 		List result = crt.list();
@@ -151,6 +168,10 @@ public class SampleDAOHbImpl extends STSBasicDAO implements SampleDAO {
 		return getHibernateTemplate().find(query,intSampleId);
 	}
 	
+	public List getAllSampleTypes(){
+		String query = "select s.sampleType from Sample s group by s.sampleType order by count(s.sampleId) desc";
+		return getHibernateTemplate().find(query);
+	}
 
 	/* (non-Javadoc)
 	 * @see agtc.sampletracking.dao.SampleDAO#getSample(java.lang.Integer)
