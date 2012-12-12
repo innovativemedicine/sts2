@@ -9,7 +9,16 @@ h1 {
 
 h2 {
 	font-size: 20pt; font-family: HelveticaNeue-Light; color: #5A5A5A;
-	font-weight: normal; margin-top: 5px; margin-bottom: 15px
+	font-weight: normal; margin-top: 5px; margin-bottom: 15px;
+}
+
+h3 {
+	font-size: 16pt; font-family: HelveticaNeue-Light; color: #5A5A5A;
+	font-weight: normal; margin-top: 5px; margin-bottom: 15px;
+}
+
+.noMargin { 
+	margin-bottom: 0px;
 }
 
 body {
@@ -35,6 +44,33 @@ div.clear {
 }
 
 /* Table CSS */
+
+table.containerMap {
+	border-collapse: collapse;
+	
+/* 	-moz-box-shadow: 0 0 2px #3A66A7; */
+/* 	-webkit-box-shadow: 0 0 2px #3A66A7; */
+/* 	box-shadow: 0 0 2px #3A66A7; */
+	
+/* 	-moz-border-radius: 6px; */
+/* 	-webkit-border-radius: 6px; */
+/* 	border-radius: 6px; */
+	
+	margin-left:10px;
+}
+
+table.containerMap td {
+	border: 1px solid #a6caf0;	
+}
+
+table.containerMap td a {
+	text-decoration: none;
+	color: #3A66A7;
+}
+
+table.containerMap td a:hover {
+	text-decoration: underline;
+}
 
 table {
 	border-collapse: collapse:separate;
