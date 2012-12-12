@@ -13,9 +13,6 @@ import java.util.List;
 import java.util.*;
 import java.text.*;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import agtc.sampletracking.model.Sample;
 import agtc.sampletracking.bus.comparator.*;
 
@@ -31,7 +28,9 @@ public class SatoLabelPrinter {
 		
 		Iterator ir = sampleList.iterator();
 //		String filename="e:\\commandFiles\\"+UnqueString.UnqueStr()+".DAT";
-		String filename="/Users/nderoo324/Documents/Workspace/sts2/label/samples" + UnqueString.UnqueStr() + ".dat";
+		SimpleDateFormat timeStamp = new SimpleDateFormat("ddMMMyyyykkmm");
+		String fileTime = timeStamp.format(new Date());
+		String filename = "/Users/nderoo324/Documents/Workspace/sts2/label/samples" + fileTime + ".dat";
 		File outputFile = new File(filename);
         FileWriter out = new FileWriter(outputFile);
 		
@@ -50,9 +49,7 @@ public class SatoLabelPrinter {
 	        	}
 	        	// For the barcode: It should be in the format S-internalId-sampleTypeSuffix-sampleDupNo
 	        	content.append("S").append("-");	
-	        	content.append(internalId).append("-");
-	         	content.append(sampleTypeSuffix).append("-");
-	        	content.append(sampleDupNo).append(",");
+	        	content.append(internalId).append(",");
 	        	// Also include the external ID and internal ID as text string if there's room
 	        	content.append(externalId).append(",");
 	        	content.append(internalId).append(",");
@@ -61,14 +58,51 @@ public class SatoLabelPrinter {
 	     }
 	      out.write(content.toString());
 	      out.close();
-	  
+	}
+
+	public void printPlateLabel(List plateList) throws Exception{
+		
+		Iterator ir = plateList.iterator();
+//		String filename="e:\\commandFiles\\"+UnqueString.UnqueStr()+".DAT";
+		SimpleDateFormat timeStamp = new SimpleDateFormat("ddMMMyyyykkmm");
+		String fileTime = timeStamp.format(new Date());
+		String filename = "/Users/nderoo324/Documents/Workspace/sts2/label/plates" + fileTime + ".dat";
+		File outputFile = new File(filename);
+        FileWriter out = new FileWriter(outputFile);
+		
+		StringBuffer content = new StringBuffer();
+		
+	      while (ir.hasNext()){
+	
+	        	Sample sample = (Sample)ir.next();
+	        	String internalId = sample.getPatient().getIntSampleId();
+	        	String externalId = sample.getPatient().getExtSampleId();
+	        	String sampleTypeSuffix = sample.getSampleType().getSuffix();
+	        	String sampleDupNo = sample.getSampleDupNo().toString();
+
+	        	if(externalId==null || externalId.equals("null")){
+	        		externalId = "";
+	        	}
+	        	// For the barcode: It should be in the format S-internalId-sampleTypeSuffix-sampleDupNo
+	        	content.append("S").append("-");	
+	        	content.append(internalId).append(",");
+	        	// Also include the external ID and internal ID as text string if there's room
+	        	content.append(externalId).append(",");
+	        	content.append(internalId).append(",");
+	        	
+	        	content.append("\n");
+	     }
+	      out.write(content.toString());
+	      out.close();
 	}
 	
 	public void printSatoLabel(List selectList) throws Exception{
 		
 		Iterator ir = selectList.iterator();
 //		String filename="e:\\commandFiles\\"+UnqueString.UnqueStr()+".DAT";
-		String filename="/Users/nderoo324/Documents/Workspace/sts2/" + UnqueString.UnqueStr() + ".dat";
+		SimpleDateFormat timeStamp = new SimpleDateFormat("ddMMMyyyykkmm");
+		String fileTime = timeStamp.format(new Date());
+		String filename = "/Users/nderoo324/Documents/Workspace/sts2/label/" + fileTime + ".dat";
 		File outputFile = new File(filename);
         FileWriter out = new FileWriter(outputFile);
 		
