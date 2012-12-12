@@ -107,6 +107,9 @@ public class ContainerManager {
 				kid.setMotherContainer(null);
 			}
 		}
+		
+		refresh = true;
+		
 		container.getChildContainers().clear();
 		containerDAO.removeContainer(containerId);
 	}
