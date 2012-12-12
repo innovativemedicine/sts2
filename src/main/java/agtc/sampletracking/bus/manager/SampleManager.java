@@ -6,6 +6,7 @@
  */
 package agtc.sampletracking.bus.manager;
 
+import agtc.sampletracking.ConstantInterface;
 import agtc.sampletracking.dao.*;
 import agtc.sampletracking.model.*;
 
@@ -21,7 +22,7 @@ import agtc.sampletracking.bus.*;
  * This class is the middleclass between web object and DAO. It is also the target class spring framework
  * provide transaction management
  */
-public class SampleManager {
+public class SampleManager implements ConstantInterface {
 	private Log log = LogFactory.getLog(SampleManager.class);
 	private SampleDAO sampleDAO;
 	private ContainerDAO containerDAO;
@@ -50,6 +51,12 @@ public class SampleManager {
 		Sample sample = sampleDAO.getSample(intSampleId,sampleTypeSuffix,dupNo);
 		return sample;
 	}
+	
+	public Sample getSample(String intSampleId){
+		Sample sample = sampleDAO.getSample(intSampleId);
+		return sample;
+	}
+	
 	public void saveSamplesInContainerList(List samplesInContainers){
 		for(int i=0;i<samplesInContainers.size();i++){
 			SamplesInContainer sic = (SamplesInContainer)samplesInContainers.get(i);
@@ -89,12 +96,20 @@ public class SampleManager {
 		return results;
 	}
 
+	// Remove both sample and patient reference
 	public void removeSample(Integer sampleId){
-		log.debug("remove one sample");
 		Sample sample = sampleDAO.getSample(sampleId);		
 		sampleDAO.removeSample(sampleId);
+
 	}
 	
+	public void removeSampleAndPatient(Integer sampleId){
+		System.out.println("remove all patient");
+		Sample sample = sampleDAO.getSample(sampleId);		
+		patientDAO.removePatient(sample.getPatient().getIntSampleId());
+
+	}
+	// Remove all records of samples and patient from DB
 	public void removeAllSamplesInContainer(Container container){
 		Set sics = container.getSamplesInContainers();
 		
@@ -105,6 +120,21 @@ public class SampleManager {
 			SamplesInContainer sic = (SamplesInContainer)i.next();
 			Sample sample = sic.getSample();
 			removeSample(sample.getSampleId());
+		}
+		sics.clear();
+		
+	}
+	
+	public void removeAllSamplesAndPatientsInContainer(Container container){
+		System.out.println("remove all");
+		Set sics = container.getSamplesInContainers();		
+		Iterator i = sics.iterator();
+		
+		while(i.hasNext()){
+			
+			SamplesInContainer sic = (SamplesInContainer)i.next();
+			Sample sample = sic.getSample();
+			removeSampleAndPatient(sample.getSampleId());
 		}
 		sics.clear();
 		
@@ -228,6 +258,10 @@ public class SampleManager {
 		sampleTypeDAO.updateSampleType(sampleType);
 	}
 	
+	public List getAllSampleTypes(){
+		return sampleDAO.getAllSampleTypes();
+	}
+	
 	/**
 	 * This method is for add a batch of new samples in a container
 	 * @param container
@@ -348,81 +382,8 @@ public class SampleManager {
 				sample.setSampleType(sampleType);
 				String intSampleId = sample.getPatient().getIntSampleId();
 				
-				Sample sample1 = sample1 = sampleDAO.getSampleByIntSampleIdUniKey(sample.getPatient().getIntSampleId(),sampleType,sample.getSampleDupNo());
-				
-				if(sample.getPatient().getAnotherExtSampleId()!=null){
-					sample1.getPatient().setAnotherExtSampleId(sample.getPatient().getAnotherExtSampleId());
-				}
-				
-				if(sample.getPatient().getExtSampleId()!=null){
-					sample1.getPatient().setExtSampleId(sample.getPatient().getExtSampleId());
-				}
-						
-				if(sample.getMadeDate()!=null){
-					sample1.setMadeDate(sample.getMadeDate());
-				}
-				
-				if(sample.getNotes()!=null){
-					sample1.setNotes(sample.getNotes());
-				}
-				
-				if(sample.getOd()!=null){
-					sample1.setOd(sample.getOd());
-				}
-				
-				if(sample.getOdDate()!=null){
-					sample1.setOdDate(sample.getOdDate());
-				}
-				
-				if(sample.getReceiveDate()!=null){
-					sample1.setReceiveDate(sample.getReceiveDate());
-				}
-				
-				if(sample.getRefillDate()!=null){
-					sample1.setRefillDate(sample.getRefillDate());
-				}
-				
-				if(sample.getRemoveDate()!=null){
-					sample1.setRemoveDate(sample.getRemoveDate());
-				}
-				
-				if(sample.getSampleType()!=null){
-					sample1.setSampleType(sample.getSampleType());
-				}
-				
-				if(sample.getStatus()!=null){
-					sample1.setStatus(sample.getStatus());
-				}
-				
-				if(sample.getTransDate()!=null){
-					sample1.setTransDate(sample.getTransDate());
-				}
-				
-				if(sample.getVolumn()!=null){
-					sample1.setVolumn(sample.getVolumn());
-				}
-				
-				if(sample.getVolumnDate()!=null){
-					sample1.setVolumnDate(sample.getVolumnDate());
-				}
-				if(sample.getPatient().getNote()!=null){
-					sample1.getPatient().setNote(sample.getPatient().getNote());
-				}
-				
-				if(sample.getPatient().getIsControl()!=null){
-					sample1.getPatient().setIsControl(sample.getPatient().getIsControl());
-				}
-				
-				if(sample.getPatient().getFamilyId()!=null){
-					sample1.getPatient().setFamilyId(sample.getPatient().getFamilyId());
-				}
-
-				if(sample.getPatient().getProject()!=null){
-					sample1.getPatient().setProject(sample.getPatient().getProject());
-				}
-
-				saveSample(sample1);
-				results.add(sample1);
+				saveSample(sample);
+				results.add(sample);
 			}
 			
 		}else{
@@ -573,15 +534,40 @@ public class SampleManager {
 		return samplesInContainerDAO.getSamplesInContainersInBySample(sampleId);
 	}
 	
-	public void removeSamplesInContainer(Integer sicId){
-		samplesInContainerDAO.removeSamplesInContainer(sicId);
-	}
-	
 	public void saveSamplesInContainer(SamplesInContainer sic){
 		samplesInContainerDAO.saveSamplesInContainer(sic);
 	}
 	
+	// Edit Container Content: Remove the sample from container by SIC. Keeps sample record.
+	public void removeSamplesInContainer(Integer sicId){
+		// Update Sample Status
+		SamplesInContainer sic = samplesInContainerDAO.getSamplesInContainer(sicId);
+		Sample sample = sic.getSample();
+		sample.setStatus("Removed");
+		try {
+			sampleDAO.saveSample(sample);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		samplesInContainerDAO.removeSamplesInContainer(sicId);
+	}
+	
+	// Empty Container: Remove the sample from container by container ID. Keeps sample record
 	public void removeSamplesInContainerByContainer(Integer containerId){
+		// Update Sample Status for all samples in container
+		List sics = samplesInContainerDAO.getSamplesInContainersByContainer(containerId);
+		Iterator i = sics.iterator();
+		while(i.hasNext()){
+			SamplesInContainer sic = (SamplesInContainer)i.next();
+			Sample sample = sic.getSample();
+			sample.setStatus("Removed");
+			try {
+				sampleDAO.saveSample(sample);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 		samplesInContainerDAO.removeSamplesInContainersByContainer(containerId);
 	}
 	
