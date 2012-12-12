@@ -39,7 +39,6 @@
 	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/odmg-3.0.jar"/>
 	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/ojdbc14.jar"/>
 	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/oscache-2.0.1.jar"/>
-	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/poi-2.5.1-final-20040804.jar"/>
 	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/spring-aop.jar"/>
 	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/spring-beans.jar"/>
 	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/spring-context.jar"/>
@@ -71,5 +70,6 @@
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/mail.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
