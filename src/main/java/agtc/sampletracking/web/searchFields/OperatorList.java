@@ -26,9 +26,8 @@ public class OperatorList extends BasicSearchFiels{
 
 	public void loadElements(){
 		add("contains");
-		add("is");
-		add("between");
-		add("after");
+//		add("between");
+//		add("after");
 		
 	}
 	
