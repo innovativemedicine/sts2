@@ -53,12 +53,13 @@ public class BarcodeController extends BasicController {
 			String barcodeString = barcodeItem.toString();
 			String response = new String() ;
 			
-		if (barcodeString.matches("S-" + SAMPLE_PREFIX + "\\d+")) {
+		if (barcodeString.matches("S-" + SAMPLE_PREFIX + "\\d+-[a-zA-Z]{2,3}")) {
 			String[] bcArray = barcodeString.split("-");
 			String sampleId = bcArray[1];
+			String sampleTypeSuffix = bcArray[2];
 
-			Sample sample = sampleManager.getSample(sampleId);
-			
+			Sample sample = sampleManager.getSample(sampleId, sampleTypeSuffix, 1);
+
 			if (sample == null) {
 //				response += addSampleFromBarcode(sampleId,  sampleTypeSuffix,  sampleDupNo);
 				response = "<b>Error</b>(Sample not found in database):";
