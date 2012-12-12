@@ -140,7 +140,8 @@ public class EditContainerController extends BasicController {
 		List allProjects = projectManager.getAllProjects();
 		List allLocations = agtcManager.getLocations();
 		List allContainerTypes = agtcManager.getContainerTypes();
-		
+		List allPlateTypes = agtcManager.getPlateTypes();
+		allContainerTypes.removeAll(allPlateTypes);
 
 		models.put("allLocations",allLocations);
 		models.put("allContainerTypes",allContainerTypes);
