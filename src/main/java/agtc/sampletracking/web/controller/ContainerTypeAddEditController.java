@@ -76,7 +76,8 @@ public class ContainerTypeAddEditController extends BasicController {
 			
 		ContainerType containerType = (ContainerType) command;
 		String name = containerType.getName();
-		if(!name.startsWith(SAMPLE_BOX) || !name.startsWith(REAGENT_BOX) || !name.startsWith(PLATE)){
+		
+		if(!name.startsWith(SAMPLE_BOX) && !name.startsWith(REAGENT_BOX) && !name.startsWith(PLATE)){
 			errors.rejectValue("name","error.nameRule",new String[]{containerType.getName()},"Container type name not confirm to naming rule");
 			return showForm(request, response, errors);
 		}
