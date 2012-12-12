@@ -2,22 +2,30 @@
 
 <tr>
 	<td><%@ include file="/WEB-INF/jsp/includes/success.jsp"%>
+	
 
-		<font size="5"> Container Details</font> <a class="button"
+	<h2 class="noMargin"> Container Details</h2>
+	 
+	<c:if test="${command.sampleBox}">
+		<a class="button"
 		href="<c:url value="/editContainer.htm"><c:param name="containerId" value="${command.containerId}"/></c:url>">
-			<span>Edit</span>
-	</a> <a class="button"
+			<span>Edit Container</span>
+			
+	</a> 
+	<a class="button"
 		href="<c:url value="/emptyContainer.htm"><c:param name="containerId" value="${command.containerId}"/></c:url>"
 		onclick="return (confirm('Warning: This will remove all samples from this container, but the samples information will remain in the system.\n\nAre you sure you want to empty this container?')) ">
-			<span>Empty</span>
-	</a> <a class="button"
+			<span>Empty Container</span>
+	</a> 
+	</c:if>
+	<a class="button"
 		href="<c:url value="/deleteContainer.htm"><c:param name="containerId" value="${command.containerId}"/></c:url>"
-		onclick="return (confirm('Warning: You can not delete this container unless it is empty. Are you sure you want to delete this container?')) ">
-			<span>Delete</span>
+		onclick="return (confirm('Warning: This will remove all information associated with samples from this container.\n\nAre you sure you want to delete this container?')) ">
+			<span>Delete Container</span>
 	</a>
 		<p>
-		<div style="float: left; margin-right: 40px">
-			<table class="details">
+		<div class="left">
+			<table>
 				<tr>
 					<th>Container Name</th>
 					<td><c:out value="${command.name}" /></td>
@@ -32,19 +40,30 @@
 				</tr>
 				<tr>
 					<th>Location:</th>
-					<td><c:out value="${command.location.name}" /></td>
+					<td>
+					<c:if test="${command.sampleBox}">
+						<c:out value="${command.location.name}" />
+					</c:if>	
+					<c:if test="${command.plate && command.hasMotherContainer}">
+					<a href="<c:url value="/containerDetails.htm"><c:param name="containerId" value="${command.motherContainer.containerId}"/></c:url>">
+					<c:out value="${command.motherContainer.name}" />@<c:out value="${command.motherContainer.location.name}" />
+					</a>
+					</c:if>
+					</td>
 				</tr>
 				<tr>
-					<th>Project</th>
-					<td><c:out value="${command.project.name}" /></td>
+					<th>Project</th>					
+					<td>
+						<c:out value="${command.project.name}" />
+					</td>
 				</tr>
 			</table>
 		</div>
 		<div>
-			<table class="details">
+			<table>
 				<tr>
 					<th>Created Date</th>
-					<td><c:out value="${command.createdDate}" /></td>
+					<td><fmt:formatDate pattern="dd-MM-yyyy" value="${command.createdDate}"/></td>
 				</tr>
 				<tr>
 					<th>Concentration</th>
@@ -66,12 +85,11 @@
 
 			</table>
 		</div>
+		<br>
+		<div class="clear">
+				<h3 class="noMargin">Sample List:</h3>
 
-		<div style="clear: both;">
-			<p>
-				<font size="4">Sample List:</font>
-
-				<c:if test="${command.sampleBoxOrPlate}">
+				<c:if test="${command.sampleBox}">
 					<a class="button"
 						href="<c:url value="/deleteAllSamplesInContainer.htm"><c:param name="containerId" value="${command.containerId}"/></c:url>"
 						onclick="return (confirm('Warning: Will delete all samples in this container from STS, including the duplicates stored in other containers as well as all associated results.\n\n Are you sure you want to delete all samples in this container?')) ">
@@ -79,20 +97,9 @@
 					</a>
 				</c:if>
 
-				<c:if test="${command.noneSample}">
-					<a class="button"
-						href="<c:url value="/containerContents.htm"><c:param name="containerId" value="${command.containerId}"/><c:param name="isOrdered" value="ordered"/></c:url>">
-						<span>Edit Content</span>
-					</a>
-				</c:if>
-
 				<c:if test="${command.orderedSample}">
-					<a class="button"
-						href="<c:url value="/containerContents.htm"><c:param name="containerId" value="${command.containerId}"/></c:url>">
-						<span>Edit Content</span>
-					</a>
 					<p>
-					<table class="details">
+					<table class="containerMap">
 						<c:forEach items="${orderedSamples}" var="oneRow">
 							<tr>
 								<c:forEach items="${oneRow}" var="sample">
@@ -106,21 +113,13 @@
 							</tr>
 						</c:forEach>
 					</table>
-		Get sampleId list
-	   <a
-						href="<c:url value="/sampleIdList.htm"><c:param name="containerId" value="${command.containerId}"/></c:url>"
-						target="_blank">in list format</a> or 
-	   <a
-						href="<c:url value="/sampleIdMap.htm"><c:param name="containerId" value="${command.containerId}"/></c:url>"
-						target="_blank"> in plate format</a>
-
 				</c:if>
 				<c:if test="${command.unorderedSample}">
 					<p>
 						<a
 							href="<c:url value="/containerContents.htm"><c:param name="containerId" value="${command.containerId}"/></c:url>">Edit
 							Sample List</a> <br>
-					<table class="details">
+					<table>
 						<tr>
 							<th>Internal ID</th>
 							<th>External ID</th>
@@ -142,28 +141,47 @@
 
 					</table>
 				</c:if>
-				<br>
-				<c:if test="${command.sampleBoxOrPlate}">
-					<c:if test="${command.hasMotherContainer}">
-						<h3>Mother Container:</h3>
+				
+							<c:if test="${command.unorderedSample}">
+					<p>
 						<a
-							href="<c:url value="/containerDetails.htm"><c:param name="containerId" value="${command.motherContainer.containerId}"/></c:url>"><c:out
-								value="${command.motherContainer.name}" /></a>
-					</c:if>
-		</div> <br> <font size="4">Child Containers:</font> <a
-		href="<c:url value="/editContainer.htm"><c:param name="motherContainerId" value="${command.containerId}"/></c:url>">
-			Copy this Container to make a new plate</a>
+							href="<c:url value="/containerContents.htm"><c:param name="containerId" value="${command.containerId}"/></c:url>">Edit
+							Sample List</a> <br>
+					<table>
+						<tr>
+							<th>Internal ID</th>
+							<th>External ID</th>
+							<th>Sample Type</th>
+							<th>Status</th>
+						</tr>
 
-		<table class="details">
-			<tr>
-				<td><c:forEach items="${command.childContainers}"
-						var="container">
-						<a
-							href="<c:url value="/containerDetails.htm"><c:param name="containerId" value="${container.containerId}"/></c:url>"><c:out
-								value="${container.name}" /></a>  ,  
-                  </c:forEach></td>
-			</tr>
+						<c:forEach items="${unOrderedSamples}" var="sample">
+							<tr>
+								<td><a
+									href="<c:url value="/sampleDetails.htm"><c:param name="sampleId" value="${sample.sampleId}"/></c:url>"><c:out
+											value="${sample.patient.intSampleId}" /></a></td>
+								<td><c:out value="${sample.patient.extSampleId}" /></td>
+								<td><c:out value="${sample.sampleType.name}" /></td>
+								<td><c:out value="${sample.status}" /></td>
 
-		</table> </c:if></td>
-</tr>
-<%@ include file="/WEB-INF/jsp/includes/foot.jsp"%>
+							</tr>
+						</c:forEach>
+
+					</table>
+				</c:if>
+				
+			<c:if test="${command.hasChildContainer}">
+				<p>
+				<h3>Container List:</h3>
+				<table>
+				<tr>
+					<th>Child Container</th>
+				</tr>
+				<c:forEach items="${childContainers}" var="child">
+					<tr>
+						<td><c:out value="${child.name}" /></td>
+					</tr>
+				</c:forEach>				
+				</table>
+			</c:if>
+		</div> <%@ include file="/WEB-INF/jsp/includes/foot.jsp"%>
