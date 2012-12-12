@@ -24,6 +24,8 @@ import org.springframework.web.servlet.view.*;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
+import agtc.sampletracking.ConstantInterface;
 import agtc.sampletracking.model.*;
 import agtc.sampletracking.bus.comparator.*;
 import agtc.sampletracking.bus.manager.*;
@@ -38,7 +40,7 @@ import java.util.*;
  * To change the template for this generated type comment go to
  * Window>Preferences>Java>Code Generation>Code and Comments
  */
-public class StsController extends MultiActionController implements InitializingBean {
+public class StsController extends MultiActionController implements InitializingBean, ConstantInterface {
 	private ProjectManager projectManager;
 //	private DbManager dbManager;
 	private TestManager testManager;
@@ -308,6 +310,10 @@ public class StsController extends MultiActionController implements Initializing
 		}else{
 			container.setNoneSample(true);
 		}
+		if(container.isHasChildContainer())
+		{
+			models.put("childContainers", container.getChildContainers());
+		}
 		models.put("command", container);
 		String message = RequestUtils.getStringParameter(request, "message","");
 		if(!message.equals("")){
@@ -372,42 +378,14 @@ public class StsController extends MultiActionController implements Initializing
 		sampleManager.removeSample(new Integer(id));
 		return new ModelAndView("successDelete","entityName","sample");
 	}
-	/* here really delete the sample,  
-	public ModelAndView deleteSampleFromContainerHandler(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		int id = RequestUtils.getRequiredIntParameter(request, "sicId");
-		int containerId = RequestUtils.getIntParameter(request, "containerId",-1);
-		SamplesInContainer sic = sampleManager.getSamplesInContainer(new Integer(id));
-		
-		Sample sample = sic.getSample();
-		Set sics = sample.getSamplesInContainers();
-		sics.remove(sic);
-		sampleManager.removeSamplesInContainer(new Integer(id));
-		sample.setSamplesInContainers(sics);
-		sampleManager.saveSample(sample);
-		String message = "";
-		
-		if(containerId == -1){ // came from sampleDetails Page
-			Map models = new HashMap();
-			models.put("message",message);
-			models.put("command", sample);
-			return new ModelAndView("sampleDetails", models);
-		}else{ //came from containerContent page
-			ModelAndView view = new ModelAndView(new RedirectView("containerContents.htm"));
-			Map myModel = view.getModel();
-			myModel.put("message",message);
-			myModel.put("containerId",new Integer(containerId));
-			return view;
-		}
-	}
-	*/
-	
 	
 	public ModelAndView deleteAllSamplesInContainerHandler(HttpServletRequest request, HttpServletResponse response) 
 		throws ServletException {
 		int id = RequestUtils.getRequiredIntParameter(request, "containerId");
 		Container container = containerManager.getContainer(new Integer(id));
+
 		sampleManager.removeAllSamplesInContainer(container);
-	
+		
 		return new ModelAndView("successDelete","entityName","all samples in this container");
 	}
 	
@@ -426,8 +404,16 @@ public class StsController extends MultiActionController implements Initializing
 	public ModelAndView deleteContainerHandler(HttpServletRequest request, HttpServletResponse response) 
 		throws ServletException {
 		int id = RequestUtils.getRequiredIntParameter(request, "containerId");
+		Container container = containerManager.getContainer(id);
+		
 		try{
-			containerManager.removeContainer(new Integer(id));
+			// If it is a plate, remove all container along with it.
+			if (container.getName().contains(PLATE_PREFIX)) {
+				sampleManager.removeAllSamplesAndPatientsInContainer(container);
+			}
+
+			containerManager.removeContainer(id);
+			
 		}catch(Exception e){
 			log.error(e.toString());
 			return new ModelAndView("errorPage","message","Could not remove this container from database !");
