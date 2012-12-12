@@ -195,8 +195,7 @@
          </props>
        </property>
    </bean>
-    
-  
+   
     <!-- Add DAOs here -->
      <bean id="assayDAO" class="agtc.sampletracking.dao.hibernate.AssayDAOHbImpl">
     	<property name="sessionFactory"><ref local="sessionFactory"/></property>
@@ -284,8 +283,6 @@
     <bean id="testSearchFields" class="agtc.sampletracking.web.searchFields.TestSearchFields">
     </bean>
     <bean id="assaySearchFields" class="agtc.sampletracking.web.searchFields.AssaySearchFields">
-    </bean>
-    <bean id="projectSamplesSearchFields" class="agtc.sampletracking.web.searchFields.ProjectSamplesSearchFields">
     </bean>
 	<bean id="resultSearchFields" class="agtc.sampletracking.web.searchFields.ResultSearchFields">
     </bean>
@@ -445,6 +442,7 @@
 			    /admin**=ROLE_ADMINISTRATOR
 				/delete**=ROLE_ADMINISTRATOR
 				/shuffle**=ROLE_ADMINISTRATOR
+				/**.xls=ROLE_GUEST,ROLE_USER,ROLE_ADMINISTRATOR
 				/**=ROLE_USER,ROLE_ADMINISTRATOR
          </value>
       </property>
