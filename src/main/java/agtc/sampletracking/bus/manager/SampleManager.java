@@ -148,15 +148,17 @@ public class SampleManager implements ConstantInterface {
 				patientDAO.savePatient(patient);
 				sample.setPatient(patient);	
 			}
-			else{
-				// Option 1: All Sample IDs must be unique. (The patient ID is used as the Barcode ID. 
-				// The External ID can be used to find samples from same patients)
-				throw new Exception("Error: Duplicate Sample ID found. Please reload form and download new manifest.");
+			else{ // Patient already exists. Check if sampleType exists.
+				List<Sample> existingSample = (List<Sample>) sampleDAO.getSampleByIntSampleIdSampleType(sample.getPatient().getIntSampleId(),sample.getSampleType());
+
+				if(!existingSample.isEmpty())
+				{
+					throw new Exception("Error: Sample already exists. Cannot save sample.");
+				}
 			}
 		}
 		
 //		// Option 2: Check Sample ID and Sample Type. IF exists, then update Dup No. Automatically 
-//		List<Sample> existingSample = (List<Sample>) sampleDAO.getSampleByIntSampleIdSampleType(sample.getPatient().getIntSampleId(),sample.getSampleType());
 //
 //		if(existingSample != null) {
 //			sample.setSampleDupNo(existingSample.size()+1);
