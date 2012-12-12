@@ -62,7 +62,7 @@
 					</td>
 					<td><spring:bind path="command.containerType">
 							<select size="1" name='<c:out value="${status.expression}" />'>
-
+								<option value="">Select Container Type</option>
 								<c:forEach items="${allContainerTypes}" var="containerType">
 									<option
 										<c:if test="${command.containerType != null && command.containerType.containerTypeId eq containerType.containerTypeId}">
@@ -85,6 +85,7 @@
 					</td>
 					<td><spring:bind path="command.location">
 							<select size="1" name='<c:out value="${status.expression}" />'>
+								<option value="">Select Location</option>
 
 								<c:forEach items="${allLocations}" var="location">
 									<option
@@ -107,7 +108,7 @@
 					<td>Project</td>
 					<td><spring:bind path="command.project">
 							<select size="1" name="<c:out value="${status.expression}" />">
-
+								<option value="">Select Project</option>
 								<c:forEach items="${allProjects}" var="project">
 									<option
 										<c:if test="${command.project != null && command.project.projectId eq project.projectId}">

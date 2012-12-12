@@ -1,7 +1,7 @@
 <%@ include file="/WEB-INF/jsp/includes/head.jsp"%>
 <%@ include file="/WEB-INF/jsp/includes/success.jsp"%>
 
-<font style="vertical-align: bottom" size="5"> Sample Details </font>
+<h2 class="noMargin"> Sample Details </h2>
 <a class="button"
 	href='<c:url value="/editSample.htm"><c:param name="sampleId" value="${command.sampleId}"/></c:url>'>
 	<span>Edit Sample</span>

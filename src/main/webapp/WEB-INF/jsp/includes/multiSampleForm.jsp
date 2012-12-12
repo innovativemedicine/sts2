@@ -17,7 +17,7 @@
 					<tr>
 						<td><spring:bind
 								path="command.multiSamples[${row}].patient.intSampleId">
-								<INPUT type="text" maxlength="255" size="15"
+								<INPUT disabled type="text" maxlength="255" size="15"
 									name="<c:out value="${status.expression}"/>"
 									value="<c:out value="${status.value}"/>">
 
@@ -89,8 +89,7 @@
 				</c:forEach>
 			<tr>
 				<td colspan="20"><input type="submit" name="Submit"
-					value="Save"> <input type="reset" name="Submit2"
-					value="Reset"></td>
+					value="Save">
 			</tr>
 
 		</table>

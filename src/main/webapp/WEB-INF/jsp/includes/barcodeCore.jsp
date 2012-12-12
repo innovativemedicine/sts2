@@ -1,9 +1,6 @@
 <div class="left">
 	<form method="post">
 
-
-
-	
 		<table class="searchBuilder">
 			<tr>
 				<th><b>Barcode:</b> <spring:bind path="command.barcodeItem">
