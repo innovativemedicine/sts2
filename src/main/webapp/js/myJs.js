@@ -12,6 +12,22 @@ $('.barcodeInput').bind('input', function(event) {
 	}
 });
 
+
+//	$('#oneNext').click(function() {
+//		nextStep(".one",".two");
+//	});
+
+//
+//function nextStep(a, b) {
+//	$(a).attr("disabled", true);
+//	$(b).attr("disabled", false);
+//}
+//
+//function backStep(a, b) {
+//	$(a).attr("disabled", false);
+//	$(b).attr("disabled", true);
+//}
+
 function multiForm() {
 	var ns = document.getElementById("numSamplesText").value;
 	if (ns >= 10) {
