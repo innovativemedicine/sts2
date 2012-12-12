@@ -123,7 +123,7 @@ public class AddMultiSamplesController extends BasicController implements Consta
 			models.put("message",message);
 		}
 		
-		List allSampleTypes = sampleManager.getSampleTypeDAO().getSampleTypes();
+		List allSampleTypes = sampleManager.getAllSampleTypes();
 		List allProjects = projectManager.getAllProjects();
 		
 		models.put("allSampleTypes",allSampleTypes);
