@@ -72,7 +72,7 @@ public class DeleteSampleFromContainerController extends BasicController {
 		return view;
 	}
 	
-	protected java.util.Map referenceData(javax.servlet.http.HttpServletRequest request,
+	protected Map referenceData(javax.servlet.http.HttpServletRequest request,
 			  java.lang.Object command,Errors errors)
 	   throws java.lang.Exception
 	{
