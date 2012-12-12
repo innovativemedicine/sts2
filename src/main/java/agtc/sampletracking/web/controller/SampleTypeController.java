@@ -82,8 +82,6 @@ public class SampleTypeController extends BasicController {
 		try{
 			agtcManager.saveSampleType(sampleType);
 			
-			//refersh Sample types for register sample
-			agtcManager.getSampleTypesWithVials();
 			//refersh Sample Types List
 			LSampleTypes = agtcManager.getSampleTypes();
 		}catch(Exception e){

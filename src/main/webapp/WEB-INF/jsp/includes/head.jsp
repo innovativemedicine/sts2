@@ -14,8 +14,7 @@
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js" defer></script>
     <script type="text/javascript" src="js/myJs.js" defer></script>
 
-    
-   	<link type="text/css" rel="stylesheet" href="css/stylesheet.css">
+   	<link href="css/stylesheet.css" rel="stylesheet" type="text/css" >
 	<fmt:setBundle basename="agtc.sampletracking.web.MessageBundle"></fmt:setBundle>
 	 
 	</head>

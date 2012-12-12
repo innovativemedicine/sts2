@@ -1,7 +1,7 @@
 <spring:bind path="command.*">
-  <c:forEach var="error" items="${status.errorMessages}">
-    <B><FONT color=RED>
-      <BR><c:out value="${error}"/>
-    </FONT></B>
-  </c:forEach>
+	<c:forEach var="error" items="${status.errorMessages}">
+		<b><span style="color: red"> <br>
+			<c:out value="${error}" />
+		</span></b>
+	</c:forEach>
 </spring:bind>
