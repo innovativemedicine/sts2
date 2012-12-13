@@ -6,26 +6,22 @@ var oldVal;
 
 $('.barcodeInput').bind('input', function(event) {
 	var val = this.value;
-	if (val !== oldVal) {
+	if (val != oldVal) {
 	    oldVal = val;
 	    $('.barcodeAdd').trigger('click');
 	}
 });
 
-function multiForm() {
-	var ns = document.getElementById("numSamplesText").value;
+$('.generateForm').click(function() {
+	var ns = $('#numSamplesText').val();
 	if (ns >= 10) {
 		ns = 10;
 	}
-	url = window.location.search = "?ns=" + ns;
-	window.location = url
-}
-
-$('.unhider').click(function() {
-	unhide();
+//	reload page with attached param
+	location.search = $.param({'ns':ns});
 });
 
-function unhide() {
+$('.unhider').click(function() {
 	if ($('.hide').is(':visible')) {
 		$('.hide').fadeToggle();
 		if($('.unhider').text() == '[Hide]' )
@@ -39,14 +35,10 @@ function unhide() {
 			$('.unhider').text('[Hide]');
 		}
 	}
-}
-
-$('.unhider2').click(function() {
-	unhide2();
 });
 
-function unhide2() {
+$('.unhider2').click(function() {
 	if (!($('.hide2').is(':visible'))) {
 		$('.hide2').fadeIn();
 	}
-}
+});
