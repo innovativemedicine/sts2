@@ -44,14 +44,16 @@
 			<td><c:out value="${command.status}" />&nbsp;</td>
 		</tr>
 		<tr>
-			<td colspan="2" align="center"><a id="expander" href="#"
-				onclick='expandable();'>[Show Concentration]</a></td>
+		<td colspan="2">&nbsp;</td>
+		</tr>
+		<tr>
+			<td colspan="2" align="center">Concentration: <a class="unhider" href="#">[Show]</a></td>
 		</tr>
 	</table>
 </div>
 
 <div class="left">
-	<table id="expandable" style="display: none;">
+	<table class="hide">
 		<tr>
 			<th colspan="2">Sample Concentration</th>
 		</tr>
@@ -123,7 +125,7 @@
 <div class="clear"></div>
 <br>
 <h3>Current Location:</h3>
-<table class="details">
+<table>
 	<tr>
 		<th>Container Name</th>
 		<th>Container Type</th>
@@ -141,39 +143,12 @@
 			<td><c:out value="${siContainer.well}" /></td>
 			<td><a class="button"
 				href='<c:url value="/deleteSampleFromContainer.htm"><c:param name="sicId" value="${siContainer.sicId}"/></c:url>'
-				onclick="return (confirm('Warning: Deleting this sample from container will remove it from the container but keep the sample in the system!\n\nAre you sure you want to delete the sample from this container?'')) ">
-					<span>Delete</span>
+				onclick="return (confirm('Warning: Retrieving this sample from container will remove it from the container but keep the sample in the system!\n\nAre you sure you want to delete the sample from this container?'')) ">
+					<span>Retrieve</span>
 			</a></td>
 		</tr>
 	</c:forEach>
 
 </table>
 
-<p></p>
-<h3>Location History:</h3>
-
-<table class="details">
-	<tr>
-		<th>Container Name</th>
-		<th>Container Type</th>
-		<th>Location in the ontainer</th>
-		<th>Remove Date</th>
-		<th>Reason</th>
-	</tr>
-
-	<c:forEach items="${command.samplesInContainersOut}" var="siContainer">
-
-		<tr>
-
-			<td><c:out value="${siContainer.container.name}" /></td>
-			<td><c:out value="${siContainer.container.containerType.name}" />&nbsp;</td>
-			<td><c:out value="${siContainer.well}" />&nbsp;</td>
-			<td><c:out value="${siContainer.operationDate}" />&nbsp;</td>
-			<td><c:out value="${siContainer.reason}" />&nbsp;</td>
-		</tr>
-	</c:forEach>
-
-</table>
-</td>
-</tr>
 <%@ include file="/WEB-INF/jsp/includes/foot.jsp"%>
