@@ -29,6 +29,7 @@ import org.springframework.web.util.WebUtils;
 
 import agtc.sampletracking.bus.manager.ProjectManager;
 import agtc.sampletracking.bus.manager.SampleManager;
+import agtc.sampletracking.bus.report.SatoLabelPrinter;
 /**
  * @author Hongjing
  *
@@ -99,12 +100,16 @@ public class AddMultiSamplesController extends BasicController implements Consta
 			// Save samples to DB
 			try{
 				sampleManager.saveSamples(sampleList);
-				message += "Samples successfully added to database.";
+				message += "Samples saved successfully. Labels have been printed";
 			}catch(Exception e){
 				log.debug(e.getMessage());
 					errors.rejectValue( "patient.intSampleId","error.notUnique",new String[]{"Internal Sample ID not unique for selected sample type "},"Not unique");
 				return showForm(request, response, errors);
 			}
+			
+			// Print
+			SatoLabelPrinter satoP = new SatoLabelPrinter();
+			satoP.printSampleLabel(sampleList);
 			
 			ModelAndView mav = new ModelAndView(new RedirectView(getSuccessView()));
 			WebUtils.setSessionAttribute(request,"sampleList",sampleList);
