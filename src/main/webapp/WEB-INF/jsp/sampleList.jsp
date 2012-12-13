@@ -16,12 +16,11 @@
     <tr>
     	<th>Internal ID</th>
     	<th>External ID</th>
-    	<th>External ID 2</th>
     	<th>Sample Type</th>
 		<th>Project</th>
 		<th>Note</th>
-		<th>Dup. No</th>
 		<th>Status</th>
+		<th>Location</th>
     </tr>
     
     <c:forEach items="${sampleList}" var="sample">
@@ -34,12 +33,11 @@
     		<c:out value="${sample.patient.intSampleId}"/></a>
     	</td>
     	<td><c:out value="${sample.patient.extSampleId}"/></td>
-    	<td><c:out value="${sample.patient.anotherExtSampleId}"/></td>
     	<td><c:out value="${sample.sampleType.name}"/></td>
     	<td><c:out value="${sample.patient.project.name}"/></td>	
 		<td><c:out value="${sample.patient.note}"/></td>
-    	<td><c:out value="${sample.sampleDupNo}"/></td>
     	<td><c:out value="${sample.status}"/></td>
+    	<td></td>
 	  </c:if>
 	  
 	  <c:if test="${sample.sampleId == -1}">
