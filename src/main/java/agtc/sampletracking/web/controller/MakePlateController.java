@@ -28,6 +28,7 @@ import agtc.sampletracking.model.Sample;
 import agtc.sampletracking.model.SampleType;
 import agtc.sampletracking.model.SamplesInContainer;
 import agtc.sampletracking.bus.manager.*;
+import agtc.sampletracking.bus.report.SatoLabelPrinter;
 
 public class MakePlateController extends BasicController {
 
@@ -141,6 +142,11 @@ public class MakePlateController extends BasicController {
 			
 			Container savedContainer = containerManager.getContainer(container.getName());
 			
+			// Print
+			SatoLabelPrinter satoP = new SatoLabelPrinter();
+			//Collections.sort(sampleList,new SampleComparator());
+			satoP.printPlateLabel(savedContainer);
+						
 			// Redirect to containerDetails view on success. 
 			ModelAndView mav = new ModelAndView(new RedirectView(getSuccessView()));
 			mav.addObject("message", "Plate" + container.getName() + "saved successfully!");
