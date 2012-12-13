@@ -1,5 +1,5 @@
 $(document).ready(function() {
-	$('.barcodeInput').focus();
+	$('.setFocus').focus();
 });
 
 var oldVal;
@@ -12,22 +12,6 @@ $('.barcodeInput').bind('input', function(event) {
 	}
 });
 
-
-//	$('#oneNext').click(function() {
-//		nextStep(".one",".two");
-//	});
-
-//
-//function nextStep(a, b) {
-//	$(a).attr("disabled", true);
-//	$(b).attr("disabled", false);
-//}
-//
-//function backStep(a, b) {
-//	$(a).attr("disabled", false);
-//	$(b).attr("disabled", true);
-//}
-
 function multiForm() {
 	var ns = document.getElementById("numSamplesText").value;
 	if (ns >= 10) {
@@ -37,14 +21,32 @@ function multiForm() {
 	window.location = url
 }
 
-function expandable() {
-	var expandable = document.getElementById('expandable');
-	var expander = document.getElementById('expander');
-	if (expandable.style.display == 'none') {
-		expandable.style.display = 'block';
-		expander.innerHTML = '[Hide Concentration]';
+$('.unhider').click(function() {
+	unhide();
+});
+
+function unhide() {
+	if ($('.hide').is(':visible')) {
+		$('.hide').fadeToggle();
+		if($('.unhider').text() == '[Hide]' )
+		{
+			$('.unhider').text('[Show]');
+		}
 	} else {
-		expandable.style.display = 'none';
-		expander.innerHTML = '[Show Concentration]';
+		$('.hide').fadeToggle();
+		if($('.unhider').text() == '[Show]' )
+		{
+			$('.unhider').text('[Hide]');
+		}
+	}
+}
+
+$('.unhider2').click(function() {
+	unhide2();
+});
+
+function unhide2() {
+	if (!($('.hide2').is(':visible'))) {
+		$('.hide2').fadeIn();
 	}
 }
