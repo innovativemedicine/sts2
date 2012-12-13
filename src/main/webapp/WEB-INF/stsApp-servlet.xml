@@ -20,7 +20,7 @@
                 <prop key="/samples.htm">samplesSearchController</prop>
                 <prop key="/barcode.htm">barcodeController</prop>
                 <prop key="/simpleSamples.htm">simpleSamplesSearchController</prop>
-				<prop key="/containers.htm">containersSearchController</prop>
+				<prop key="/searchContainers.htm">containersSearchController</prop>
                 <prop key="/projects.htm">projectsSearchController</prop>	 	
                	<prop key="/tests.htm">testsSearchController</prop>
                	<prop key="/assays.htm">assaysSearchController</prop>
@@ -92,6 +92,7 @@
 				<prop key="/plateList4select.htm">plateList4selectController</prop>
 				<prop key="/printLabel4BloodCollection.htm">printLabel4BloodCollectionController</prop>
 				<prop key="/sampleList.htm">SampleListController</prop>
+				<prop key="/containerList.htm">ContainerListController</prop>				
 				<prop key="/makePlate.htm">makePlateController</prop>
 				<prop key="/selectSampleInfo4Output.htm">selectSampleInfo4OutputController</prop>
 				<prop key="/containerContents.htm">containerContentsController</prop>
@@ -155,6 +156,8 @@
     	<property name="formView"><value>containers</value></property>
     	<property name="successView"><value>containerDetails.htm</value></property>
        	<property name="containerManager"><ref bean="containerManager"/></property>
+       	<property name="projectManager"><ref bean="projectManager"/></property>       	
+       	<property name="agtcManager"><ref bean="agtcManager"/></property>
         <property name="searchFields"><ref bean="containerSearchFields"/></property>
         <property name="operatorList"><ref bean="operatorList"/></property>
     </bean>
@@ -162,11 +165,11 @@
         <bean id="platesSearchController" class="agtc.sampletracking.web.controller.PlatesSearchController">
     	<property name="sessionForm"><value>true</value></property>
     	<property name="requireSession"><value>true</value></property>
-    	<property name="formView"><value>containers</value></property>
-    	<property name="successView"><value>containerDetails.htm</value></property>
+    	<property name="formView"><value>searchPlates</value></property>
+    	<property name="successView"><value>containerList.htm</value></property>
        	<property name="containerManager"><ref bean="containerManager"/></property>
-        <property name="searchFields"><ref bean="containerSearchFields"/></property>
-        <property name="operatorList"><ref bean="operatorList"/></property>
+       	<property name="projectManager"><ref bean="projectManager"/></property>       	
+       	<property name="agtcManager"><ref bean="agtcManager"/></property>
     </bean>
 
     <bean id="projectsSearchController" class="agtc.sampletracking.web.controller.ProjectsSearchController">
@@ -472,6 +475,12 @@
     	<property name="requireSession"><value>true</value></property>
     	<property name="formView"><value>sampleList</value></property>
 		<property name="sampleManager"><ref bean="sampleManager"/></property>
+    </bean>
+    
+    <bean id="ContainerListController" class="agtc.sampletracking.web.controller.ContainerListController">
+    	<property name="sessionForm"><value>true</value></property>
+    	<property name="requireSession"><value>true</value></property>
+    	<property name="formView"><value>containerList</value></property>
     </bean>
 
 	<bean id="selectSampleInfo4OutputController" class="agtc.sampletracking.web.controller.SelectSampleInfo4OutputController">
