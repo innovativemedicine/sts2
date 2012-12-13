@@ -15,17 +15,15 @@
 				<td><input class="setFocus" name="containerIdFrom"></td>
 			</tr>
 			<tr>
-				
-				<td>to</td>
-				<td><input name="containerIdTo"></td>
-			</tr>
-			<tr>
 				<td colspan="2"><input type="submit" name="Submit"
 					value="SEARCH">
 			</tr>
 		</table>
 		<br>
-		<table class="unhideOnHover" style="width: 260px">
+		
+		<input type="hidden" name="containerIdTo">
+		
+		<table style="width: 260px">
 			<tr>
 				<th>Search by Container List <a class="unhider" href="#">[Show]</a></th>
 			</tr>
@@ -45,6 +43,25 @@
 		</table>
 	</div>
 	<div class="left">
+	
+		<table style="width: 200px">
+			<tr>
+				<th><b>Filter by Container Types</b></th>
+			</tr>
+			<tr>
+				<td><select size="5" name="containerTypeFilter" multiple>
+						<option value="" selected>All Container Types</option>
+
+						<c:forEach items="${LContainerTypes}" var="containerType"
+							varStatus="row">
+							<option value="<c:out value="${containerType.containerTypeId}"/>">
+								<c:out value="${containerType.name}" />
+							</option>
+						</c:forEach>
+				</select></td>
+			</tr>
+		</table>
+		<br>
 		<table style="width: 200px">
 			<tr>
 				<th>Filter by Project</th>
@@ -62,26 +79,8 @@
 			</tr>
 		</table>
 	</div>
-	<div>
-		<table style="width: 200px">
-			<tr>
-				<th><b>Filter by Container Types</b></th>
-			</tr>
-			<tr>
-				<td><select size="15" name="containerTypeFilter" multiple>
-						<option value="" selected>All Container Types</option>
 
-						<c:forEach items="${LContainerTypes}" var="containerType"
-							varStatus="row">
-							<option value="<c:out value="${containerType.containerTypeId}"/>">
-								<c:out value="${containerType.name}" />
-							</option>
-						</c:forEach>
-				</select></td>
-			</tr>
-		</table>
 
-	</div>
 </form>
 
 <%@ include file="/WEB-INF/jsp/includes/foot.jsp"%>
