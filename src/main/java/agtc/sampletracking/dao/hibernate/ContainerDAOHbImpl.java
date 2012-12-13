@@ -160,6 +160,7 @@ public class ContainerDAOHbImpl
 		Criteria crt = session.createCriteria(Container.class);
 		crt.setFetchMode("containerType", FetchMode.JOIN);
 		crt.setFetchMode("project", FetchMode.JOIN);
+		crt.setFetchMode("location", FetchMode.JOIN);
 
 		if(!containerIdFrom.isEmpty() && containerIdTo.isEmpty())
 		{
