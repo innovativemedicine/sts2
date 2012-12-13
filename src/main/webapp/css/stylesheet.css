@@ -25,6 +25,22 @@ h3 {
 	display: none;
 }
 
+.label {
+  display: inline-block;
+  padding: 2px 4px;
+  font-size: 11.844px;
+  font-weight: bold;
+  line-height: 14px;
+  color: #ffffff;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  white-space: nowrap;
+  vertical-aign: baseline;
+  background-color: #8bc8ff;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;      
+}
+
 body {
 	font-family: 'Garamond', serif;
 }
@@ -51,15 +67,6 @@ div.clear {
 
 table.containerMap {
 	border-collapse: collapse;
-	
-/* 	-moz-box-shadow: 0 0 2px #3A66A7; */
-/* 	-webkit-box-shadow: 0 0 2px #3A66A7; */
-/* 	box-shadow: 0 0 2px #3A66A7; */
-	
-/* 	-moz-border-radius: 6px; */
-/* 	-webkit-border-radius: 6px; */
-/* 	border-radius: 6px; */
-	
 	margin-left:10px;
 }
 
