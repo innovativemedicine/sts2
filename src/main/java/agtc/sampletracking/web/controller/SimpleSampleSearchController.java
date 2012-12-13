@@ -47,47 +47,74 @@ public class SimpleSampleSearchController extends BasicSearchController {
 			HttpServletResponse response, Object command, BindException errors)
 			throws Exception {
 
-		String action = RequestUtils.getStringParameter(request,"action", "");
-		
-		String sampleIdsInTextArea = RequestUtils.getStringParameter(request,"sampleIdsInTextArea", "");
-		String[] sampletypes = RequestUtils.getStringParameters(request,"sampleTypeFilter");
-		String[] projects = RequestUtils.getStringParameters(request,"projectFilter");
+		String action = RequestUtils.getStringParameter(request, "action", "");
+
+		String sampleIdsInTextArea = RequestUtils.getStringParameter(request,
+				"sampleIdsInTextArea", "");
+		String sampleIdFrom = RequestUtils.getStringParameter(request,
+				"sampleIdFrom", "");
+		String sampleIdTo = RequestUtils.getStringParameter(request,
+				"sampleIdTo", "");
+
+		String[] sampletypes = RequestUtils.getStringParameters(request,
+				"sampleTypeFilter");
+		String[] projects = RequestUtils.getStringParameters(request,
+				"projectFilter");
 
 		List sampleTypeIds = String2IntList(sampletypes);
 		List projectIds = String2IntList(projects);
+		List<Sample> searchResults = new ArrayList();
 		
-		
-		List sampleIds = new ArrayList();
-
-		MultipartHttpServletRequest mrequest = (MultipartHttpServletRequest) request;
-		MultipartFile aFile = mrequest.getFile("file");
-
-		if (sampleIdsInTextArea != null	&& sampleIdsInTextArea.trim().length() > 0) {
-			sampleIds = String2List(sampleIdsInTextArea);
-		} 
-		else if (!aFile.isEmpty()) {
-			InputStream is = aFile.getInputStream();
-			BufferedReader br = new BufferedReader(new InputStreamReader(is));
-			br.readLine();
-			String aLine = "";
-
-			while ((aLine = br.readLine()) != null) {
-				String intSampleId = aLine.trim();
-				sampleIds.add(intSampleId);
-			}
-			is.close();
+		if (sampleIdFrom.isEmpty() && sampleIdsInTextArea.isEmpty()) {
+			ModelAndView mav = new ModelAndView(new RedirectView(
+					"simpleSamples.htm"));
+			mav.addObject("message", "Please enter Sample ID");
+			return mav;
 		}
+		// Search single Sample or range
+		else if (!sampleIdFrom.isEmpty()) {
+			List<Sample> simpleSearchSamples = (List<Sample>) sampleManager
+					.getSampleDAO().simpleSearchSamples(sampleIdFrom, sampleIdTo, 
+							sampleTypeIds, projectIds);
+			
+			searchResults.addAll(simpleSearchSamples);
+			
+		} else {
+			List sampleIds = new ArrayList();
 
-		List<Sample> simpleSearchSamples = (List<Sample>) sampleManager.getSampleDAO().simpleSearchSamples(sampleIds, sampleTypeIds, projectIds);
-		List<Sample> searchResults = simpleSearchSamples;
+			MultipartHttpServletRequest mrequest = (MultipartHttpServletRequest) request;
+			MultipartFile aFile = mrequest.getFile("file");
+
+			if (sampleIdsInTextArea.trim().length() > 0) {
+				sampleIds = String2List(sampleIdsInTextArea);
+			} else if (!aFile.isEmpty()) {
+				InputStream is = aFile.getInputStream();
+				BufferedReader br = new BufferedReader(
+						new InputStreamReader(is));
+				br.readLine();
+				String aLine = "";
+
+				while ((aLine = br.readLine()) != null) {
+					String intSampleId = aLine.trim();
+					sampleIds.add(intSampleId);
+				}
+				is.close();
+			}
+
+			List<Sample> simpleSearchSamples = sampleManager.getSampleDAO().simpleSearchSamples(sampleIds,
+							sampleTypeIds, projectIds);
+			
+			searchResults.addAll(simpleSearchSamples);
+		}
+		
 
 		if (searchResults.size() < 1) {
-			ModelAndView view = new ModelAndView(new RedirectView(
+			ModelAndView mav = new ModelAndView(new RedirectView(
 					"simpleSamples.htm"));
-			putMessage(request, view.getModel());
-			return view;
+			mav.addObject("message", "No results found.");
+			return mav;
 		}
-		
+
 		ModelAndView mav = new ModelAndView(new RedirectView(getSuccessView()));
 		WebUtils.setSessionAttribute(request, "sampleList", searchResults);
 		mav.addObject("message", "Search Completed");
@@ -100,7 +127,8 @@ public class SimpleSampleSearchController extends BasicSearchController {
 
 	protected Map referenceData(HttpServletRequest request) throws Exception {
 		Map models = new HashMap();
-		String message = "";
+		String message = RequestUtils
+				.getStringParameter(request, "message", "");
 
 		LSampleTypes = sampleManager.getAllSampleTypes();
 		LProjects = projectManager.getAllProjects();
@@ -149,12 +177,11 @@ public class SimpleSampleSearchController extends BasicSearchController {
 			l = null;
 		return l;
 	}
-	
+
 	private static List String2IntList(String[] sArray) {
 		List l = new ArrayList();
 
-		for (int i=0; i<=sArray.length-1; i++)
-		{
+		for (int i = 0; i <= sArray.length - 1; i++) {
 			l.add(Integer.parseInt(sArray[i]));
 		}
 		return l;
