@@ -6,12 +6,14 @@
  */
 package agtc.sampletracking.dao.hibernate;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 import agtc.sampletracking.dao.ContainerDAO;
 import agtc.sampletracking.model.Container;
+import agtc.sampletracking.model.Patient;
 import agtc.sampletracking.model.Sample;
 import agtc.sampletracking.web.command.SearchCommand;
 import agtc.sampletracking.web.searchFields.ContainerSearchFields;
@@ -19,7 +21,9 @@ import agtc.sampletracking.web.searchFields.ContainerSearchFields;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.Criteria;
+import org.hibernate.FetchMode;
 import org.hibernate.Session;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
@@ -54,6 +58,8 @@ public class ContainerDAOHbImpl
 			return (Container)result.get(0);
 		}
 	}
+	
+	
 
 	public String getLargestPlateId(String platePrefix)
 	{
@@ -122,5 +128,58 @@ public class ContainerDAOHbImpl
 		return getHibernateTemplate().find("from Container c where c.containerType.name like '" 
 				+ PLATE + "%' order by c.name ");
 	}
+	
+	public List simpleSearchContainers(List containerIds, List containerTypeIds, List projectIds){
+		Session session = getSession();
+		List patients = new ArrayList();
+						
+		Criteria crt = session.createCriteria(Container.class);
+		crt.setFetchMode("project", FetchMode.JOIN);
+		crt.setFetchMode("containerType", FetchMode.JOIN);
+
+		if(!containerIds.isEmpty())
+		{
+			crt.add(Restrictions.in("name",containerIds));
+		}
+		if(!containerTypeIds.isEmpty())
+		{
+			crt.add(Restrictions.in("containerType.containerTypeId",containerTypeIds));
+		}
+		if(!projectIds.isEmpty())
+		{
+			crt.add(Restrictions.in("project.projectId",projectIds));
+		}
+
+		return crt.list();
+	}
+	
+	public List<Container> simpleSearchContainers(String containerIdFrom, String containerIdTo, List containerTypeIds, List projectIds)
+	{
+		Session session = getSession();
+				
+		Criteria crt = session.createCriteria(Container.class);
+		crt.setFetchMode("containerType", FetchMode.JOIN);
+		crt.setFetchMode("project", FetchMode.JOIN);
+
+		if(!containerIdFrom.isEmpty() && containerIdTo.isEmpty())
+		{
+			crt.add(Restrictions.like("name",containerIdFrom, MatchMode.START));
+		}
+		else if(!containerIdTo.isEmpty())
+		{
+			crt.add(Restrictions.between("name",containerIdFrom, containerIdTo));
+		}
+		if(!containerTypeIds.isEmpty())
+		{
+			crt.add(Restrictions.in("containerType.containerTypeId",containerTypeIds));
+		}
+		if(!projectIds.isEmpty())
+		{
+			crt.add(Restrictions.in("project.projectId",projectIds));
+		}
+
+		return crt.list();
+	}	
+	
 
 }
