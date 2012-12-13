@@ -7,6 +7,7 @@
 package agtc.sampletracking.dao;
 
 import java.util.*;
+
 import agtc.sampletracking.model.*;
 /**
  * @author Gloria Deng
@@ -25,4 +26,10 @@ public interface ContainerDAO {
 	public List getContainers(List crtList,List lgcList);
 	public List getAllPlates();
 	public List getAllBoxes();
+	public List<Container> simpleSearchContainers(String containerIdFrom, String containerIdTo, 
+			List containerTypeIds, List projectIds);
+	public List<Container> simpleSearchContainers(List plateIds,
+			List plateTypeIds, List projectIds);
+	
+	
 }
