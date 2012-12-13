@@ -4,7 +4,7 @@
 		<table class="searchBuilder">
 			<tr>
 				<th><b>Barcode:</b> <spring:bind path="command.barcodeItem">
-						<input class="barcodeInput" name="barcodeItem" type="text"
+						<input class="barcodeInput setFocus" name="barcodeItem" type="text"
 							size="30">
 					</spring:bind></th>
 			</tr>
