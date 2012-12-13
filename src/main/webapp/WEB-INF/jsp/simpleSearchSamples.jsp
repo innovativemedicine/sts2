@@ -1,42 +1,48 @@
-
 <%@ include file="/WEB-INF/jsp/includes/head.jsp"%>
 <%@ include file="/WEB-INF/jsp/includes/success.jsp"%>
 
-<h2>
-	Search Sample:
-</h2>
+<h2>Search Sample:</h2>
 
-
-<p>
 <form method="post" enctype="multipart/form-data">
 	<div class="left">
-		<table>
-
+		<table style="width: 260px">
 			<tr>
-				<th>Filter by Sample ID</th>
+				<th colspan="2">Search by Sample ID</th>
 			</tr>
 
 			<tr>
-				<td>Enter Internal Sample ID:
-				<span style="font-size: 12px">(Separate by commas or new lines)</span>
-					
-					<br> <textarea name="sampleIdsInTextArea" rows="15"
-						cols="40"></textarea>
-
-				</td>
+				<td>Sample ID:</td>
+				<td><input class="setFocus" name="sampleIdFrom"></td>
 			</tr>
 			<tr>
-				<td>Upload Sample ID List file: <br> <input type="file"
-					name="file" />
-				</td>
+				
+				<td>to</td>
+				<td><input name="sampleIdTo"></td>
 			</tr>
 			<tr>
-				<td>&nbsp;</td>
+				<td colspan="2"><input type="submit" name="Submit"
+					value="SEARCH">
 			</tr>
+		</table>
+		<br>
+		<table style="width: 260px">
 			<tr>
+				<th>Search by Sample List <a class="unhider" href="#">[Show]</a></th>
+			</tr>
+			<tr class="hide">
+				<td>Enter/Upload list of Sample ID:</td>
+			<tr class="hide">
+				<td><span style="font-size: 12px">(Separate by commas or
+						new lines)</span> <br> <textarea name="sampleIdsInTextArea"
+						rows="10" cols="30"></textarea></td>
+			</tr>
+			<tr class="hide">
+				<td><input type="file" name="file" /></td>
+			</tr>
+			<tr class="hide">
 				<td><input type="submit" name="Submit" value="SEARCH">
-					<a href="<c:url value="/samples.htm"></c:url>">[Use Advanced
-						Search]</a></td>
+					<%-- 					<a href="<c:url value="/samples.htm"></c:url>">[Use Advanced --%>
+					<!-- 						Search]</a></td> -->
 			</tr>
 		</table>
 	</div>
@@ -46,7 +52,7 @@
 				<th>Filter by Project</th>
 			</tr>
 			<tr>
-				<td><select size="25" name="projectFilter" multiple>
+				<td><select size="15" name="projectFilter" multiple>
 						<option value="" selected>All Projects</option>
 
 						<c:forEach items="${LProjects}" var="project" varStatus="row">
@@ -64,7 +70,7 @@
 				<th><b>Filter by Sample Types</b></th>
 			</tr>
 			<tr>
-				<td><select size="25" name="sampleTypeFilter" multiple>
+				<td><select size="15" name="sampleTypeFilter" multiple>
 						<option value="" selected>All Sample Types</option>
 
 						<c:forEach items="${LSampleTypes}" var="sampleType"
