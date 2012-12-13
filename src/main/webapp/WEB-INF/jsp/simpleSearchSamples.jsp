@@ -5,7 +5,7 @@
 
 <form method="post" enctype="multipart/form-data">
 	<div class="left">
-		<table style="width: 260px">
+		<table style="width: 280px">
 			<tr>
 				<th colspan="2">Search by Sample ID</th>
 			</tr>
@@ -17,7 +17,7 @@
 			<tr>
 				
 				<td>to</td>
-				<td><input name="sampleIdTo"></td>
+				<td><input name="sampleIdTo"><span class="label">Optional</span></td>
 			</tr>
 			<tr>
 				<td colspan="2"><input type="submit" name="Submit"
@@ -25,7 +25,7 @@
 			</tr>
 		</table>
 		<br>
-		<table style="width: 260px">
+		<table style="width: 280px">
 			<tr>
 				<th>Search by Sample List <a class="unhider" href="#">[Show]</a></th>
 			</tr>

@@ -18,7 +18,7 @@
 
 	  <c:if test="${command.patient.newPatient}">
         <spring:bind path="command.patient.intSampleId">
-	   <INPUT type="text" maxlength="255" size="30" name="patient.intSampleId" value="<c:out value="${status.value}"/>">
+	   <INPUT type="text" maxlength="255" size="20" name="patient.intSampleId" value="<c:out value="${status.value}"/>">
 	   <FONT color="red">
 		    <B><c:out value="${status.errorMessage}"/></B>
 		</FONT>
@@ -53,10 +53,11 @@
       <td>Concentration :</td>
       <td> 
 	<spring:bind path="command.od">
-	   <INPUT type="text" maxlength="255" size="30" name="od" value="<c:out value="${status.value}"/>">(ug/ml)
+	   <INPUT type="text" maxlength="255" size="20" name="od" value="<c:out value="${status.value}"/>">
 	   <FONT color="red">
 		    <B><c:out value="${status.errorMessage}"/></B>
 		</FONT>
+		<span class="label">ug/mL</span>
 	</spring:bind> 
       </td>
     </tr>
@@ -65,13 +66,13 @@
           <td>Concentration Reading on: </td>
           <td> 
     	<spring:bind path="command.odDate">
-    	   <INPUT type="text" maxlength="255" size="30" name="odDate" 
+    	   <INPUT type="text" maxlength="255" size="20" name="odDate" 
 				pattern="(0[1-9]|[12][0-9]|3[01])[-](0[1-9]|1[012])[-](19|20|21)\d\d"
     	   		value="<c:out value="${status.value}"/>">
 		    <FONT color="red">
 		    <B><c:out value="${status.errorMessage}"/></B>
 		</FONT>
-    	</spring:bind> (DD-MM-YYYY)
+    	</spring:bind> <span class="label">DD-MM-YYYY</span>
           </td>
     </tr>
     
@@ -79,11 +80,11 @@
 	  <td>Volume</td>
 	  <td> 
 	    <spring:bind path="command.volumn">
-	   <INPUT type="text" maxlength="255" size="30" name="volumn" value="<c:out value="${status.value}"/>">
+	   <INPUT type="text" maxlength="255" size="20" name="volumn" value="<c:out value="${status.value}"/>">
 	    <FONT color="red">
 		    <B><c:out value="${status.errorMessage}"/></B>
 		</FONT>
-	</spring:bind> (ml)
+	</spring:bind><span class="label">mL</span>
 	  </td>
     </tr>
     
@@ -91,13 +92,13 @@
     	  <td>Volume Reading On</td>
     	  <td> 
     	    <spring:bind path="command.volumnDate">
-    	   <INPUT type="text" maxlength="255" size="30" name="volumnDate" 
+    	   <INPUT type="text" maxlength="255" size="20" name="volumnDate" 
     	   		pattern="(0[1-9]|[12][0-9]|3[01])[-](0[1-9]|1[012])[-](19|20|21)\d\d"
     	   		value="<c:out value="${status.value}"/>">
 		    <FONT color="red">
 		    <B><c:out value="${status.errorMessage}"/></B>
 		</FONT>
-    	</spring:bind> (DD-MM-YYYY)
+    	</spring:bind> <span class="label">DD-MM-YYYY</span>
     	  </td>
     </tr>
     
@@ -105,7 +106,7 @@
       <td>Notes</td>
       <td> 
 	<spring:bind path="command.notes">
-	   <INPUT type="text" maxlength="255" size="30" name="notes" value="<c:out value="${status.value}"/>">
+	   <INPUT type="text" maxlength="255" size="20" name="notes" value="<c:out value="${status.value}"/>">
 	</spring:bind>
       </td>
     </tr>
@@ -114,7 +115,7 @@
       <td>Status: </td>
       <td> 
 	<spring:bind path="command.status">
-	   <INPUT type="text" maxlength="255" size="30" name="status" value="<c:out value="${status.value}"/>">
+	   <INPUT type="text" maxlength="255" size="20" name="status" value="<c:out value="${status.value}"/>">
 	</spring:bind>
       </td>
     </tr>
@@ -123,13 +124,13 @@
       <td>Sample Received On: </td>
       <td> 
         <spring:bind path="command.receiveDate">
-	   <INPUT type="text" maxlength="255" size="30" name="receiveDate" 
+	   <INPUT type="text" maxlength="255" size="20" name="receiveDate" 
 	   	   	pattern="(0[1-9]|[12][0-9]|3[01])[-](0[1-9]|1[012])[-](19|20|21)\d\d"
 	   		value="<c:out value="${status.value}"/>">
 	    <FONT color="red">
 		    <B><c:out value="${status.errorMessage}"/></B>
 		</FONT>
-	</spring:bind> (DD-MM-YYYY)
+	</spring:bind> <span class="label">DD-MM-YYYY</span>
       </td>
     </tr>
 
@@ -137,13 +138,13 @@
       <td>Sample Made On: </td>
       <td> 
         <spring:bind path="command.madeDate">
-	   <INPUT type="text"  maxlength="255" size="30" name="madeDate" 
+	   <INPUT type="text"  maxlength="255" size="20" name="madeDate" 
 	   		pattern="(0[1-9]|[12][0-9]|3[01])[-](0[1-9]|1[012])[-](19|20|21)\d\d"
 	   		value="<c:out value="${status.value}"/>">
 	    <FONT color="red">
 		    <B><c:out value="${status.errorMessage}"/></B>
 		</FONT>
-	</spring:bind> (DD-MM-YYYY)
+	</spring:bind> <span class="label">DD-MM-YYYY</span>
       </td>
     </tr>
 
@@ -151,13 +152,13 @@
 	  <td>Transformed On: </td>
 	  <td> 
 	    <spring:bind path="command.transDate">
-	   <INPUT type="text" maxlength="255" size="30" name="transDate" 
+	   <INPUT type="text" maxlength="255" size="20" name="transDate" 
 	   	   		pattern="(0[1-9]|[12][0-9]|3[01])[-](0[1-9]|1[012])[-](19|20|21)\d\d"
 	   	   		value="<c:out value="${status.value}"/>">
 	    <FONT color="red">
 		    <B><c:out value="${status.errorMessage}"/></B>
 		</FONT>
-	</spring:bind> (DD-MM-YYYY)
+	</spring:bind> <span class="label">DD-MM-YYYY</span>
 	  </td>
     </tr>
     
@@ -165,13 +166,13 @@
           <td>Refill On: </td>
           <td> 
             <spring:bind path="command.refillDate">
-    	   <INPUT type="text" maxlength="255" size="30" name="refillDate" 
+    	   <INPUT type="text" maxlength="255" size="20" name="refillDate" 
     	   	   		pattern="(0[1-9]|[12][0-9]|3[01])[-](0[1-9]|1[012])[-](19|20|21)\d\d"
     	   	   		value="<c:out value="${status.value}"/>">
 		    <FONT color="red">
 		    <B><c:out value="${status.errorMessage}"/></B>
 		</FONT>
-    	</spring:bind> (DD-MM-YYYY)
+    	</spring:bind> <span class="label">DD-MM-YYYY</span>
           </td>
     </tr>
     
@@ -181,13 +182,13 @@
       <td>Remove On: </td>
       <td> 
 	<spring:bind path="command.removeDate">
-	   <INPUT type="text" maxlength="255" size="30" name="removeDate" 
+	   <INPUT type="text" maxlength="255" size="20" name="removeDate" 
 	   	   		pattern="(0[1-9]|[12][0-9]|3[01])[-](0[1-9]|1[012])[-](19|20|21)\d\d"
 	   	   		value="<c:out value="${status.value}"/>">
 	    <FONT color="red">
 		    <B><c:out value="${status.errorMessage}"/></B>
 		</FONT>
-	</spring:bind> (DD-MM-YYYY)
+	</spring:bind> <span class="label">DD-MM-YYYY</span>
       </td>
     </tr>
  

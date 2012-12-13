@@ -12,7 +12,7 @@
 			<tr>
 				<td>Plate ID *</td>
 				<td><spring:bind path="command.name">
-						<INPUT disabled class="one" type="text" maxlength="60" size="15"
+						<INPUT disabled class="one" type="text" maxlength="60" size="20"
 							name='<c:out value="${status.expression}" />'
 							value="<c:out value="${status.value}"/>">
 								<c:if test="${status.errorMessage != ''}">
@@ -23,7 +23,7 @@
 			<tr>
 				<td>External Plate ID *</td>
 				<td><spring:bind path="command.extContainerId">
-						<INPUT class="one" type="text" maxlength="60" size="15"
+						<INPUT class="one" type="text" maxlength="60" size="20"
 							name='<c:out value="${status.expression}" />'
 							value="<c:out value="${status.value}"/>">
 								<c:if test="${status.errorMessage != ''}">
@@ -69,10 +69,10 @@
 			</tr>
 			<tr>
 				<td>Created Date *</td>
-				<td><font style="font-size: 10pt">DD-MM-YYYY</font> <br> <spring:bind
+				<td><spring:bind
 						path="command.createdDate">
-						<INPUT class="one" type="text" maxlength="10" size="15" name="createdDate"
-							value="<c:out value="${status.value}"/>">
+						<INPUT class="one" type="text" maxlength="10" size="20" name="createdDate"
+							value="<c:out value="${status.value}"/>"><span class="label">DD-MM-YYYY</span>
 								<c:if test="${status.errorMessage != ''}">
 									<FONT color="red">*</FONT>
 								</c:if>
@@ -81,7 +81,7 @@
 			<tr>
 				<td>Comments</td>
 				<td><spring:bind path="command.comments">
-						<INPUT class="one" type="text" maxlength="255" size="15" name="comments"
+						<INPUT class="one" type="text" maxlength="255" size="20" name="comments"
 							value="<c:out value="${status.value}"/>">
 					</spring:bind></td>
 			</tr>

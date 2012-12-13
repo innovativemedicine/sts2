@@ -10,7 +10,7 @@
       <td>Project Name:</td>
       <td> 
         <spring:bind path="command.name">
-	  <INPUT type="text" maxlength="255" size="30" name="name" value="<c:out value="${status.value}"/>" > 
+	  <INPUT type="text" maxlength="255" size="20" name="name" value="<c:out value="${status.value}"/>" > 
 	  <FONT color="red">
 		    <B><c:out value="${status.errorMessage}"/></B>
 		</FONT>
@@ -22,7 +22,7 @@
       <td>Description:</td>
       <td> 
         <spring:bind path="command.description">
-	   <INPUT type="text" maxlength="255" size="30" name="description" value="<c:out value="${status.value}"/>">
+	   <INPUT type="text" maxlength="255" size="20" name="description" value="<c:out value="${status.value}"/>">
 	</spring:bind>
       </td>
     </tr>
@@ -30,7 +30,7 @@
       <td>Status: </td>
       <td> 
         <spring:bind path="command.status">
-           <INPUT type="text" maxlength="255" size="30" name="status" value="<c:out value="${status.value}"/>">
+           <INPUT type="text" maxlength="255" size="20" name="status" value="<c:out value="${status.value}"/>">
 	</spring:bind>
       </td>
     </tr>
@@ -38,11 +38,11 @@
       <td>Created On: </td>
       <td> 
         <spring:bind path="command.createdOn">
-	   <INPUT type="text" maxlength="255" size="30" name="createdOn" value="<c:out value="${status.value}"/>">
+	   <INPUT type="text" maxlength="255" size="20" name="createdOn" value="<c:out value="${status.value}"/>">
 	    <FONT color="red">
 		    <B><c:out value="${status.errorMessage}"/></B>
 		</FONT>
-	</spring:bind>(DD-MM-YYYY)
+	</spring:bind><span class="label">DD-MM-YYYY</span>
       </td>
     </tr>
     <tr> 

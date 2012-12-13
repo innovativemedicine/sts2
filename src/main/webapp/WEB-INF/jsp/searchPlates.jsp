@@ -5,7 +5,7 @@
 
 <form method="post" enctype="multipart/form-data">
 	<div class="left">
-		<table style="width: 260px">
+		<table style="width: 280px">
 			<tr>
 				<th colspan="2">Search by Plate ID</th>
 			</tr>
@@ -17,15 +17,15 @@
 			<tr>
 				
 				<td>to</td>
-				<td><input name="plateIdTo"></td>
+				<td><input name="plateIdTo"><span class="label">Optional</span></td>
 			</tr>
 			<tr>
 				<td colspan="2"><input type="submit" name="Submit"
-					value="SEARCH">
+					value="SEARCH"></td>
 			</tr>
 		</table>
 		<br>
-		<table class="unhideOnHover" style="width: 260px">
+		<table style="width: 280px">
 			<tr>
 				<th>Search by Plate List <a class="unhider" href="#">[Show]</a></th>
 			</tr>
@@ -45,6 +45,24 @@
 		</table>
 	</div>
 	<div class="left">
+	<table style="width: 200px">
+			<tr>
+				<th><b>Filter by Plate Types</b></th>
+			</tr>
+			<tr>
+				<td><select size="5" name="plateTypeFilter" multiple>
+						<option value="" selected>All Plate Types</option>
+
+						<c:forEach items="${LPlateTypes}" var="plateType"
+							varStatus="row">
+							<option value="<c:out value="${plateType.containerTypeId}"/>">
+								<c:out value="${plateType.name}" />
+							</option>
+						</c:forEach>
+				</select></td>
+			</tr>
+		</table>
+		<p>
 		<table style="width: 200px">
 			<tr>
 				<th>Filter by Project</th>
@@ -61,26 +79,6 @@
 				</select></td>
 			</tr>
 		</table>
-	</div>
-	<div>
-		<table style="width: 200px">
-			<tr>
-				<th><b>Filter by Plate Types</b></th>
-			</tr>
-			<tr>
-				<td><select size="15" name="plateTypeFilter" multiple>
-						<option value="" selected>All Plate Types</option>
-
-						<c:forEach items="${LPlateTypes}" var="plateType"
-							varStatus="row">
-							<option value="<c:out value="${plateType.containerTypeId}"/>">
-								<c:out value="${plateType.name}" />
-							</option>
-						</c:forEach>
-				</select></td>
-			</tr>
-		</table>
-
 	</div>
 </form>
 

@@ -36,7 +36,7 @@
 							<FONT color="red"> <B><c:out
 										value="${status.errorMessage}" /></B>
 							</FONT>
-						</spring:bind> (DD-MM-YYYY)</td>
+						</spring:bind><span class="label">DD-MM-YYYY</span></td>
 				</tr>
 
 				<tr>
@@ -47,7 +47,7 @@
 							<FONT color="red"> <B><c:out
 										value="${status.errorMessage}" /></B>
 							</FONT>
-						</spring:bind> (ug/ml)</td>
+						</spring:bind><span class="label">ug/mL</span></td>
 				</tr>
 
 				<tr>
