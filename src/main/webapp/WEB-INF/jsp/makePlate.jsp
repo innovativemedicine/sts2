@@ -89,33 +89,27 @@
 			<span style="font-size: 10pt">* Required Fields</span>
 			</td>
 			</tr>
-		
-<!-- 			<tr> -->
-<!-- 				<td colspan="2"><input id="oneNext" type="submit" name="action" value="Next"> -->
-<!-- 				</td> -->
-<!-- 			</tr> -->
+			<tr>
+				<td colspan = "2"><a class="button unhider" ><span>Next</span></a></td>
+			</tr>
 		</table>
 
 	</div>
 	<div>
-		<table>
+		<table class="hide">
 			<tr>
 				<th colspan="2">Step 2: Download and Complete Manifest File</th>
 			</tr>
 			<tr>
 				<td>Manifest file</td>
 				<td><div id="dlManifest">				
-				<input class="two" type="submit" name="action" value="Download">
+				<input class="unhider2" type="submit" name="action" value="Download">
 				
 </div></td>
 			</tr>
-<!-- 			<tr><td> -->
-<!-- 				<input class="two" id="twoBack" type="button" value="Back"> -->
-<!-- 				<input class="two" id="twoNext" type="button" value="Next"> -->
-<!-- 			</td></tr> -->
 		</table>
 		<p>
-		<table>
+		<table class="hide2">
 			<tr>
 				<th colspan="2">Step 3: Upload Manifest File</th>
 			</tr>
