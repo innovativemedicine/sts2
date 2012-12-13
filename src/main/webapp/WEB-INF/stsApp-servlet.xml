@@ -44,15 +44,11 @@
 				<prop key="/investigator.htm">investigatorController</prop>
 				<prop key="/location.htm">locationController</prop>
 				<prop key="/sampleType.htm">sampleTypeController</prop>
-				<!--
-				<prop key="/editSamplesInContainer.htm">editSamplesInContainerController</prop>
-				-->
 				<prop key="/samplePrefix.htm">samplePrefixController</prop>
 				<prop key="/updateResultToCGG.htm">updateResultToCGGController</prop>
 				<prop key="/modifyRun.htm">modifyRunController</prop>
 				<prop key="/editPatient.htm">editPatientController</prop>
 				<prop key="/addSample2Container.htm">addSample2ContainerController</prop>
-				
 
 			<!--
     			 multiaction controllers
@@ -67,8 +63,6 @@
 			   	<prop key="/testDetails.htm">stsController</prop>
 				<prop key="/runDetails.htm">stsController</prop>
 			  	<prop key="/resultDetails.htm">stsController</prop>
-				<prop key="/sampleIdList.htm">stsController</prop>
-				<prop key="/sampleIdMap.htm">stsController</prop>
 				<prop key="/deleteTest.htm">stsController</prop>
 				<prop key="/deleteRun.htm">stsController</prop>
 				<prop key="/deleteAssay.htm">stsController</prop>
@@ -89,7 +83,6 @@
     		-->
     		
 				<prop key="/addResult.htm">addResultController</prop>
-				<prop key="/plateList4select.htm">plateList4selectController</prop>
 				<prop key="/printLabel4BloodCollection.htm">printLabel4BloodCollectionController</prop>
 				<prop key="/sampleList.htm">SampleListController</prop>
 				<prop key="/containerList.htm">ContainerListController</prop>				
@@ -98,9 +91,6 @@
 				<prop key="/containerContents.htm">containerContentsController</prop>
 				<prop key="/deleteSampleFromContainer.htm">deleteSampleFromContainerController</prop>
 				
-				<!-- Contorller for System User management 
-						Jianan Xiao 2005-09-29
-				-->
 				<prop key="/adminAddEditUser.htm">
 					addEditUserController</prop>
 				<prop key="/EditProfile.htm">
@@ -153,8 +143,8 @@
     <bean id="containersSearchController" class="agtc.sampletracking.web.controller.ContainersSearchController">
     	<property name="sessionForm"><value>true</value></property>
     	<property name="requireSession"><value>true</value></property>
-    	<property name="formView"><value>containers</value></property>
-    	<property name="successView"><value>containerDetails.htm</value></property>
+    	<property name="formView"><value>searchContainers</value></property>
+    	<property name="successView"><value>containerList.htm</value></property>
        	<property name="containerManager"><ref bean="containerManager"/></property>
        	<property name="projectManager"><ref bean="projectManager"/></property>       	
        	<property name="agtcManager"><ref bean="agtcManager"/></property>
@@ -266,14 +256,11 @@
 	<bean id="containerValidator" 
 		class="agtc.sampletracking.web.validator.ContainerValidator"/>
 
-	
-
 	<bean id="editProjectController" class="agtc.sampletracking.web.controller.EditProjectController">
 		<property name="sessionForm"><value>true</value></property>
 		<property name="requireSession"><value>true</value></property>
 		<property name="formView"><value>editProject</value></property>
 		<property name="validator"><ref local="projectValidator"/></property>
-	
         <property name="successView"><value>projectDetails.htm</value></property>
 		<property name="projectManager"><ref bean="projectManager"/></property>
 		<property name="agtcManager"><ref bean="agtcManager"/></property>
@@ -455,13 +442,6 @@
         <property name="successView"><value>editResult.htm</value></property>
     	<property name="testManager"><ref bean="testManager"/></property>
     	<property name="projectManager"><ref bean="projectManager"/></property>
-    </bean>
-
-	<bean id="plateList4selectController" class="agtc.sampletracking.web.controller.PlateList4selectController">
-    	<property name="sessionForm"><value>true</value></property>
-    	<property name="requireSession"><value>true</value></property>
-    	<property name="formView"><value>plateList4select</value></property>
-        <property name="successView"><value>index.htm</value></property>
     </bean>
 
 	<bean id="printLabel4BloodCollectionController" class="agtc.sampletracking.web.controller.PrintLabel4BloodCollectionController">
