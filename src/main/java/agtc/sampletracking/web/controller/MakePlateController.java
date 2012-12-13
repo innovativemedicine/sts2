@@ -21,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 import org.springframework.web.util.WebUtils;
 
+import agtc.sampletracking.ConstantInterface;
 import agtc.sampletracking.model.Container;
 import agtc.sampletracking.model.ContainerType;
 import agtc.sampletracking.model.Project;
@@ -30,13 +31,12 @@ import agtc.sampletracking.model.SamplesInContainer;
 import agtc.sampletracking.bus.manager.*;
 import agtc.sampletracking.bus.report.SatoLabelPrinter;
 
-public class MakePlateController extends BasicController {
+public class MakePlateController extends BasicController implements ConstantInterface {
 
 	private ContainerManager containerManager;
 	private SampleManager sampleManager;
 	private ProjectManager projectManager;
 	private AGTCManager agtcManager;
-	protected String manifestPath = "/Users/nderoo324/Documents/Workspace/sts2/manifest/";
 
 	public MakePlateController() {
 		// initialize the form from the formBackingObject
@@ -89,7 +89,7 @@ public class MakePlateController extends BasicController {
 
 			// Format Excel Document using filled in form and master manifest
 			String excelFileName = plateType + "master.xls";
-			String fullName= manifestPath + excelFileName; 
+			String fullName = MANIFESTPATH + excelFileName; 
 			InputStream is = new FileInputStream(fullName);
 			Workbook wb = formatPlateManifest(container, is); 			
 			is.close();
@@ -149,7 +149,7 @@ public class MakePlateController extends BasicController {
 						
 			// Redirect to containerDetails view on success. 
 			ModelAndView mav = new ModelAndView(new RedirectView(getSuccessView()));
-			mav.addObject("message", "Plate" + container.getName() + "saved successfully!");
+			mav.addObject("message", "Plate" + container.getName() + "saved. Labels have been printed. ");
 			mav.addObject("containerId", savedContainer.getContainerId());
 	
 			return mav;	
