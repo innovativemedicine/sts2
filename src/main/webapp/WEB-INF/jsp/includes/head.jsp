@@ -15,7 +15,6 @@
     <script type="text/javascript" src="js/myJs.js" defer></script>
 
    	<link href="css/stylesheet.css" rel="stylesheet" type="text/css" >
-	<fmt:setBundle basename="agtc.sampletracking.web.MessageBundle"></fmt:setBundle>
 	 
 	</head>
   <body>
@@ -25,10 +24,6 @@
             Sample Tracking System
           </h1>
     
-<%--            <c:if test="${fn:contains(header['User-Agent'],'MSIE')}">MSIE</c:if> --%>
-<%--            <c:if test="${fn:contains(header['User-Agent'],'Chrome')}">Chrome</c:if> --%>
-          
-		  <c:out value="${browser}"></c:out>
 		<%@ include file="/WEB-INF/jsp/includes/menu.html" %>
 	</div>
 	

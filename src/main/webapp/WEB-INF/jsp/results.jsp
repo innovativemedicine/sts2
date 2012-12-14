@@ -1,8 +1,8 @@
 <%@ include file="/WEB-INF/jsp/includes/head.jsp"%>
 <%@ include file="/WEB-INF/jsp/includes/success.jsp"%>
+<%@ include file="/WEB-INF/jsp/includes/errorMessage.jsp"%>
 
 <h2>Search Results</h2>
-<%@ include file="/WEB-INF/jsp/includes/errorMessage.jsp"%>
 
 <div class="left">
 

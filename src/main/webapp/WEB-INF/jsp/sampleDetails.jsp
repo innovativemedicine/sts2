@@ -19,32 +19,32 @@
 		</tr>
 		<tr>
 			<td>Internal Id:</td>
-			<td><c:out value="${command.patient.intSampleId}" />&nbsp;</td>
+			<td><c:out value="${command.patient.intSampleId}" /></td>
 		</tr>
 		<tr>
 			<td>Sample Type:</td>
-			<td><c:out value="${command.sampleType.name}" />&nbsp;</td>
+			<td><c:out value="${command.sampleType.name}" /></td>
 		</tr>
 		<tr>
 			<td>Sample Received on:</td>
-			<td><c:out value="${command.receiveDate}" />&nbsp;</td>
+			<td><c:out value="${command.receiveDate}" /></td>
 		</tr>
 		<tr>
 			<td>Duplication Number:</td>
-			<td><c:out value="${command.sampleDupNo}" />&nbsp;</td>
+			<td><c:out value="${command.sampleDupNo}" /></td>
 		</tr>
 
 		<tr>
 			<td>Notes:</td>
-			<td><c:out value="${command.notes}" />&nbsp;</td>
+			<td><c:out value="${command.notes}" /></td>
 		</tr>
 
 		<tr>
 			<td>Status:</td>
-			<td><c:out value="${command.status}" />&nbsp;</td>
+			<td><c:out value="${command.status}" /></td>
 		</tr>
 		<tr>
-		<td colspan="2">&nbsp;</td>
+		<td colspan="2"></td>
 		</tr>
 		<tr>
 			<td colspan="2" align="center">Concentration: <a class="unhider" href="#">[Show]</a></td>
@@ -59,39 +59,39 @@
 		</tr>
 		<tr>
 			<td>Concentration:</td>
-			<td><c:out value="${command.od}" />&nbsp;</td>
+			<td><c:out value="${command.od}" /></td>
 		</tr>
 		<tr>
 			<td>Reading On:</td>
-			<td><c:out value="${command.odDate}" />&nbsp;</td>
+			<td><c:out value="${command.odDate}" /></td>
 		</tr>
 
 		<tr>
 			<td>Volume:</td>
-			<td><c:out value="${command.volumn}" />&nbsp;</td>
+			<td><c:out value="${command.volumn}" /></td>
 		</tr>
 
 		<tr>
 			<td>Reading on:</td>
-			<td><c:out value="${command.volumnDate}" />&nbsp;</td>
+			<td><c:out value="${command.volumnDate}" /></td>
 		</tr>
 		<tr>
 			<td>Sample Made On:</td>
-			<td><c:out value="${command.madeDate}" />&nbsp;</td>
+			<td><c:out value="${command.madeDate}" /></td>
 		</tr>
 
 		<tr>
 			<td>Transformation On:</td>
-			<td><c:out value="${command.transDate}" />&nbsp;</td>
+			<td><c:out value="${command.transDate}" /></td>
 		</tr>
 
 		<tr>
 			<td>Remove On:</td>
-			<td><c:out value="${command.removeDate}" />&nbsp;</td>
+			<td><c:out value="${command.removeDate}" /></td>
 		</tr>
 		<tr>
 			<td>Refill On:</td>
-			<td><c:out value="${command.refillDate}" />&nbsp;</td>
+			<td><c:out value="${command.refillDate}" /></td>
 		</tr>
 	</table>
 </div>

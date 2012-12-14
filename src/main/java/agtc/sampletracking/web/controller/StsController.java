@@ -243,46 +243,6 @@ public class StsController extends MultiActionController implements Initializing
 		return new ModelAndView("patientDetails", models);
 	}
 	
-	public ModelAndView sampleIdListHandler(HttpServletRequest request, HttpServletResponse response) 
-		throws ServletException {
-		Container container = containerManager.getContainer(
-				new Integer(RequestUtils.getIntParameter(request, "containerId", -1)));
-		if (container == null) {
-			return new ModelAndView(new RedirectView("containers.htm"));
-		}
-		Set allSamplesInContainer = container.getSamplesInContainers();
-		ContainerType currentContainerType = container.getContainerType();
-		Sample[][] orderedSamples = null;
-		if(allSamplesInContainer!=null){
-			//log.debug("the length of List is " + allSamplesInContainer.size());
-			PlateWorker plateWorker = new PlateWorker(currentContainerType);
-			plateWorker.formatContainer(allSamplesInContainer);
-			orderedSamples = plateWorker.getOrderedSamples();
-		}
-
-		return new ModelAndView("sampleIdList", "orderedSamples",orderedSamples);
-	}
-	
-	public ModelAndView sampleIdMapHandler(HttpServletRequest request, HttpServletResponse response) 
-		throws ServletException {
-		Container container = containerManager.getContainer(
-				new Integer(RequestUtils.getIntParameter(request, "containerId", -1)));
-		if (container == null) {
-			return new ModelAndView(new RedirectView("containers.htm"));
-		}
-		Set allSamplesInContainer = container.getSamplesInContainers();
-		ContainerType currentContainerType = container.getContainerType();
-		Sample[][] orderedSamples = null;
-		if(allSamplesInContainer!=null){
-			//log.debug("the length of List is " + allSamplesInContainer.size());
-			PlateWorker plateWorker = new PlateWorker(currentContainerType);
-			plateWorker.formatContainer(allSamplesInContainer);
-			orderedSamples = plateWorker.getOrderedSamples();
-		}
-
-		return new ModelAndView("sampleIdMap", "orderedSamples",orderedSamples);
-	}
-	
 	public ModelAndView containerDetailsHandler(HttpServletRequest request, HttpServletResponse response) 
 		throws ServletException {
 		Container container = containerManager.getContainer(
@@ -441,99 +401,43 @@ public class StsController extends MultiActionController implements Initializing
 		
 		return new ModelAndView("containerDetails", models);
 	}
-	
-	public ModelAndView shuffleSamplesInContainerHandler(HttpServletRequest request, HttpServletResponse response) 
-		throws Exception {
-		int id = RequestUtils.getRequiredIntParameter(request, "containerId");
-		Container container = containerManager.getContainer(new Integer(id));
-		Set sics = container.getSamplesInContainers();
-		Iterator i = sics.iterator();
-		//String location = "";
-		while ( i.hasNext()){
-			SamplesInContainer sic = (SamplesInContainer)i.next();
-			sic.setWell("");
-		}
-		container.setSamplesInContainers(sics);
-		containerManager.saveContainer(container);
-		
-		Map myModel = new HashMap();
-		
-		
-		myModel.put("command", container);
-		myModel.put("message","You have successfully shuffled samples in this container !");
-		
-		return new ModelAndView("containerDetails", myModel);
-	}
-	
-	
-	 
-	/**
-	 * @return
-	 */
+
 	public ProjectManager getProjectManager() {
 		return projectManager;
 	}
 
-
-	/**
-	 * @param manager
-	 */
 	public void setProjectManager(ProjectManager manager) {
 		projectManager = manager;
 	}
 
-	/**
-	 * @return
-	 */
 	public TestManager getTestManager() {
 		return testManager;
 	}
 
-	/**
-	 * @param manager
-	 */
 	public void setTestManager(TestManager manager) {
 		testManager = manager;
 	}
 
-	/**
-	 * @return
-	 */
 	public SampleManager getSampleManager() {
 		return sampleManager;
 	}
 
-	/**
-	 * @param manager
-	 */
 	public void setSampleManager(SampleManager manager) {
 		sampleManager = manager;
 	}
 
-	/**
-	 * @return
-	 */
 	public ContainerManager getContainerManager() {
 		return containerManager;
 	}
 
-	/**
-	 * @param manager
-	 */
 	public void setContainerManager(ContainerManager manager) {
 		containerManager = manager;
 	}
 
-	/**
-	 * @return
-	 */
 	public IdListResolver getIdListResolver() {
 		return idListResolver;
 	}
 
-	/**
-	 * @param resolver
-	 */
 	public void setIdListResolver(IdListResolver resolver) {
 		idListResolver = resolver;
 	}
