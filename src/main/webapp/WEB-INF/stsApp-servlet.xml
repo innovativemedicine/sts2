@@ -87,7 +87,6 @@
 				<prop key="/sampleList.htm">SampleListController</prop>
 				<prop key="/containerList.htm">ContainerListController</prop>				
 				<prop key="/makePlate.htm">makePlateController</prop>
-				<prop key="/selectSampleInfo4Output.htm">selectSampleInfo4OutputController</prop>
 				<prop key="/containerContents.htm">containerContentsController</prop>
 				<prop key="/deleteSampleFromContainer.htm">deleteSampleFromContainerController</prop>
 				
@@ -461,13 +460,6 @@
     	<property name="sessionForm"><value>true</value></property>
     	<property name="requireSession"><value>true</value></property>
     	<property name="formView"><value>containerList</value></property>
-    </bean>
-
-	<bean id="selectSampleInfo4OutputController" class="agtc.sampletracking.web.controller.SelectSampleInfo4OutputController">
-    	<property name="sessionForm"><value>true</value></property>
-    	<property name="requireSession"><value>true</value></property>
-    	<property name="formView"><value>selectSampleInfo4Output</value></property>
-		<property name="sampleManager"><ref bean="sampleManager"/></property>
     </bean>
 
 	<bean id="makePlateController" class="agtc.sampletracking.web.controller.MakePlateController">
