@@ -16,8 +16,7 @@
 	</spring:bind>
       </td>
     </tr>
-    
-    
+ 
     <tr> 
           <td>Instrument: </td>
           <td> 

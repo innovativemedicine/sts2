@@ -1,12 +1,9 @@
 <%@ include file="/WEB-INF/jsp/includes/head.jsp" %>
-
-<tr><td>
-
 <%@ include file="/WEB-INF/jsp/includes/success.jsp" %>
-<p><h2>Change container for sample </h2></p>
+<h2>Change container for sample </h2>
 
 <form method="post" >
-  <table width="60%" border="0" class="details">
+  <table>
 	<tr> 
       <td>
         Sample Internal SampleId: <c:out value="${command.sample.patient.intSampleId}"/> <br>
@@ -53,5 +50,4 @@
 	</table>
   </form>
 
-</td></tr>
 <%@ include file="/WEB-INF/jsp/includes/foot.jsp" %>

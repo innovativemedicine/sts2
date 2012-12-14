@@ -1,9 +1,7 @@
 <%@ include file="/WEB-INF/jsp/includes/head.jsp" %>
-
-<tr><td>
+<%@ include file="/WEB-INF/jsp/includes/errorMessage.jsp" %>
 
  <h2>Edit Results</h2>
-<%@ include file="/WEB-INF/jsp/includes/errorMessage.jsp" %>
 
 <form method="post" >
   <table class="details">
@@ -47,6 +45,4 @@
 	</table>
   </form>
 
-
-</td></tr>
 <%@ include file="/WEB-INF/jsp/includes/foot.jsp" %>

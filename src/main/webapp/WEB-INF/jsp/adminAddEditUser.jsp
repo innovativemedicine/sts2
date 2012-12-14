@@ -1,7 +1,5 @@
  <%@ include file="/WEB-INF/jsp/includes/head.jsp" %>
- 
-<tr><td>
-<p><h2>Add / Edit User Information</h2></p>
+ <h2>Add / Edit User Information</h2>
 
     <spring:bind path="command.*">
         <FONT color="red">
@@ -144,6 +142,5 @@
     </c:forEach>
    
   </table>
- 
-</td></tr>
+
 <%@ include file="/WEB-INF/jsp/includes/foot.jsp" %>

@@ -1,7 +1,4 @@
 <%@ include file="/WEB-INF/jsp/includes/head.jsp" %>
-
-
-<tr><td>
 <%@ include file="/WEB-INF/jsp/includes/success.jsp" %>
 
 <h2>Sample <c:out value="${command.intSampleId}"/></h2> 
@@ -13,7 +10,7 @@
    	</div>
 <p>
   
-  <table border="0" class="details">
+  <table class="details">
     
     <tr> 
       <th>External ID 1</th>
@@ -76,5 +73,4 @@
 
   </table>
   
-</td></tr>
 <%@ include file="/WEB-INF/jsp/includes/foot.jsp" %>

@@ -1,7 +1,5 @@
 <%@ include file="/WEB-INF/jsp/includes/head.jsp" %>
 
-
-<tr><td>
   <table>
     <tr VALIGN="top">
 	<td>
@@ -39,6 +37,4 @@
 	</tr>
   </table>
 
-
-</td></tr>
 <%@ include file="/WEB-INF/jsp/includes/foot.jsp" %>

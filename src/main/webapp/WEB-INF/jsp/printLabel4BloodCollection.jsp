@@ -10,13 +10,12 @@
 			</td>
 		</tr>
 		<tr>
-			<td>Upload patientId list file:<br> <input type="file"
+			<td>Upload Sample ID List:<br> <input type="file"
 				name="file" />
 			</td>
 		</tr>
 		<tr>
-			<td><input type="submit" name="Submit" value="Print"> <input
-				type="reset" name="Reset" value="Reset"></td>
+			<td><input type="submit" name="Submit" value="Print"> 
 		</tr>
 	</table>
 </form>

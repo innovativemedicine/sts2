@@ -6,5 +6,5 @@
 
 <%@ include file="/WEB-INF/jsp/includes/searchCore.jsp"%>
 
-<%@ include file="/WEB-INF/jsp/includes/assayListBody.jsp"%>
+<%-- <%@ include file="/WEB-INF/jsp/includes/assayListBody.jsp"%> --%>
 <%@ include file="/WEB-INF/jsp/includes/foot.jsp"%>

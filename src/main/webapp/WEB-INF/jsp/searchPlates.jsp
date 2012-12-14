@@ -50,9 +50,7 @@
 				<th><b>Filter by Plate Types</b></th>
 			</tr>
 			<tr>
-				<td><select size="5" name="plateTypeFilter" multiple>
-						<option value="" selected>All Plate Types</option>
-
+				<td><select name="plateTypeFilter">
 						<c:forEach items="${LPlateTypes}" var="plateType"
 							varStatus="row">
 							<option value="<c:out value="${plateType.containerTypeId}"/>">

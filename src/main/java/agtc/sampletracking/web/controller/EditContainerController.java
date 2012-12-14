@@ -152,59 +152,25 @@ public class EditContainerController extends BasicController {
 		return models;
 	}
 
-	/**
-	protected ModelAndView processFormSubmission(javax.servlet.http.HttpServletRequest request,
-													 javax.servlet.http.HttpServletResponse response,
-													 java.lang.Object command,
-													 BindException errors)
-											  throws java.lang.Exception
-	{
-		Sample sample = (Sample) command;
-		log.debug(sample);
-		log.debug(errors);
-		return null;
-	}
-	*/
-	
-	/**
-	 * @return
-	 */
 	public ProjectManager getProjectManager() {
 		return projectManager;
 	}
 
-	/**
-	 * @return
-	 */
 	public ContainerManager getContainerManager() {
 		return containerManager;
 	}
 
-	/**
-	 * @param manager
-	 */
 	public void setProjectManager(ProjectManager manager) {
 		projectManager = manager;
 	}
-
-	/**
-	 * @param manager
-	 */
 	public void setContainerManager(ContainerManager manager) {
 		containerManager = manager;
 	}
 	
-	
-
-	/**
-	 * @return Returns the agtcManager.
-	 */
 	public AGTCManager getAgtcManager() {
 		return agtcManager;
 	}
-	/**
-	 * @param agtcManager The agtcManager to set.
-	 */
+
 	public void setAgtcManager(AGTCManager agtcManager) {
 		this.agtcManager = agtcManager;
 	}

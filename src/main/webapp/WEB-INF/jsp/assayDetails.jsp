@@ -1,16 +1,10 @@
 <%@ include file="/WEB-INF/jsp/includes/head.jsp" %>
-
-
-<tr><td>
 <%@ include file="/WEB-INF/jsp/includes/success.jsp" %>
-<p><h2>Assay Details</h2>
-<a href="<c:url value="/editAssay.htm"><c:param name="assayId" value="${command.assayId}"/></c:url>">Edit it</a>&nbsp;&nbsp;<br>
-
+<h2>Assay Details</h2>
+<a href="<c:url value="/editAssay.htm"><c:param name="assayId" value="${command.assayId}"/></c:url>">Edit it</a><br>
 <a href="<c:url value="/deleteAssay.htm"><c:param name="assayId" value="${command.assayId}"/></c:url>" onclick="return (confirm('Are you sure you want to delete this assay? Read the warning carefully before you confirm!')) ">Delete it</a><font color="red">Warning:</font> You can not delete this assay unless there is not any genotype result for this assay.
-</p>
-
-
-  <table width="60%" border="0" class="details">
+<p>
+  <table>
     
     <tr> 
           <td>Assay Name</td>
@@ -36,7 +30,7 @@
   
   <p>
   
-  <table width="80%" border="0" class="details">
+  <table>
 	<tr><th>Projects:</th></tr>
 	  <tr>
 	      <td>
@@ -49,10 +43,4 @@
 	</tr>
  </table>
   
-  
-
-
-
- 
-</td></tr>
 <%@ include file="/WEB-INF/jsp/includes/foot.jsp" %>

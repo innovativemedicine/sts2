@@ -1,33 +1,30 @@
 <%@ include file="/WEB-INF/jsp/includes/head.jsp" %>
-
-
-<tr><td>
 <%@ include file="/WEB-INF/jsp/includes/success.jsp" %>
 
-<a href="<c:url value="/editResult.htm"><c:param name="resultId" value="${result.resultId}"/></c:url>">Edit it</a>&nbsp;&nbsp;<br>
+<a href="<c:url value="/editResult.htm"><c:param name="resultId" value="${result.resultId}"/></c:url>">Edit it</a><br>
 
 <a href="<c:url value="/deleteResult.htm"><c:param name="resultId" value="${result.resultId}"/></c:url>" onclick="return (confirm('Are you sure you want to delete this result?')) ">Delete it</a>
 
 <h2>Result Details</h2>
-<table width="60%" border="0" class="details">
+<table>
   <tr>
     <td>Sample:</td>
-    <td><c:out value="${result.intSampleId}"/>&nbsp;</td>
+    <td><c:out value="${result.intSampleId}"/></td>
   </tr>
   
   <tr>
       <td>Assay:</td>
-      <td><c:out value="${result.assay.name}"/>&nbsp;</td>
+      <td><c:out value="${result.assay.name}"/></td>
   </tr>
   
   <tr>
       <td>Note:</td>
-      <td><c:out value="${result.note}"/>&nbsp;</td>
+      <td><c:out value="${result.note}"/></td>
   </tr>
 
   <tr>
       <td>Result:</td>
-      <td><c:out value="${result.result}"/>&nbsp;</td>
+      <td><c:out value="${result.result}"/></td>
   </tr>
   
   <tr>
@@ -41,5 +38,5 @@
   </tr>
     
 </table>
-</td></tr>
+
 <%@ include file="/WEB-INF/jsp/includes/foot.jsp" %>

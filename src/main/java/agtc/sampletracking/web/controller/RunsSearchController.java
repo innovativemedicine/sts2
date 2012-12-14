@@ -75,14 +75,13 @@ public class RunsSearchController extends BasicSearchController {
 		return testManager.searchRun(crtList,lgcList);
 	}
 	
-	protected java.util.Map referenceData(javax.servlet.http.HttpServletRequest request)
-	   throws java.lang.Exception
+	protected Map referenceData(javax.servlet.http.HttpServletRequest request)
+	   throws Exception
 	{
 		Map models = new HashMap();
 		//referenceData(request,models,"run");
 		List runList = testManager.getAllRuns();
 		models.put("runList",runList);
-		log.debug("referenceData is called");
 		return models;
 	}
 

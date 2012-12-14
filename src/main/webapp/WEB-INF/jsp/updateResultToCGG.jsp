@@ -1,7 +1,7 @@
 <%@ include file="/WEB-INF/jsp/includes/head.jsp" %>
 <%@ include file="/WEB-INF/jsp/includes/success.jsp" %>
  
-<tr><td>
+
 <h2>Update Test Result to CGG System</h2>
     
     <form method="post" action="updateResultToCGG.htm" >
@@ -47,7 +47,5 @@
     </c:forEach>
        
   </table>
- 
- 
-</td></tr>
+
 <%@ include file="/WEB-INF/jsp/includes/foot.jsp" %>

@@ -50,8 +50,6 @@
 			</tr>
 			<tr>
 				<td><select size="5" name="containerTypeFilter" multiple>
-						<option value="" selected>All Container Types</option>
-
 						<c:forEach items="${LContainerTypes}" var="containerType"
 							varStatus="row">
 							<option value="<c:out value="${containerType.containerTypeId}"/>">
