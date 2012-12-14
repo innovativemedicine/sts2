@@ -17,7 +17,6 @@
 			<!--
     	 search controllers
     	 -->
-                <prop key="/samples.htm">samplesSearchController</prop>
                 <prop key="/barcode.htm">barcodeController</prop>
                 <prop key="/simpleSamples.htm">simpleSamplesSearchController</prop>
 				<prop key="/searchContainers.htm">containersSearchController</prop>
@@ -109,16 +108,7 @@
 	<!--
     	 search controllers
     -->
-    <bean id="samplesSearchController" class="agtc.sampletracking.web.controller.SamplesSearchController">
-		<property name="sessionForm"><value>true</value></property>
-		<property name="requireSession"><value>true</value></property>
-		<property name="formView"><value>samples</value></property>
-		<property name="successView"><value>sampleDetails.htm</value></property>
-	 	<property name="sampleManager"><ref bean="sampleManager"/></property>
-     	<property name="searchFields"><ref bean="sampleSearchFields"/></property>
-    	<property name="operatorList"><ref bean="operatorList"/></property>
-   </bean>
-   
+
    <bean id="barcodeController" class="agtc.sampletracking.web.controller.BarcodeController">
 		<property name="sessionForm"><value>true</value></property>
 		<property name="requireSession"><value>true</value></property>
@@ -514,8 +504,6 @@
 				<prop key="/projectDetails.htm">projectDetailsHandler</prop>
 				<prop key="/testDetails.htm">testDetailsHandler</prop>
 				<prop key="/runDetails.htm">runDetailsHandler</prop>
-				<prop key="/sampleIdList.htm">sampleIdListHandler</prop>
-				<prop key="/sampleIdMap.htm">sampleIdMapHandler</prop>
 				<prop key="/deleteTest.htm">deleteTestHandler</prop>
 				<prop key="/deleteRun.htm">deleteRunHandler</prop>
 				<prop key="/deleteAssay.htm">deleteAssayHandler</prop>
@@ -526,7 +514,6 @@
 				<prop key="/deleteProject.htm">deleteProjectHandler</prop>
 				<prop key="/deleteContainer.htm">deleteContainerHandler</prop>
 				<prop key="/emptyContainer.htm">emptyContainerHandler</prop>
-				<prop key="/shuffleSamplesInContainer.htm">shuffleSamplesInContainerHandler</prop>
 				<prop key="/deleteAllSamplesInContainer.htm">deleteAllSamplesInContainerHandler</prop>
 				<prop key="/resultList.htm">resultListHandler</prop>
 				<prop key="/patientDetails.htm">patientDetailsHandler</prop>				
