@@ -63,6 +63,8 @@ public class SampleListController extends BasicController {
 			
 			String fileName = firstSample.getPatient().getIntSampleId() + "List";
 			downloadManifest(response, wb, fileName);
+			
+			return null;
 		}
 
 		ModelAndView mav = new ModelAndView("sampleList");
@@ -95,24 +97,51 @@ public class SampleListController extends BasicController {
 		Sheet sheet = workbook.getSheetAt(0);
 		Iterator<Sample> sampleIterator = sampleList.iterator();
 
-		Row curRow= sheet.getRow(0);	
-		Cell curCell = curRow.getCell(0);
+		Row curRow = sheet.getRow(0);	
+		Iterator<Cell> cellIterator = curRow.cellIterator();
+		
+		Cell curCell = cellIterator.next();
+		curCell.setCellValue("Sample Id");
+		
+		curCell = cellIterator.next();
+		curCell.setCellValue("External Id");
+		
+		curCell = cellIterator.next();
+		curCell.setCellValue("Sample Type");
+		
+		curCell = cellIterator.next();
+		curCell.setCellValue("Project");
+		
+		curCell = cellIterator.next();
+		curCell.setCellValue("Volume (mL)");
+		
+		curCell = cellIterator.next();
+		curCell.setCellValue("Conc. (ug/mL)");
+		
+		curCell = cellIterator.next();
+		curCell.setCellValue("Notes");
+
+		curCell = cellIterator.next();
+		curCell.setCellValue("Status");
+
+		curCell = cellIterator.next();
+		curCell.setCellValue("Location");
 		
 		Integer rowCounter = 1;
 		
 		System.out.println(curCell.getStringCellValue());
 
-		
+		// Iterate through the sampleList and populate excel file
 		while (sampleIterator.hasNext()) {
 			Sample curSample = (Sample) sampleIterator.next();
 			
 			curRow=sheet.getRow(rowCounter);
 
-			Iterator<Cell> cellIterator = curRow.cellIterator();
+			cellIterator = curRow.cellIterator();
 			
 			curCell=cellIterator.next();		
 			curCell.setCellValue(curSample.getPatient().getIntSampleId());
-	
+			
 			curCell=cellIterator.next();		
 			curCell.setCellValue(curSample.getPatient().getExtSampleId());
 
@@ -123,9 +152,6 @@ public class SampleListController extends BasicController {
 			curCell.setCellValue(curSample.getPatient().getProject().getName());
 
 			curCell=cellIterator.next();		
-			curCell.setCellValue(curSample.getOd());
-
-			curCell=cellIterator.next();		
 			curCell.setCellValue(curSample.getVolumn());
 
 			curCell=cellIterator.next();		
@@ -134,12 +160,26 @@ public class SampleListController extends BasicController {
 			curCell=cellIterator.next();		
 			curCell.setCellValue(curSample.getNotes());
 
-			curCell = curRow.getCell(8);
+			curCell=cellIterator.next();
 			curCell.setCellValue(curSample.getStatus());
 			
-			// List sic =
-			// sampleManager.getSamplesInContainersInBySample(curSample.getSampleId());
-
+			List sics = sampleManager.getSamplesInContainersInBySample(curSample.getSampleId());
+			
+			if(!sics.isEmpty())
+			{
+				SamplesInContainer sic = (SamplesInContainer) sics.get(0);
+				String containerName = sic.getContainer().getName();
+				String containerLoc = "";
+				if(sic.getContainer().getLocation() != null)
+				{
+					 containerLoc = "@" + sic.getContainer().getLocation().getName();
+				}
+				String sampleLocation = containerName + containerLoc;
+				
+				curCell=cellIterator.next();
+				curCell.setCellValue(sampleLocation);
+			}
+			
 			rowCounter++;
 		}
 		return workbook;
@@ -163,7 +203,6 @@ public class SampleListController extends BasicController {
 		response.flushBuffer();
 	}
 	
-
 	public SampleManager getSampleManager() {
 		return sampleManager;
 	}
