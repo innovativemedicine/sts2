@@ -34,11 +34,6 @@ public class SampleManager implements ConstantInterface {
 		return sampleDAO.getSample(sampleId);
 	}
 
-	
-	public List searchSample(List crtList,List lgcList){
-		return sampleDAO.searchSamples(crtList,lgcList);
-	}
-
 	public List getSamples(List sampleIds,List sampleTypeSuffixes,Integer sampleDupNo){
 		return sampleDAO.getSamples(sampleIds,sampleTypeSuffixes,sampleDupNo);
 	}
@@ -104,7 +99,6 @@ public class SampleManager implements ConstantInterface {
 	}
 	
 	public void removeSampleAndPatient(Integer sampleId){
-		System.out.println("remove all patient");
 		Sample sample = sampleDAO.getSample(sampleId);		
 		patientDAO.removePatient(sample.getPatient().getIntSampleId());
 
@@ -126,7 +120,6 @@ public class SampleManager implements ConstantInterface {
 	}
 	
 	public void removeAllSamplesAndPatientsInContainer(Container container){
-		System.out.println("remove all");
 		Set sics = container.getSamplesInContainers();		
 		Iterator i = sics.iterator();
 		
@@ -141,6 +134,7 @@ public class SampleManager implements ConstantInterface {
 	}
 	
 	public void saveSample(Sample sample) throws Exception{
+		
 		if(sample.getSampleId().intValue()==-1){
 			
 			Patient patient = sample.getPatient();
@@ -149,7 +143,7 @@ public class SampleManager implements ConstantInterface {
 				sample.setPatient(patient);	
 			}
 			else{ // Patient already exists. Check if sampleType exists.
-				List<Sample> existingSample = (List<Sample>) sampleDAO.getSampleByIntSampleIdSampleType(sample.getPatient().getIntSampleId(),sample.getSampleType());
+				List existingSample = sampleDAO.getSampleByIntSampleIdSampleType(sample.getPatient().getIntSampleId(),sample.getSampleType());
 
 				if(!existingSample.isEmpty())
 				{
