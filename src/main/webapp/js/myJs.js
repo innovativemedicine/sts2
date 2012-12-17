@@ -5,20 +5,33 @@ $(document).ready(function() {
 var oldVal;
 
 $('.barcodeInput').bind('input', function(event) {
-	var val = this.value;
+	var val = this.val();
 	if (val != oldVal) {
 	    oldVal = val;
 	    $('.barcodeAdd').trigger('click');
 	}
 });
 
-$('.generateForm').click(function() {
-	var ns = $('#numSamplesText').val();
-	if (ns >= 10) {
-		ns = 10;
+$('.generateForm').bind('input', function(event) {
+	var ns = $('.generateForm').val();
+	var sp = $('#sampleIdPreForm').val().toUpperCase();
+	
+	if(ns.match(/^\d+$/)) {
+		if (ns >= 3) {
+			ns = 3;
+		}
 	}
-//	reload page with attached param
-	location.search = $.param({'ns':ns});
+	else {
+		ns = 0;
+	}
+	
+	if(!$.trim(sp).length) {
+		location.search = $.param({'ns':ns});
+	}
+	else {
+	//	reload page with attached param
+		location.search = $.param({'ns':ns, 'sp':sp});
+	}
 });
 
 $('.unhider').click(function() {
@@ -39,6 +52,9 @@ $('.unhider').click(function() {
 
 $('.unhider2').click(function() {
 	if (!($('.hide2').is(':visible'))) {
+		$('.hide1').hide();
 		$('.hide2').fadeIn();
+	
+
 	}
 });
