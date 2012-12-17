@@ -293,10 +293,7 @@ public class BarcodeController extends BasicController {
 
 		String action = RequestUtils.getStringParameter(request, "action", "");
 		
-		if (action.equals("REVIEW")) {						
-			actionList = new ArrayList();
-		}
-		else if (action.equals("ADD")) {
+		if (action.equals("ADD")) {
 			String barcodeResponse = processBarcode(barcodeItem, storeContainer);
 			
 			if(barcodeResponse.startsWith("<b>StoreToContainer</b>:"))
@@ -310,7 +307,7 @@ public class BarcodeController extends BasicController {
 			// Change to barcodeResponse later
 			actionList.add(barcodeResponse);
 		}
-		else if (action.equals("RESET")) {
+		else if (action.equals("Clear")) {
 			actionList = new ArrayList();
 			storeContainer = new String();
 		}
