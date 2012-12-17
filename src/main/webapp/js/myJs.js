@@ -5,7 +5,7 @@ $(document).ready(function() {
 var oldVal;
 
 $('.barcodeInput').bind('input', function(event) {
-	var val = this.val();
+	var val = this.value;
 	if (val != oldVal) {
 	    oldVal = val;
 	    $('.barcodeAdd').trigger('click');
