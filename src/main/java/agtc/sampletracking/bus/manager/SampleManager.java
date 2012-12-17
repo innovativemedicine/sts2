@@ -131,7 +131,7 @@ public class SampleManager implements ConstantInterface {
 		}
 		sics.clear();
 		
-	}
+	}	
 	
 	public void saveSample(Sample sample) throws Exception{
 		
