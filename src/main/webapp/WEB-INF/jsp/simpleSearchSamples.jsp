@@ -76,7 +76,7 @@
 						<c:forEach items="${LSampleTypes}" var="sampleType"
 							varStatus="row">
 							<option value="<c:out value="${sampleType.sampleTypeId}"/>">
-								<c:out value="${sampleType.name}" />
+								<c:out value="${sampleType.name}" /> <c:if test="${sampleType.vials != null}">(<c:out value="${sampleType.vials}" />)</c:if>
 							</option>
 						</c:forEach>
 				</select></td>
