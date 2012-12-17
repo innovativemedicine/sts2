@@ -42,7 +42,11 @@ public class ProjectDAOHbImpl
 	}
 	
 	public Project getProject(String projectName) {
-		return (Project)(getHibernateTemplate().find("from Project p where p.name=?",projectName).get(0));
+		List results = getHibernateTemplate().find("from Project p where p.name=?",projectName);
+		if(results.isEmpty()) {
+			return null;
+		}
+		return (Project)results.get(0);
 	}
 	
 	public List getProjects(List crtList,List lgcList){
