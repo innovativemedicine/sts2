@@ -173,33 +173,6 @@ public class SampleDAOHbImpl extends STSBasicDAO implements SampleDAO {
 		return crt.list();
 	}	
 	
-	public List searchSamples(List crtList,List lgcList) {
-		//log.debug("the whereString is " + whereString);
-		Session session = getSession();
-		Criteria crt = session.createCriteria(Sample.class);
-		
-		
-		// the size of lgcList is always one less than the size of crtList
-		if(crtList.size()>1){
-			for (int i=0;i<crtList.size()-1;i++){
-				SearchCommand searchCommand = (SearchCommand)crtList.get(i);
-				SampleSearchFields.getExpression(crt,searchCommand);
-				/* or search is not supported yet
-				if(lgcList.size()>i){
-					String logicalOperator = (String)lgcList.get(i);
-					getExpression(crt,logicalOperator);
-				}
-				*/
-			}
-		}
-		SearchCommand searchCommand = (SearchCommand)crtList.get(crtList.size()-1);
-		SampleSearchFields.getExpression(crt,searchCommand);
-		crt.addOrder(Order.asc("patient.intSampleId"));
-		log.debug(" the criteria is " + crt.toString());
-		return crt.list();
-
-	}
-	
 	public List getExistingSampleTypes(String intSampleId){
 		intSampleId = intSampleId.toUpperCase();
 		String query = "select distinct s.sampleType from Sample s where s.patient.intSampleId = ? ";
@@ -242,7 +215,7 @@ public class SampleDAOHbImpl extends STSBasicDAO implements SampleDAO {
 		if(results.size()>0){
 			return results;
 		}else{
-			return null;
+			return new ArrayList();
 		}
 	}
 	
@@ -299,6 +272,9 @@ public class SampleDAOHbImpl extends STSBasicDAO implements SampleDAO {
 	 * @see agtc.sampletracking.dao.SampleDAO#saveSample(agtc.sampletracking.model.Sample)
 	 */
 	public void saveSample(Sample sample) throws Exception{
+		System.out.println("saveDAO");
+		System.out.println(sample.getPatient().getIntSampleId() + "-" + sample.getSampleType().getName());
+		
 		sample.getPatient().setIntSampleId(
 				sample.getPatient().getIntSampleId().toUpperCase());
 		
@@ -312,9 +288,6 @@ public class SampleDAOHbImpl extends STSBasicDAO implements SampleDAO {
 			getHibernateTemplate().save(sample);
 		}else{
 			getHibernateTemplate().update(sample);
-		}
-		if(log.isDebugEnabled()){
-			log.debug("sample ID set to :" + sample.getSampleId());
 		}
 	}
 
