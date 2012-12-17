@@ -15,7 +15,6 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import agtc.sampletracking.dao.SamplePrefixDAO;
 import agtc.sampletracking.model.Assay;
 import agtc.sampletracking.model.SamplePrefix;
-import agtc.sampletracking.web.controller.SamplesSearchController;
 
 /**
  * @author Gloria

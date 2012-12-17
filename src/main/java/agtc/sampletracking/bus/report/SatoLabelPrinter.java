@@ -99,7 +99,7 @@ public class SatoLabelPrinter {
 		// String filename="e:\\commandFiles\\"+UnqueString.UnqueStr()+".DAT";
 		SimpleDateFormat timeStamp = new SimpleDateFormat("ddMMMyyyykkmm");
 		String fileTime = timeStamp.format(new Date());
-		String filename = "/Users/nderoo324/Documents/Workspace/sts2/label/samples"
+		String filename = "/Users/nderoo324/Documents/Workspace/sts2/label/bloods"
 				+ fileTime + ".dat";
 		File outputFile = new File(filename);
 		FileWriter out = new FileWriter(outputFile);
@@ -108,134 +108,14 @@ public class SatoLabelPrinter {
 
 		while (ir.hasNext()) {
 
-			Sample sample = (Sample) ir.next();
-			String internalId = sample.getPatient().getIntSampleId();
+			String sampleId = (String) ir.next();
 
-			// For the barcode: It should be in the format internalId??
-			content.append(internalId).append(",");
-			content.append(internalId).append(",");
+			content.append(sampleId).append(",");
+			content.append(sampleId).append(",");
 			content.append("\n");
 		}
 		out.write(content.toString());
 		out.close();
 	}
 
-	public void printSatoLabel(List selectList) throws Exception {
-
-		Iterator ir = selectList.iterator();
-		// String filename="e:\\commandFiles\\"+UnqueString.UnqueStr()+".DAT";
-		SimpleDateFormat timeStamp = new SimpleDateFormat("ddMMMyyyykkmm");
-		String fileTime = timeStamp.format(new Date());
-		String filename = "/Users/nderoo324/Documents/Workspace/sts2/label/"
-				+ fileTime + ".dat";
-		File outputFile = new File(filename);
-		FileWriter out = new FileWriter(outputFile);
-
-		StringBuffer content = new StringBuffer();
-
-		while (ir.hasNext()) {
-
-			// log.debug("one sample");
-			Sample sample = (Sample) ir.next();
-			String internalId = sample.getPatient().getIntSampleId();
-			String externalId = sample.getPatient().getExtSampleId();
-			if (externalId == null || externalId.equals("null")) {
-				externalId = "";
-			}
-			String sampleTypeSuffix = sample.getSampleType().getSuffix();
-			// Integer sampleDupNo = sample.getSampleDupNo();
-			content.append(getExtIdFirstLine(externalId)).append(",");
-			content.append(getExtIdSecondLine(externalId)).append(",");
-			content.append(internalId).append(",");
-			content.append(sampleTypeSuffix).append(",");
-			content.append(internalId).append(",");
-			content.append(getTopLabelLineOne(internalId)).append(",");
-			content.append(getTopLabelLineTwo(internalId)).append(",");
-			content.append(sampleTypeSuffix).append(",");
-			content.append(getTopLabelLineOne(internalId)).append(",");
-			content.append(getTopLabelLineTwo(internalId)).append(",");
-			content.append(sampleTypeSuffix).append(",");
-			content.append(getExtIdFirstLine(externalId)).append(",");
-			content.append(getExtIdSecondLine(externalId)).append(",");
-			content.append(internalId).append(",");
-			content.append(sampleTypeSuffix).append(",");
-			content.append(internalId).append(",");
-			Date date = sample.getMadeDate();
-
-			if (date == null) {
-				date = sample.getReceiveDate();
-			}
-
-			if (date != null) {
-				content.append(dateFormat.format(date)).append(",");
-				content.append(dateFormat.format(date)).append(",");
-
-			} else {
-				content.append(" ").append(",");
-				content.append(" ").append(",");
-			}
-
-			Float concentration = sample.getOd();
-			if (concentration != null
-					&& concentration.compareTo(new Float(0.0f)) != 0) {
-				DecimalFormat myFormatter = new DecimalFormat("###.#");
-				String cntS = myFormatter.format(concentration.doubleValue());
-
-				content.append(cntS).append("ug/ml").append(",");
-				content.append(cntS).append("ug/ml").append(",");
-			} else {
-				content.append(" ").append(",");
-				content.append(" ").append(",");
-			}
-
-			Integer sampleDupNo = sample.getSampleDupNo();
-			if (sampleDupNo != null && sampleDupNo.intValue() != 1) {
-				String dupNoS = "(" + sampleDupNo.intValue() + ")";
-				content.append(dupNoS).append(",");
-				content.append(dupNoS).append("\n");
-			} else {
-				content.append(" ").append(",");
-				content.append(" ").append("\n");
-			}
-		}
-		out.write(content.toString());
-		out.close();
-
-	}
-
-	private String getExtIdFirstLine(String extId) {
-		if (extId.length() >= 13) {
-			return extId.substring(0, 13);
-		} else {
-			return extId;
-		}
-	}
-
-	private String getExtIdSecondLine(String extId) {
-		if (extId.length() > 13) {
-			return extId.substring(13);
-		} else {
-			return "";
-		}
-	}
-
-	private String getTopLabelLineOne(String internalId) {
-		for (int i = 0; i < internalId.length(); i++) {
-			char c = internalId.charAt(i);
-			if (Character.isDigit(c)) {
-				return internalId.substring(0, i);
-			}
-		}
-		return "";
-	}
-
-	private String getTopLabelLineTwo(String internalId) {
-		for (int i = 0; i < internalId.length(); i++) {
-			char c = internalId.charAt(i);
-			if (Character.isDigit(c)) {
-				return internalId.substring(i);
-			}
-		}
-		return "";
-	}
 }

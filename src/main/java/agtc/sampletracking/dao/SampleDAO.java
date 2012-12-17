@@ -28,7 +28,6 @@ public interface SampleDAO {
 	public Sample getSample(String intSmpleId);
 	public void saveSample(Sample sample) throws Exception;
 	public void removeSample(Integer sampleId);
-	public List searchSamples(List crtList,List lgcList);
 	public Sample getSampleByIntSampleIdUniKey(String intId,SampleType sampleType,Integer sampleDupNo);
 	public List getSampleByIntSampleIdSampleType(String intId,SampleType sampleType);
 	public List getSampleByIntSampleIdSampleType(String intId,String[] sampleType);

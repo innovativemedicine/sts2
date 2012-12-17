@@ -15,14 +15,9 @@ import org.springframework.web.servlet.view.*;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
-import agtc.sampletracking.model.Patient;
 import agtc.sampletracking.model.Container;
-import agtc.sampletracking.web.command.*;
 import agtc.sampletracking.bus.manager.*;
-import agtc.sampletracking.bus.*;
 import org.springframework.validation.BindException;
 import org.springframework.web.util.*;
 import java.util.*;

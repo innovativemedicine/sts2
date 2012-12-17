@@ -25,16 +25,11 @@ public class InstrumentDAOHbImpl
 	extends HibernateDaoSupport
 	implements InstrumentDAO {
 	private Log log = LogFactory.getLog(InstrumentDAOHbImpl.class);	
-	/* (non-Javadoc)
-	 * @see agtc.sampletracking.dao.InstrumentDAO#getInstruments()
-	 */
+
 	public List getInstruments() {
 		return  getHibernateTemplate().find("select i from Instrument i order by i.name");
 	}
 
-	/* (non-Javadoc)
-	 * @see agtc.sampletracking.dao.InstrumentDAO#getInstrument(java.lang.Integer)
-	 */
 	public Instrument getInstrument(Integer instrumentId) {
 		return (Instrument)(getHibernateTemplate().get(Instrument.class,instrumentId));
 	}
@@ -43,9 +38,6 @@ public class InstrumentDAOHbImpl
 		return (Instrument)(getHibernateTemplate().find("from Instrument c where c.name=?",name).get(0));
 	}
 
-	/* (non-Javadoc)
-	 * @see agtc.sampletracking.dao.InstrumentDAO#saveInstrument(agtc.sampletracking.model.Instrument)
-	 */
 	public void saveInstrument(Instrument instrument) throws Exception {
 		getHibernateTemplate().saveOrUpdate(instrument);
 		if(log.isDebugEnabled()){
@@ -54,9 +46,6 @@ public class InstrumentDAOHbImpl
 
 	}
 
-	/* (non-Javadoc)
-	 * @see agtc.sampletracking.dao.InstrumentDAO#removeInstrument(java.lang.Integer)
-	 */
 	public void removeInstrument(Integer instrumentId) {
 		Object instrument = getHibernateTemplate().load(Instrument.class,instrumentId);
 		getHibernateTemplate().delete(instrument);

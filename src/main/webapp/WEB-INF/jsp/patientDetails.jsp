@@ -21,19 +21,19 @@
      </tr>
      <tr>
       	<td> 
-        	<c:out value="${command.extSampleId}"/>&nbsp;
+        	<c:out value="${command.extSampleId}"/>
       	</td> 
       	<td>
-        	<c:out value="${command.anotherExtSampleId}"/>&nbsp;
+        	<c:out value="${command.anotherExtSampleId}"/>
       	</td>
       	<td> 
-        	<c:out value="${command.project.investigator.firstName}"/>&nbsp;<c:out value="${command.project.name}"/>&nbsp;
+        	<c:out value="${command.project.investigator.firstName}"/><c:out value="${command.project.name}"/>
       	</td>
       	<td> 
-   	  		<c:out value="${command.isControl}"/>&nbsp;
+   	  		<c:out value="${command.isControl}"/>
 	  	</td>
   		<td> 
-        	<c:out value="${command.note}"/>&nbsp;
+        	<c:out value="${command.note}"/>
       	</td>
     </tr>
   </table>
@@ -49,7 +49,7 @@
     </div>
 	<p>
 	
-   <table class="details">
+   <table>
     <tr>
     	<th>Sample Type</th>
 		<th>Duplication No.</th>
@@ -59,10 +59,10 @@
     
     <c:forEach items="${command.samples}" var="sample">
     <tr> 
-    	<td><c:out value="${sample.sampleType.name}"/>&nbsp;</td>
-		<td><c:out value="${sample.sampleDupNo}"/>&nbsp;</td>
-		<td><c:out value="${sample.receiveDate}"/>&nbsp;</td>
-    	<td><c:out value="${sample.od}"/>&nbsp;</td>
+    	<td><c:out value="${sample.sampleType.name}"/></td>
+		<td><c:out value="${sample.sampleDupNo}"/></td>
+		<td><c:out value="${sample.receiveDate}"/></td>
+    	<td><c:out value="${sample.od}"/></td>
 		<td>
 			<a class="button" href="<c:url value="/sampleDetails.htm"><c:param name="sampleId" value="${sample.sampleId}"/></c:url>"><span>Details</span></a>
 			<a class="button" href="<c:url value="/editSample.htm"><c:param name="sampleId" value="${sample.sampleId}"/></c:url>"><span>Edit</span></a>

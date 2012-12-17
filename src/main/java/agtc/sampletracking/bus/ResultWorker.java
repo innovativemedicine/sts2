@@ -10,7 +10,6 @@ import agtc.sampletracking.model.Assay;
 import agtc.sampletracking.model.Result;
 import agtc.sampletracking.model.Sample;
 import agtc.sampletracking.web.*;
-import agtc.sampletracking.web.controller.SamplesSearchController;
 import agtc.sampletracking.bus.manager.*;
 import agtc.sampletracking.bus.comparator.*;
 

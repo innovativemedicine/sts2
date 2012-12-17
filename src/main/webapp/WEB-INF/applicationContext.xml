@@ -276,10 +276,6 @@
     </bean>
     <bean id="projectSearchFields" class="agtc.sampletracking.web.searchFields.ProjectSearchFields">
     </bean>
-    <bean id="sampleSearchFields" class="agtc.sampletracking.web.searchFields.SampleSearchFields">
-    </bean>
-    <bean id="containerSearchFields" class="agtc.sampletracking.web.searchFields.ContainerSearchFields">
-    </bean>
     <bean id="testSearchFields" class="agtc.sampletracking.web.searchFields.TestSearchFields">
     </bean>
     <bean id="assaySearchFields" class="agtc.sampletracking.web.searchFields.AssaySearchFields">

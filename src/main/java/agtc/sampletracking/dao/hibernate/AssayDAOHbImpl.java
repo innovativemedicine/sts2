@@ -79,7 +79,7 @@ public class AssayDAOHbImpl extends STSBasicDAO implements AssayDAO {
 	    		+"(select distinct r.assay.assayId from Result r where r.run.runId="+id+")");
 	    if (results.size()>0){	    	 
 	    	return results;
-	    }else return null;
+	    }else return new ArrayList();
 	}
 	
 	public Assay getAssay(Integer assayId) {

@@ -16,42 +16,22 @@ import agtc.sampletracking.bus.parser.ResultParser;
 */
 public class Sample implements Serializable,Comparator,Cloneable {
 	private Log log = LogFactory.getLog(Sample.class);
-    /** identifier field */
     private Integer sampleId;    
-    
-    /** nullable persistent field */	
     private Float od;
-
-    /** nullable persistent field */
     private Float volumn;
-
-    /** nullable persistent field */
     private Date madeDate;
-
-    /** nullable persistent field */
     private Date refillDate;
-
-    /** nullable persistent field */
     private String notes;
 
     /** nullable persistent field */
     private String tempIntSampleId;
-
-    /** nullable persistent field */
     private Date transDate;
-
-    /** nullable persistent field */
     private String status;
-
-    /** nullable persistent field */
     private Date removeDate;
-    
 	private Date odDate;
-	
-	private Date volumnDate;
-	
+	private Date volumnDate;	
 	private Date receiveDate;
-	
+
 	private Integer sampleDupNo;
 
     /** persistent field */
@@ -66,7 +46,7 @@ public class Sample implements Serializable,Comparator,Cloneable {
     public Sample() {
 		patient = new Patient();
 		sampleType = new SampleType();
-		sampleId = new Integer(-1);
+		sampleId = new Integer(-1);	
     }
     
     public Sample(String intSampleId) {
