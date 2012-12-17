@@ -7,45 +7,40 @@
 package agtc.sampletracking.web.controller;
 
 import java.io.BufferedReader;
-import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.springframework.validation.BindException;
 import org.springframework.web.bind.RequestUtils;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
-import org.springframework.web.util.WebUtils;
 
-import agtc.sampletracking.model.Patient;
-import agtc.sampletracking.model.Sample;
+import agtc.sampletracking.bus.report.SatoLabelPrinter;
 
-public class PrintLabel4BloodCollectionController extends SimpleFormController {
-	private Log log = LogFactory.getLog(PrintLabel4BloodCollectionController.class);
-	
+public class PrintLabel4BloodCollectionController extends SimpleFormController {	
 	
 	protected Object formBackingObject(HttpServletRequest request) throws ServletException {
 		return new Object();
 	}
 	
 	
-	protected ModelAndView onSubmit(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response, java.lang.Object command,BindException errors) throws java.lang.Exception{
+	protected ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response, Object command,BindException errors) throws java.lang.Exception{
 		
-		List selectList =  new ArrayList();;
 		String scapeNo = RequestUtils.getStringParameter(request, "scapeNo","");
+		
+		if(scapeNo.isEmpty()){
+			scapeNo = "0";
+		}
+		
+		Integer scapeNum = Integer.parseInt(scapeNo);
 		
 		//rewrite using SatoLabelPrinter
 
@@ -53,6 +48,7 @@ public class PrintLabel4BloodCollectionController extends SimpleFormController {
 
 		MultipartHttpServletRequest  mrequest = (MultipartHttpServletRequest)request;
 		MultipartFile aFile = mrequest.getFile("file");
+		
 		if(aFile.isEmpty()){
 			errors.reject( "error.emptyFile","Uploaded file is empty");
 			return showForm(request, response, errors);
@@ -60,29 +56,27 @@ public class PrintLabel4BloodCollectionController extends SimpleFormController {
 	
 		InputStream is = aFile.getInputStream();
 		BufferedReader br = new BufferedReader(new InputStreamReader(is));
-		br.readLine();
 		String aLine = "";
+		
+		List sampleList =  new ArrayList();;
+
 		while((aLine = br.readLine()) != null) {
 			String intSampleId = aLine.trim();
-			Sample sample = new Sample();
-			Patient patient = new Patient();
-			patient.setIntSampleId(intSampleId);
-			sample.setPatient(patient);
-			selectList.add(sample);
+			for(int i=1; i<=scapeNum; i++)
+			{
+				sampleList.add(intSampleId);
+			}
 		}
+		
 		is.close();
 		
-	
-		Map model = new HashMap();
-		model.put("list",selectList);
-		if("".equals(scapeNo)){
-			scapeNo = "0";
-		}
-		model.put("scapeNo",Integer.valueOf(scapeNo));
+		SatoLabelPrinter satoP = new SatoLabelPrinter();
+		satoP.printBloodLabel(sampleList);		
 		
-
+//		ModelAndView mav = new ModelAndView("");
+//		mav.addObject("message", "Labels have been printed.");
 		
-		return null;	
+		return showForm(request, response, errors);		
 	}
 	
 	
