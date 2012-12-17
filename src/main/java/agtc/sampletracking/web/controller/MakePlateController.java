@@ -135,10 +135,11 @@ public class MakePlateController extends BasicController implements ConstantInte
 			is.close();
 			
 			String fileName = container.getName() + "final";
-			//			downloadManifest(response, wb, fileName);
+
+			// downloadManifest(response, wb, fileName);
 			// Instead of invoking a download.
-			// Use JavaMail to send out an email to the order placer, to order receive
-			// Attah the finalXL (with the int sample ID filled in as reference
+			// Use JavaMail to send out an email to the order placer, to order receiver
+			// Attach the finalXL (with the int sample ID filled in as reference
 			
 			Container savedContainer = containerManager.getContainer(container.getName());
 			
