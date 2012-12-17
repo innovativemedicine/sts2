@@ -151,12 +151,24 @@ public class SampleListController extends BasicController {
 			curCell=cellIterator.next();		
 			curCell.setCellValue(curSample.getPatient().getProject().getName());
 
+			curCell=cellIterator.next();	
+			try{
+				curCell.setCellValue(curSample.getVolumn());
+			}
+			catch (NullPointerException e)
+			{
+				curCell.setCellValue("");
+			}
+			
 			curCell=cellIterator.next();		
-			curCell.setCellValue(curSample.getVolumn());
-
-			curCell=cellIterator.next();		
-			curCell.setCellValue(curSample.getOd());
-
+			try{
+				curCell.setCellValue(curSample.getOd());
+			}
+			catch (NullPointerException e)
+			{
+				curCell.setCellValue("");
+			}
+			
 			curCell=cellIterator.next();		
 			curCell.setCellValue(curSample.getNotes());
 
