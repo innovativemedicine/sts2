@@ -18,7 +18,7 @@
     	 search controllers
     	 -->
                 <prop key="/barcode.htm">barcodeController</prop>
-                <prop key="/simpleSamples.htm">simpleSamplesSearchController</prop>
+                <prop key="/searchSamples.htm">simpleSamplesSearchController</prop>
 				<prop key="/searchContainers.htm">containersSearchController</prop>
                 <prop key="/projects.htm">projectsSearchController</prop>	 	
                	<prop key="/tests.htm">testsSearchController</prop>
@@ -137,8 +137,6 @@
        	<property name="containerManager"><ref bean="containerManager"/></property>
        	<property name="projectManager"><ref bean="projectManager"/></property>       	
        	<property name="agtcManager"><ref bean="agtcManager"/></property>
-        <property name="searchFields"><ref bean="containerSearchFields"/></property>
-        <property name="operatorList"><ref bean="operatorList"/></property>
     </bean>
     
         <bean id="platesSearchController" class="agtc.sampletracking.web.controller.PlatesSearchController">
@@ -436,7 +434,7 @@
 	<bean id="printLabel4BloodCollectionController" class="agtc.sampletracking.web.controller.PrintLabel4BloodCollectionController">
     	<property name="sessionForm"><value>true</value></property>
     	<property name="requireSession"><value>true</value></property>
-    	<property name="formView"><value>printLabel4BloodCollection</value></property>
+    	<property name="formView"><value>printLabel4BloodCollection</value></property>    	
     </bean>
     
     <bean id="SampleListController" class="agtc.sampletracking.web.controller.SampleListController">
