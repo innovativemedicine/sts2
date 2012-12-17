@@ -1,21 +1,21 @@
 <%@ include file="/WEB-INF/jsp/includes/head.jsp"%>
+<%@ include file="/WEB-INF/jsp/includes/errorMessage.jsp"%>
 
 <h2>Register Samples</h2>
-<%@ include file="/WEB-INF/jsp/includes/errorMessage.jsp"%>
 
 <!-- 				Add File Upload option for addMultiSamples (manifest file). Look at saveSamplesInBatch for ideas -->
 
-<form method="post">
+<form method="post" enctype="multipart/form-data">
 	<table class="hide1">
 		<tr>
 			<th colspan="3">Option A: Upload Excel File of Sample ID</th>
 		</tr>
 		<tr>
-			<td>SampleID Prefix: <input type="input" size="10"
-				id="sampleIdPre"></td>
-			<td><input type="file"></td>
+			<td>SampleID Prefix: <input type="input" size="5"
+				id="sampleIdPre" name="sampleIdPre" value="<c:out value="${param.sp}"/>"></td>
+			<td><input type="file" name="file"></td>
 
-			<td colspan="20"><input type="submit" name="Submit" value="Save">
+			<td colspan="20"><input type="submit" name="action" value="Upload">
 		</tr>
 	</table>
 	<p>
@@ -24,8 +24,8 @@
 			<th colspan="10">Option B: Register Sample Manually Using Form</th>
 		</tr>
 		<tr class="hide1">
-			<td>SampleID Prefix: <input type="input" size="10"
-				id="sampleIdPreForm" value=""></td>
+			<td>SampleID Prefix: <input type="input" size="5"
+				id="sampleIdPreForm" name="sampleIdPreForm" value="<c:out value="${param.sp}"/>"></td>
 			<td>Number of samples? <span class="label">max: 3</span> <input
 				class="generateForm" type="text" id="numSamplesText"
 				name="numSamplesText" size="1" value="<c:out value="${param.ns}"/>" />
@@ -118,7 +118,6 @@
 								<c:if test="${sampleTypeOpt.vials != null}">(<c:out
 										value="${sampleTypeOpt.vials}" />)</c:if>
 							</option>
-							</option>
 
 						</c:forEach> </select></td>
 				</c:forEach>
@@ -138,7 +137,7 @@
 				</c:forEach>
 			</tr>
 			<tr class="hide2">
-				<td colspan="20"><input type="submit" name="Submit"
+				<td colspan="20"><input type="submit" name="action"
 					value="Save">
 			</tr>
 		</c:if>
