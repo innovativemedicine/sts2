@@ -31,11 +31,11 @@
 			<td>Created On:</td>
 			<td><spring:bind path="command.createdOn">
 					<INPUT type="text" maxlength="255" size="20" name="createdOn"
-						value="<c:out value="${status.value}"/>">
+						placeholder="DD-MM-YYYY" value="<c:out value="${status.value}"/>">
 					<FONT color="red"> <B><c:out
 								value="${status.errorMessage}" /></B>
 					</FONT>
-				</spring:bind><span class="label">DD-MM-YYYY</span></td>
+				</spring:bind></td>
 		</tr>
 		<tr>
 			<td>Investigator:</td>

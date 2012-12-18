@@ -15,7 +15,7 @@
 				<th>Completed Actions:</th>
 			</tr>
 			<tr>
-				<td><input type="submit" name="action" value="Clear"> <input
+				<td><input class="button buttonPad" type="submit" name="action" value="Clear"> <input
 					class="barcodeAdd" type="submit" name="action" value="ADD">
 				</td>
 			</tr>

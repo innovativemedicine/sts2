@@ -17,11 +17,11 @@
 			<tr>
 				
 				<td>to</td>
-				<td><input name="sampleIdTo"><span class="label">Optional</span></td>
+				<td><input name="sampleIdTo" placeholder="<Optional>"></td>
 			</tr>
 			<tr>
-				<td colspan="2"><input type="submit" name="Submit"
-					value="SEARCH">
+				<td colspan="2"><input class="button buttonPad" type="submit" name="Submit"
+					value="Search">
 			</tr>
 		</table>
 		<br>
@@ -40,9 +40,7 @@
 				<td><input type="file" name="file" /></td>
 			</tr>
 			<tr class="hide">
-				<td><input type="submit" name="Submit" value="SEARCH">
-					<%-- 					<a href="<c:url value="/samples.htm"></c:url>">[Use Advanced --%>
-					<!-- 						Search]</a></td> -->
+				<td><input class="button buttonPad" type="submit" name="Submit" value="Search">
 			</tr>
 		</table>
 	</div>

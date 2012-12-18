@@ -17,11 +17,11 @@
 			<tr>
 				
 				<td>to</td>
-				<td><input name="plateIdTo"><span class="label">Optional</span></td>
+				<td><input name="plateIdTo" placeholder="<Optional>"></td>
 			</tr>
 			<tr>
-				<td colspan="2"><input type="submit" name="Submit"
-					value="SEARCH"></td>
+				<td colspan="2"><input class="button buttonPad" type="submit" name="Submit"
+					value="Search"></td>
 			</tr>
 		</table>
 		<br>
@@ -40,7 +40,7 @@
 				<td><input type="file" name="file" /></td>
 			</tr>
 			<tr class="hide">
-				<td><input type="submit" name="Submit" value="SEARCH">
+				<td><input class="button buttonPad" type="submit" name="Submit" value="Search">
 			</tr>
 		</table>
 	</div>

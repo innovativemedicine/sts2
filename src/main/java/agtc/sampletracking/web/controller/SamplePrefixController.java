@@ -33,7 +33,7 @@ public class SamplePrefixController extends BasicController {
 	private AGTCManager agtcManager;
 	private List allFields;
 	private List allSamplePrefixes;
-	private int FIELD_LENGTH = 20;
+	private int FIELD_LENGTH = 5;
 	private Log log = LogFactory.getLog(SamplePrefixController.class);
 	/* (non-Javadoc)
 	 * @see agtc.sampletracking.web.controller.BasicController

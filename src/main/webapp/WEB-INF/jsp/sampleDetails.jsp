@@ -129,7 +129,7 @@
 	<tr>
 		<th>Container Name</th>
 		<th>Container Type</th>
-		<th>Location in the Container</th>
+		<th colspan="2">Location in the Container</th>
 	</tr>
 
 	<c:forEach items="${command.samplesInContainersIn}" var="siContainer">

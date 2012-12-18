@@ -27,12 +27,13 @@
 		<tr>
 			<td>Created Date</td>
 			<td><spring:bind path="command.createdDate">
-					<INPUT type="text" maxlength="255" size="20" name="createdDate"
+					<INPUT type="text" placeholder="DD-MM-YYYY" maxlength="255"
+						size="20" name="createdDate"
 						value="<c:out value="${status.value}"/>">
 					<FONT color="red"> <B><c:out
 								value="${status.errorMessage}" /></B>
 					</FONT>
-				</spring:bind><span class="label">DD-MM-YYYY</span></td>
+				</spring:bind></td>
 		</tr>
 
 		<tr>
@@ -119,12 +120,9 @@
 		</tr>
 
 		<tr>
-			<td colspan="2">
-				<p>
-					<input type="submit" name="Submit" value="Save"> <input
-						type="reset" name="Submit2" value="Reset">
-				</p>
-			</td>
+			<td colspan="2"><input class="button buttonPad" type="submit"
+				name="Submit" value="Save"> <input class="button buttonPad"
+				type="reset" name="Submit2" value="Reset"></td>
 		</tr>
 	</table>
 </form>

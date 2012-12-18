@@ -6,8 +6,8 @@
 			<h2 class="noMargin"> Sample List </h2>
 	   		
 			<a class="button" href="<c:url value="/addSample2Container.htm"></c:url>"><span>Assign Container</span></a>
-			<input type="submit" name="action" value="Export Data">
-			<input type="submit" name="action" value="Print Labels">
+			<input class="button buttonPad" type="submit" name="action" value="Export Data">
+			<input class="button buttonPad" type="submit" name="action" value="Print Labels">
 		</div>	
 	</form>
    	

@@ -8,7 +8,7 @@
 		<tr>
 			<td>How many labels do you want to print?</td>
 			<td> <input
-				type="text" name="scapeNo">
+				type="text" name="scapeNo" size="5">
 			</td>
 		</tr>
 		<tr>
@@ -18,7 +18,7 @@
 			</td>
 		</tr>
 		<tr>
-			<td colspan="2"><input type="submit" name="Submit" value="Print"> 
+			<td colspan="2"><input class="button buttonPad" type="submit" name="Submit" value="Print"> 
 		</tr>
 	</table>
 </form>

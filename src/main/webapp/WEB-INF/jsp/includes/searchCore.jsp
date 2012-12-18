@@ -4,8 +4,8 @@
 		<table class="searchBuilder">
 			
 			<tr>
-				<td><input type="submit" name="action" value="AND"> <input
-					type="submit" name="action" value="SEARCH"></td>
+				<td><input class="button buttonPad" type="submit" name="action" value="AND"> 
+				<input class="button buttonPad" type="submit" name="action" value="SEARCH"></td>
 			</tr>
 			<tr>
 				<td><spring:bind path="command.searchField">

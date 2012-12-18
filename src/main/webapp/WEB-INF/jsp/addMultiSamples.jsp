@@ -15,7 +15,7 @@
 				id="sampleIdPre" name="sampleIdPre" value="<c:out value="${param.sp}"/>"></td>
 			<td><input type="file" name="file"></td>
 
-			<td colspan="20"><input type="submit" name="action" value="Upload">
+			<td colspan="20"><input class="button buttonPad" type="submit" name="action" value="Upload">
 		</tr>
 	</table>
 	<p>

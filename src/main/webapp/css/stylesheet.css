@@ -213,6 +213,11 @@ table th{
     padding: 0.4em 0.6em;
 }
 
+.buttonPad
+{
+	padding: 0.4em 0.6em;
+}
+
 .button:hover
 {
     box-shadow: 0 0 0.1em rgba(0,0,0,0.4);

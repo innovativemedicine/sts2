@@ -71,8 +71,8 @@
 				<td>Created Date *</td>
 				<td><spring:bind
 						path="command.createdDate">
-						<INPUT class="one" type="text" maxlength="10" size="20" name="createdDate"
-							value="<c:out value="${status.value}"/>"><span class="label">DD-MM-YYYY</span>
+						<INPUT class="one" type="text" maxlength="10" size="20" placeholder="DD-MM-YYYY" name="createdDate"
+							value="<c:out value="${status.value}"/>">
 								<c:if test="${status.errorMessage != ''}">
 									<FONT color="red">*</FONT>
 								</c:if>
@@ -103,7 +103,7 @@
 			<tr>
 				<td>Manifest file</td>
 				<td><div id="dlManifest">				
-				<input class="unhider2" type="submit" name="action" value="Download">
+				<input class="button buttonPad unhider2" type="submit" name="action" value="Download">
 				
 </div></td>
 			</tr>
@@ -118,7 +118,7 @@
 				<td><input type="file" name="file" /></td>
 			</tr>
 			<tr>
-				<td colspan="2"><input type="submit" name="action" value="Save">
+				<td colspan="2"><input class="button buttonPad" type="submit" name="action" value="Save">
 				</td>
 			</tr>
 		</table>

@@ -4,8 +4,7 @@
 
 <table>
 	<tr>
-		<th></th>
-		<th>Project</th>
+		<th colspan="2">Project</th>
 		<th>Date</th>
 		<th>Note</th>
 	</tr>
@@ -16,8 +15,8 @@
 				href="<c:url value="/runDetails.htm"><c:param name="runId" value="${run.runId}"/></c:url>">
 					<span>View</span>
 			</a></td>
-			<td><c:out value="${run.project.name}" /></td>
-			<td><c:out value="${run.runDate}" /></td>
+			<td ><c:out value="${run.project.name}" /></td>
+			<td style="width: 100px"><fmt:formatDate pattern="yyyy-MM-dd" value="${run.runDate}" /></td>
 			<td><c:out value="${run.note}" /></td>
 		</tr>
 	</c:forEach>

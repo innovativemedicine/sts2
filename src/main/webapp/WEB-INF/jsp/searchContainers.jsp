@@ -15,8 +15,8 @@
 				<td><input class="setFocus" name="containerIdFrom"></td>
 			</tr>
 			<tr>
-				<td colspan="2"><input type="submit" name="Submit"
-					value="SEARCH">
+				<td colspan="2"><input class="button buttonPad" type="submit" name="Submit"
+					value="Search">
 			</tr>
 		</table>
 		<br>
@@ -38,7 +38,7 @@
 				<td><input type="file" name="file" /></td>
 			</tr>
 			<tr class="hide">
-				<td><input type="submit" name="Submit" value="SEARCH">
+				<td><input class="button buttonPad" type="submit" name="Submit" value="Search">
 			</tr>
 		</table>
 	</div>
