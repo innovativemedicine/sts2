@@ -115,38 +115,11 @@
 					</table>
 				</c:if>
 				<c:if test="${command.unorderedSample}">
-					<p>
-						<a
-							href="<c:url value="/containerContents.htm"><c:param name="containerId" value="${command.containerId}"/></c:url>">Edit
-							Sample List</a> <br>
-					<table>
-						<tr>
-							<th>Internal ID</th>
-							<th>External ID</th>
-							<th>Sample Type</th>
-							<th>Status</th>
-						</tr>
-
-						<c:forEach items="${unOrderedSamples}" var="sample">
-							<tr>
-								<td><a
-									href="<c:url value="/sampleDetails.htm"><c:param name="sampleId" value="${sample.sampleId}"/></c:url>"><c:out
-											value="${sample.patient.intSampleId}" /></a></td>
-								<td><c:out value="${sample.patient.extSampleId}" /></td>
-								<td><c:out value="${sample.sampleType.name}" /></td>
-								<td><c:out value="${sample.status}" /></td>
-
-							</tr>
-						</c:forEach>
-
-					</table>
-				</c:if>
-				
-							<c:if test="${command.unorderedSample}">
-					<p>
-						<a
-							href="<c:url value="/containerContents.htm"><c:param name="containerId" value="${command.containerId}"/></c:url>">Edit
-							Sample List</a> <br>
+						<a class="button"
+							href="<c:url value="/containerContents.htm"><c:param name="containerId" value="${command.containerId}"/></c:url>">
+							<span>Edit
+							Sample List</span></a>
+							<p>
 					<table>
 						<tr>
 							<th>Internal ID</th>
