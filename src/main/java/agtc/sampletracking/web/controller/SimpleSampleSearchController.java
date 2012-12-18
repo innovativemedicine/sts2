@@ -62,7 +62,7 @@ public class SimpleSampleSearchController extends BasicSearchController {
 		
 		if (sampleIdFrom.isEmpty() && sampleIdsInTextArea.isEmpty()) {
 			ModelAndView mav = new ModelAndView(new RedirectView(
-					"simpleSamples.htm"));
+					"searchSamples.htm"));
 			mav.addObject("message", "Please enter Sample ID");
 			return mav;
 		}
@@ -105,7 +105,7 @@ public class SimpleSampleSearchController extends BasicSearchController {
 
 		if (searchResults.size() < 1) {
 			ModelAndView mav = new ModelAndView(new RedirectView(
-					"simpleSamples.htm"));
+					"searchSamples.htm"));
 			mav.addObject("message", "No results found.");
 			return mav;
 		}
