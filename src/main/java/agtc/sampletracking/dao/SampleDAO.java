@@ -22,7 +22,7 @@ public interface SampleDAO {
 	// Simple Search searches sampleId using sampleTypeId and projectId;
 	public List<Sample> simpleSearchSamples(List sampleIds, List sampleTypeIds, List projectIds);
 	public List<Sample> simpleSearchSamples(String sampleIdFrom,
-			String sampleIdTo, List sampleTypeIds, List projectIds);
+			String sampleIdTo, String externalIdFrom, String externalIdTo, List sampleTypeIds, List projectIds);
 	public Sample getSample(String intSampleId, String sampleTypeSuffix,Integer sampleDupNo);
 	public Sample getSample(Integer sampleId);
 	public Sample getSample(String intSmpleId);

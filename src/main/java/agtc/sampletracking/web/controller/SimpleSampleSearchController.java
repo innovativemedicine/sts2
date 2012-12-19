@@ -50,7 +50,10 @@ public class SimpleSampleSearchController extends BasicSearchController {
 				"sampleIdFrom", "");
 		String sampleIdTo = RequestUtils.getStringParameter(request,
 				"sampleIdTo", "");
-
+		String externalIdFrom = RequestUtils.getStringParameter(request,
+				"externalIdFrom", "");
+		String externalIdTo = RequestUtils.getStringParameter(request,
+				"externalIdTo", "");	
 		String[] sampletypes = RequestUtils.getStringParameters(request,
 				"sampleTypeFilter");
 		String[] projects = RequestUtils.getStringParameters(request,
@@ -60,17 +63,16 @@ public class SimpleSampleSearchController extends BasicSearchController {
 		List projectIds = String2IntList(projects);
 		List<Sample> searchResults = new ArrayList();
 		
-		if (sampleIdFrom.isEmpty() && sampleIdsInTextArea.isEmpty()) {
+		if (sampleIdFrom.isEmpty() && sampleIdsInTextArea.isEmpty() && externalIdFrom.isEmpty()) {
 			ModelAndView mav = new ModelAndView(new RedirectView(
 					"searchSamples.htm"));
-			mav.addObject("message", "Please enter Sample ID");
+			mav.addObject("message", "Error: Must enter value for either Sample ID or External ID.");
 			return mav;
 		}
 		// Search single Sample or range
-		else if (!sampleIdFrom.isEmpty()) {
+		else if (!sampleIdFrom.isEmpty() || !externalIdFrom.isEmpty()) {
 			List<Sample> simpleSearchSamples = (List<Sample>) sampleManager
-					.getSampleDAO().simpleSearchSamples(sampleIdFrom, sampleIdTo, 
-							sampleTypeIds, projectIds);
+					.getSampleDAO().simpleSearchSamples(sampleIdFrom, sampleIdTo, externalIdFrom, externalIdTo, sampleTypeIds, projectIds);
 			
 			searchResults.addAll(simpleSearchSamples);
 			

@@ -153,7 +153,7 @@ public class ContainerDAOHbImpl
 		return crt.list();
 	}
 	
-	public List<Container> simpleSearchContainers(String containerIdFrom, String containerIdTo, List containerTypeIds, List projectIds)
+	public List<Container> simpleSearchContainers(String containerIdFrom, String containerIdTo, String extIdFrom, String extIdTo, List containerTypeIds, List projectIds)
 	{
 		Session session = getSession();
 				
@@ -170,6 +170,16 @@ public class ContainerDAOHbImpl
 		{
 			crt.add(Restrictions.between("name",containerIdFrom, containerIdTo));
 		}
+		
+		if(!extIdFrom.isEmpty() && extIdTo.isEmpty())
+		{
+			crt.add(Restrictions.like("extContainerId",extIdFrom, MatchMode.START));
+		}
+		else if(!extIdTo.isEmpty())
+		{
+			crt.add(Restrictions.between("extContainerId",extIdFrom,extIdTo));
+		}
+		
 		if(!containerTypeIds.isEmpty())
 		{
 			crt.add(Restrictions.in("containerType.containerTypeId",containerTypeIds));

@@ -138,22 +138,13 @@ public class SampleDAOHbImpl extends STSBasicDAO implements SampleDAO {
 	}
 
 	public List<Sample> simpleSearchSamples(String sampleIdFrom,
-			String sampleIdTo, List sampleTypeIds, List projectIds) {
+			String sampleIdTo, String externalIdFrom, String externalIdTo, List sampleTypeIds, List projectIds) {
 		Session session = getSession();
-		List patients = new ArrayList();
-
-		// Search for patients that are in projectId
-		if (!projectIds.isEmpty()) {
-			Criteria patientCrt = session.createCriteria(Patient.class);
-			patientCrt = patientCrt.add(Restrictions.in("project.projectId",
-					projectIds));
-			patients = patientCrt.list();
-		}
 
 		Criteria crt = session.createCriteria(Sample.class);
-		crt.setFetchMode("patient", FetchMode.JOIN);
+		crt.setFetchMode("patient", FetchMode.JOIN).createAlias("patient", "patient");
 		crt.setFetchMode("sampleType", FetchMode.JOIN);
-		crt.setFetchMode("patient.project", FetchMode.JOIN);
+		crt.setFetchMode("patient.project", FetchMode.JOIN).createAlias("patient.project", "patient.project");
 
 		if (!sampleIdFrom.isEmpty() && sampleIdTo.isEmpty()) {
 			crt.add(Restrictions.like("patient.intSampleId", sampleIdFrom,
@@ -162,11 +153,20 @@ public class SampleDAOHbImpl extends STSBasicDAO implements SampleDAO {
 			crt.add(Restrictions.between("patient.intSampleId", sampleIdFrom,
 					sampleIdTo));
 		}
+		
+		if (!externalIdFrom.isEmpty() && externalIdTo.isEmpty()) {
+			crt.add(Restrictions.like("patient.extSampleId", externalIdFrom,
+					MatchMode.START));
+		} else if (!sampleIdTo.isEmpty()) {
+			crt.add(Restrictions.between("patient.extSampleId", externalIdFrom,
+					externalIdTo));
+		}
+		
 		if (!sampleTypeIds.isEmpty()) {
 			crt.add(Restrictions.in("sampleType.sampleTypeId", sampleTypeIds));
 		}
 		if (!projectIds.isEmpty()) {
-			crt.add(Restrictions.in("patient", patients));
+			crt.add(Restrictions.in("patient.project.projectId", projectIds));
 		}
 
 		return crt.list();

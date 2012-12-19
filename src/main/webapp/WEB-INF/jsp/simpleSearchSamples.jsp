@@ -5,20 +5,22 @@
 
 <form method="post" enctype="multipart/form-data">
 	<div class="left">
-		<table style="width: 280px">
+		<table style="width: 340px">
 			<tr>
 				<th colspan="2">Search by Sample ID</th>
 			</tr>
 
 			<tr>
 				<td>Sample ID:</td>
-				<td><input class="setFocus" name="sampleIdFrom"></td>
+				<td><input class="setFocus" name="sampleIdFrom" size="15">
+				to <input name="sampleIdTo" size="15" placeholder="<Optional>"></td>
 			</tr>
 			<tr>
-				
-				<td>to</td>
-				<td><input name="sampleIdTo" placeholder="<Optional>"></td>
+				<td>External ID:</td>
+				<td><input name="externalIdFrom" size="15">
+				to <input name="externalIdTo" size="15" placeholder="<Optional>"></td>
 			</tr>
+			
 			<tr>
 				<td colspan="2"><input class="button buttonPad" type="submit" name="Submit"
 					value="Search">

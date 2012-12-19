@@ -5,23 +5,25 @@
 
 <form method="post" enctype="multipart/form-data">
 	<div class="left">
-		<table style="width: 280px">
+		<table style="width: 340px">
 			<tr>
 				<th colspan="2">Search by Plate ID</th>
 			</tr>
 
 			<tr>
 				<td>Plate ID:</td>
-				<td><input class="setFocus" name="plateIdFrom"></td>
+				<td><input class="setFocus" name="plateIdFrom" size="15"> to <input
+					name="plateIdTo" size="15" placeholder="<Optional>"></td>
+			</tr>
+
+			<tr>
+				<td>External ID:</td>
+				<td><input name="externalIdFrom" size="15"> to <input
+					name="externalIdTo" size="15" placeholder="<Optional>"></td>
 			</tr>
 			<tr>
-				
-				<td>to</td>
-				<td><input name="plateIdTo" placeholder="<Optional>"></td>
-			</tr>
-			<tr>
-				<td colspan="2"><input class="button buttonPad" type="submit" name="Submit"
-					value="Search"></td>
+				<td colspan="2"><input class="button buttonPad" type="submit"
+					name="Submit" value="Search"></td>
 			</tr>
 		</table>
 		<br>
@@ -33,26 +35,26 @@
 				<td>Enter/Upload list of Plate ID:</td>
 			<tr class="hide">
 				<td><span style="font-size: 12px">(Separate by commas or
-						new lines)</span> <br> <textarea name="plateIdsInTextArea"
-						rows="10" cols="30"></textarea></td>
+						new lines)</span> <br> <textarea name="plateIdsInTextArea" rows="10"
+						cols="30"></textarea></td>
 			</tr>
 			<tr class="hide">
 				<td><input type="file" name="file" /></td>
 			</tr>
 			<tr class="hide">
-				<td><input class="button buttonPad" type="submit" name="Submit" value="Search">
+				<td><input class="button buttonPad" type="submit" name="Submit"
+					value="Search">
 			</tr>
 		</table>
 	</div>
 	<div class="left">
-	<table style="width: 200px">
+		<table style="width: 200px">
 			<tr>
 				<th><b>Filter by Plate Types</b></th>
 			</tr>
 			<tr>
 				<td><select name="plateTypeFilter">
-						<c:forEach items="${LPlateTypes}" var="plateType"
-							varStatus="row">
+						<c:forEach items="${LPlateTypes}" var="plateType" varStatus="row">
 							<option value="<c:out value="${plateType.containerTypeId}"/>">
 								<c:out value="${plateType.name}" />
 							</option>

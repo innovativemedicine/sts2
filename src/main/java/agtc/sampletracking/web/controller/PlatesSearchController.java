@@ -48,7 +48,10 @@ public class PlatesSearchController extends BasicSearchController {
 				"plateIdFrom", "");
 		String plateIdTo = RequestUtils.getStringParameter(request,
 				"plateIdTo", "");
-
+		String externalIdFrom = RequestUtils.getStringParameter(request,
+				"externalIdFrom", "");
+		String externalIdTo = RequestUtils.getStringParameter(request,
+				"externalIdTo", "");
 		String[] platetypes = RequestUtils.getStringParameters(request,
 				"plateTypeFilter");
 		String[] projects = RequestUtils.getStringParameters(request,
@@ -57,21 +60,24 @@ public class PlatesSearchController extends BasicSearchController {
 		List plateTypeIds = String2IntList(platetypes);
 		List projectIds = String2IntList(projects);
 		List<Container> searchResults = new ArrayList();
-		
-		if (plateIdFrom.isEmpty() && plateIdsInTextArea.isEmpty()) {
+
+		if (plateIdFrom.isEmpty() && plateIdsInTextArea.isEmpty()
+				&& externalIdFrom.isEmpty()) {
 			ModelAndView mav = new ModelAndView(new RedirectView(
 					"searchPlates.htm"));
-			mav.addObject("message", "Please enter Plate ID");
+			mav.addObject("message",
+					"Error: Must enter value for either Plate ID or External ID");
 			return mav;
 		}
 		// Search single Container or range
-		else if (!plateIdFrom.isEmpty()) {
+		else if (!plateIdFrom.isEmpty() || !externalIdFrom.isEmpty()) {
 			List<Container> simpleSearchContainers = containerManager
-					.getContainerDAO().simpleSearchContainers(plateIdFrom, plateIdTo, 
+					.getContainerDAO().simpleSearchContainers(plateIdFrom,
+							plateIdTo, externalIdFrom, externalIdTo,
 							plateTypeIds, projectIds);
-			
+
 			searchResults.addAll(simpleSearchContainers);
-			
+
 		} else {
 			List plateIds = new ArrayList();
 
@@ -94,12 +100,12 @@ public class PlatesSearchController extends BasicSearchController {
 				is.close();
 			}
 
-			List<Container> simpleSearchContainers = containerManager.getContainerDAO().simpleSearchContainers(plateIds,
+			List<Container> simpleSearchContainers = containerManager
+					.getContainerDAO().simpleSearchContainers(plateIds,
 							plateTypeIds, projectIds);
-			
+
 			searchResults.addAll(simpleSearchContainers);
 		}
-		
 
 		if (searchResults.size() < 1) {
 			ModelAndView mav = new ModelAndView(new RedirectView(
@@ -160,7 +166,7 @@ public class PlatesSearchController extends BasicSearchController {
 		}
 		return l;
 	}
-	
+
 	public ContainerManager getContainerManager() {
 		return containerManager;
 	}
@@ -176,7 +182,7 @@ public class PlatesSearchController extends BasicSearchController {
 	public void setProjectManager(ProjectManager manager) {
 		projectManager = manager;
 	}
-	
+
 	public AGTCManager getAgtcManager() {
 		return agtcManager;
 	}
@@ -185,4 +191,3 @@ public class PlatesSearchController extends BasicSearchController {
 		agtcManager = manager;
 	}
 }
-
