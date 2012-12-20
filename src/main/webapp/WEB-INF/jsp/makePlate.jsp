@@ -12,36 +12,37 @@
 			<tr>
 				<td>Plate ID *</td>
 				<td><spring:bind path="command.name">
-						<INPUT disabled class="one" type="text" maxlength="60" size="20"
+						<input disabled class="one" type="text" maxlength="60" size="20"
 							name='<c:out value="${status.expression}" />'
 							value="<c:out value="${status.value}"/>">
-								<c:if test="${status.errorMessage != ''}">
-									<FONT color="red">*</FONT>
-								</c:if>
+						<c:if test="${status.errorMessage != ''}">
+							<FONT color="red">*</FONT>
+						</c:if>
 					</spring:bind></td>
 			</tr>
 			<tr>
 				<td>External Plate ID *</td>
 				<td><spring:bind path="command.extContainerId">
-						<INPUT class="one" type="text" maxlength="60" size="20"
+						<input class="one" type="text" maxlength="60" size="20" required
 							name='<c:out value="${status.expression}" />'
 							value="<c:out value="${status.value}"/>">
-								<c:if test="${status.errorMessage != ''}">
-									<FONT color="red">*</FONT>
-								</c:if>
+						<c:if test="${status.errorMessage != ''}">
+							<FONT color="red">*</FONT>
+						</c:if>
 					</spring:bind></td>
 			</tr>
 			<tr>
 				<td>Plate Type: *</td>
 				<td><spring:bind path="command.containerType">
-						<select class="one" size="1" name='<c:out value="${status.expression}" />'>
+						<select class="one" size="1"
+							name='<c:out value="${status.expression}" />'>
 							<option value="">Select Plate Type</option>
 							<c:forEach items="${allPlateTypes}" var="plateType">
-								<option 
-								<c:if test="${command.containerType != null && command.containerType.containerTypeId eq plateType.containerTypeId}">
+								<option
+									<c:if test="${command.containerType != null && command.containerType.containerTypeId eq plateType.containerTypeId}">
 				   					selected
 			 					</c:if>
-			 					value="<c:out value="${plateType.containerTypeId}"/>">
+									value="<c:out value="${plateType.containerTypeId}"/>">
 									<c:out value="${plateType.name}" />
 								</option>
 							</c:forEach>
@@ -51,16 +52,15 @@
 			<tr>
 				<td>Project *</td>
 				<td><spring:bind path="command.project">
-						<select class="one"class="one" size="1" name='<c:out value="${status.expression}" />'>
+						<select class="one" class="one" size="1"
+							name='<c:out value="${status.expression}" />'>
 							<option value="">Select Project</option>
 							<c:forEach items="${allProjects}" var="project">
-								<option 
-								
-								<c:if test="${command.project != null && command.project.projectId eq project.projectId}">
+								<option
+									<c:if test="${command.project != null && command.project.projectId eq project.projectId}">
 				   					selected
 			 					</c:if>
-			 					
-			 					value="<c:out value="${project.projectId}"/>">
+									value="<c:out value="${project.projectId}"/>">
 									<c:out value="${project.name}" />
 								</option>
 							</c:forEach>
@@ -69,28 +69,28 @@
 			</tr>
 			<tr>
 				<td>Created Date *</td>
-				<td><spring:bind
-						path="command.createdDate">
-						<INPUT class="one" type="text" maxlength="10" size="20" placeholder="DD-MM-YYYY" name="createdDate"
+				<td><spring:bind path="command.createdDate">
+						<input class="one" type="text" maxlength="10" size="20"
+							placeholder="DD-MM-YYYY" name="createdDate" required
 							value="<c:out value="${status.value}"/>">
-								<c:if test="${status.errorMessage != ''}">
-									<FONT color="red">*</FONT>
-								</c:if>
+						<c:if test="${status.errorMessage != ''}">
+							<FONT color="red">*</FONT>
+						</c:if>
 					</spring:bind></td>
 			</tr>
 			<tr>
 				<td>Comments</td>
 				<td><spring:bind path="command.comments">
-						<INPUT class="one" type="text" maxlength="255" size="20" name="comments"
-							value="<c:out value="${status.value}"/>">
+						<input class="one" type="text" maxlength="255" size="20"
+							name="comments" value="<c:out value="${status.value}"/>">
 					</spring:bind></td>
 			</tr>
-			<tr><td colspan = "2">
-			<span style="font-size: 10pt">* Required Fields</span>
-			</td>
+			<tr>
+				<td colspan="2"><span style="font-size: 10pt">* Required
+						Fields</span></td>
 			</tr>
 			<tr>
-				<td colspan = "2"><a class="button unhider" ><span>Next</span></a></td>
+				<td colspan="2"><a class="button unhider"><span>Next</span></a></td>
 			</tr>
 		</table>
 
@@ -102,10 +102,11 @@
 			</tr>
 			<tr>
 				<td>Manifest file</td>
-				<td><div id="dlManifest">				
-				<input class="button buttonPad unhider2" type="submit" name="action" value="Download">
-				
-</div></td>
+				<td><div id="dlManifest">
+						<input class="button buttonPad unhider2" type="submit"
+							name="action" value="Download">
+
+					</div></td>
 			</tr>
 		</table>
 		<p>
@@ -118,8 +119,8 @@
 				<td><input type="file" name="file" /></td>
 			</tr>
 			<tr>
-				<td colspan="2"><input class="button buttonPad" type="submit" name="action" value="Save">
-				</td>
+				<td colspan="2"><input class="button buttonPad" type="submit"
+					name="action" value="Save"></td>
 			</tr>
 		</table>
 	</div>
