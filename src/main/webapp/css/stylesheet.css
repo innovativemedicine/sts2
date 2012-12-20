@@ -2,6 +2,10 @@ input.barcodeAdd {
 	display: none;
 }
 
+body {
+	font-family: 'Garamond', serif;
+}
+
 h1 {
 	font-size: 30pt; font-variant: small-caps; font-family: HelveticaNeue-Light; color: #003366;
 	font-weight: normal; margin-top: 5px; margin-bottom: 0px; text-shadow:1px 1px 4px #5A5A5A ;
@@ -25,6 +29,9 @@ h3 {
 	display: none;
 }
 
+
+/* Label and Close adopted from Twitter Bootsrap */
+
 .label {
   display: inline-block;
   padding: 2px 4px;
@@ -39,10 +46,6 @@ h3 {
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px;      
-}
-
-body {
-	font-family: 'Garamond', serif;
 }
 
 /* Div CSS */
@@ -72,9 +75,18 @@ table.containerMap {
 
 table.containerMap td {
 	border: 1px solid #a6caf0;	
+	vertical-align: top;
 }
 
-table.containerMap td a {
+table.containerMap td .header {
+	font-size: 12pt;
+	text-decoration: none;
+	color: #339933;
+	float: left;
+}
+
+table.containerMap td .details {
+	font-size: 10pt;
 	text-decoration: none;
 	color: #3A66A7;
 }
@@ -82,6 +94,26 @@ table.containerMap td a {
 table.containerMap td a:hover {
 	text-decoration: underline;
 }
+
+table.containerMap td a.close {
+  float: right;
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 20px;
+  text-shadow: 0 1px 0 #ffffff;
+  color: #000000;
+  opacity: 0.50;
+  filter: alpha(opacity=50);
+  text-decoration: none;
+}
+
+table.containerMap td a.close:hover {
+  text-decoration: none;
+  cursor: pointer;
+  opacity: 8.0;
+  filter: alpha(opacity=80);
+}
+
 
 table {
 	border-collapse: collapse:separate;
