@@ -62,8 +62,10 @@ public class ContainersSearchController extends BasicSearchController {
 		}
 		// Search single Container or range
 		else if (!containerIdFrom.isEmpty()) {
+			String externalIdFrom = "";
+			String externalIdTo = "";
 			List<Container> simpleSearchContainers = (List<Container>) containerManager
-					.getContainerDAO().simpleSearchContainers(containerIdFrom, containerIdTo, 
+					.getContainerDAO().simpleSearchContainers(containerIdFrom, containerIdTo, externalIdFrom, externalIdTo,
 							containerTypeIds, projectIds);
 			
 			searchResults.addAll(simpleSearchContainers);
