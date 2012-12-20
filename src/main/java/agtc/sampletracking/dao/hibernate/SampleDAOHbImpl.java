@@ -157,7 +157,7 @@ public class SampleDAOHbImpl extends STSBasicDAO implements SampleDAO {
 		if (!externalIdFrom.isEmpty() && externalIdTo.isEmpty()) {
 			crt.add(Restrictions.like("patient.extSampleId", externalIdFrom,
 					MatchMode.START));
-		} else if (!sampleIdTo.isEmpty()) {
+		} else if (!externalIdTo.isEmpty()) {
 			crt.add(Restrictions.between("patient.extSampleId", externalIdFrom,
 					externalIdTo));
 		}
