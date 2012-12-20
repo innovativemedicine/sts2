@@ -12,6 +12,10 @@ $('.barcodeInput').bind('input', function(event) {
 	}
 });
 
+$('.selectNav').change(function() {
+	location.search = this.value;
+});
+
 $('.generateForm').bind('input', function(event) {
 	var ns = $('.generateForm').val();
 	var sp = $('#sampleIdPreForm').val().toUpperCase();
