@@ -130,6 +130,7 @@ public class ContainerContentsController extends BasicController {
 	}
 
 	protected ModelAndView onSubmit(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response, java.lang.Object command,BindException errors) throws Exception {
+		
 		int containerId = RequestUtils.getIntParameter(request, "containerId", -1);
 		Container container = containerManager.getContainer(new Integer(containerId));
 		ContainerContentCommand ccCommand = (ContainerContentCommand)command;
@@ -137,6 +138,7 @@ public class ContainerContentsController extends BasicController {
 		List samplesInContainers = new ArrayList();
 		StringBuffer message = new StringBuffer();
 		boolean ordered = true;
+		
 		// unordered sample is in 4 columns for easy display
 		if(ccCommand.getColumnNo()==4){
 			ordered = false;
@@ -148,29 +150,22 @@ public class ContainerContentsController extends BasicController {
 				ContainerContentCellUnit oneCell = cells[a][b];
 				// the sampleDesc can be intSampleId(in case user type the internal sample id or intSampleId+sampleTypeSuffix (in case user scanning)
 				String sampleDesc = oneCell.getSampleDesc().trim();
-				String dupNo = oneCell.getDupNo();
-				Integer dupNoI = new Integer(1);
-				if (dupNo!=null && !dupNo.equals("")){
-					dupNoI = new Integer(dupNo);
-				}
-				//log.debug("sampleDesc is " + sampleDesc + " well is " + oneCell.getWell());
+				
+				// This is where you read in sampleDesc from form and separate intSampleId from sampleType.
 				if(oneCell.isNotOccupied() && sampleDesc.length()>0){
 					String intSampleId = "";
 					String sampleTypeSuffix = getSampleTypeSuffixFromSampleDesc(sampleDesc);
-					if(sampleTypeSuffix.equals("")){  // user type intSampleId
-						sampleTypeSuffix = oneCell.getSampleTypeSuffix();
-						intSampleId = sampleDesc;
-					}else{ //user scaning
-						intSampleId = getIntSampleIdFromSampleDesc(sampleDesc,sampleTypeSuffix);
-					}
-					log.debug("intSampleId is " + intSampleId + " sampleTypeSuffix is " + sampleTypeSuffix);
-					Sample sample = sampleManager.getSample(intSampleId,sampleTypeSuffix,dupNoI);
-					log.debug("got one sample " + sample);
+					
+					//user scanning
+					intSampleId = getIntSampleIdFromSampleDesc(sampleDesc,sampleTypeSuffix);
+
+					Sample sample = sampleManager.getSample(intSampleId,sampleTypeSuffix,1);
+
 					if(sample == null){
 						if(message.length()>0){
 							message.append(",");
 						}
-						message.append(intSampleId+sampleTypeSuffix+dupNo);
+						message.append(intSampleId+sampleTypeSuffix+1);
 						
 					}else{
 						String well = oneCell.getWell();
@@ -194,7 +189,7 @@ public class ContainerContentsController extends BasicController {
 			message.insert(0,"The following samples are not in STS yet: ");
 		}
 		message.append("<br>");
-		//log.debug("going to save SamplesInContainer " + samplesInContainers.size());
+
 		//	if it comes to here, means all samples are in STS
 		if(samplesInContainers.size()>0){
 			sampleManager.saveSamplesInContainerList(samplesInContainers);
@@ -214,9 +209,9 @@ public class ContainerContentsController extends BasicController {
 		return view;
 	}
 
-	protected java.util.Map referenceData(javax.servlet.http.HttpServletRequest request,
-									  java.lang.Object command,Errors errors)
-							   throws java.lang.Exception
+	protected Map referenceData(HttpServletRequest request,
+									  Object command,Errors errors)
+							   throws Exception
 	{
 		Container container = containerManager.getContainer(new Integer(RequestUtils.getIntParameter(request, "containerId", -1)));
 		Map models = new HashMap();
@@ -253,40 +248,26 @@ public class ContainerContentsController extends BasicController {
 		return originalS.substring(0,originalS.indexOf(sampleTypeSuffix));
 	}
 	
-
-	/**
-	 * @return Returns the agtcManager.
-	 */
 	public AGTCManager getAgtcManager() {
 		return agtcManager;
 	}
-	/**
-	 * @param agtcManager The agtcManager to set.
-	 */
+
 	public void setAgtcManager(AGTCManager agtcManager) {
 		this.agtcManager = agtcManager;
 	}
-	/**
-	 * @return Returns the containerManager.
-	 */
+
 	public ContainerManager getContainerManager() {
 		return containerManager;
 	}
-	/**
-	 * @param containerManager The containerManager to set.
-	 */
+
 	public void setContainerManager(ContainerManager containerManager) {
 		this.containerManager = containerManager;
 	}
-	/**
-	 * @return Returns the sampleManager.
-	 */
+
 	public SampleManager getSampleManager() {
 		return sampleManager;
 	}
-	/**
-	 * @param sampleManager The sampleManager to set.
-	 */
+
 	public void setSampleManager(SampleManager sampleManager) {
 		this.sampleManager = sampleManager;
 	}

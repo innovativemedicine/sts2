@@ -21,39 +21,26 @@ public class ContainerContentCommand {
 	private boolean noneContainer = false;
 	private String containerName;
 	
-	/**
-	 * @return Returns the cells.
-	 */
 	public ContainerContentCellUnit[][] getCells() {
 		return cells;
 	}
-	/**
-	 * @param cells The cells to set.
-	 */
+
 	public void setCells(ContainerContentCellUnit[][] cells) {
 		this.cells = cells;
 	}
-	/**
-	 * @return Returns the columnNo.
-	 */
+
 	public int getColumnNo() {
 		return columnNo;
 	}
-	/**
-	 * @param columnNo The columnNo to set.
-	 */
+
 	public void setColumnNo(int columnNo) {
 		this.columnNo = columnNo;
 	}
-	/**
-	 * @return Returns the rowNo.
-	 */
+
 	public int getRowNo() {
 		return rowNo;
 	}
-	/**
-	 * @param rowNo The rowNo to set.
-	 */
+
 	public void setRowNo(int rowNo) {
 		this.rowNo = rowNo;
 	}
@@ -71,28 +58,18 @@ public class ContainerContentCommand {
 		this.noneContainer = none;
 	}
 	
-	/**
-	 * @return Returns the containerId.
-	 */
 	public Integer getContainerId() {
 		return containerId;
 	}
-	/**
-	 * @param containerId The containerId to set.
-	 */
+
 	public void setContainerId(Integer containerId) {
 		this.containerId = containerId;
 	}
 	
-	/**
-	 * @return Returns the containerName.
-	 */
 	public String getContainerName() {
 		return containerName;
 	}
-	/**
-	 * @param containerName The containerName to set.
-	 */
+
 	public void setContainerName(String containerName) {
 		this.containerName = containerName;
 	}

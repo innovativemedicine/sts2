@@ -11,13 +11,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.RequestUtils;
 import org.springframework.web.util.WebUtils;
 
 import agtc.sampletracking.model.Container;
-import agtc.sampletracking.bus.manager.*;
-import agtc.sampletracking.model.*;
 
 /**
  * @author Hongjing
@@ -30,9 +30,9 @@ public class AddSample2ContainerController extends ContainerContentsController{
 		super();
 	}
 	
-	protected java.util.Map referenceData(javax.servlet.http.HttpServletRequest request,
-			  java.lang.Object command,Errors errors)
-	   throws java.lang.Exception
+	protected Map referenceData(HttpServletRequest request,
+			  Object command,Errors errors)
+	   throws Exception
 	{
 		Container container = containerManager.getContainer(new Integer(RequestUtils.getIntParameter(request, "containerId", -1)));
 		Map models = new HashMap();
