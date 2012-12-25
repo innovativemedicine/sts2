@@ -23,7 +23,7 @@
 			<tr>
 				<td>External Plate ID *</td>
 				<td><spring:bind path="command.extContainerId">
-						<input class="one" type="text" maxlength="60" size="20" required
+						<input class="one setFocus" type="text" maxlength="60" size="20" required
 							name='<c:out value="${status.expression}" />'
 							value="<c:out value="${status.value}"/>">
 						<c:if test="${status.errorMessage != ''}">

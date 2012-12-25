@@ -10,7 +10,7 @@
 		<tr>
 			<td>Container Name<FONT color=RED>*</FONT></td>
 			<td><spring:bind path="command.name">
-					<INPUT type="text" maxlength="255" size="20" name="name"
+					<INPUT class="setFocus" type="text" maxlength="255" size="20" name="name"
 						value="<c:out value="${status.value}"/>">
 					<FONT color="red"> <B><c:out
 								value="${status.errorMessage}" /></B>
