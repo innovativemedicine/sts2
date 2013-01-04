@@ -3,8 +3,6 @@
 
 <h2>Register Samples</h2>
 
-<!-- 				Add File Upload option for addMultiSamples (manifest file). Look at saveSamplesInBatch for ideas -->
-
 <form method="post" enctype="multipart/form-data">
 	<table class="hide1">
 		<tr>
