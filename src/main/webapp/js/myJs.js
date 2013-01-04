@@ -1,5 +1,6 @@
-$(document).ready(function() {
+$(window).load(function() {
 	$('.setFocus').focus();
+	$('.autoSubmit').trigger('click');
 });
 
 var oldVal;
