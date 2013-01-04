@@ -372,7 +372,7 @@
 	<property name="sessionForm"><value>true</value></property>
 	<property name="requireSession"><value>true</value></property>
 	<property name="formView"><value>deleteSampleFromContainer</value></property>
-	<property name="successView"><value>containerContents.htm</value></property>
+	<property name="successView"><value>addSample2Container.htm</value></property>
 	
 	<property name="sampleManager"><ref bean="sampleManager"/></property>
 	<property name="containerManager"><ref bean="containerManager"/></property>
