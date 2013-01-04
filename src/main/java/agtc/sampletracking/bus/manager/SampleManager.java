@@ -324,66 +324,6 @@ public class SampleManager implements ConstantInterface {
 		return results;
 	}
 	
-	/**
-	 * This method is for make a plate out of existing samples, allocate well position
-	 * @param container
-	 * @param sampleType
-	 * @param samples
-	 */
-
-	public void saveSamplesInContainer(Container container, Map results,boolean allocateWellPosition) throws Exception{
-		Set wells = results.keySet();
-		Iterator i = wells.iterator();
-		Set sics = new HashSet();
-		String result = "";
-		Map sampleTypes = new HashMap();
-		while(i.hasNext()){
-			String well = (String)i.next();
-			SampleUniKey sampleUniKey = (SampleUniKey)results.get(well);
-			String sampleTypeSuffix = sampleUniKey.getSampleTypeSuffix();
-			String intSampleId = sampleUniKey.getIntSampleId();
-			Integer sampleDupNo = sampleUniKey.getSampleDupNo();
-			if(!sampleTypes.containsKey(sampleTypeSuffix)){
-				SampleType sampleType = sampleTypeDAO.getSampleTypeBySuffix(sampleTypeSuffix);
-				if(sampleType!=null){
-					sampleTypes.put(sampleTypeSuffix,sampleType);
-				}else{
-					result += "no sample type:" + sampleTypeSuffix + "<br>";
-				}
-			}
-			
-			Sample sample1 = sampleDAO.getSampleByIntSampleIdUniKey(intSampleId,(SampleType)sampleTypes.get(sampleTypeSuffix),sampleDupNo);
-			if(sample1==null){
-				result += "no sample:" + intSampleId + sampleTypeSuffix + sampleDupNo + "<br>";
-			}
-		}
-		
-		if(result.length()==0){
-			i = wells.iterator();
-			while(i.hasNext()){
-				String well = (String)i.next();
-				SampleUniKey sampleUniKey = (SampleUniKey)results.get(well);
-				SamplesInContainer samplesInContainer = new SamplesInContainer();
-				samplesInContainer.setSicId(new Integer(-1));
-				samplesInContainer.setContainer(container);
-				if(allocateWellPosition){
-					samplesInContainer.setWell(well);
-				}
-				samplesInContainer.setOperation("I");
-				samplesInContainer.setOperationDate(new Date());
-				
-				Sample sample = sampleDAO.getSampleByIntSampleIdUniKey(sampleUniKey.getIntSampleId(),(SampleType)sampleTypes.get(sampleUniKey.getSampleTypeSuffix()),sampleUniKey.getSampleDupNo());
-				samplesInContainer.setSample(sample);
-				sics.add(samplesInContainer);
-				
-			}
-			container.setSamplesInContainers(sics);
-			containerDAO.saveContainer(container);
-		}else{
-			throw new Exception(result);
-		}
-	}
-	
 	public List getSamplesInContainersInBySample(Integer sampleId){
 		return samplesInContainerDAO.getSamplesInContainersInBySample(sampleId);
 	}
