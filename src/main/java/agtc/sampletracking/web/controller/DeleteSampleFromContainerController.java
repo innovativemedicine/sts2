@@ -42,19 +42,16 @@ public class DeleteSampleFromContainerController extends BasicController {
 	 */
 	public DeleteSampleFromContainerController(){
 		//initialize the form from the formBackingObject
-		 setBindOnNewForm(true);
-		
+		 setBindOnNewForm(true);		
 	}
 	
 	protected Object formBackingObject(HttpServletRequest request) throws ServletException {
 		// get the Owner referred to by id in the request
-		//log.debug("project name is " + projectManager.getProject(new Integer(RequestUtils.getRequiredIntParameter(request, "projectId"))).getName());
 		int i = RequestUtils.getRequiredIntParameter(request, "sicId");
 		SamplesInContainer sic = sampleManager.getSamplesInContainer(new Integer(i));
 		return sic;
-		
-	
 	}
+	
 	protected ModelAndView onSubmit(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response, java.lang.Object command,BindException errors) throws java.lang.Exception{
 		SamplesInContainer sic = (SamplesInContainer) command;
 		sic.setOperation("O");
@@ -62,59 +59,26 @@ public class DeleteSampleFromContainerController extends BasicController {
 
 		sampleManager.removeSamplesInContainer(sic.getSicId());
 		
-		String message = "Have successfully removed the sample from the container !";
+		String message = "Sample successfully retrieved from container.";
 		ModelAndView view = new ModelAndView(new RedirectView(getSuccessView()));
 		Map myModel = view.getModel();
-		myModel.put("message",message);
 		myModel.put("containerId",sic.getContainer().getContainerId());
+		myModel.put("message",message);
 		return view;
 	}
 	
-	protected Map referenceData(javax.servlet.http.HttpServletRequest request,
-			  java.lang.Object command,Errors errors)
-	   throws java.lang.Exception
-	{
-		
-		
-		Map models = new HashMap();
-		
-	    List allReasons = new ArrayList();
-	    allReasons.add("to make transformed cell line");
-	    allReasons.add("to make transformed DNA");
-	    allReasons.add("Sample used up");
-	    allReasons.add("Mistake");
-	    allReasons.add("other");
-	    
-		
-		models.put("allReasons",allReasons);
-		
-	
-		return models;
-	}
-	
-	
-	
-	/**
-	 * @return Returns the containerManager.
-	 */
 	public ContainerManager getContainerManager() {
 		return containerManager;
 	}
-	/**
-	 * @param containerManager The containerManager to set.
-	 */
+
 	public void setContainerManager(ContainerManager containerManager) {
 		this.containerManager = containerManager;
 	}
-	/**
-	 * @return Returns the sampleManager.
-	 */
+
 	public SampleManager getSampleManager() {
 		return sampleManager;
 	}
-	/**
-	 * @param sampleManager The sampleManager to set.
-	 */
+
 	public void setSampleManager(SampleManager sampleManager) {
 		this.sampleManager = sampleManager;
 	}
