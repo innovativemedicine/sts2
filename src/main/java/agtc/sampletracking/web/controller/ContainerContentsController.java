@@ -13,11 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.validation.BindException;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.RequestUtils;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.RedirectView;
 
 import agtc.sampletracking.bus.PlateWorker;
 import agtc.sampletracking.bus.manager.*;
@@ -127,125 +123,6 @@ public class ContainerContentsController extends BasicController {
 		
 		return result;
 		
-	}
-
-	protected ModelAndView onSubmit(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response, java.lang.Object command,BindException errors) throws Exception {
-		
-		int containerId = RequestUtils.getIntParameter(request, "containerId", -1);
-		Container container = containerManager.getContainer(new Integer(containerId));
-		ContainerContentCommand ccCommand = (ContainerContentCommand)command;
-		ContainerContentCellUnit[][] cells = ccCommand.getCells();
-		List samplesInContainers = new ArrayList();
-		StringBuffer message = new StringBuffer();
-		boolean ordered = true;
-		
-		// unordered sample is in 4 columns for easy display
-		if(ccCommand.getColumnNo()==4){
-			ordered = false;
-		}
-		
-		for(int a=0;a<ccCommand.getRowNo();a++){
-			for(int b=0;b<ccCommand.getColumnNo();b++){
-				
-				ContainerContentCellUnit oneCell = cells[a][b];
-				// the sampleDesc can be intSampleId(in case user type the internal sample id or intSampleId+sampleTypeSuffix (in case user scanning)
-				String sampleDesc = oneCell.getSampleDesc().trim();
-				
-				// This is where you read in sampleDesc from form and separate intSampleId from sampleType.
-				if(oneCell.isNotOccupied() && sampleDesc.length()>0){
-					String intSampleId = "";
-					String sampleTypeSuffix = getSampleTypeSuffixFromSampleDesc(sampleDesc);
-					
-					//user scanning
-					intSampleId = getIntSampleIdFromSampleDesc(sampleDesc,sampleTypeSuffix);
-
-					Sample sample = sampleManager.getSample(intSampleId,sampleTypeSuffix,1);
-
-					if(sample == null){
-						if(message.length()>0){
-							message.append(",");
-						}
-						message.append(intSampleId+sampleTypeSuffix+1);
-						
-					}else{
-						String well = oneCell.getWell();
-					
-						SamplesInContainer sic = new SamplesInContainer();
-						sic.setSicId(new Integer(-1));
-						sic.setContainer(container);
-						sic.setSample(sample);
-						sic.setWell(well);
-						sic.setOperation("I");
-						sic.setOperationDate(new Date());
-						samplesInContainers.add(sic);
-					}
-				}
-				
-			}
-			
-		}
-		
-		if(message.length()>0){
-			message.insert(0,"The following samples are not in STS yet: ");
-		}
-		message.append("<br>");
-
-		//	if it comes to here, means all samples are in STS
-		if(samplesInContainers.size()>0){
-			sampleManager.saveSamplesInContainerList(samplesInContainers);
-			message.insert(0,"Have successfully put the samples ! <br>");
-		}
-		ModelAndView view = new ModelAndView(new RedirectView(getSuccessView()));
-		Map myModel = view.getModel();
-		myModel.put("message",message.toString());
-		myModel.put("containerId",new Integer(containerId));
-		String isOrdered = "";
-		if(ordered){
-			isOrdered = "ordered";
-		}else{
-			isOrdered = "unOrdered";
-		}
-		myModel.put("isOrdered",isOrdered);
-		return view;
-	}
-
-	protected Map referenceData(HttpServletRequest request,
-									  Object command,Errors errors)
-							   throws Exception
-	{
-		Container container = containerManager.getContainer(new Integer(RequestUtils.getIntParameter(request, "containerId", -1)));
-		Map models = new HashMap();
-		if(container!=null){
-			models.put("container", container);
-		}
-		String message = RequestUtils.getStringParameter(request, "message","");
-		if(!message.equals("")){
-			models.put("message",message);
-		}
-		List allSampleTypes = agtcManager.getSampleTypes();
-		List numbers = new ArrayList();
-		for(int i = 1;i<11;i++){
-			numbers.add(new Integer(i));
-		}
-		models.put("availableSampleTypes",allSampleTypes);
-		models.put("numbers",numbers);
-		return models;
-	}
-	
-	protected String getSampleTypeSuffixFromSampleDesc(String originalS){
-		List allSampleTypes = agtcManager.getSampleTypes();
-		for(int i=0;i<allSampleTypes.size();i++){
-			SampleType sampleType = (SampleType)allSampleTypes.get(i);
-			if(originalS.indexOf(sampleType.getSuffix())>0){
-				return sampleType.getSuffix();
-			}
-		}
-		return "";
-	}
-	
-	protected String getIntSampleIdFromSampleDesc(String originalS,String sampleTypeSuffix){
-		
-		return originalS.substring(0,originalS.indexOf(sampleTypeSuffix));
 	}
 	
 	public AGTCManager getAgtcManager() {

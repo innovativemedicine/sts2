@@ -46,11 +46,6 @@ public class AddSample2ContainerController extends ContainerContentsController{
 		if(!message.equals("")){
 			models.put("message",message);
 		}
-		List numbers = new ArrayList();
-		for(int i = 1;i<11;i++){
-			numbers.add(new Integer(i));
-		}
-		models.put("numbers",numbers);
 		
 		List samples = (List)WebUtils.getSessionAttribute(request,"sampleList");
 		List containerList = containerManager.getAllContainers();

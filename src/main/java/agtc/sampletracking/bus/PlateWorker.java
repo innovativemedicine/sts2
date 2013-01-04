@@ -75,11 +75,8 @@ public class PlateWorker {
 						unorderedSamples.add(samplesInContainer.getSample());
 					}
 				}else{
-					//log.debug("location is" + location);
 					String volume = location.substring(1);
-					//log.debug("volum is " + volume);
 					String row = location.substring(0,1);
-					//log.debug("volum is " + row);
 					try{
 						int iVolume = Integer.parseInt(volume);
 						int iRow = letter2Number(row);
