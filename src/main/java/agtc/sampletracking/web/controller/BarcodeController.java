@@ -193,7 +193,16 @@ public class BarcodeController extends BasicController {
 		if (storeContainer.isEmpty()) {
 			if (sampleStatus.equalsIgnoreCase("registered")) {
 				response = "<b>ReceivedSample:</b>";
-				sampleStatus = "Received";
+				
+				// Update Sample Status
+				try {
+					sampleManager.updateSampleStatus(sample, "Registered");
+				} catch (Exception e) {
+					response = "<b>Error(Failed to update sample):</b>";
+					e.printStackTrace();
+					return response;
+				}
+				
 			} else if (sampleStatus.equalsIgnoreCase("stored")) {
 				
 				// Retrieving Sample by removing sample from SIC table
@@ -202,7 +211,6 @@ public class BarcodeController extends BasicController {
 				sampleManager.removeSamplesInContainer(sic.getSicId());
 				
 				response = "<b>RetrievedSample:</b>";
-				sampleStatus = "Retrieved";
 			}
 		} else { // Container scanned. Save Samples in Container
 			
@@ -224,7 +232,6 @@ public class BarcodeController extends BasicController {
 				response += storeContainer;
 				response += ")";
 				response += ":";
-				sampleStatus = "Stored";
 
 			} catch (Exception e) {
 				response = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Error(Can't store sample)</b>";
@@ -235,18 +242,20 @@ public class BarcodeController extends BasicController {
 
 		// Special case to deal with legacy samples with no status.
 		if (sample.getStatus() == null) {
-			sampleStatus = "Registered";
+			
+			// Update Sample Status
+			try {
+				sampleManager.updateSampleStatus(sample, "Registered");
+			} catch (Exception e) {
+				response = "<b>Error(Failed to update sample):</b>";
+				e.printStackTrace();
+				return response;
+			}
+			
 			response = "<b>RegisteredSample:</b>";
 		}
 		
-		// Update Sample Status
-		try {
-			sampleManager.updateSampleStatus(sample, sampleStatus);
-		} catch (Exception e) {
-			response = "<b>Error(Failed to update sample):</b>";
-			e.printStackTrace();
-			return response;
-		}
+
 		
 		return response;
 	}
