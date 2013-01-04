@@ -1,7 +1,5 @@
 
-<form method="post">
-	<input type="submit" name="Submit" value="Save">
-	
+
 	<p>
 	
 	<table class="containerMap">
@@ -21,7 +19,7 @@
 						<c:if test="${command.cells[rowCount][columnCount].notOccupied}">
 							<spring:bind
 								path="command.cells[${rowCount}][${columnCount}].sampleDesc">
-								<INPUT type="text" maxlength="55" size="10"
+								<INPUT disabled placeholder="Empty" type="text" maxlength="55" size="10"
 									name='<c:out value="${status.expression}" />' />
 							</spring:bind>
 						</c:if> 
@@ -38,4 +36,3 @@
 
 
 	</table>
-</form>
