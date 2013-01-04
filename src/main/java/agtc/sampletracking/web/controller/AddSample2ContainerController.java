@@ -66,10 +66,17 @@ protected ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse 
 		String message = "";
 		boolean ordered = true;
 
+		ModelAndView view = new ModelAndView(new RedirectView(getSuccessView()));
+		Map myModel = view.getModel();
+		
+		myModel.put("containerId",new Integer(containerId));
+
 		int spaceAvailable = container.getContainerType().getCapacity()-container.getTotalSamples();
 		if(samplesToAddList.size() > spaceAvailable)
-		{
+		{			
 			message = "Error: There are only " + spaceAvailable + " spaces available in container. You tried to store " + samplesToAdd.length + " samples.";
+			myModel.put("message",message);
+			return view;
 		}
 		else
 		{		
@@ -87,6 +94,8 @@ protected ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse 
 				} catch (Exception e1) {
 					message = e1.getMessage();
 					e1.printStackTrace();
+					myModel.put("message",message);
+					return view;
 				}
 	
 				try {
@@ -95,6 +104,8 @@ protected ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse 
 				} catch (Exception e) {
 					message = e.getMessage();
 					e.printStackTrace();
+					myModel.put("message",message);
+					return view;
 				}
 			}
 			
@@ -104,22 +115,15 @@ protected ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse 
 			while(sampleRemainIr.hasNext()) {
 				Sample chkSample = (Sample) sampleRemainIr.next();
 				
-				if(Arrays.toString(samplesToAdd).contains(String.valueOf(chkSample.getSampleId()))) {
-					//System.out.println(chkSample.getPatient().getIntSampleId() + "-" + chkSample.getSampleType().getSuffix());
-				}
-				else {
+				if(!Arrays.toString(samplesToAdd).contains(String.valueOf(chkSample.getSampleId()))) {
 					samplesRemainingList.add(chkSample);
 				}
 			}
 			
-			WebUtils.setSessionAttribute(request, "sampleList", samplesRemainingList);
-			
+			WebUtils.setSessionAttribute(request, "sampleList", samplesRemainingList);	
 		}
-
-		ModelAndView view = new ModelAndView(new RedirectView(getSuccessView()));
-		Map myModel = view.getModel();
+		
 		myModel.put("message",message.toString());
-		myModel.put("containerId",new Integer(containerId));
 		String isOrdered = "";
 		if(ordered){
 			isOrdered = "ordered";
