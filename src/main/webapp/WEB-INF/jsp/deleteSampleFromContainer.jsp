@@ -8,6 +8,8 @@
 		<tr>
 			<td>Sample Internal SampleId: <c:out
 					value="${command.sample.patient.intSampleId}" /></td>
+		</tr>
+		<tr>
 			<td>Sample Type: <c:out
 					value="${command.sample.sampleType.name}" /> <c:if
 					test="${command.sample.sampleDupNo != 1}">
