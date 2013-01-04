@@ -64,12 +64,13 @@ protected ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse 
 		Container container = containerManager.getContainer(new Integer(containerId));
 		
 		String message = "";
-		boolean ordered = true;
-
+		String isOrdered = "ordered";
+		
 		ModelAndView view = new ModelAndView(new RedirectView(getSuccessView()));
 		Map myModel = view.getModel();
 		
 		myModel.put("containerId",new Integer(containerId));
+		myModel.put("isOrdered",isOrdered);
 
 		int spaceAvailable = container.getContainerType().getCapacity()-container.getTotalSamples();
 		if(samplesToAddList.size() > spaceAvailable)
@@ -124,13 +125,7 @@ protected ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse 
 		}
 		
 		myModel.put("message",message.toString());
-		String isOrdered = "";
-		if(ordered){
-			isOrdered = "ordered";
-		}else{
-			isOrdered = "unOrdered";
-		}
-		myModel.put("isOrdered",isOrdered);
+
 		return view;
 	}
 }
