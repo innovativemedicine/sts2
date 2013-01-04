@@ -1,18 +1,19 @@
 <%@ include file="/WEB-INF/jsp/includes/head.jsp"%>
 <%@ include file="/WEB-INF/jsp/includes/success.jsp"%>
 
+<form method="post" enctype="multipart/form-data">
+
 <table>
 	<tr style="vertical-align: top">
 		<td>
-			<h3>Samples:</h3> <select multiple size="25" name="sampleToAdd">
+			<h3>Samples:</h3> <select size="25" name="samplesToAdd" multiple>
 				<c:forEach items="${sampleList}" var="sample">
-					<option value="${sample.sampleId}">
-						<c:out value="${sample.patient.intSampleId}" />
-						<c:out value="${sample.sampleType.suffix}" />
+					<option value="<c:out value="${sample.sampleId}"/>">
+						<c:out value="${sample.patient.intSampleId}" />-<c:out value="${sample.sampleType.suffix}" />
 					</option>
 				</c:forEach>
 		</select>
-
+		
 		</td>
 		<td>
 			<h3>Container:</h3> <select class="selectNav" name="container">
@@ -43,5 +44,8 @@
 		</td>
 	</tr>
 </table>
+
+</form>
+
 
 <%@ include file="/WEB-INF/jsp/includes/foot.jsp"%>
