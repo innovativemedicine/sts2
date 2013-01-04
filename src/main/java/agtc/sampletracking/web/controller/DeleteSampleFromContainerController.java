@@ -59,9 +59,7 @@ public class DeleteSampleFromContainerController extends BasicController {
 		SamplesInContainer sic = (SamplesInContainer) command;
 		sic.setOperation("O");
 		sic.setOperationDate(new Date());
-		
-		//Changed by Jianan Xiao 2006-01-11
-		//Old version is: sampleManager.saveSamplesInContainer(sic);
+
 		sampleManager.removeSamplesInContainer(sic.getSicId());
 		
 		String message = "Have successfully removed the sample from the container !";
