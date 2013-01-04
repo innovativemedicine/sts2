@@ -172,7 +172,6 @@ public class AddMultiSamplesController extends BasicController implements
 						request, sampleTypeField);
 
 				List sampleTypeIds = String2IntList(sampletypes);
-				System.out.println(sampleTypeIds);
 
 				if (sample.getPatient().getProject() == null) {
 					errors.reject("error.required", new String[] { "project" },
