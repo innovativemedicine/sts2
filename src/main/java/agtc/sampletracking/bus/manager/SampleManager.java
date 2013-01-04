@@ -200,7 +200,7 @@ public class SampleManager implements ConstantInterface {
 		
 		if(samplesInContainerDAO.containsSample(sampleId))
 		{
-			throw new Exception("<b>Error</b>(Sample already exists in container):");
+			throw new Exception("Error: Sample already exists in container");
 		}
 		else
 		{
