@@ -191,11 +191,16 @@ public class AddMultiSamplesController extends BasicController implements
 				while (ir.hasNext()) {
 					Integer sampleTypeId = (Integer) ir.next();
 					SampleType st = sampleManager.getSampleType(sampleTypeId);
-
-					Sample sampleClone = (Sample) sample.clone();
-					sampleClone.setSampleType(st);
-
-					finalSampleList.add(sampleClone);
+					sample.setSampleType(st);
+					
+					Integer sampleNum = st.getInitialLabelNo();
+					
+					for(int j=1;j<=sampleNum;j++)
+					{
+						Sample sampleClone = (Sample) sample.clone();
+					
+						finalSampleList.add(sampleClone);
+					}
 				}
 			}
 		}
@@ -325,9 +330,12 @@ public class AddMultiSamplesController extends BasicController implements
 			}
 			// ST
 			cell = ci.next();
+
+			SampleType tempST = new SampleType();
+			
 			try {
 				String st = cell.getStringCellValue();
-				SampleType tempST = sampleManager.getSampleTypeDAO()
+				tempST = sampleManager.getSampleTypeDAO()
 						.getSampleTypeByName(st);
 				if (tempST == null) {
 					throw new Exception(
@@ -351,10 +359,19 @@ public class AddMultiSamplesController extends BasicController implements
 
 			newSample.setNotes(notes);
 			newSample.setStatus("Registered");
+			
+			Integer sampleNum = tempST.getInitialLabelNo();
+			
+			for(int i=1;i<=sampleNum;i++)
+			{
+				Sample sampleClone = (Sample) newSample.clone();
 
-			readSamples.add(newSample);
+				readSamples.add(sampleClone);
 
-			samplesRead++;
+				samplesRead++;
+			}
+			
+			
 		}
 
 		return readSamples;
