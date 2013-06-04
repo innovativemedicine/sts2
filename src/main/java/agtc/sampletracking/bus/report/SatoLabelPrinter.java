@@ -29,7 +29,7 @@ public class SatoLabelPrinter {
 		// String filename="e:\\commandFiles\\"+UnqueString.UnqueStr()+".DAT";
 		SimpleDateFormat timeStamp = new SimpleDateFormat("ddMMMyyyykkmm");
 		String fileTime = timeStamp.format(new Date());
-		String filename = "/Users/nderoo324/Documents/Workspace/sts2/label/samples"
+		String filename = "/Users/nderoo324/Documents/Workspace/sts2/label/samples_"
 				+ fileTime + ".dat";
 		File outputFile = new File(filename);
 		FileWriter out = new FileWriter(outputFile);
@@ -44,7 +44,7 @@ public class SatoLabelPrinter {
 			String sampleTypeSuffix = sample.getSampleType().getSuffix();
 			String sampleDupNo = sample.getSampleDupNo().toString();
 
-			if (externalId.isEmpty()) {
+			if (externalId == null) {
 				externalId = "";
 			}
 			// For the barcode: It should be in the format
@@ -63,12 +63,50 @@ public class SatoLabelPrinter {
 		out.close();
 	}
 
+	public void printPlateLabel(List plateList) throws Exception {
+		Iterator ir = plateList.iterator();
+		
+		// String filename="e:\\commandFiles\\"+UnqueString.UnqueStr()+".DAT";
+		SimpleDateFormat timeStamp = new SimpleDateFormat("ddMMMyyyykkmm");
+		String fileTime = timeStamp.format(new Date());
+		String filename = "/Users/nderoo324/Documents/Workspace/sts2/label/plates_"
+				+ fileTime + ".dat";
+		File outputFile = new File(filename);
+		FileWriter out = new FileWriter(outputFile);
+
+		StringBuffer content = new StringBuffer();
+		
+		while (ir.hasNext()) {
+			Container plate = (Container) ir.next();
+			printPlateLabel(plate);
+			
+			String internalId = plate.getName();
+			String externalId = plate.getExtContainerId();
+
+			if (externalId.isEmpty()) {
+				externalId = "";
+			}
+			// For the barcode: It should be in the format P-internalId
+			content.append("P").append("-");
+			content.append(internalId).append(",");
+			// Also include the external ID and internal ID as text string if
+			// there's room
+			content.append(externalId).append(",");
+			content.append(internalId).append(",");
+			content.append("\n");
+
+		}
+		
+		out.write(content.toString());
+		out.close();
+		
+	}
 	public void printPlateLabel(Container plate) throws Exception {
 
 		// String filename="e:\\commandFiles\\"+UnqueString.UnqueStr()+".DAT";
 		SimpleDateFormat timeStamp = new SimpleDateFormat("ddMMMyyyykkmm");
 		String fileTime = timeStamp.format(new Date());
-		String filename = "/Users/nderoo324/Documents/Workspace/sts2/label/plates"
+		String filename = "/Users/nderoo324/Documents/Workspace/sts2/label/plates_"
 				+ fileTime + ".dat";
 		File outputFile = new File(filename);
 		FileWriter out = new FileWriter(outputFile);

@@ -27,21 +27,17 @@
 					</FONT>
 				</spring:bind></td>
 		</tr>
-
+		
 		<tr>
-			<td>Accept Source</td>
-			<td><spring:bind path="command.isSource">
-					<INPUT type="checkbox" maxlength="1" size="3" name="isSource"
-						<c:if test="${status.value=='on'}">
-				checked value="on"
-			</c:if> />
-
+			<td>Initial Label No</td>
+			<td><spring:bind path="command.initialLabelNo">
+					<INPUT type="text" maxlength="3" size="20" name="initialLabelNo"
+						value="<c:out value="${status.value}"/>">
 					<FONT color="red"> <B><c:out
 								value="${status.errorMessage}" /></B>
 					</FONT>
 				</spring:bind></td>
 		</tr>
-
 		<tr>
 			<td colspan="2"><input type="submit" name="Submit" value="Edit">
 				<input type="submit" name="Submit" value="New"></td>
@@ -54,7 +50,7 @@
 	<tr>
 		<th>Sample Type</th>
 		<th>Suffix</th>
-		<th>Is Source</th>
+		<th>Initial Label No</th>
 	</tr>
 
 	<c:forEach items="${LSampleTypes}" var="container">
@@ -65,7 +61,8 @@
 					<c:out value="${container.name}" />
 			</a></td>
 			<td><c:out value="${container.suffix}" /></td>
-			<td><c:out value="${container.isSource}" /></td>
+			<td><c:out value="${container.initialLabelNo}" /></td>
+			
 
 		</tr>
 	</c:forEach>

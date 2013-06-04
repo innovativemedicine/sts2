@@ -18,10 +18,7 @@ import org.springframework.web.bind.RequestUtils;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.WebUtils;
 
-import agtc.sampletracking.web.command.*;
 import agtc.sampletracking.model.*;
-import agtc.sampletracking.bus.comparator.SampleComparator;
-import agtc.sampletracking.bus.manager.*;
 import agtc.sampletracking.bus.report.SatoLabelPrinter;
 
 public class ContainerListController extends BasicController {
@@ -31,15 +28,21 @@ public class ContainerListController extends BasicController {
 	}
 	
 	protected ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response, Object command,BindException errors) throws Exception{
-		
+		String action = RequestUtils.getStringParameter(request, "action", "");
 		List containerList = (List) WebUtils.getSessionAttribute(request,"containerList");
+		String message = "";
 		
+		if (action.equalsIgnoreCase("Print Labels")) {
 		// Print
 		SatoLabelPrinter satoP = new SatoLabelPrinter();
 		//Collections.sort(sampleList,new SampleComparator());
-		satoP.printSampleLabel(containerList);
+		satoP.printPlateLabel(containerList);
 				
-		String message = "Labels are available at the Label printer.";
+		message = "Labels are available at the Label printer.";
+		} else if (action.equalsIgnoreCase("Export Data")) {
+		
+			
+		}
 		
 		ModelAndView mav = new ModelAndView("containerList");
 		WebUtils.setSessionAttribute(request,"containerList",containerList);

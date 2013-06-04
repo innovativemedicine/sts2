@@ -6,7 +6,6 @@
  */
 package agtc.sampletracking.bus;
 
-import agtc.sampletracking.model.*;
 import agtc.sampletracking.bus.manager.*;
 
 import java.util.*;
