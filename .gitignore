@@ -1,7 +1,6 @@
 *.iws
 *.jar
 *.csv
-*.xls
 *.war
 *.dat
 .DS_Store
@@ -14,6 +13,7 @@ test/reports
 .link_to_grails_plugins*
 target
 target-eclipse
+/label
 /web-app/WEB-INF/classes/**
 CVS
 
