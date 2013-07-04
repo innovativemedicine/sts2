@@ -43,22 +43,10 @@
 		</tr>
 
 		<tr>
-			<td>Patient Note:</td>
-			<td><spring:bind path="command.note">
+			<td>Birth Date:</td>
+			<td><spring:bind path="command.birthDate">
 					<INPUT type="text" maxlength="255" size="30" name="note"
 						value="<c:out value="${status.value}"/>">
-				</spring:bind></td>
-		</tr>
-
-		<tr>
-			<td>Is control?</td>
-			<td><spring:bind path="command.isControl">
-					<select name="isControl" size="1">
-						<option value="N">No</option>
-						<option value="Y">Yes</option>
-
-
-					</select>
 				</spring:bind></td>
 		</tr>
 

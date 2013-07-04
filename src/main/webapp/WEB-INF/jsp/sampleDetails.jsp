@@ -27,7 +27,7 @@
 		</tr>
 		<tr>
 			<td>Sample Received on:</td>
-			<td><c:out value="${command.receiveDate}" /></td>
+			<td><fmt:formatDate value="${command.receiveDate}" pattern="dd-MM-yyyy" /></td>
 		</tr>
 		<tr>
 			<td>Duplication Number:</td>
@@ -112,8 +112,8 @@
 			<td><c:out value="${command.patient.anotherExtSampleId}" /></td>
 		</tr>
 		<tr>
-			<td>Is Controlled</td>
-			<td><c:out value="${command.patient.isControl }" /></td>
+			<td>Birthdate</td>
+			<td><fmt:formatDate value="${command.patient.birthDate}" pattern="dd-MM-yyyy" /></td>
 		</tr>
 		<tr>
 			<td>Note</td>
