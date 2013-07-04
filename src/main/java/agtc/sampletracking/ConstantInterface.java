@@ -40,6 +40,7 @@ public interface ConstantInterface {
 	public static int GENOTYPE_T = 4;
 	public static int GENOTYPE_NO = 0;
 	
-	public static String MANIFESTPATH = "/Users/nderoo324/Documents/Workspace/sts2/manifest/";
+	public static String MANIFESTPATH = "/manifest/";
+	public static String LABELPATH = "/label/";
 
 }
