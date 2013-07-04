@@ -3,445 +3,596 @@
     "http://www.springframework.org/dtd/spring-beans.dtd">
 
 <beans>
-    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-         <property name="driverClassName"><value>com.mysql.jdbc.Driver</value></property>
-		<property name="url"><value>jdbc:mysql://localhost:3306/sts</value></property>
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName">
+			<value>com.mysql.jdbc.Driver</value>
+		</property>
+		<property name="url">
+			<value>jdbc:mysql://localhost:3306/sts</value>
+		</property>
 
-        <property name="username"><value>root</value></property>
-        <property name="password"><value></value></property>
-    </bean>
+		<property name="username">
+			<value>root</value>
+		</property>
+		<property name="password">
+<!-- 			Uncomment password value for deployment -->
+<!-- 				<value>1000anag3r</value> -->
+				<value></value>
+		</property>
+	</bean>
 
-    <!-- Hibernate SessionFactory -->
-    <bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
-        <property name="dataSource"><ref local="dataSource"/></property>
-        <property name="mappingResources">
-            <list>
-                <!-- Add list of .hbm.xml files here -->
-                <value>agtc/sampletracking/model/xml/Assay.hbm.xml</value>
-                 <value>agtc/sampletracking/model/xml/Test.hbm.xml</value>
-                 <value>agtc/sampletracking/model/xml/ContainerType.hbm.xml</value>
-                <value>agtc/sampletracking/model/xml/Instrument.hbm.xml</value>
-                <value>agtc/sampletracking/model/xml/Investigator.hbm.xml</value>
-                <value>agtc/sampletracking/model/xml/Location.hbm.xml</value>
-                <value>agtc/sampletracking/model/xml/Project.hbm.xml</value>
-                <value>agtc/sampletracking/model/xml/ProjectSamples.hbm.xml</value>
-                <value>agtc/sampletracking/model/xml/Result.hbm.xml</value>
-                <value>agtc/sampletracking/model/xml/Sample.hbm.xml</value>
-                <value>agtc/sampletracking/model/xml/SampleType.hbm.xml</value>
-                <value>agtc/sampletracking/model/xml/Container.hbm.xml</value>
-                <value>agtc/sampletracking/model/xml/User.hbm.xml</value>
-                <value>agtc/sampletracking/model/xml/Roles.hbm.xml</value>
-                <value>agtc/sampletracking/model/xml/UserRoles.hbm.xml</value>
-                <value>agtc/sampletracking/model/xml/Run.hbm.xml</value>
-                <value>agtc/sampletracking/model/xml/SamplesInContainer.hbm.xml</value>
+	<!-- Hibernate SessionFactory -->
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource">
+			<ref local="dataSource" />
+		</property>
+		<property name="mappingResources">
+			<list>
+				<!-- Add list of .hbm.xml files here -->
+				<value>agtc/sampletracking/model/xml/Assay.hbm.xml</value>
+				<value>agtc/sampletracking/model/xml/Test.hbm.xml</value>
+				<value>agtc/sampletracking/model/xml/ContainerType.hbm.xml</value>
+				<value>agtc/sampletracking/model/xml/Instrument.hbm.xml</value>
+				<value>agtc/sampletracking/model/xml/Investigator.hbm.xml</value>
+				<value>agtc/sampletracking/model/xml/Location.hbm.xml</value>
+				<value>agtc/sampletracking/model/xml/Project.hbm.xml</value>
+				<value>agtc/sampletracking/model/xml/ProjectSamples.hbm.xml</value>
+				<value>agtc/sampletracking/model/xml/Result.hbm.xml</value>
+				<value>agtc/sampletracking/model/xml/Sample.hbm.xml</value>
+				<value>agtc/sampletracking/model/xml/SampleType.hbm.xml</value>
+				<value>agtc/sampletracking/model/xml/Container.hbm.xml</value>
+				<value>agtc/sampletracking/model/xml/User.hbm.xml</value>
+				<value>agtc/sampletracking/model/xml/Roles.hbm.xml</value>
+				<value>agtc/sampletracking/model/xml/UserRoles.hbm.xml</value>
+				<value>agtc/sampletracking/model/xml/Run.hbm.xml</value>
+				<value>agtc/sampletracking/model/xml/SamplesInContainer.hbm.xml</value>
 				<value>agtc/sampletracking/model/xml/Patient.hbm.xml</value>
 				<value>agtc/sampletracking/model/xml/SamplePrefix.hbm.xml</value>
-            </list>
-        </property>
-        <property name="hibernateProperties">
-        <props>
-            <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
-<!-- 			<prop key="hibernate.show_sql">true</prop> -->
-			<prop key="hibernate.use_outer_join">true</prop>
-        </props>
-        </property>
-    </bean>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+				<!-- <prop key="hibernate.show_sql">true</prop> -->
+				<prop key="hibernate.use_outer_join">true</prop>
+			</props>
+		</property>
+	</bean>
 
-    <!-- Transaction manager for a single Hibernate SessionFactory (alternative to JTA) -->
-    <bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
-        <property name="sessionFactory"><ref local="sessionFactory"/></property>
-     
-    </bean>
-    
-    
-    <bean id="urlMapping"     
-         class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">    
-           <property name="interceptors">
-             <list>
-                  <ref bean="openSessionInViewInterceptor"/>
-             </list>
-           </property>
-    </bean>
+	<!-- Transaction manager for a single Hibernate SessionFactory (alternative 
+		to JTA) -->
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory">
+			<ref local="sessionFactory" />
+		</property>
 
-      <bean name="openSessionInViewInterceptor"  
-        class="org.springframework.orm.hibernate3.support.OpenSessionInViewInterceptor">
-           <property name="sessionFactory"><ref bean="sessionFactory"/></property>
-           <property name="flushModeName"><value>FLUSH_AUTO</value></property>
-      </bean>
+	</bean>
 
-      <bean id="systemUserManagerTarget" class="agtc.sampletracking.bus.manager.SystemUserManager">
-	<property name="userDAO"><ref local="userDAO"/></property>
-	<property name="roleDAO"><ref local="roleDAO"/></property>
-	<property name="userRoleDAO"><ref local="userRoleDAO"/></property>
-      </bean>
+	<bean id="urlMapping"
+		class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="interceptors">
+			<list>
+				<ref bean="openSessionInViewInterceptor" />
+			</list>
+		</property>
+	</bean>
 
-      <bean id="systemUserManager" 
-	  class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
-	     <property name="transactionManager"><ref bean="transactionManager"/></property>
-	     <property name="target"><ref bean="systemUserManagerTarget"/></property>
-	     <property name="proxyTargetClass"><value>true</value></property>
-	     <property name="transactionAttributes">
-	       <props>
-		 	<prop key="save*">PROPAGATION_REQUIRED</prop>
-		 	<prop key="check*">PROPAGATION_REQUIRED</prop>
-		 	<prop key="remove*">PROPAGATION_REQUIRED</prop>
-	       </props>
-	     </property>
-     </bean>
-
-     <bean id="projectManagerTarget" class="agtc.sampletracking.bus.manager.ProjectManager">
-       <property name="projectDAO"><ref local="projectDAO"/></property>
-     </bean>
-          
-  <bean id="projectManager" 
-	      class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
-	 <property name="transactionManager"><ref bean="transactionManager"/></property>
-	 <property name="target"><ref bean="projectManagerTarget"/></property>
-	 <property name="proxyTargetClass"><value>true</value></property>
-	 <property name="transactionAttributes">
-	   <props>
-	     <prop key="save*">PROPAGATION_REQUIRED</prop>
-	     <prop key="check*">PROPAGATION_REQUIRED</prop>
-		 <prop key="remove*">PROPAGATION_REQUIRED</prop>
-	   </props>
-	 </property>
-   </bean>
-
-   <bean id="sampleManagerTarget" class="agtc.sampletracking.bus.manager.SampleManager">
-	  <property name="sampleDAO"><ref local="sampleDAO"/></property>
-	  <property name="patientDAO"><ref local="patientDAO"/></property>
-	  <property name="containerDAO"><ref local="containerDAO"/></property>
-	  <property name="sampleTypeDAO"><ref local="sampleTypeDAO"/></property>
-	  <property name="samplesInContainerDAO"><ref local="samplesInContainerDAO"/></property>
-   </bean>
-
-   <bean id="sampleManager" 
- class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
-    <property name="transactionManager"><ref bean="transactionManager"/></property>
-    <property name="target"><ref bean="sampleManagerTarget"/></property>
-    <property name="proxyTargetClass"><value>true</value></property>
-    <property name="transactionAttributes">
-	<props>
-		<prop key="save*">PROPAGATION_REQUIRED</prop>
-		<prop key="check*">PROPAGATION_REQUIRED</prop>
-		<prop key="remove*">PROPAGATION_REQUIRED</prop>
-		<prop key="update*">PROPAGATION_REQUIRED</prop>
-	</props>
-    </property>
-   </bean>
-
-   <bean id="containerManagerTarget" class="agtc.sampletracking.bus.manager.ContainerManager">
-	<property name="containerDAO"><ref local="containerDAO"/></property>
-	<property name="containerTypeDAO"><ref local="containerTypeDAO"/></property>
-	 <property name="samplesInContainerDAO"><ref local="samplesInContainerDAO"/></property>
-   </bean>
-
-   <bean id="containerManager" 
- class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
-    <property name="transactionManager"><ref bean="transactionManager"/></property>
-    <property name="target"><ref bean="containerManagerTarget"/></property>
-    <property name="proxyTargetClass"><value>true</value></property>
-    <property name="transactionAttributes">
-      <props>	
-	<prop key="save*">PROPAGATION_REQUIRED</prop>
-	<prop key="check*">PROPAGATION_REQUIRED</prop>
-	<prop key="remove*">PROPAGATION_REQUIRED</prop>
-      </props>
-    </property>
-   </bean>
-
-   <bean id="agtcManagerTarget" class="agtc.sampletracking.bus.manager.AGTCManager">
-	<property name="samplePrefixDAO"><ref local="samplePrefixDAO"/></property>
-	<property name="containerTypeDAO"><ref local="containerTypeDAO"/></property>
-	<property name="instrumentDAO"><ref local="instrumentDAO"/></property>
-	<property name="investigatorDAO"><ref local="investigatorDAO"/></property>
-	<property name="locationDAO"><ref local="locationDAO"/></property>
-	<property name="sampleTypeDAO"><ref local="sampleTypeDAO"/></property>
-	<property name="updateResultToCGGDAO"><ref local="updateResultToCGGDAO"/></property>
-   </bean>
-
-   <bean id="agtcManager" 
+	<bean name="openSessionInViewInterceptor"
+		class="org.springframework.orm.hibernate3.support.OpenSessionInViewInterceptor">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+		<property name="flushModeName">
+			<value>FLUSH_AUTO</value>
+		</property>
+	</bean>
+	
+	<bean id="projectManagerTarget" class="agtc.sampletracking.bus.manager.ProjectManager">
+		<property name="projectDAO">
+			<ref local="projectDAO" />
+		</property>
+	</bean>
+	
+	<bean id="projectManager"
 		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
-    <property name="transactionManager"><ref bean="transactionManager"/></property>
-    <property name="target"><ref bean="agtcManagerTarget"/></property>
-    <property name="proxyTargetClass"><value>true</value></property>
-    <property name="transactionAttributes">
-    <props>
-	  	<prop key="save*">PROPAGATION_REQUIRED</prop>
-	  	<prop key="check*">PROPAGATION_REQUIRED</prop>
-		<prop key="remove*">PROPAGATION_REQUIRED</prop>
-    </props>
-    </property>
-   </bean>
+		<property name="transactionManager">
+			<ref bean="transactionManager" />
+		</property>
+		<property name="target">
+			<ref bean="projectManagerTarget" />
+		</property>
+		<property name="proxyTargetClass">
+			<value>true</value>
+		</property>
+		<property name="transactionAttributes">
+			<props>
+				<prop key="save*">PROPAGATION_REQUIRED</prop>
+				<prop key="check*">PROPAGATION_REQUIRED</prop>
+				<prop key="remove*">PROPAGATION_REQUIRED</prop>
+			</props>
+		</property>
+	</bean>
 
-   <bean id="testManagerTarget" class="agtc.sampletracking.bus.manager.TestManager">
-   	<property name="testDAO"><ref local="testDAO"/></property>
-   	<property name="assayDAO"><ref local="assayDAO"/></property>
-   	<property name="resultDAO"><ref local="resultDAO"/></property>
-	<property name="runDAO"><ref local="runDAO"/></property>
-	<property name="sampleDAO"><ref local="sampleDAO"/></property>
-    </bean>
-   
-      <bean id="testManager" 
-    class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
-       <property name="transactionManager"><ref bean="transactionManager"/></property>
-       <property name="target"><ref bean="testManagerTarget"/></property>
-       <property name="proxyTargetClass"><value>true</value></property>
-       <property name="transactionAttributes">
-         <props>
-   	<prop key="save*">PROPAGATION_REQUIRED</prop>
-   	<prop key="search*">PROPAGATION_REQUIRED</prop>
-	<prop key="remove*">PROPAGATION_REQUIRED</prop>
-         </props>
-       </property>
-   </bean>
-   
-    <!-- Add DAOs here -->
-     <bean id="assayDAO" class="agtc.sampletracking.dao.hibernate.AssayDAOHbImpl">
-    	<property name="sessionFactory"><ref local="sessionFactory"/></property>
-    </bean>
-    <bean id="investigatorDAO" class="agtc.sampletracking.dao.hibernate.InvestigatorDAOHbImpl">
-    	<property name="sessionFactory"><ref local="sessionFactory"/></property>
-    </bean>
-    <bean id="sampleTypeDAO" class="agtc.sampletracking.dao.hibernate.SampleTypeDAOHbImpl">
-    	<property name="sessionFactory"><ref local="sessionFactory"/></property>
-    </bean>
-    <bean id="containerTypeDAO" class="agtc.sampletracking.dao.hibernate.ContainerTypeDAOHbImpl">
-    	<property name="sessionFactory"><ref local="sessionFactory"/></property>
-    </bean>
-    <bean id="instrumentDAO" class="agtc.sampletracking.dao.hibernate.InstrumentDAOHbImpl">
-    	<property name="sessionFactory"><ref local="sessionFactory"/></property>
-    </bean>
-     <bean id="locationDAO" class="agtc.sampletracking.dao.hibernate.LocationDAOHbImpl">
-    	<property name="sessionFactory"><ref local="sessionFactory"/></property>
-    </bean>
-     <bean id="projectDAO" class=
-    "agtc.sampletracking.dao.hibernate.ProjectDAOHbImpl">
-    	<property name="sessionFactory"><ref local="sessionFactory"/></property>
-    </bean>
+	<bean id="systemUserManagerTarget" class="agtc.sampletracking.bus.manager.SystemUserManager">
+		<property name="userDAO">
+			<ref local="userDAO" />
+		</property>
+		<property name="roleDAO">
+			<ref local="roleDAO" />
+		</property>
+		<property name="userRoleDAO">
+			<ref local="userRoleDAO" />
+		</property>
+	</bean>
 
-     <bean id="projectSamplesDAO" class="agtc.sampletracking.dao.hibernate.ProjectSamplesDAOHbImpl">
-    	<property name="sessionFactory"><ref local="sessionFactory"/></property>
-    </bean>
-    
-     <bean id="userDAO" class="agtc.sampletracking.dao.hibernate.UserDAOHbImpl">
-    	<property name="sessionFactory"><ref local="sessionFactory"/></property>
-    </bean>
-     <bean id="roleDAO" class="agtc.sampletracking.dao.hibernate.RoleDAOHbImpl">
-    	<property name="sessionFactory"><ref local="sessionFactory"/></property>
-    </bean>
-    <bean id="userRoleDAO" class="agtc.sampletracking.dao.hibernate.UserRolesDAOHbImpl">
-    	<property name="sessionFactory"><ref local="sessionFactory"/></property>
-    </bean>
+	<bean id="systemUserManager"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="transactionManager">
+			<ref bean="transactionManager" />
+		</property>
+		<property name="target">
+			<ref bean="systemUserManagerTarget" />
+		</property>
+		<property name="proxyTargetClass">
+			<value>true</value>
+		</property>
+		<property name="transactionAttributes">
+			<props>
+				<prop key="save*">PROPAGATION_REQUIRED</prop>
+				<prop key="check*">PROPAGATION_REQUIRED</prop>
+				<prop key="remove*">PROPAGATION_REQUIRED</prop>
+			</props>
+		</property>
+	</bean>
 
-    <bean id="testDAO" class="agtc.sampletracking.dao.hibernate.TestDAOHbImpl">
-        <property name="sessionFactory"><ref local="sessionFactory"/></property>
-    </bean>
-    <bean id="resultDAO" class="agtc.sampletracking.dao.hibernate.ResultDAOHbImpl">
-        <property name="sessionFactory"><ref local="sessionFactory"/></property>
-    </bean>
-    <bean id="sampleDAO" class="agtc.sampletracking.dao.hibernate.SampleDAOHbImpl">
-        <property name="sessionFactory"><ref local="sessionFactory"/></property>
-    </bean>
-    <bean id="containerDAO" class="agtc.sampletracking.dao.hibernate.ContainerDAOHbImpl">
-        <property name="sessionFactory"><ref local="sessionFactory"/></property>
-    </bean>
-    
-	 <bean id="runDAO" class="agtc.sampletracking.dao.hibernate.RunDAOHbImpl">
-        <property name="sessionFactory"><ref local="sessionFactory"/></property>
-    </bean>
+	<bean id="sampleManagerTarget" class="agtc.sampletracking.bus.manager.SampleManager">
+		<property name="sampleDAO">
+			<ref local="sampleDAO" />
+		</property>
+		<property name="patientDAO">
+			<ref local="patientDAO" />
+		</property>
+		<property name="containerDAO">
+			<ref local="containerDAO" />
+		</property>
+		<property name="sampleTypeDAO">
+			<ref local="sampleTypeDAO" />
+		</property>
+		<property name="samplesInContainerDAO">
+			<ref local="samplesInContainerDAO" />
+		</property>
+	</bean>
 
-	<bean id="cggStudyGroupDAO" class="agtc.sampletracking.dao.jdbc.CGGStudyGroupDAOJdbcImpl">
-        <property name="dataSource"><ref local="dataSource"/></property>
-    </bean>
-	<bean id="samplesInContainerDAO" class="agtc.sampletracking.dao.hibernate.SamplesInContainerDAOHbImpl">
-        <property name="sessionFactory"><ref local="sessionFactory"/></property>
-    </bean>
-    <bean id="updateResultToCGGDAO" class="agtc.sampletracking.dao.jdbc.UpdateResultToCGGDAOJdbcImpl">
-        <property name="dataSource"><ref local="dataSource"/></property>
-    </bean>
+	<bean id="sampleManager"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="transactionManager">
+			<ref bean="transactionManager" />
+		</property>
+		<property name="target">
+			<ref bean="sampleManagerTarget" />
+		</property>
+		<property name="proxyTargetClass">
+			<value>true</value>
+		</property>
+		<property name="transactionAttributes">
+			<props>
+				<prop key="save*">PROPAGATION_REQUIRED</prop>
+				<prop key="check*">PROPAGATION_REQUIRED</prop>
+				<prop key="remove*">PROPAGATION_REQUIRED</prop>
+				<prop key="update*">PROPAGATION_REQUIRED</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="containerManagerTarget" class="agtc.sampletracking.bus.manager.ContainerManager">
+		<property name="containerDAO">
+			<ref local="containerDAO" />
+		</property>
+		<property name="containerTypeDAO">
+			<ref local="containerTypeDAO" />
+		</property>
+		<property name="samplesInContainerDAO">
+			<ref local="samplesInContainerDAO" />
+		</property>
+	</bean>
+
+	<bean id="containerManager"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="transactionManager">
+			<ref bean="transactionManager" />
+		</property>
+		<property name="target">
+			<ref bean="containerManagerTarget" />
+		</property>
+		<property name="proxyTargetClass">
+			<value>true</value>
+		</property>
+		<property name="transactionAttributes">
+			<props>
+				<prop key="save*">PROPAGATION_REQUIRED</prop>
+				<prop key="check*">PROPAGATION_REQUIRED</prop>
+				<prop key="remove*">PROPAGATION_REQUIRED</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="agtcManagerTarget" class="agtc.sampletracking.bus.manager.AGTCManager">
+		<property name="samplePrefixDAO">
+			<ref local="samplePrefixDAO" />
+		</property>
+		<property name="containerTypeDAO">
+			<ref local="containerTypeDAO" />
+		</property>
+		<property name="instrumentDAO">
+			<ref local="instrumentDAO" />
+		</property>
+		<property name="investigatorDAO">
+			<ref local="investigatorDAO" />
+		</property>
+		<property name="locationDAO">
+			<ref local="locationDAO" />
+		</property>
+		<property name="sampleTypeDAO">
+			<ref local="sampleTypeDAO" />
+		</property>
+	</bean>
+
+	<bean id="agtcManager"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="transactionManager">
+			<ref bean="transactionManager" />
+		</property>
+		<property name="target">
+			<ref bean="agtcManagerTarget" />
+		</property>
+		<property name="proxyTargetClass">
+			<value>true</value>
+		</property>
+		<property name="transactionAttributes">
+			<props>
+				<prop key="save*">PROPAGATION_REQUIRED</prop>
+				<prop key="check*">PROPAGATION_REQUIRED</prop>
+				<prop key="remove*">PROPAGATION_REQUIRED</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="testManagerTarget" class="agtc.sampletracking.bus.manager.TestManager">
+		<property name="testDAO">
+			<ref local="testDAO" />
+		</property>
+		<property name="assayDAO">
+			<ref local="assayDAO" />
+		</property>
+		<property name="resultDAO">
+			<ref local="resultDAO" />
+		</property>
+		<property name="runDAO">
+			<ref local="runDAO" />
+		</property>
+		<property name="sampleDAO">
+			<ref local="sampleDAO" />
+		</property>
+	</bean>
+
+	<bean id="testManager"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="transactionManager">
+			<ref bean="transactionManager" />
+		</property>
+		<property name="target">
+			<ref bean="testManagerTarget" />
+		</property>
+		<property name="proxyTargetClass">
+			<value>true</value>
+		</property>
+		<property name="transactionAttributes">
+			<props>
+				<prop key="save*">PROPAGATION_REQUIRED</prop>
+				<prop key="search*">PROPAGATION_REQUIRED</prop>
+				<prop key="remove*">PROPAGATION_REQUIRED</prop>
+			</props>
+		</property>
+	</bean>
+
+	<!-- Add DAOs here -->
+	<bean id="assayDAO" class="agtc.sampletracking.dao.hibernate.AssayDAOHbImpl">
+		<property name="sessionFactory">
+			<ref local="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="investigatorDAO" class="agtc.sampletracking.dao.hibernate.InvestigatorDAOHbImpl">
+		<property name="sessionFactory">
+			<ref local="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="sampleTypeDAO" class="agtc.sampletracking.dao.hibernate.SampleTypeDAOHbImpl">
+		<property name="sessionFactory">
+			<ref local="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="containerTypeDAO"
+		class="agtc.sampletracking.dao.hibernate.ContainerTypeDAOHbImpl">
+		<property name="sessionFactory">
+			<ref local="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="instrumentDAO" class="agtc.sampletracking.dao.hibernate.InstrumentDAOHbImpl">
+		<property name="sessionFactory">
+			<ref local="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="locationDAO" class="agtc.sampletracking.dao.hibernate.LocationDAOHbImpl">
+		<property name="sessionFactory">
+			<ref local="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="projectDAO" class="agtc.sampletracking.dao.hibernate.ProjectDAOHbImpl">
+		<property name="sessionFactory">
+			<ref local="sessionFactory" />
+		</property>
+	</bean>
+
+	<bean id="projectSamplesDAO"
+		class="agtc.sampletracking.dao.hibernate.ProjectSamplesDAOHbImpl">
+		<property name="sessionFactory">
+			<ref local="sessionFactory" />
+		</property>
+	</bean>
+
+	<bean id="userDAO" class="agtc.sampletracking.dao.hibernate.UserDAOHbImpl">
+		<property name="sessionFactory">
+			<ref local="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="roleDAO" class="agtc.sampletracking.dao.hibernate.RoleDAOHbImpl">
+		<property name="sessionFactory">
+			<ref local="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="userRoleDAO" class="agtc.sampletracking.dao.hibernate.UserRolesDAOHbImpl">
+		<property name="sessionFactory">
+			<ref local="sessionFactory" />
+		</property>
+	</bean>
+
+	<bean id="testDAO" class="agtc.sampletracking.dao.hibernate.TestDAOHbImpl">
+		<property name="sessionFactory">
+			<ref local="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="resultDAO" class="agtc.sampletracking.dao.hibernate.ResultDAOHbImpl">
+		<property name="sessionFactory">
+			<ref local="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="sampleDAO" class="agtc.sampletracking.dao.hibernate.SampleDAOHbImpl">
+		<property name="sessionFactory">
+			<ref local="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="containerDAO" class="agtc.sampletracking.dao.hibernate.ContainerDAOHbImpl">
+		<property name="sessionFactory">
+			<ref local="sessionFactory" />
+		</property>
+	</bean>
+
+	<bean id="runDAO" class="agtc.sampletracking.dao.hibernate.RunDAOHbImpl">
+		<property name="sessionFactory">
+			<ref local="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="samplesInContainerDAO"
+		class="agtc.sampletracking.dao.hibernate.SamplesInContainerDAOHbImpl">
+		<property name="sessionFactory">
+			<ref local="sessionFactory" />
+		</property>
+	</bean>
 	<bean id="samplePrefixDAO" class="agtc.sampletracking.dao.hibernate.SamplePrefixDAOHbImpl">
-        <property name="sessionFactory"><ref local="sessionFactory"/></property>
-    </bean>
+		<property name="sessionFactory">
+			<ref local="sessionFactory" />
+		</property>
+	</bean>
 	<bean id="patientDAO" class="agtc.sampletracking.dao.hibernate.PatientDAOHbImpl">
-        <property name="sessionFactory"><ref local="sessionFactory"/></property>
-    </bean>
+		<property name="sessionFactory">
+			<ref local="sessionFactory" />
+		</property>
+	</bean>
 
-    
-    <!-- Add Managers here -->
 
-    
-    <!-- Add other beans here -->
-    <bean id="operatorList" class="agtc.sampletracking.web.searchFields.OperatorList">
-    </bean>
-    <bean id="projectSearchFields" class="agtc.sampletracking.web.searchFields.ProjectSearchFields">
-    </bean>
-    <bean id="testSearchFields" class="agtc.sampletracking.web.searchFields.TestSearchFields">
-    </bean>
-    <bean id="assaySearchFields" class="agtc.sampletracking.web.searchFields.AssaySearchFields">
-    </bean>
+	<!-- Add Managers here -->
+
+
+	<!-- Add other beans here -->
+	<bean id="operatorList" class="agtc.sampletracking.web.searchFields.OperatorList">
+	</bean>
+	<bean id="projectSearchFields"
+		class="agtc.sampletracking.web.searchFields.ProjectSearchFields">
+	</bean>
+	<bean id="testSearchFields" class="agtc.sampletracking.web.searchFields.TestSearchFields">
+	</bean>
+	<bean id="assaySearchFields" class="agtc.sampletracking.web.searchFields.AssaySearchFields">
+	</bean>
 	<bean id="resultSearchFields" class="agtc.sampletracking.web.searchFields.ResultSearchFields">
-    </bean>
+	</bean>
 	<bean id="runSearchFields" class="agtc.sampletracking.web.searchFields.RunSearchFields">
-    </bean>
+	</bean>
 
-    <bean id="idListResolver" class="agtc.sampletracking.bus.IdListResolver">
-    	<property name="testManager"><ref local="testManager"/></property>
-		<property name="containerManager"><ref local="containerManager"/></property>
-    </bean>
-    
-    
-    <!-- ACEGI Web Security package configuration
-    Jianan Xiao 2005-09-27
-    **********************begin**********************
-    -->
-       <!-- ======================== FILTER CHAIN ======================= -->
-
-	<!--  if you wish to use channel security, add "channelProcessingFilter," in front
-	      of "httpSessionContextIntegrationFilter" in the list below -->
-	<bean id="filterChainProxy" 
-	class="net.sf.acegisecurity.util.FilterChainProxy">
-      <property name="filterInvocationDefinitionSource">
-         <value>
-		    CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON
-		    PATTERN_TYPE_APACHE_ANT
-            /**=httpSessionContextIntegrationFilter,authenticationProcessingFilter,anonymousProcessingFilter,securityEnforcementFilter
-         </value>
-      </property>
-    </bean>
-
-   <!-- ======================== AUTHENTICATION ======================= -->
-
-   <bean id="authenticationManager" 
-   class="net.sf.acegisecurity.providers.ProviderManager">
-      <property name="providers">
-         <list>
-            <ref local="daoAuthenticationProvider"/>
-            <ref local="anonymousAuthenticationProvider"/>
-         </list>
-      </property>
-   </bean>
-
-   <bean id="jdbcDaoImpl" 
-   class="agtc.sampletracking.web.HibernateAuthenticationDaoImpl">
-   	<property name="userDAO"><ref local="userDAO"/></property>
-   </bean>
+	<bean id="idListResolver" class="agtc.sampletracking.bus.IdListResolver">
+		<property name="testManager">
+			<ref local="testManager" />
+		</property>
+		<property name="containerManager">
+			<ref local="containerManager" />
+		</property>
+	</bean>
 
 
-   <bean id="daoAuthenticationProvider" 
-   class="net.sf.acegisecurity.providers.dao.DaoAuthenticationProvider">
-      <property name="authenticationDao">
-      	<ref local="jdbcDaoImpl"/></property>
-   </bean>
+	<!-- ACEGI Web Security package configuration Jianan Xiao 2005-09-27 **********************begin********************** -->
+	<!-- ======================== FILTER CHAIN ======================= -->
 
-    
+	<!-- if you wish to use channel security, add "channelProcessingFilter," 
+		in front of "httpSessionContextIntegrationFilter" in the list below -->
+	<bean id="filterChainProxy" class="net.sf.acegisecurity.util.FilterChainProxy">
+		<property name="filterInvocationDefinitionSource">
+			<value>
+				CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON
+				PATTERN_TYPE_APACHE_ANT
+				/**=httpSessionContextIntegrationFilter,authenticationProcessingFilter,anonymousProcessingFilter,securityEnforcementFilter
+			</value>
+		</property>
+	</bean>
 
-   <!-- Automatically receives AuthenticationEvent messages from DaoAuthenticationProvider -->
-   <bean id="loggerListener" 
-   class="net.sf.acegisecurity.providers.dao.event.LoggerListener"/>
+	<!-- ======================== AUTHENTICATION ======================= -->
 
-    <bean id="anonymousProcessingFilter" 
-    class="net.sf.acegisecurity.providers.anonymous.AnonymousProcessingFilter">
-      <property name="key">
-      	<value>foobar</value></property>
-      <property name="userAttribute">
-      	<value>anonymousUser,ROLE_ANONYMOUS</value></property>
-   </bean>
+	<bean id="authenticationManager" class="net.sf.acegisecurity.providers.ProviderManager">
+		<property name="providers">
+			<list>
+				<ref local="daoAuthenticationProvider" />
+				<ref local="anonymousAuthenticationProvider" />
+			</list>
+		</property>
+	</bean>
 
-   <bean id="anonymousAuthenticationProvider" 
-   	class="net.sf.acegisecurity.providers.anonymous.AnonymousAuthenticationProvider">
-      <property name="key">
-      	<value>foobar</value></property>
-   </bean>
-   
-   <bean id="httpSessionContextIntegrationFilter" 
-   class="net.sf.acegisecurity.context.HttpSessionContextIntegrationFilter">
-      <property name="context">
-      	<value>net.sf.acegisecurity.context.security.SecureContextImpl</value></property>
-   </bean>
+	<bean id="jdbcDaoImpl" class="agtc.sampletracking.web.HibernateAuthenticationDaoImpl">
+		<property name="userDAO">
+			<ref local="userDAO" />
+		</property>
+	</bean>
 
 
-  
-   <!-- ===================== HTTP REQUEST SECURITY ==================== -->
+	<bean id="daoAuthenticationProvider"
+		class="net.sf.acegisecurity.providers.dao.DaoAuthenticationProvider">
+		<property name="authenticationDao">
+			<ref local="jdbcDaoImpl" />
+		</property>
+	</bean>
 
-   <bean id="securityEnforcementFilter" 
-   class="net.sf.acegisecurity.intercept.web.SecurityEnforcementFilter">
-      <property name="filterSecurityInterceptor">
-      	<ref local="filterInvocationInterceptor"/></property>
-      <property name="authenticationEntryPoint">
-      	<ref local="authenticationProcessingFilterEntryPoint"/></property>
-   </bean>
 
-   <bean id="authenticationProcessingFilter" 
-   class="net.sf.acegisecurity.ui.webapp.AuthenticationProcessingFilter">
-      <property name="authenticationManager">
-      	<ref bean="authenticationManager"/></property>
-      <property name="authenticationFailureUrl">
-      	<value>/acelogin.jsp?login_error=1</value></property>
-      <property name="defaultTargetUrl">
-      	<value>/</value></property>
-      <property name="filterProcessesUrl">
-      	<value>/j_acegi_security_check</value></property>
-   </bean>
 
-   <bean id="authenticationProcessingFilterEntryPoint" 
-   class="net.sf.acegisecurity.ui.webapp.AuthenticationProcessingFilterEntryPoint">
-      <property name="loginFormUrl">
-      	<value>/acelogin.jsp</value></property>
-      <property name="forceHttps">
-      	<value>false</value></property>
-   </bean>
+	<!-- Automatically receives AuthenticationEvent messages from DaoAuthenticationProvider -->
+	<bean id="loggerListener" class="net.sf.acegisecurity.providers.dao.event.LoggerListener" />
 
-   <bean id="httpRequestAccessDecisionManager" 
-   class="net.sf.acegisecurity.vote.AffirmativeBased">
-      <property name="allowIfAllAbstainDecisions">
-      	<value>false</value></property>
-      <property name="decisionVoters">
-         <list>
-            <ref bean="roleVoter"/>
-         </list>
-      </property>
-   </bean>
+	<bean id="anonymousProcessingFilter"
+		class="net.sf.acegisecurity.providers.anonymous.AnonymousProcessingFilter">
+		<property name="key">
+			<value>foobar</value>
+		</property>
+		<property name="userAttribute">
+			<value>anonymousUser,ROLE_ANONYMOUS</value>
+		</property>
+	</bean>
 
-   <bean id="roleVoter"	
-   	class="net.sf.acegisecurity.vote.RoleVoter"/>
-   <!--class="agtc.sampletracking.web.STSRoleVote"/>-->
-  <!--  	class="net.sf.acegisecurity.vote.RoleVoter"/> -->
-    	 
+	<bean id="anonymousAuthenticationProvider"
+		class="net.sf.acegisecurity.providers.anonymous.AnonymousAuthenticationProvider">
+		<property name="key">
+			<value>foobar</value>
+		</property>
+	</bean>
 
-   <!-- Note the order that entries are placed against the objectDefinitionSource is critical.
-        The FilterSecurityInterceptor will work from the top of the list down to the FIRST pattern that matches the request URL.
-        Accordingly, you should place MOST SPECIFIC (ie a/b/c/d.*) expressions first, with LEAST SPECIFIC (ie a/.*) expressions last -->
-   <bean id="filterInvocationInterceptor" 
-   class="net.sf.acegisecurity.intercept.web.FilterSecurityInterceptor">
-      <property name="authenticationManager">
-      	<ref bean="authenticationManager"/></property>
-      <property name="accessDecisionManager">
-      	<ref local="httpRequestAccessDecisionManager"/></property>
-      <property name="objectDefinitionSource">
-         <value>
-			    CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON
-			    PATTERN_TYPE_APACHE_ANT
-			    /index.htm*=ROLE_GUEST,ROLE_USER,ROLE_ADMINISTRATOR
-			    /index.jsp*=ROLE_GUEST,ROLE_USER,ROLE_ADMINISTRATOR
-			    /acelogin.jsp*=ROLE_ANONYMOUS,ROLE_GUEST,ROLE_USER,ROLE_ADMINISTRATOR
-			    /stylesheet.css*=ROLE_ANONYMOUS,ROLE_GUEST,ROLE_USER,ROLE_ADMINISTRATOR
-			    /simpleSearchSamples.**=ROLE_GUEST,ROLE_USER,ROLE_ADMINISTRATOR
-			    /simpleSamples.htm*=ROLE_GUEST,ROLE_USER,ROLE_ADMINISTRATOR
-			    /samples.htm*=ROLE_GUEST,ROLE_USER,ROLE_ADMINISTRATOR
-			    /containers.htm*=ROLE_GUEST,ROLE_USER,ROLE_ADMINISTRATOR
-			    /sampleDetails.htm*=ROLE_GUEST,ROLE_USER,ROLE_ADMINISTRATOR
-			    /containerDetails.htm*=ROLE_GUEST,ROLE_USER,ROLE_ADMINISTRATOR
-			    /EditProfile.htm*=ROLE_GUEST,ROLE_USER,ROLE_ADMINISTRATOR
+	<bean id="httpSessionContextIntegrationFilter"
+		class="net.sf.acegisecurity.context.HttpSessionContextIntegrationFilter">
+		<property name="context">
+			<value>net.sf.acegisecurity.context.security.SecureContextImpl</value>
+		</property>
+	</bean>
+
+
+
+	<!-- ===================== HTTP REQUEST SECURITY ==================== -->
+
+	<bean id="securityEnforcementFilter"
+		class="net.sf.acegisecurity.intercept.web.SecurityEnforcementFilter">
+		<property name="filterSecurityInterceptor">
+			<ref local="filterInvocationInterceptor" />
+		</property>
+		<property name="authenticationEntryPoint">
+			<ref local="authenticationProcessingFilterEntryPoint" />
+		</property>
+	</bean>
+
+	<bean id="authenticationProcessingFilter"
+		class="net.sf.acegisecurity.ui.webapp.AuthenticationProcessingFilter">
+		<property name="authenticationManager">
+			<ref bean="authenticationManager" />
+		</property>
+		<property name="authenticationFailureUrl">
+			<value>/acelogin.jsp?login_error=1</value>
+		</property>
+		<property name="defaultTargetUrl">
+			<value>/</value>
+		</property>
+		<property name="filterProcessesUrl">
+			<value>/j_acegi_security_check</value>
+		</property>
+	</bean>
+
+	<bean id="authenticationProcessingFilterEntryPoint"
+		class="net.sf.acegisecurity.ui.webapp.AuthenticationProcessingFilterEntryPoint">
+		<property name="loginFormUrl">
+			<value>/acelogin.jsp</value>
+		</property>
+		<property name="forceHttps">
+			<value>false</value>
+		</property>
+	</bean>
+
+	<bean id="httpRequestAccessDecisionManager" class="net.sf.acegisecurity.vote.AffirmativeBased">
+		<property name="allowIfAllAbstainDecisions">
+			<value>false</value>
+		</property>
+		<property name="decisionVoters">
+			<list>
+				<ref bean="roleVoter" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="roleVoter" class="net.sf.acegisecurity.vote.RoleVoter" />
+	<!--class="agtc.sampletracking.web.STSRoleVote"/> -->
+	<!-- class="net.sf.acegisecurity.vote.RoleVoter"/> -->
+
+
+	<!-- Note the order that entries are placed against the objectDefinitionSource 
+		is critical. The FilterSecurityInterceptor will work from the top of the 
+		list down to the FIRST pattern that matches the request URL. Accordingly, 
+		you should place MOST SPECIFIC (ie a/b/c/d.*) expressions first, with LEAST 
+		SPECIFIC (ie a/.*) expressions last -->
+	<bean id="filterInvocationInterceptor"
+		class="net.sf.acegisecurity.intercept.web.FilterSecurityInterceptor">
+		<property name="authenticationManager">
+			<ref bean="authenticationManager" />
+		</property>
+		<property name="accessDecisionManager">
+			<ref local="httpRequestAccessDecisionManager" />
+		</property>
+		<property name="objectDefinitionSource">
+			<value>
+				CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON
+				PATTERN_TYPE_APACHE_ANT
+				/index.htm*=ROLE_GUEST,ROLE_USER,ROLE_ADMINISTRATOR
+				/index.jsp*=ROLE_GUEST,ROLE_USER,ROLE_ADMINISTRATOR
+				/acelogin.jsp*=ROLE_ANONYMOUS,ROLE_GUEST,ROLE_USER,ROLE_ADMINISTRATOR
+				/stylesheet.css*=ROLE_ANONYMOUS,ROLE_GUEST,ROLE_USER,ROLE_ADMINISTRATOR
+				/simpleSearchSamples.**=ROLE_GUEST,ROLE_USER,ROLE_ADMINISTRATOR
+				/simpleSamples.htm*=ROLE_GUEST,ROLE_USER,ROLE_ADMINISTRATOR
+				/samples.htm*=ROLE_GUEST,ROLE_USER,ROLE_ADMINISTRATOR
+				/containers.htm*=ROLE_GUEST,ROLE_USER,ROLE_ADMINISTRATOR
+				/sampleDetails.htm*=ROLE_GUEST,ROLE_USER,ROLE_ADMINISTRATOR
+				/containerDetails.htm*=ROLE_GUEST,ROLE_USER,ROLE_ADMINISTRATOR
+				/EditProfile.htm*=ROLE_GUEST,ROLE_USER,ROLE_ADMINISTRATOR
 				/addMultiSamples.htm*=ROLE_GUEST,ROLE_USER,ROLE_ADMINISTRATOR
 				/barcode.htm*=ROLE_GUEST,ROLE_USER,ROLE_ADMINISTRATOR
-			    /admin**=ROLE_ADMINISTRATOR
+				/admin**=ROLE_ADMINISTRATOR
 				/delete**=ROLE_ADMINISTRATOR
 				/shuffle**=ROLE_ADMINISTRATOR
 				/**.xls=ROLE_GUEST,ROLE_USER,ROLE_ADMINISTRATOR
 				/**=ROLE_USER,ROLE_ADMINISTRATOR
-         </value>
-      </property>
-   </bean>
-    
+			</value>
+		</property>
+	</bean>
+
 </beans>
