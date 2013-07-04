@@ -6,26 +6,18 @@
  */
 package agtc.sampletracking.web.controller;
 
-import org.springframework.validation.BindException;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.bind.RequestUtils;
-
 import java.io.ByteArrayOutputStream;
-import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashSet;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
-import java.util.HashMap;
-import java.util.Set;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -34,20 +26,25 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
-
-import agtc.sampletracking.ConstantInterface;
-import agtc.sampletracking.model.*;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.*;
-
+import org.springframework.validation.BindException;
 import org.springframework.validation.Errors;
+import org.springframework.web.bind.RequestUtils;
+import org.springframework.web.bind.ServletRequestBindingException;
+import org.springframework.web.bind.ServletRequestUtils;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 import org.springframework.web.util.WebUtils;
 
+import agtc.sampletracking.ConstantInterface;
 import agtc.sampletracking.bus.manager.ProjectManager;
 import agtc.sampletracking.bus.manager.SampleManager;
 import agtc.sampletracking.bus.report.SatoLabelPrinter;
+import agtc.sampletracking.model.MultiSamples;
+import agtc.sampletracking.model.Project;
+import agtc.sampletracking.model.Sample;
+import agtc.sampletracking.model.SampleType;
 
 /**
  * @author Hongjing
@@ -72,8 +69,8 @@ public class AddMultiSamplesController extends BasicController implements
 
 		MultiSamples multiSampleClass = new MultiSamples();
 
-		Integer numSamples = RequestUtils.getIntParameter(request, "ns");
-		String samplePrefix = RequestUtils.getStringParameter(request, "sp");
+		Integer numSamples = ServletRequestUtils.getIntParameter(request, "ns");
+		String samplePrefix = ServletRequestUtils.getStringParameter(request, "sp");
 
 		List autoSampleHolder = new ArrayList();
 
@@ -96,8 +93,6 @@ public class AddMultiSamplesController extends BasicController implements
 				String intSampleId = samplePrefix + formatNum;
 				Sample sample = new Sample(intSampleId);
 
-				// Sample sample = new Sample(largestSampleId);
-
 				autoSampleHolder.add(sample);
 			}
 		}
@@ -113,7 +108,7 @@ public class AddMultiSamplesController extends BasicController implements
 
 		// Input variables
 		MultiSamples multiSamples = (MultiSamples) command;
-		String action = RequestUtils.getStringParameter(request, "action", "");
+		String action = ServletRequestUtils.getStringParameter(request, "action", "");
 
 		// Output variables
 		List<Sample> finalSampleList = new ArrayList<Sample>();
@@ -126,17 +121,41 @@ public class AddMultiSamplesController extends BasicController implements
 
 			// Format Excel Document using filled in form and master manifest
 			// String fullName = MANIFESTPATH + "samplemaster.xls";
-			// Parse Manifest File HEre
-			String samplePrefix = "";
 
+			String samplePrefix = "";
+			Integer sampleTypeID = -1;
+			Integer projectID = -1;
+
+			// Get Sample Prefix
 			try {
-				samplePrefix = RequestUtils.getStringParameter(request,
+				samplePrefix = ServletRequestUtils.getStringParameter(request,
 						"sampleIdPre");
 				samplePrefix = samplePrefix.toUpperCase();
-			} catch (Exception e) {
+			} catch (ServletRequestBindingException e) {
 				errors.reject("error.required",
 						new String[] { "samplePrefix" },
 						"SampleID Prefix is required");
+				return showForm(request, response, errors);
+			}
+
+			// Get Sample Type
+			try {
+				sampleTypeID = ServletRequestUtils.getIntParameter(request,
+						"sampleTypeID");
+
+			} catch (ServletRequestBindingException e) {
+				errors.reject("error.required", new String[] { "sampleTypeID" },
+						"Sample Type is required");
+				return showForm(request, response, errors);
+			}
+
+			// Get Project
+			try {
+				projectID = ServletRequestUtils.getIntParameter(request, "projectID");
+
+			} catch (ServletRequestBindingException e) {
+				errors.reject("error.required", new String[] { "projectID" },
+						"Project is required");
 				return showForm(request, response, errors);
 			}
 
@@ -147,13 +166,7 @@ public class AddMultiSamplesController extends BasicController implements
 
 			InputStream is = aFile.getInputStream();
 
-			try {
-				finalSampleList = readSampleManifest(is, samplePrefix);
-			} catch (Exception e) {
-				errors.reject("error.required",
-						new String[] { "readManifest" }, e.getMessage());
-				return showForm(request, response, errors);
-			}
+			finalSampleList = readSampleManifest(is, samplePrefix, sampleTypeID, projectID);
 
 			is.close();
 
@@ -168,7 +181,7 @@ public class AddMultiSamplesController extends BasicController implements
 
 				// associate sample with its sample type.
 				String sampleTypeField = "sampleType[" + i + "]";
-				String[] sampletypes = RequestUtils.getStringParameters(
+				String[] sampletypes = ServletRequestUtils.getStringParameters(
 						request, sampleTypeField);
 
 				List sampleTypeIds = String2IntList(sampletypes);
@@ -192,13 +205,12 @@ public class AddMultiSamplesController extends BasicController implements
 					Integer sampleTypeId = (Integer) ir.next();
 					SampleType st = sampleManager.getSampleType(sampleTypeId);
 					sample.setSampleType(st);
-					
+
 					Integer sampleNum = st.getInitialLabelNo();
-					
-					for(int j=1;j<=sampleNum;j++)
-					{
+
+					for (int j = 1; j <= sampleNum; j++) {
 						Sample sampleClone = (Sample) sample.clone();
-					
+
 						finalSampleList.add(sampleClone);
 					}
 				}
@@ -211,13 +223,17 @@ public class AddMultiSamplesController extends BasicController implements
 
 			// Print
 			SatoLabelPrinter satoP = new SatoLabelPrinter();
-			satoP.printSampleLabel(finalSampleList);
+			String contextPath = request.getSession().getServletContext().getRealPath("/");
+			satoP.printSampleLabel(finalSampleList, contextPath);
 
 			message += "Samples saved successfully. Labels have been printed";
 		} catch (Exception e) {
 			message = e.getMessage();
 			e.printStackTrace();
-
+			
+			errors.reject("error.required", new String[] { "projectID" },
+					"An error has occured while trying to print labels");
+			
 			return showForm(request, response, errors);
 		}
 
@@ -233,7 +249,7 @@ public class AddMultiSamplesController extends BasicController implements
 
 	{
 		Map models = new HashMap();
-		String message = RequestUtils
+		String message = ServletRequestUtils
 				.getStringParameter(request, "message", "");
 		if (!message.isEmpty()) {
 			models.put("message", message);
@@ -247,8 +263,8 @@ public class AddMultiSamplesController extends BasicController implements
 		return models;
 	}
 
-	private static List String2IntList(String[] sArray) {
-		List l = new ArrayList();
+	private static List<Integer> String2IntList(String[] sArray) {
+		List<Integer> l = new ArrayList<Integer>();
 
 		for (int i = 0; i <= sArray.length - 1; i++) {
 			l.add(Integer.parseInt(sArray[i]));
@@ -268,14 +284,15 @@ public class AddMultiSamplesController extends BasicController implements
 		return workbook;
 	}
 
-	private List readSampleManifest(InputStream is, String samplePrefix)
+	private List<Sample> readSampleManifest(InputStream is, String samplePrefix, Integer sampleTypeID, Integer projectID)
 			throws Exception {
+
 		Workbook workbook = WorkbookFactory.create(is);
 		Sheet sheet = workbook.getSheetAt(0);
 		sheet.protectSheet("");
 
 		Iterator<Row> ri = sheet.rowIterator();
-		List<Sample> readSamples = new ArrayList();
+		List<Sample> readSamples = new ArrayList<Sample>();
 
 		// First row is heading
 		Row row = ri.next();
@@ -299,81 +316,41 @@ public class AddMultiSamplesController extends BasicController implements
 			Sample newSample = new Sample(intSampleId);
 
 			row = ri.next();
-			Iterator<Cell> ci = row.cellIterator();
 
 			// Eternal Id
-			cell = ci.next();
-			try {
-				String externalId = cell.getStringCellValue();
-				newSample.getPatient().setExtSampleId(externalId);
+			cell = row.getCell(0, Row.CREATE_NULL_AS_BLANK);
 
-				if (externalId.isEmpty()) {
-					return readSamples;
-				}
-			} catch (NullPointerException e) {
+			String externalId = cell.getStringCellValue();
+			newSample.getPatient().setExtSampleId(externalId);
+
+			if (externalId.isEmpty()) {
 				return readSamples;
 			}
-
-			// Project
-			cell = ci.next();
-			try {
-				String projectName = cell.getStringCellValue();
-				Project project = projectManager.getProject(projectName);
-				if (project == null) {
-					throw new Exception(
-							"Invalid project name" + projectName + "for one or more of the samples.");
-				}
-				newSample.getPatient().setProject(project);
-			} catch (Exception e) {
-				throw new Exception(
-						"Invalid/Missing project name for one or more of the samples.");
-			}
-			// ST
-			cell = ci.next();
-
-			SampleType tempST = new SampleType();
 			
-			try {
-				String st = cell.getStringCellValue();
-				tempST = sampleManager.getSampleTypeDAO()
-						.getSampleTypeByName(st);
-				if (tempST == null) {
-					throw new Exception(
-							"Invalid sample type" + st + "for one or more of the samples.");
-				}
-				newSample.setSampleType(tempST);
-
-			} catch (Exception e) {
-				throw new Exception(
-						"Invalid/Missing Sample Type for one or more of the samples.");
-			}
-
 			// Notes
-			cell = ci.next();
+			cell = row.getCell(1, Row.CREATE_NULL_AS_BLANK);
 			String notes = "";
-			try {
-				notes = cell.getStringCellValue();
-			} catch (Exception e) {
-				notes = "";
-			}
+
+			notes = cell.getStringCellValue();
 
 			newSample.setNotes(notes);
 			newSample.setStatus("Registered");
+
+			// Project
+			Project project = projectManager.getProject(projectID);
+			newSample.getPatient().setProject(project);
 			
+			SampleType tempST = sampleManager.getSampleTypeDAO().getSampleType(sampleTypeID);
+			newSample.setSampleType(tempST);
+
 			Integer sampleNum = tempST.getInitialLabelNo();
-			
-			for(int i=1;i<=sampleNum;i++)
-			{
+
+			for (int i = 1; i <= sampleNum; i++) {
 				Sample sampleClone = (Sample) newSample.clone();
-
 				readSamples.add(sampleClone);
-
 				samplesRead++;
 			}
-			
-			
 		}
-
 		return readSamples;
 	}
 
