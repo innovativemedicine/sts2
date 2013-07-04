@@ -11,7 +11,6 @@ import java.util.List;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 import agtc.sampletracking.dao.SampleTypeDAO;
-import agtc.sampletracking.model.Patient;
 import agtc.sampletracking.model.SampleType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

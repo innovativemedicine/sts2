@@ -10,11 +10,7 @@ import agtc.sampletracking.ConstantInterface;
 import agtc.sampletracking.dao.*;
 import agtc.sampletracking.model.*;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import java.util.*;
-import java.text.*;
-import agtc.sampletracking.bus.*;
 
 /**
  * @author Gloria Deng

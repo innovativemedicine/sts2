@@ -10,7 +10,6 @@ import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.hibernate.*;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 import agtc.sampletracking.dao.PatientDAO;

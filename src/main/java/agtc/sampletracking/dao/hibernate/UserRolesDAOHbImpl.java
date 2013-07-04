@@ -6,7 +6,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.Session;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
-import org.springframework.transaction.support.TransactionTemplate;
 
 import agtc.sampletracking.dao.UserRolesDAO;
 import agtc.sampletracking.model.User;

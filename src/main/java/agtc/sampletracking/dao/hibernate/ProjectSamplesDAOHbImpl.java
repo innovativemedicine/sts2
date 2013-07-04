@@ -7,13 +7,8 @@ package agtc.sampletracking.dao.hibernate;
 import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.hibernate.Criteria;
-import org.hibernate.Session;
-
 import agtc.sampletracking.dao.ProjectSamplesDAO;
 import agtc.sampletracking.model.Project;
-import agtc.sampletracking.model.ProjectSamples;
-import agtc.sampletracking.web.command.SearchCommand;
 
 /**
  * @author Bei Jin

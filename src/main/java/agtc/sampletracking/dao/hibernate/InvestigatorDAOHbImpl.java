@@ -12,12 +12,8 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 import agtc.sampletracking.dao.InvestigatorDAO;
 import agtc.sampletracking.model.Investigator;
-import java.util.*;
-
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 /**
  * @author Hongjing

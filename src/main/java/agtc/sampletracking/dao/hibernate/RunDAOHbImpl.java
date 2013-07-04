@@ -6,8 +6,6 @@
  */
 package agtc.sampletracking.dao.hibernate;
 
-import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
-
 import agtc.sampletracking.dao.RunDAO;
 import agtc.sampletracking.model.*;
 import agtc.sampletracking.web.command.SearchCommand;

@@ -6,8 +6,6 @@
  */
 package agtc.sampletracking.dao;
 
-import java.util.List;
-
 import agtc.sampletracking.model.Patient;
 
 /**

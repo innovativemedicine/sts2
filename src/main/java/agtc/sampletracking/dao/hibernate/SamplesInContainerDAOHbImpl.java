@@ -11,15 +11,8 @@ import java.util.List;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 import agtc.sampletracking.dao.SamplesInContainerDAO;
-import agtc.sampletracking.model.Assay;
-import agtc.sampletracking.model.Container;
 import agtc.sampletracking.model.SamplesInContainer;
-import org.hibernate.type.*;
 
-/**
- *   Gloria
- *   
- */
 public class SamplesInContainerDAOHbImpl extends HibernateDaoSupport implements
 		SamplesInContainerDAO {
 

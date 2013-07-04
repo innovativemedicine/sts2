@@ -6,7 +6,6 @@ import java.util.Iterator;
 import net.sf.acegisecurity.GrantedAuthority;
 import net.sf.acegisecurity.GrantedAuthorityImpl;
 import net.sf.acegisecurity.UserDetails;
-import net.sf.acegisecurity.providers.jaas.AuthorityGranter;
 
 
 /** 

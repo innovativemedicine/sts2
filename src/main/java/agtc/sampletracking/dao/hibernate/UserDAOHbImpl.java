@@ -10,7 +10,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -18,8 +17,6 @@ import agtc.sampletracking.dao.UserDAO;
 import agtc.sampletracking.model.Roles;
 import agtc.sampletracking.model.User;
 import org.hibernate.*;
-import org.springframework.orm.hibernate3.support.*;
-import org.springframework.transaction.support.*;
 import org.springframework.orm.hibernate3.*;
 
 /**

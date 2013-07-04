@@ -12,7 +12,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import agtc.sampletracking.bus.MiniResultInfo;
-import agtc.sampletracking.bus.manager.TestManager;
 import agtc.sampletracking.model.SamplePrefix;
 /**
  * @author Gloria Deng
@@ -40,7 +39,7 @@ public class ResultParser extends TextFileHanlder {
 	}
 
 	// this method is for parse result file, the sampleId type is in samplePRefix, first line is title, skip it
-	// return the parse result, if successed, then return a empty string
+	// return the parse result, if success, then return a empty string
 	public String parseResults() throws Exception{
 		String aLine = null;
 		br.readLine();

@@ -6,9 +6,6 @@ import java.io.Serializable;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import agtc.sampletracking.bus.parser.ResultParser;
-
-
 /** 
  *        @hibernate.class
  *         table="SAMPLE"

@@ -9,12 +9,8 @@ package agtc.sampletracking.dao.hibernate;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
-
 import agtc.sampletracking.dao.ContainerDAO;
 import agtc.sampletracking.model.Container;
-import agtc.sampletracking.model.Patient;
-import agtc.sampletracking.model.Sample;
 import agtc.sampletracking.web.command.SearchCommand;
 import agtc.sampletracking.web.searchFields.ContainerSearchFields;
 

@@ -12,7 +12,6 @@ import agtc.sampletracking.model.*;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import java.util.*;
-import java.text.*;
 
 /**
  * @author Gloria Deng
