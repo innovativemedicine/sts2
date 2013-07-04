@@ -11,8 +11,6 @@ import agtc.sampletracking.model.*;
 import agtc.sampletracking.bus.*;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.dao.DataRetrievalFailureException;
-
 import java.util.*;
  
 
@@ -30,9 +28,6 @@ public class TestManager {
 	private TestDAO testDAO;
 	private AssayDAO assayDAO;
 	private ResultDAO resultDAO;
-	/*Modified by Jianan Xiao  2005-09-06*/
-//	private CGGStudyGroupDAO cggStudyGroupDAO;	
-//	private List allCGGStudyGroups;
 	private RunDAO runDAO;
 	private SampleDAO sampleDAO;
 	private ContainerDAO containerDAO;
@@ -335,32 +330,7 @@ public class TestManager {
 	public void setRunDAO(RunDAO runDAO) {
 		this.runDAO = runDAO;
 	}
-	
-	
-
-	/**
-	 * @return Returns the cggStudyGroupDAO.
-	 */
-	/*Modified by Jianan Xiao  2005-09-06*/
-	/*
-	public CGGStudyGroupDAO getCggStudyGroupDAO() {
-		return cggStudyGroupDAO;
-	}
-	*/
-	/**
-	 * @param cggStudyGroupDAO The cggStudyGroupDAO to set.
-	 */
-	/*Modified by Jianan Xiao  2005-09-06*/
-	/*
-	public void setCggStudyGroupDAO(CGGStudyGroupDAO cggStudyGroupDAO) {
-		this.cggStudyGroupDAO = cggStudyGroupDAO;
-	}
-	*/
-	
-	
-	
-	
-	
+		
 	/**
 	 * @return Returns the containerDAO.
 	 */
@@ -373,23 +343,7 @@ public class TestManager {
 	public void setContainerDAO(ContainerDAO containerDAO) {
 		this.containerDAO = containerDAO;
 	}
-	/**
-	 * @return Returns the allCGGStudyGroups.
-	 */
-	/*Modified by Jianan Xiao  2005-09-06*/
-	/*
-	public List getAllCGGStudyGroups() {
-		if(allCGGStudyGroups==null){
-			allCGGStudyGroups =  cggStudyGroupDAO.getAllStudyGroups();
-		}
-		return allCGGStudyGroups;
-	}
-	
-	public void setAllCGGStudyGroups(List list) {
-		allCGGStudyGroups =  list;
-		
-	}
-	*/
+
 	
 	/**
 	 * @return Returns the allTests.

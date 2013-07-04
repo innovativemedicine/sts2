@@ -12,12 +12,10 @@ import agtc.sampletracking.dao.InvestigatorDAO;
 import agtc.sampletracking.dao.LocationDAO;
 import agtc.sampletracking.dao.SamplePrefixDAO;
 import agtc.sampletracking.dao.SampleTypeDAO;
-import agtc.sampletracking.dao.UpdateResultToCGGDAO;
 import agtc.sampletracking.model.ContainerType;
 import agtc.sampletracking.model.Instrument;
 import agtc.sampletracking.model.Investigator;
 import agtc.sampletracking.model.Location;
-import agtc.sampletracking.model.Sample;
 import agtc.sampletracking.model.SamplePrefix;
 import agtc.sampletracking.model.SampleType;
 
@@ -28,7 +26,6 @@ public class AGTCManager {
 	private InvestigatorDAO investigatorDAO;
 	private LocationDAO locationDAO;
 	private SampleTypeDAO sampleTypeDAO;
-	private UpdateResultToCGGDAO updateResultToCGGDAO;
 	private SamplePrefixDAO samplePrefixDAO;
 	private List sampleTypes = new ArrayList();
 	private List locations = new ArrayList();
@@ -103,19 +100,7 @@ public class AGTCManager {
 		}
 		return sampleTypes;
 	}
-
-	public UpdateResultToCGGDAO getUpdateResultToCGGDAO() {
-		return this.updateResultToCGGDAO;
-	}
-
-	public void setUpdateResultToCGGDAO(UpdateResultToCGGDAO stock) {
-		updateResultToCGGDAO = stock;
-	}
-
-	public String updateResultToCGG() {
-		return updateResultToCGGDAO.updateResult();
-	}
-
+	
 	public SampleType getSampleType(Integer SampleTypeID) {
 		return sampleTypeDAO.getSampleType(SampleTypeID);
 	}
