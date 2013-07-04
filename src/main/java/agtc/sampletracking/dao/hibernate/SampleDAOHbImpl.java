@@ -7,7 +7,6 @@
 package agtc.sampletracking.dao.hibernate;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import org.apache.commons.logging.Log;
@@ -16,8 +15,6 @@ import agtc.sampletracking.dao.SampleDAO;
 import agtc.sampletracking.model.Sample;
 import agtc.sampletracking.model.Patient;
 import agtc.sampletracking.model.SampleType;
-import agtc.sampletracking.web.command.*;
-import agtc.sampletracking.web.searchFields.*;
 import org.hibernate.criterion.*;
 import org.hibernate.*;
 
@@ -45,16 +42,14 @@ public class SampleDAOHbImpl extends STSBasicDAO implements SampleDAO {
 		String sql = "SELECT INT_SAMPLE_ID FROM sts.SAMPLE WHERE INT_SAMPLE_ID RLIKE "
 				+ regex + " ORDER BY SAMPLE_ID DESC LIMIT 1;";
 
-		Query query= session.createSQLQuery(sql).addScalar("INT_SAMPLE_ID", Hibernate.STRING);
-		
+		Query query = session.createSQLQuery(sql).addScalar("INT_SAMPLE_ID",
+				Hibernate.STRING);
+
 		List results = query.list();
 
-		if(results.isEmpty())
-		{
+		if (results.isEmpty()) {
 			return intSamplePrefix.toUpperCase() + "0";
-		}
-		else
-		{
+		} else {
 			return results.get(0).toString();
 		}
 
@@ -106,6 +101,7 @@ public class SampleDAOHbImpl extends STSBasicDAO implements SampleDAO {
 		}
 	}
 
+	// This is used for searching samples using an uploaded file of SamplID or input list of SampleID
 	public List simpleSearchSamples(List sampleIds, List sampleTypeIds,
 			List projectIds) {
 		Session session = getSession();
@@ -137,14 +133,18 @@ public class SampleDAOHbImpl extends STSBasicDAO implements SampleDAO {
 		return crt.list();
 	}
 
+	//This is used for the general sample searching through selecting the criteria
 	public List<Sample> simpleSearchSamples(String sampleIdFrom,
-			String sampleIdTo, String externalIdFrom, String externalIdTo, List sampleTypeIds, List projectIds) {
+			String sampleIdTo, String externalIdFrom, String externalIdTo,
+			List sampleTypeIds, List projectIds) {
 		Session session = getSession();
 
 		Criteria crt = session.createCriteria(Sample.class);
-		crt.setFetchMode("patient", FetchMode.JOIN).createAlias("patient", "patient");
+		crt.setFetchMode("patient", FetchMode.JOIN).createAlias("patient",
+				"patient");
 		crt.setFetchMode("sampleType", FetchMode.JOIN);
-		crt.setFetchMode("patient.project", FetchMode.JOIN).createAlias("patient.project", "patient.project");
+		crt.setFetchMode("patient.project", FetchMode.JOIN).createAlias(
+				"patient.project", "patient.project");
 
 		if (!sampleIdFrom.isEmpty() && sampleIdTo.isEmpty()) {
 			crt.add(Restrictions.like("patient.intSampleId", sampleIdFrom,
@@ -153,7 +153,7 @@ public class SampleDAOHbImpl extends STSBasicDAO implements SampleDAO {
 			crt.add(Restrictions.between("patient.intSampleId", sampleIdFrom,
 					sampleIdTo));
 		}
-		
+
 		if (!externalIdFrom.isEmpty() && externalIdTo.isEmpty()) {
 			crt.add(Restrictions.like("patient.extSampleId", externalIdFrom,
 					MatchMode.START));
@@ -161,14 +161,14 @@ public class SampleDAOHbImpl extends STSBasicDAO implements SampleDAO {
 			crt.add(Restrictions.between("patient.extSampleId", externalIdFrom,
 					externalIdTo));
 		}
-		
+
 		if (!sampleTypeIds.isEmpty()) {
 			crt.add(Restrictions.in("sampleType.sampleTypeId", sampleTypeIds));
 		}
+		
 		if (!projectIds.isEmpty()) {
 			crt.add(Restrictions.in("patient.project.projectId", projectIds));
 		}
-
 		return crt.list();
 	}
 
