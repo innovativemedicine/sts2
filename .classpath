@@ -12,53 +12,6 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/acegi-security-0.8.3.jar"/>
-	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/antlr-2.7.5H3.jar"/>
-	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/aopalliance.jar"/>
-	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/c3p0-0.8.4.5.jar"/>
-	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/cglib-full-2.0.2.jar"/>
-	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/commons-beanutils.jar"/>
-	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/commons-collections.jar"/>
-	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/commons-digester.jar"/>
-	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/commons-fileupload.jar"/>
-	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/commons-lang.jar"/>
-	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/commons-logging.jar"/>
-	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/commons-validator.jar"/>
-	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/dom4j-1.4.jar"/>
-	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/easymock.jar"/>
-	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/ehcache-0.7.jar"/>
-	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/hibernate3.jar"/>
-	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/hsqldb.jar"/>
-	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/IDADataMatrix.jar"/>
-	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/iText.jar"/>
-	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/jakarta-oro.jar"/>
-	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/jstl.jar"/>
-	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/jta.jar"/>
-	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/junit.jar"/>
-	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/log4j-1.2.8.jar"/>
-	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/odmg-3.0.jar"/>
-	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/ojdbc14.jar"/>
-	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/oscache-2.0.1.jar"/>
-	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/spring-aop.jar"/>
-	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/spring-beans.jar"/>
-	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/spring-context.jar"/>
-	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/spring-core.jar"/>
-	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/spring-dao.jar"/>
-	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/spring-hibernate.jar"/>
-	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/spring-jdbc.jar"/>
-	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/spring-mock.jar"/>
-	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/spring-orm.jar"/>
-	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/spring-remoting.jar"/>
-	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/spring-support.jar"/>
-	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/spring-web.jar"/>
-	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/spring-webmvc.jar"/>
-	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/spring.jar"/>
-	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/standard.jar"/>
-	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/struts-el.jar"/>
-	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/struts.jar"/>
-	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/strutstest-2.1.0.jar"/>
-	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/urlrewrite-1.2.jar"/>
-	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/javaee-api-6.0.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/J2SE-1.5">
 		<attributes>
 			<attribute name="maven.pomderived" value="true"/>
@@ -70,6 +23,5 @@
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/mail.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
