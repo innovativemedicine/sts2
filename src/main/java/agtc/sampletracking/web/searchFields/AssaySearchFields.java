@@ -7,12 +7,8 @@
 package agtc.sampletracking.web.searchFields;
 
 import org.hibernate.Criteria;
-import org.hibernate.FetchMode;
-import org.hibernate.criterion.Restrictions;
 
 import agtc.sampletracking.web.command.SearchCommand;
-
-
 
 /**
  * @author Gloria Deng

@@ -1,7 +1,4 @@
 package agtc.sampletracking.web.validator;
-import java.util.Iterator;
-import java.util.Set;
-import java.util.regex.*;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -9,8 +6,7 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
-import agtc.sampletracking.bus.manager.SampleManager;
-import agtc.sampletracking.model.*;
+import agtc.sampletracking.model.SamplePrefix;
 //import agtc.sampletracking.model.SamplesInContainer;
    
 public class SampleSourceTypeValidator implements Validator {

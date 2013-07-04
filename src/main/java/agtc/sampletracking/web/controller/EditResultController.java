@@ -8,7 +8,6 @@ package agtc.sampletracking.web.controller;
 
 import java.util.*;
 
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
@@ -23,8 +22,6 @@ import org.springframework.web.util.WebUtils;
 
 import agtc.sampletracking.bus.manager.TestManager;
 import agtc.sampletracking.model.*;
-import agtc.sampletracking.web.*;
-
 
 /**
  * @author Hongjing

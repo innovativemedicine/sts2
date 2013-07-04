@@ -11,9 +11,8 @@ import java.beans.PropertyEditorSupport;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import agtc.sampletracking.dao.*;
-import agtc.sampletracking.model.*;
-import agtc.sampletracking.web.controller.StsController;
+import agtc.sampletracking.dao.ContainerDAO;
+import agtc.sampletracking.model.Container;
 
 /**
  * @author Gloria Deng

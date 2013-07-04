@@ -8,30 +8,43 @@ package agtc.sampletracking.web.controller;
 
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.ApplicationContextException;
 import org.springframework.web.bind.RequestUtils;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.multiaction.MultiActionController;
-import org.springframework.web.servlet.view.*;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.springframework.web.servlet.view.RedirectView;
 
 import agtc.sampletracking.ConstantInterface;
-import agtc.sampletracking.model.*;
-import agtc.sampletracking.bus.comparator.*;
-import agtc.sampletracking.bus.manager.*;
-import agtc.sampletracking.bus.*;
-
-import java.util.*;
+import agtc.sampletracking.bus.IdListResolver;
+import agtc.sampletracking.bus.PlateWorker;
+import agtc.sampletracking.bus.ResultWorker;
+import agtc.sampletracking.bus.comparator.ContainerComparator;
+import agtc.sampletracking.bus.comparator.RunComparator;
+import agtc.sampletracking.bus.comparator.TestComparator;
+import agtc.sampletracking.bus.manager.ContainerManager;
+import agtc.sampletracking.bus.manager.ProjectManager;
+import agtc.sampletracking.bus.manager.SampleManager;
+import agtc.sampletracking.bus.manager.TestManager;
+import agtc.sampletracking.model.Assay;
+import agtc.sampletracking.model.Container;
+import agtc.sampletracking.model.ContainerType;
+import agtc.sampletracking.model.Patient;
+import agtc.sampletracking.model.Project;
+import agtc.sampletracking.model.Result;
+import agtc.sampletracking.model.Run;
+import agtc.sampletracking.model.Sample;
+import agtc.sampletracking.model.Test;
 
 
 /**

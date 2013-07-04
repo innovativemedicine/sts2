@@ -7,10 +7,8 @@
 package agtc.sampletracking.web.controller;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -23,11 +21,9 @@ import org.springframework.web.bind.RequestUtils;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
-
 import agtc.sampletracking.bus.manager.ProjectManager;
 import agtc.sampletracking.bus.manager.SampleManager;
 import agtc.sampletracking.model.Patient;
-import agtc.sampletracking.model.Sample;
 
 /**
  * @author Hongjing

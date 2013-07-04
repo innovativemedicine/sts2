@@ -6,33 +6,29 @@
  */
 package agtc.sampletracking.web.controller;
 
-import org.springframework.validation.BindException;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.SimpleFormController;
-import org.springframework.web.servlet.view.*;
-import org.springframework.web.bind.RequestUtils;
-import org.springframework.validation.*;
+import java.io.File;
+import java.util.*;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
-
-import java.io.IOException;
-import java.util.Map;
-import java.util.HashMap;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import agtc.sampletracking.dao.*;
-import agtc.sampletracking.model.*;
-import agtc.sampletracking.web.*;
-import agtc.sampletracking.bus.*;
-import agtc.sampletracking.web.command.*;
-import agtc.sampletracking.bus.manager.*;
-import java.util.*;
-import org.springframework.web.bind.ServletRequestDataBinder;
-import org.springframework.web.multipart.support.*;
-import org.springframework.web.multipart.*;
-import java.io.*;
+import org.springframework.validation.BindException;
+import org.springframework.validation.Errors;
+import org.springframework.web.bind.RequestUtils;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
+
+import agtc.sampletracking.bus.IdListResolver;
+import agtc.sampletracking.bus.manager.AGTCManager;
+import agtc.sampletracking.bus.manager.ProjectManager;
+import agtc.sampletracking.bus.manager.TestManager;
+import agtc.sampletracking.model.Project;
+import agtc.sampletracking.model.Test;
 
 /**
  * @author Gloria Deng

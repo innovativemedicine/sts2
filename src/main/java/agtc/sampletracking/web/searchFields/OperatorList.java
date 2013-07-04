@@ -6,12 +6,6 @@
  */
 package agtc.sampletracking.web.searchFields;
 
-import org.hibernate.Criteria;
-import org.hibernate.criterion.Expression;
-
-import agtc.sampletracking.web.command.SearchCommand;
-
-
 /**
  * @author Gloria Deng
  *

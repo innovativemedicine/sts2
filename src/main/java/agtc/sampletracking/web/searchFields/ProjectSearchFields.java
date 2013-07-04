@@ -7,7 +7,6 @@
 package agtc.sampletracking.web.searchFields;
 
 import org.hibernate.Criteria;
-import org.hibernate.FetchMode;
 
 import agtc.sampletracking.web.command.SearchCommand;
 

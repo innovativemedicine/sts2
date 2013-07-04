@@ -6,31 +6,24 @@
  */
 package agtc.sampletracking.web.controller;
 
-import org.springframework.validation.BindException;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.SimpleFormController;
-import org.springframework.web.servlet.view.*;
-import org.springframework.web.bind.RequestUtils;
-import org.springframework.web.bind.ServletRequestDataBinder;
-import org.springframework.validation.*;
+import java.util.*;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
-
-import java.io.IOException;
-import java.util.Map;
-import java.util.HashMap;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import agtc.sampletracking.dao.*;
-import agtc.sampletracking.model.*;
-import agtc.sampletracking.web.*;
-import agtc.sampletracking.web.command.*;
-import agtc.sampletracking.bus.manager.*;
-import agtc.sampletracking.bus.*;
-import agtc.sampletracking.*;
-import java.util.*;
+import org.springframework.validation.BindException;
+import org.springframework.validation.Errors;
+import org.springframework.web.bind.RequestUtils;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
+
+import agtc.sampletracking.bus.manager.AGTCManager;
+import agtc.sampletracking.bus.manager.ContainerManager;
+import agtc.sampletracking.bus.manager.ProjectManager;
+import agtc.sampletracking.model.Container;
+import agtc.sampletracking.model.SamplesInContainer;
 
 /**
  * @author Gloria Deng

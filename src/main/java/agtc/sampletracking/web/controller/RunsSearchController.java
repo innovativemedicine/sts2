@@ -6,33 +6,21 @@
  */
 package agtc.sampletracking.web.controller;
 
-import org.springframework.web.bind.RequestUtils;
-import org.springframework.web.servlet.mvc.SimpleFormController;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.*;
-import org.springframework.web.util.WebUtils;
-
-import javax.servlet.*;
-import javax.servlet.http.*;
-
-import java.io.IOException;
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.HashMap;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import agtc.sampletracking.dao.*;
-import agtc.sampletracking.model.*;
-import agtc.sampletracking.web.*;
-import agtc.sampletracking.web.command.*;
-import agtc.sampletracking.web.searchFields.OperatorList;
-import agtc.sampletracking.web.searchFields.RunSearchFields;
-import agtc.sampletracking.bus.manager.*;
-import agtc.sampletracking.bus.*;
 import org.springframework.validation.BindException;
-import java.util.*;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
+
+import agtc.sampletracking.bus.IdListResolver;
+import agtc.sampletracking.bus.manager.TestManager;
+import agtc.sampletracking.model.Run;
 
 /**
  * @author Gloria Deng

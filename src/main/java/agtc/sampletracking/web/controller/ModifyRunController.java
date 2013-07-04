@@ -6,8 +6,6 @@
  */
 package agtc.sampletracking.web.controller;
 
-import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,20 +19,15 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.validation.BindException;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.RequestUtils;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
-import agtc.sampletracking.bus.CGGStudyGroup;
 import agtc.sampletracking.bus.IdListResolver;
 import agtc.sampletracking.bus.manager.AGTCManager;
 import agtc.sampletracking.bus.manager.ContainerManager;
 import agtc.sampletracking.bus.manager.ProjectManager;
 import agtc.sampletracking.bus.manager.TestManager;
-import agtc.sampletracking.bus.parser.ResultParser;
 import agtc.sampletracking.model.Run;
-import agtc.sampletracking.model.SamplePrefix;
 
 /**
  * @author Hongjing

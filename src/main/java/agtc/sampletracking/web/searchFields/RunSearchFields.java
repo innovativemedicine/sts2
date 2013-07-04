@@ -6,8 +6,6 @@
  */
 package agtc.sampletracking.web.searchFields;
 
-import java.util.List;
-
 import org.hibernate.Criteria;
 
 import agtc.sampletracking.web.command.SearchCommand;
