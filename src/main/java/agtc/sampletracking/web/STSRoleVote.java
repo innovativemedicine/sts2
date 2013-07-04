@@ -1,7 +1,5 @@
 package agtc.sampletracking.web;
 
-import java.util.List;
-
 import net.sf.acegisecurity.Authentication;
 import net.sf.acegisecurity.ConfigAttribute;
 import net.sf.acegisecurity.ConfigAttributeDefinition;

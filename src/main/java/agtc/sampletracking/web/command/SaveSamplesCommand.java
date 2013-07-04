@@ -8,8 +8,8 @@ package agtc.sampletracking.web.command;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import java.util.*;
-import agtc.sampletracking.model.*;
+
+import agtc.sampletracking.model.SampleType;
 
 /**
  * @author Gloria Deng

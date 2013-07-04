@@ -5,7 +5,6 @@
  * Window>Preferences>Java>Code Generation>Code and Comments
  */
 package agtc.sampletracking.web.command;
-import java.util.*;
 
 public class BarcodeCommand {
 	private Object barcodeItem;

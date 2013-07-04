@@ -5,32 +5,17 @@
  * Window>Preferences>Java>Code Generation>Code and Comments
  */
 package agtc.sampletracking.web.controller;
-import org.springframework.web.bind.RequestUtils;
-import org.springframework.web.servlet.mvc.SimpleFormController;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.*;
-import org.springframework.web.util.WebUtils;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.HashMap;
+import java.util.*;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import agtc.sampletracking.dao.*;
-import agtc.sampletracking.model.*;
-import agtc.sampletracking.web.*;
-import agtc.sampletracking.web.command.*;
-import agtc.sampletracking.web.searchFields.AssaySearchFields;
-import agtc.sampletracking.web.searchFields.OperatorList;
-import agtc.sampletracking.bus.manager.*;
 import org.springframework.validation.BindException;
-import java.util.*;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
+
+import agtc.sampletracking.bus.manager.TestManager;
+import agtc.sampletracking.model.Assay;
 
 
 /**

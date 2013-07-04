@@ -16,15 +16,15 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.validation.BindException;
-import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.RequestUtils;
+import org.springframework.validation.ValidationUtils;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
-import agtc.sampletracking.bus.manager.*;
-import agtc.sampletracking.bus.*;
-import agtc.sampletracking.model.*;
+import agtc.sampletracking.bus.manager.ProjectManager;
+import agtc.sampletracking.bus.manager.TestManager;
+import agtc.sampletracking.model.Result;
+import agtc.sampletracking.model.Run;
 
 /**
  * @author Hongjing
