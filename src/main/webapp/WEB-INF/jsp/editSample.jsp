@@ -3,11 +3,7 @@
 <h2>Edit Samples</h2>
 
 <form method="post">
-
-
 	<table class="details">
-
-
 		<tr>
 			<td>Internal Id</td>
 
@@ -25,8 +21,6 @@
 				</c:if></td>
 
 		</tr>
-
-
 		<tr>
 			<td>Sample Type:</td>
 			<td><spring:bind path="command.sampleType">

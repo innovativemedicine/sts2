@@ -13,6 +13,8 @@ Authentication auth = sc.getAuthentication();
 agtc.sampletracking.model.User user = 
 	(agtc.sampletracking.model.User)auth.getPrincipal();
 %>
+
+
 <h2><b>Welcome <%=user.getLoginname()%> </b></h2>
 
 <br>
