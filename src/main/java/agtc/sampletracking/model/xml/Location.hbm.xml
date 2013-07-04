@@ -2,89 +2,49 @@
 <!DOCTYPE hibernate-mapping PUBLIC 
     "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-    
+
 <hibernate-mapping>
-<!-- 
-    Created by the Middlegen Hibernate plugin
+	<!-- Created by the Middlegen Hibernate plugin http://boss.bekk.no/boss/middlegen/ 
+		http://hibernate.sourceforge.net/ -->
 
-    http://boss.bekk.no/boss/middlegen/
-    http://hibernate.sourceforge.net/
--->
+	<class name="agtc.sampletracking.model.Location" table="LOCATION">
+		<id name="locationId" type="java.lang.Integer" column="LOCATION_ID"
+			unsaved-value="-1">
 
-<class 
-    name="agtc.sampletracking.model.Location" 
-    table="LOCATION"
->
-    <id
-        name="locationId"
-        type="java.lang.Integer"
-        column="LOCATION_ID"
-        unsaved-value="-1"
-    >
+			<generator class="native" />
+		</id>
 
-      	<generator class="native" />
-    </id>
+		<property name="name" type="java.lang.String" column="NAME"
+			length="64" unique="true">
+		</property>
+		<property name="building" type="java.lang.String" column="BUILDING"
+			length="128">
+		</property>
+		<property name="room" type="java.lang.String" column="ROOM"
+			length="32">
 
-     <property
-        name="name"
-        type="java.lang.String"
-        column="NAME"
-        length="64"
-        unique="true"
-    >
-    </property>
-    <property
-        name="building"
-        type="java.lang.String"
-        column="BUILDING"
-        length="128"
-    >
-    </property>
-    <property
-        name="room"
-        type="java.lang.String"
-        column="ROOM"
-        length="32"
-    >
-   
-    </property>
-    <property
-        name="freezer"
-        type="java.lang.String"
-        column="FREEZER"
-        length="16"
-    >
-  
-    </property>
-    <property
-        name="freezerShelf"
-        type="java.lang.String"
-        column="FREEZER_SHELF"
-        length="16"
-    >
-   
-    </property>
+		</property>
+		<property name="freezer" type="java.lang.String" column="FREEZER"
+			length="16">
 
-    <!-- associations -->
-    
+		</property>
+		<property name="freezerShelf" type="java.lang.String" column="FREEZER_SHELF"
+			length="16">
 
-    
-    <!-- bi-directional one-to-many association to Container -->
-    <set
-        name="containers"
-        lazy="true"
-        inverse="true"
-		cascade="all"
+		</property>
 
-    >
-     
-        <key>
-            <column name="LOCATION_ID" />
-        </key>
-        <one-to-many 
-            class="agtc.sampletracking.model.Container"
-        />
-    </set>
+		<!-- associations -->
 
-</class>
+
+
+		<!-- bi-directional one-to-many association to Container -->
+		<set name="containers" lazy="true" inverse="true" cascade="all">
+
+			<key>
+				<column name="LOCATION_ID" />
+			</key>
+			<one-to-many class="agtc.sampletracking.model.Container" />
+		</set>
+
+	</class>
 </hibernate-mapping>

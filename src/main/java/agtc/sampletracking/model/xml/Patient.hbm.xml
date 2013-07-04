@@ -2,111 +2,65 @@
 <!DOCTYPE hibernate-mapping PUBLIC 
     "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-    
+
 <hibernate-mapping>
 
-<class 
-    name="agtc.sampletracking.model.Patient" 
-    table="PATIENT"
->
+	<class name="agtc.sampletracking.model.Patient" table="PATIENT">
 
 
-    <id
-        name="intSampleId"
-        type="java.lang.String"
-		column="INT_SAMPLE_ID"
-        length="16"
-		unsaved-value="undefined"
-    >
-        <generator class="assigned">
-        </generator>
+		<id name="intSampleId" type="java.lang.String" column="INT_SAMPLE_ID"
+			length="16" unsaved-value="undefined">
+			<generator class="assigned">
+			</generator>
 
-    </id>
-	
-   <property
-        name="extSampleId"
-        type="java.lang.String"
-        column="EXT_SAMPLE_ID"
-        length="32"
-    >
-       
-    </property>
+		</id>
 
-	<property
-        name="anotherExtSampleId"
-        type="java.lang.String"
-        column="ANOTHER_EXT_SAMPLE_ID"
-        length="32"
-    >
-       
-    </property>
-   
-    <property
-        name="birthDate"
-        type="java.sql.Timestamp"
-        column="BIRTHDATE"
-    >
-    
-    </property>
-    
-    <property
-        name="note"
-        type="java.lang.String"
-        column="NOTE"
-        length="128"
-    >
-      
-    </property>
+		<property name="extSampleId" type="java.lang.String" column="EXT_SAMPLE_ID"
+			length="32">
 
-	<property
-        name="isControl"
-        type="java.lang.String"
-        column="IS_CONTROL"
-        length="1"
-    >
-   
-    </property>
+		</property>
 
-	<property
-        name="familyId"
-        type="java.lang.String"
-        column="FAMILY_ID"
-        length="16"
-    >
-  
-    </property>
- 
-   
- 
+		<property name="anotherExtSampleId" type="java.lang.String"
+			column="ANOTHER_EXT_SAMPLE_ID" length="32">
 
-    <!-- associations -->
+		</property>
 
-   
-    
-   <!-- bi-directional one-to-many association to samples -->
-    <set
-        name="samples"
-        lazy="true"
-        inverse="true"
-		cascade="all-delete-orphan"
-    >
-        
-        <key>
-            <column name="INT_SAMPLE_ID" />
-        </key>
-        <one-to-many 
-            class="agtc.sampletracking.model.Sample"
-        />
-    </set>
+		<property name="birthDate" type="java.sql.Timestamp" column="BIRTHDATE">
 
-	<!-- bi-directional many-to-one association to Project -->
-    <many-to-one
-        name="project"
-        class="agtc.sampletracking.model.Project"
-        not-null="true"
-    >
-	 <column name="PROJECT_ID" />
-    </many-to-one>
+		</property>
 
-</class>
+		<property name="note" type="java.lang.String" column="NOTE"
+			length="128">
+
+		</property>
+
+		<property name="isControl" type="java.lang.String" column="IS_CONTROL"
+			length="1">
+
+		</property>
+
+		<property name="familyId" type="java.lang.String" column="FAMILY_ID"
+			length="16">
+
+		</property>
+
+		<!-- associations -->
+
+
+
+		<!-- bi-directional one-to-many association to samples -->
+		<set name="samples" inverse="true" cascade="all-delete-orphan">
+			<key>
+				<column name="INT_SAMPLE_ID" />
+			</key>
+			<one-to-many class="agtc.sampletracking.model.Sample" />
+		</set>
+
+		<!-- bi-directional many-to-one association to Project -->
+		<many-to-one name="project" class="agtc.sampletracking.model.Project"
+			not-null="true">
+			<column name="PROJECT_ID" />
+		</many-to-one>
+
+	</class>
 </hibernate-mapping>

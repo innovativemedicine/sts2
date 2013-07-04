@@ -2,184 +2,107 @@
 <!DOCTYPE hibernate-mapping PUBLIC 
     "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-    
+
 <hibernate-mapping>
-<!-- 
-    Created by the Middlegen Hibernate plugin
+	<!-- Created by the Middlegen Hibernate plugin http://boss.bekk.no/boss/middlegen/ 
+		http://hibernate.sourceforge.net/ -->
 
-    http://boss.bekk.no/boss/middlegen/
-    http://hibernate.sourceforge.net/
--->
+	<class name="agtc.sampletracking.model.Sample" table="SAMPLE">
 
-<class 
-    name="agtc.sampletracking.model.Sample" 
-    table="SAMPLE"
->
+		<id name="sampleId" type="java.lang.Integer" column="SAMPLE_ID"
+			unsaved-value="-1">
+			<generator class="native" />
+
+		</id>
+
+		<property name="od" type="java.lang.Float" column="OD">
+
+		</property>
+		<property name="volumn" type="java.lang.Float" column="VOLUMN">
+
+		</property>
+		<property name="madeDate" type="java.sql.Timestamp" column="MADE_DATE">
+
+		</property>
+		<property name="refillDate" type="java.sql.Timestamp" column="REFILL_DATE">
+
+		</property>
+
+		<property name="odDate" type="java.sql.Timestamp" column="OD_DATE">
+
+		</property>
+
+		<property name="volumnDate" type="java.sql.Timestamp" column="volumn_DATE">
+
+		</property>
+
+		<property name="notes" type="java.lang.String" column="NOTES"
+			length="128">
+
+		</property>
+
+		<property name="transDate" type="java.sql.Timestamp" column="TRANS_DATE">
+
+		</property>
+		<property name="status" type="java.lang.String" column="STATUS"
+			length="10">
+
+		</property>
+		<property name="removeDate" type="java.sql.Timestamp" column="REMOVE_DATE">
+
+		</property>
+
+		<property name="receiveDate" type="java.sql.Timestamp"
+			column="RECEIVE_DATE">
+
+		</property>
 
 
-    <id
-        name="sampleId"
-        type="java.lang.Integer"
-        column="SAMPLE_ID"
-        unsaved-value="-1"
-    >
-        	<generator class="native" />
 
-    </id>
-    
-    <property
-        name="od"
-        type="java.lang.Float"
-        column="OD"
-    >
-   
-    </property>
-    <property
-        name="volumn"
-        type="java.lang.Float"
-        column="VOLUMN"
-    >
- 
-    </property>
-    <property
-        name="madeDate"
-        type="java.sql.Timestamp"
-        column="MADE_DATE"
-    >
-    
-    </property>
-    <property
-        name="refillDate"
-        type="java.sql.Timestamp"
-        column="REFILL_DATE"
-    >
-  
-    </property>
-    
-    <property
-        name="odDate"
-        type="java.sql.Timestamp"
-        column="OD_DATE"
-    >
-  
-    </property>
-    
-    <property
-        name="volumnDate"
-        type="java.sql.Timestamp"
-        column="volumn_DATE"
-    >
-  
-    </property>
-    
-    <property
-        name="notes"
-        type="java.lang.String"
-        column="NOTES"
-        length="128"
-    >
-      
-    </property>
-    
-    <property
-        name="transDate"
-        type="java.sql.Timestamp"
-        column="TRANS_DATE"
-    >
-   
-    </property>
-    <property
-        name="status"
-        type="java.lang.String"
-        column="STATUS"
-        length="10"
-    >
-   
-    </property>
-    <property
-        name="removeDate"
-        type="java.sql.Timestamp"
-        column="REMOVE_DATE"
-    >
-   
-    </property>
-    
-    <property
-        name="receiveDate"
-        type="java.sql.Timestamp"
-        column="RECEIVE_DATE"
-    >
-   
-    </property>
+		<property name="sampleDupNo" type="java.lang.Integer" column="SAMPLE_DUP_NO">
 
-	
+		</property>
 
-	 <property
-        name="sampleDupNo"
-        type="java.lang.Integer"
-        column="SAMPLE_DUP_NO"
-    >
-   
-    </property>
+		<!-- associations -->
 
-    <!-- associations -->
+		<!-- bi-directional one-to-many association to SamplesInContainer with 
+			operation as "I"(In) -->
+		<set name="samplesInContainersIn" lazy="true" cascade="all-delete-orphan "
+			inverse="true" where="operation='I'">
 
-    <!-- bi-directional one-to-many association to SamplesInContainer with operation as "I"(In) -->
-    <set
-        name="samplesInContainersIn"
-        lazy="true"
-        cascade="all-delete-orphan "
-		inverse="true"
-		where="operation='I'"
-    >
-        
-        <key>
-            <column name="SAMPLE_ID" />
-        </key>
-        <one-to-many 
-            class="agtc.sampletracking.model.SamplesInContainer"
-        />
-    </set>
+			<key>
+				<column name="SAMPLE_ID" />
+			</key>
+			<one-to-many class="agtc.sampletracking.model.SamplesInContainer" />
+		</set>
 
-	<!-- bi-directional one-to-many association to SamplesInContainer with operation as "O"(out) -->
-    <set
-        name="samplesInContainersOut"
-        lazy="true"
-        cascade="all-delete-orphan "
-		inverse="true"
-		where="operation='O'"
-    >
-        
-        <key>
-            <column name="SAMPLE_ID" />
-        </key>
-        <one-to-many 
-            class="agtc.sampletracking.model.SamplesInContainer"
-        />
-    </set>
-    
-   
-    
-    <!-- bi-directional many-to-one association to SampleType -->
-    <many-to-one
-        name="sampleType"
-        class="agtc.sampletracking.model.SampleType"
-        not-null="true"
-    >
-      
-        <column name="SAMPLE_TYPE_ID" />
-    </many-to-one>
+		<!-- bi-directional one-to-many association to SamplesInContainer with 
+			operation as "O"(out) -->
+		<set name="samplesInContainersOut" lazy="true" cascade="all-delete-orphan "
+			inverse="true" where="operation='O'">
 
-	<!-- bi-directional many-to-one association to Patient -->
-    <many-to-one
-        name="patient"
-        class="agtc.sampletracking.model.Patient"
-		not-null="true"
-    >
-      
-        <column name="INT_SAMPLE_ID" />
-    </many-to-one>
-	
+			<key>
+				<column name="SAMPLE_ID" />
+			</key>
+			<one-to-many class="agtc.sampletracking.model.SamplesInContainer" />
+		</set>
 
-</class>
+
+
+		<!-- bi-directional many-to-one association to SampleType -->
+		<many-to-one name="sampleType" class="agtc.sampletracking.model.SampleType"
+			not-null="true">
+
+			<column name="SAMPLE_TYPE_ID" />
+		</many-to-one>
+
+		<!-- bi-directional many-to-one association to Patient -->
+		<many-to-one name="patient" class="agtc.sampletracking.model.Patient"
+			not-null="true" lazy="false">
+
+			<column name="INT_SAMPLE_ID" />
+		</many-to-one>
+
+
+	</class>
 </hibernate-mapping>

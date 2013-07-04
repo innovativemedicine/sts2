@@ -2,76 +2,43 @@
 <!DOCTYPE hibernate-mapping PUBLIC 
     "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-    
+
 <hibernate-mapping>
-<!-- 
-    Created by the Middlegen Hibernate plugin
-    
-    http://boss.bekk.no/boss/middlegen/
-    http://hibernate.sourceforge.net/
--->
+	<!-- Created by the Middlegen Hibernate plugin http://boss.bekk.no/boss/middlegen/ 
+		http://hibernate.sourceforge.net/ -->
 
-<class 
-    name="agtc.sampletracking.model.ContainerType" 
-    table="CONTAINER_TYPE"
->
- 
-    <id
-        name="containerTypeId"
-        type="java.lang.Integer"
-        column="CONTAINER_TYPE_ID"
-        unsaved-value="-1"
-    >
-     
-      	<generator class="native" />
-    </id>
+	<class name="agtc.sampletracking.model.ContainerType" table="CONTAINER_TYPE">
 
-    <property
-        name="name"
-        type="java.lang.String"
-        column="NAME"
-        not-null="true"
-        unique="true"
-        length="16"
-    >
-     
-    </property>
-    <property
-        name="columnNo"
-        type="java.lang.Integer"
-        column="COLUMN_NO"
-        not-null="true"
-       
-    >
-   
-    </property>
+		<id name="containerTypeId" type="java.lang.Integer" column="CONTAINER_TYPE_ID"
+			unsaved-value="-1">
 
-	 <property
-        name="rowNo"
-        type="java.lang.Integer"
-        column="ROW_NO"
-        not-null="true"
-       
-    >
-   
-    </property>
+			<generator class="native" />
+		</id>
 
-    <!-- associations -->
-    
-    <!-- bi-directional one-to-many association to StockContainer -->
-    <set
-        name="containers"
-        lazy="true"
-        inverse="true"
-    >
-      
-        <key>
-            <column name="CONTAINER_TYPE_ID" />
-        </key>
-        <one-to-many 
-            class="agtc.sampletracking.model.Container"
-        />
-    </set>
+		<property name="name" type="java.lang.String" column="NAME"
+			not-null="true" unique="true" length="16">
 
-</class>
+		</property>
+		<property name="columnNo" type="java.lang.Integer" column="COLUMN_NO"
+			not-null="true">
+
+		</property>
+
+		<property name="rowNo" type="java.lang.Integer" column="ROW_NO"
+			not-null="true">
+
+		</property>
+
+		<!-- associations -->
+
+		<!-- bi-directional one-to-many association to StockContainer -->
+		<set name="containers" lazy="true" inverse="true">
+
+			<key>
+				<column name="CONTAINER_TYPE_ID" />
+			</key>
+			<one-to-many class="agtc.sampletracking.model.Container" />
+		</set>
+
+	</class>
 </hibernate-mapping>
