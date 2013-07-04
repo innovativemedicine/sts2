@@ -1,82 +1,86 @@
-/*
- * Created on 2005-09-09
- *
- * To change the template for this generated file go to
- * Window>Preferences>Java>Code Generation>Code and Comments
- */
 package agtc.sampletracking.web.controller;
-
-import org.springframework.web.bind.RequestUtils;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.*;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-import agtc.sampletracking.model.Patient;
-import agtc.sampletracking.model.Sample;
-import agtc.sampletracking.web.command.*;
-import agtc.sampletracking.bus.manager.*;
-import agtc.sampletracking.bus.*;
-import org.springframework.validation.BindException;
-import org.springframework.web.util.*;
-import java.util.*;
-
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.springframework.validation.BindException;
+import org.springframework.web.bind.ServletRequestUtils;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
+import org.springframework.web.util.WebUtils;
 
-public class SimpleSampleSearchController extends BasicSearchController {
+import agtc.sampletracking.bus.manager.ProjectManager;
+import agtc.sampletracking.bus.manager.SampleManager;
+import agtc.sampletracking.model.Sample;
+import agtc.sampletracking.web.command.SearchCommand;
+
+
+@SuppressWarnings("deprecation")
+public class SimpleSampleSearchController 
+extends BasicSearchController
+//extends BasicSearchController 
+{
 	private SampleManager sampleManager;
 	private ProjectManager projectManager;
 	private List LProjects;
 	private List LSampleTypes;
 	private Log log = LogFactory.getLog(SimpleSampleSearchController.class);
-
+	
 	protected ModelAndView onSubmit(HttpServletRequest request,
 			HttpServletResponse response, Object command, BindException errors)
 			throws Exception {
 
-		String action = RequestUtils.getStringParameter(request, "action", "");
+		//String action = RequestUtils.getStringParameter(request, "action", "");
 
-		String sampleIdsInTextArea = RequestUtils.getStringParameter(request,
+		String sampleIdsInTextArea = ServletRequestUtils.getStringParameter(request,
 				"sampleIdsInTextArea", "");
-		String sampleIdFrom = RequestUtils.getStringParameter(request,
+		String sampleIdFrom = ServletRequestUtils.getStringParameter(request,
 				"sampleIdFrom", "");
-		String sampleIdTo = RequestUtils.getStringParameter(request,
+		String sampleIdTo = ServletRequestUtils.getStringParameter(request,
 				"sampleIdTo", "");
-		String externalIdFrom = RequestUtils.getStringParameter(request,
+		String externalIdFrom = ServletRequestUtils.getStringParameter(request,
 				"externalIdFrom", "");
-		String externalIdTo = RequestUtils.getStringParameter(request,
+		String externalIdTo = ServletRequestUtils.getStringParameter(request,
 				"externalIdTo", "");	
-		String[] sampletypes = RequestUtils.getStringParameters(request,
+		String[] sampletypes = ServletRequestUtils.getStringParameters(request,
 				"sampleTypeFilter");
-		String[] projects = RequestUtils.getStringParameters(request,
+		String[] projects = ServletRequestUtils.getStringParameters(request,
 				"projectFilter");
 
 		List sampleTypeIds = String2IntList(sampletypes);
 		List projectIds = String2IntList(projects);
-		List<Sample> searchResults = new ArrayList();
+		List<Sample> searchResults = new ArrayList<Sample>();
 		
-		if (sampleIdFrom.isEmpty() && sampleIdsInTextArea.isEmpty() && externalIdFrom.isEmpty()) {
+		if (sampleIdFrom.isEmpty() && sampleIdsInTextArea.isEmpty() && externalIdFrom.isEmpty() && projectIds.isEmpty()) {
 			ModelAndView mav = new ModelAndView(new RedirectView(
 					"searchSamples.htm"));
-			mav.addObject("message", "Error: Must enter value for either Sample ID or External ID.");
+			mav.addObject("message", "Error: Must enter value for either Sample ID, External ID, or Project ID.");
 			return mav;
 		}
 		// Search single Sample or range
 		else if (!sampleIdFrom.isEmpty() || !externalIdFrom.isEmpty()) {
-			List<Sample> simpleSearchSamples = (List<Sample>) sampleManager
+			
+			List simpleSearchSamples = sampleManager
 					.getSampleDAO().simpleSearchSamples(sampleIdFrom, sampleIdTo, externalIdFrom, externalIdTo, sampleTypeIds, projectIds);
 			
 			searchResults.addAll(simpleSearchSamples);
 			
-		} else {
+		} // file with SampleIDs detected
+		else {
+			
 			List sampleIds = new ArrayList();
 
 			MultipartHttpServletRequest mrequest = (MultipartHttpServletRequest) request;
@@ -111,22 +115,22 @@ public class SimpleSampleSearchController extends BasicSearchController {
 			mav.addObject("message", "No results found.");
 			return mav;
 		}
-
+		
 		ModelAndView mav = new ModelAndView(new RedirectView(getSuccessView()));
-		WebUtils.setSessionAttribute(request, "sampleList", searchResults);
+		WebUtils.setSessionAttribute(request, "sampleList", searchResults);		
 		mav.addObject("message", "Search Completed");
+		
 		return mav;
 	}
 
-	protected List performSearch(List crtList, List lgcList) {
-		List dummyList = new ArrayList();
-		return dummyList;
-	}
+//	protected List performSearch(List crtList, List lgcList) {
+//		List dummyList = new ArrayList();
+//		return dummyList;
+//	}
 
 	protected Map referenceData(HttpServletRequest request) throws Exception {
 		Map models = new HashMap();
-		String message = RequestUtils
-				.getStringParameter(request, "message", "");
+		String message = ServletRequestUtils.getStringParameter(request, "message", "");
 
 		LSampleTypes = sampleManager.getAllSampleTypes();
 		LProjects = projectManager.getAllProjects();
@@ -142,8 +146,8 @@ public class SimpleSampleSearchController extends BasicSearchController {
 	 * Change input "String" to "List" that delimited by non-word boundary
 	 * Jianan Xiao 2005-09-12
 	 */
-	private static List String2List(String s) {
-		List l = new ArrayList();
+	private static List<String> String2List(String s) {
+		List<String> l = new ArrayList<String>();
 		String regularEx = "[,| |;|\\n|\\r|\\t]";
 		String[] sa = s.split(regularEx, 0);
 		for (int i = 0; i < sa.length; i++) {
@@ -157,11 +161,14 @@ public class SimpleSampleSearchController extends BasicSearchController {
 		return l;
 	}
 
-	private static List String2IntList(String[] sArray) {
-		List l = new ArrayList();
+	private static List<Integer> String2IntList(String[] sArray) {
+		List<Integer> l = new ArrayList<Integer>();
 
 		for (int i = 0; i <= sArray.length - 1; i++) {
-			l.add(Integer.parseInt(sArray[i]));
+			if (!sArray[i].isEmpty())
+			{
+				l.add(Integer.parseInt(sArray[i]));
+			}
 		}
 		return l;
 	}
@@ -180,6 +187,12 @@ public class SimpleSampleSearchController extends BasicSearchController {
 
 	public void setProjectManager(ProjectManager manager) {
 		projectManager = manager;
+	}
+
+	@Override
+	protected List performSearch(List crtList, List lgcList) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	
