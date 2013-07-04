@@ -69,13 +69,13 @@
          </listener>
 
 	<servlet>
-		<servlet-name>stsApp</servlet-name>
+		<servlet-name>sts2</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 		<load-on-startup>2</load-on-startup>
 	</servlet>
 	
 	<servlet-mapping>
-		<servlet-name>stsApp</servlet-name>
+		<servlet-name>sts2</servlet-name>
 		<url-pattern>*.htm</url-pattern>
 	</servlet-mapping>
 
