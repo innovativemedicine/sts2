@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.validation.BindException;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.RequestUtils;
+import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.WebUtils;
 
@@ -28,15 +29,15 @@ public class ContainerListController extends BasicController {
 	}
 	
 	protected ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response, Object command,BindException errors) throws Exception{
-		String action = RequestUtils.getStringParameter(request, "action", "");
+		String action = ServletRequestUtils.getStringParameter(request, "action", "");
 		List containerList = (List) WebUtils.getSessionAttribute(request,"containerList");
 		String message = "";
+		String contextPath = request.getSession().getServletContext().getRealPath("/");
 		
 		if (action.equalsIgnoreCase("Print Labels")) {
 		// Print
 		SatoLabelPrinter satoP = new SatoLabelPrinter();
-		//Collections.sort(sampleList,new SampleComparator());
-		satoP.printPlateLabel(containerList);
+		satoP.printPlateLabel(containerList, contextPath);
 				
 		message = "Labels are available at the Label printer.";
 		} else if (action.equalsIgnoreCase("Export Data")) {

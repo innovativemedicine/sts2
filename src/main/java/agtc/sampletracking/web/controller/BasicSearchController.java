@@ -14,10 +14,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.web.bind.RequestUtils;
+import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.util.WebUtils;
 
 import agtc.sampletracking.web.command.SearchCommand;
-import agtc.sampletracking.web.searchFields.OperatorList;
 import agtc.sampletracking.web.searchFields.*;
 
 /**
@@ -42,7 +42,7 @@ public abstract class BasicSearchController extends BasicController {
 		String logicalListName = entityName+"LogicalList";
 		
 		SearchCommand criteria = (SearchCommand)command;
-		String action = RequestUtils.getStringParameter(request, "action","");
+		String action = ServletRequestUtils.getStringParameter(request, "action","");
 	
 		List searchResults = new ArrayList();
 		List crtList = (List)WebUtils.getOrCreateSessionAttribute(
@@ -99,7 +99,7 @@ public abstract class BasicSearchController extends BasicController {
 							Map models,String entityName)
 	   						throws java.lang.Exception
 	{
-		String message = RequestUtils.getStringParameter(request, "message","");
+		String message = ServletRequestUtils.getStringParameter(request, "message","");
 		String criteriaListName = entityName+"CriteriaList";
 		String logicalListName = entityName+"LogicalList";
 		List crtList = (List)WebUtils.getOrCreateSessionAttribute(

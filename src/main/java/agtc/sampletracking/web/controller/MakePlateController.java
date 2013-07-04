@@ -5,31 +5,45 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
+import org.springframework.util.Assert;
 import org.springframework.validation.BindException;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.RequestUtils;
+import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
-import org.springframework.web.util.WebUtils;
 
 import agtc.sampletracking.ConstantInterface;
+import agtc.sampletracking.bus.manager.AGTCManager;
+import agtc.sampletracking.bus.manager.ContainerManager;
+import agtc.sampletracking.bus.manager.ProjectManager;
+import agtc.sampletracking.bus.manager.SampleManager;
+import agtc.sampletracking.bus.report.SatoLabelPrinter;
 import agtc.sampletracking.model.Container;
 import agtc.sampletracking.model.ContainerType;
 import agtc.sampletracking.model.Project;
 import agtc.sampletracking.model.Sample;
 import agtc.sampletracking.model.SampleType;
 import agtc.sampletracking.model.SamplesInContainer;
-import agtc.sampletracking.bus.manager.*;
-import agtc.sampletracking.bus.report.SatoLabelPrinter;
 
 public class MakePlateController extends BasicController implements ConstantInterface {
 
@@ -67,10 +81,12 @@ public class MakePlateController extends BasicController implements ConstantInte
 			throws Exception {
 		Container container = (Container) command;
 
-		String action = RequestUtils.getStringParameter(request, "action", "");
+		String action = ServletRequestUtils.getStringParameter(request, "action", "");
 
 		if (action.equals("Download")) {
 			
+			String contextPath = request.getSession().getServletContext().getRealPath("/");
+
 			if (container.getContainerType() == null) {
 				errors.rejectValue("containerType", "error.required",
 						new String[] { "Container Type" },
@@ -84,18 +100,19 @@ public class MakePlateController extends BasicController implements ConstantInte
 						"Project is required");
 				return showForm(request, response, errors);
 			}
-			
+
 			String plateType = container.getContainerType().getName().toLowerCase();
 
 			// Format Excel Document using filled in form and master manifest
 			String excelFileName = plateType + "master.xls";
-			String fullName = MANIFESTPATH + excelFileName; 
+			String fullName = contextPath + MANIFESTPATH + excelFileName; 
 			InputStream is = new FileInputStream(fullName);
 			Workbook wb = formatPlateManifest(container, is); 			
 			is.close();
 			
 			String fileName = container.getName() + "template";
 			
+			System.out.println("Open Stream");
 			// Write Excel Document as an attachment
 			ByteArrayOutputStream outByteStream = new ByteArrayOutputStream();
 			wb.write(outByteStream);
@@ -108,13 +125,16 @@ public class MakePlateController extends BasicController implements ConstantInte
 			OutputStream outStream = response.getOutputStream();
 			outStream.write(outArray);
 			outStream.flush();
- 			
+			
 			return null;
 		}
 		else if (action.equals("Save")) {
 
 			MultipartHttpServletRequest mrequest = (MultipartHttpServletRequest) request;
 			MultipartFile aFile = mrequest.getFile("file");
+			
+//			final Map files = mrequest.getFileMap()
+//			Assert.state(files.size() > 0, "0 files exist");
 
 			if (aFile.isEmpty()) {
 				errors.reject("error.emptyFile", "Uploaded file is empty");
@@ -143,10 +163,13 @@ public class MakePlateController extends BasicController implements ConstantInte
 			
 			Container savedContainer = containerManager.getContainer(container.getName());
 			
-			// Print
+			List<Container> containerList = new ArrayList<Container>();
+			containerList.add(savedContainer)
+			
+;			// Print
 			SatoLabelPrinter satoP = new SatoLabelPrinter();
-			//Collections.sort(sampleList,new SampleComparator());
-			satoP.printPlateLabel(savedContainer);
+			String contextPath = request.getSession().getServletContext().getRealPath("/");
+			satoP.printPlateLabel(containerList, contextPath);
 						
 			// Redirect to containerDetails view on success. 
 			ModelAndView mav = new ModelAndView(new RedirectView(getSuccessView()));
@@ -217,9 +240,9 @@ public class MakePlateController extends BasicController implements ConstantInte
 		Row row = sheet.getRow(0); 
 		Cell cell = row.getCell(0); 
 		
-		Integer numRow = plate.getContainerType().getRowNo();
-		Integer numCol = plate.getContainerType().getColumnNo();
-		Integer capacity = numRow * numCol;
+		// Integer numRow = plate.getContainerType().getRowNo();
+		// Integer numCol = plate.getContainerType().getColumnNo();
+		// Integer capacity = numRow * numCol;
 		
 		// Plate ID
 		row = sheet.getRow(0);
@@ -316,7 +339,7 @@ public class MakePlateController extends BasicController implements ConstantInte
 		String comments = cell.getStringCellValue();
 		container.setComments(comments);
 		
-		Set sics = new HashSet();		
+		Set<SamplesInContainer> sics = new HashSet<SamplesInContainer>();		
 
 		for(int i = 1; i < capacity; i++)
 		{
