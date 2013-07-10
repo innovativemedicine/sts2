@@ -13,27 +13,28 @@ package agtc.sampletracking.web.controller;
  * Window - Preferences - Java - Code Style - Code Templates
  */
  
-import org.springframework.validation.BindException;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.*;
-import org.springframework.web.bind.RequestUtils;
-
-import javax.servlet.*;
-import javax.servlet.http.*;
-
-import java.util.Map;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import agtc.sampletracking.model.*;
-import agtc.sampletracking.bus.manager.*;
-import java.util.*;
+import org.springframework.validation.BindException;
+import org.springframework.web.bind.ServletRequestUtils;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
+
+import agtc.sampletracking.bus.manager.AGTCManager;
+import agtc.sampletracking.model.SampleType;
 
  
 public class SampleTypeController extends BasicController {
 	private AGTCManager agtcManager;
-	private List LSampleTypes;
+	private List<SampleType> LSampleTypes;
 	private Log log = LogFactory.getLog(SampleTypeController.class);
 	/* (non-Javadoc)
 	 * @see agtc.sampletracking.web.controller.BasicController
@@ -49,7 +50,7 @@ public class SampleTypeController extends BasicController {
 		// get the Owner referred to by id in the request
 		//log.debug("project name is " + projectManager.getProject(new Integer(RequestUtils.getRequiredIntParameter(request, "projectId"))).getName());
 		SampleType sampleType=null;
-		int i = RequestUtils.getIntParameter(request, "sampleTypeId",-1);
+		int i = ServletRequestUtils.getIntParameter(request, "sampleTypeId",-1);
 
 		if(i==-1){
 			sampleType = new SampleType();
@@ -68,7 +69,7 @@ public class SampleTypeController extends BasicController {
 			Object command,
 			BindException errors)
 			throws Exception{
-		String submit = RequestUtils.getStringParameter(request, "Submit",null);
+		String submit = ServletRequestUtils.getStringParameter(request, "Submit",null);
 			
 		SampleType sampleType = (SampleType) command;
 		String labelnu = request.getParameter("isSource");
@@ -82,7 +83,7 @@ public class SampleTypeController extends BasicController {
 		try{
 			agtcManager.saveSampleType(sampleType);
 			
-			//refersh Sample Types List
+			//Refresh Sample Types List
 			LSampleTypes = agtcManager.getSampleTypes();
 		}catch(Exception e){
 			errors.reject("error.notUnique",new String[]{sampleType.getName()+ " or " + sampleType.getSuffix()},"Not unique");
@@ -119,11 +120,11 @@ public class SampleTypeController extends BasicController {
 		agtcManager = manager;
 	}
 	
-	public List getSampleTypes(){
+	public List<SampleType> getSampleTypes(){
 		return LSampleTypes;
 	}
 
-	public void setLSampleTypes(List stock){
+	public void setLSampleTypes(List<SampleType> stock){
 		LSampleTypes=stock;
 	}
 
