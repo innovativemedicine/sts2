@@ -96,7 +96,7 @@
 
 	</div>
 	<div>
-		<table class="hide">
+		<table>
 			<tr>
 				<th colspan="2">Step 2: Download and Complete Manifest File</th>
 			</tr>
@@ -110,7 +110,7 @@
 			</tr>
 		</table>
 		<p>
-		<table class="hide2">
+		<table>
 			<tr>
 				<th colspan="2">Step 3: Upload Manifest File</th>
 			</tr>
