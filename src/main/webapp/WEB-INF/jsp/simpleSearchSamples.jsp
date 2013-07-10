@@ -27,21 +27,21 @@
 			</tr>
 		</table>
 		<br>
-		<table style="width: 280px">
+		<table style="width: 340px">
 			<tr>
-				<th>Search by Sample List <a class="unhider" href="#">[Show]</a></th>
+				<th>Search by Sample List</th>
 			</tr>
-			<tr class="hide">
+			<tr>
 				<td>Enter/Upload list of Sample ID:</td>
-			<tr class="hide">
+			<tr>
 				<td><span style="font-size: 12px">(Separate by commas or
 						new lines)</span> <br> <textarea name="sampleIdsInTextArea"
 						rows="10" cols="30"></textarea></td>
 			</tr>
-			<tr class="hide">
+			<tr>
 				<td><input type="file" name="file" /></td>
 			</tr>
-			<tr class="hide">
+			<tr>
 				<td><input class="button buttonPad" type="submit" name="Submit" value="Search">
 			</tr>
 		</table>
