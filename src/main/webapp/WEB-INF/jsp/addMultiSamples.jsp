@@ -14,49 +14,15 @@
 				id="sampleIdPre" name="sampleIdPre"
 				value="<c:out value="${param.sampleIdPre}"/>"></td>
 
-			<td>Sample Type: <select name="sampleTypeID">
-				<option value="">Select Sample Type</option> <c:forEach
-					items="${allSampleTypes}" var="sampleTypeOpt">
-
-					<option
-						<c:if test="${param.sampleTypeID != null && param.sampleTypeID eq sampleTypeOpt.sampleTypeId}">
-				   				selected
-			 			</c:if>
-						value="<c:out value="${sampleTypeOpt.sampleTypeId}"/>">
-
-						<c:out value="${sampleTypeOpt.name}" />
-
-						<c:if test="${sampleTypeOpt.vials != null}">(<c:out
-								value="${sampleTypeOpt.vials}" />)</c:if>
-					</option>
-
-				</c:forEach></select></td>
-
-
-			<td>Project: <select size="1" name='projectID'>
-					<option value="">Select Project</option>
-					<c:forEach items="${allProjects}" var="project">
-						<option
-							<c:if
-								test="${param.projectID != null && param.projectID eq project.projectId}">
-						   				selected
-					 		</c:if>
-							value="<c:out value="${project.projectId}"/>">
-
-
-
-							<c:out value="${project.name}" />
-
-						</option>
-
-					</c:forEach>
-			</select></td>
-
+			<td colspan="20"><input class="button buttonPad" type="submit"
+				name="action" value="Download"></td>
+				
 			<td>File: <input type="file" name="file"></td>
 
 
 			<td colspan="20"><input class="button buttonPad" type="submit"
-				name="action" value="Upload">
+				name="action" value="Upload"></td>
+				
 		</tr>
 	</table>
 	<p>
