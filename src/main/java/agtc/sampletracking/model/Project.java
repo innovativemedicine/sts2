@@ -13,33 +13,18 @@ import java.io.Serializable;
 */
 public class Project implements Serializable {
 
-    /** identifier field */
     private Integer projectId;
-
-    /** nullable persistent field */
     private String name;
-
-    /** nullable persistent field */
     private String description;
-
-    /** nullable persistent field */
     private String status;
-
-    /** nullable persistent field */
     private Date createdOn;
-
-    /** persistent field */
     private Investigator investigator;
-
-    /** persistent field */
+    
     private Set assays;
-
-    /** persistent field */
     private Set containers;
-   
-   private Set tests;
-   private Set runs;
-   private Set patients;
+    private Set tests;
+    private Set runs;
+    private Set patients;
     /** default constructor */
     public Project() {
     }
@@ -52,6 +37,11 @@ public class Project implements Serializable {
         }       
     }
 
+    public String toString()
+    {
+    	return this.name;
+    }
+    
     public void setProjectId(Integer projectId) {
         this.projectId = projectId;
     }

@@ -24,6 +24,11 @@ public class SampleType implements Serializable {
     public SampleType() {
     }
 
+    public String toString()
+    {
+    	return this.name;
+    }
+    
     public Integer getSampleTypeId() {
         return this.sampleTypeId;
     }
