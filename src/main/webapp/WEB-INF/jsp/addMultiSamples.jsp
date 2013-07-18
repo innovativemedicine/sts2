@@ -86,7 +86,7 @@
 								<label class="control-label">Sample ID Prefix</label>
 								<div class="controls">
 
-									<input required type="text" class="input-small"
+									<input autocomplete="off" required type="text" class="input-small"
 										id="sampleIdPreForm" name="sampleIdPreForm"
 										value="<c:out value="${param.sp}"/>">
 								</div>
@@ -95,7 +95,7 @@
 							<div class="control-group">
 								<label class="control-label">External ID</label>
 								<div class="controls">
-									<input required class="input-small" type="text"
+									<input autocomplete="off" required class="input-small" type="text"
 										name="externalId" value="">
 								</div>
 							</div>
@@ -104,7 +104,7 @@
 							<div class="control-group">
 								<label class="control-label">Birth Date</label>
 								<div class="controls">
-									<input class="input-small" type="text" maxlength="10"
+									<input autocomplete="off" class="input-small" type="text" maxlength="10"
 										pattern="(0[1-9]|[12][0-9]|3[01])[-](0[1-9]|1[012])[-](19|20|21)\d\d"
 										placeholder="DD-MM-YYYY" name="birthDate" value="">
 								</div>
@@ -114,7 +114,7 @@
 								<label class="control-label">Received Date</label>
 								<div class="controls">
 
-									<input class="input-small" type="text" maxlength="10"
+									<input autocomplete="off" required class="input-small" type="text" maxlength="10"
 										pattern="(0[1-9]|[12][0-9]|3[01])[-](0[1-9]|1[012])[-](19|20|21)\d\d"
 										placeholder="DD-MM-YYYY" name="receivedDate" value="">
 								</div>
