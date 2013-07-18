@@ -5,7 +5,7 @@
 		<h2>Edit Locations</h2>
 
 		<form method="post" action="location.htm">
-			<table class="details">
+			<table class="table" class="details">
 
 				<tr>
 					<th>Location Name</th>
@@ -57,7 +57,7 @@
 
 		</form>
 		<p>
-		<table class="details">
+		<table class="table" class="details">
 			<tr>
 				<th>Location Name</th>
 				<th>Building</th>

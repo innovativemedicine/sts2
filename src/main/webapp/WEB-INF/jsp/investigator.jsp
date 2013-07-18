@@ -4,7 +4,7 @@
     
     <form method="post" action="investigator.htm" >
        
-	<table class="details">
+	<table class="table" class="details">
           
     <tr> 
     	<th>First Name</th>
@@ -48,7 +48,7 @@
 	<p>
 	
     </form>
-    <table class="details">
+    <table class="table" class="details">
     <tr>
     	<th>Investigator Name</th>
     	<th>Telephone Number</th>

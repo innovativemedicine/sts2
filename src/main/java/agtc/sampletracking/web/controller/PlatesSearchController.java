@@ -6,24 +6,26 @@
  */
 package agtc.sampletracking.web.controller;
 
-import org.springframework.web.bind.RequestUtils;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.*;
-
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-
-import agtc.sampletracking.model.Container;
-import agtc.sampletracking.bus.manager.*;
-import org.springframework.validation.BindException;
-import org.springframework.web.util.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.validation.BindException;
+import org.springframework.web.bind.ServletRequestUtils;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
+import org.springframework.web.util.WebUtils;
+
+import agtc.sampletracking.bus.manager.AGTCManager;
+import agtc.sampletracking.bus.manager.ContainerManager;
+import agtc.sampletracking.bus.manager.ProjectManager;
+import agtc.sampletracking.model.Container;
 
 /**
  * @author Jianan Xiao 2005-09-09
@@ -32,49 +34,36 @@ import javax.servlet.http.HttpServletResponse;
  *         Window>Preferences>Java>Code Generation>Code and Comments
  */
 public class PlatesSearchController extends BasicSearchController {
-	private ContainerManager containerManager;
-	private ProjectManager projectManager;
-	private AGTCManager agtcManager;
-	private List LProjects;
-	private List LPlateTypes;
+	private ContainerManager	containerManager;
+	private ProjectManager		projectManager;
+	private AGTCManager			agtcManager;
+	private List				LProjects;
+	private List				LPlateTypes;
 
-	protected ModelAndView onSubmit(HttpServletRequest request,
-			HttpServletResponse response, Object command, BindException errors)
-			throws Exception {
+	protected ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response, Object command,
+			BindException errors) throws Exception {
 
-		String plateIdsInTextArea = RequestUtils.getStringParameter(request,
-				"plateIdsInTextArea", "");
-		String plateIdFrom = RequestUtils.getStringParameter(request,
-				"plateIdFrom", "");
-		String plateIdTo = RequestUtils.getStringParameter(request,
-				"plateIdTo", "");
-		String externalIdFrom = RequestUtils.getStringParameter(request,
-				"externalIdFrom", "");
-		String externalIdTo = RequestUtils.getStringParameter(request,
-				"externalIdTo", "");
-		String[] platetypes = RequestUtils.getStringParameters(request,
-				"plateTypeFilter");
-		String[] projects = RequestUtils.getStringParameters(request,
-				"projectFilter");
+		String plateIdsInTextArea = ServletRequestUtils.getStringParameter(request, "plateIdsInTextArea", "");
+		String plateIdFrom = ServletRequestUtils.getStringParameter(request, "plateIdFrom", "");
+		String plateIdTo = ServletRequestUtils.getStringParameter(request, "plateIdTo", "");
+		String externalIdFrom = ServletRequestUtils.getStringParameter(request, "externalIdFrom", "");
+		String externalIdTo = ServletRequestUtils.getStringParameter(request, "externalIdTo", "");
+		String[] platetypes = ServletRequestUtils.getStringParameters(request, "plateTypeFilter");
+		String[] projects = ServletRequestUtils.getStringParameters(request, "projectFilter");
 
 		List plateTypeIds = String2IntList(platetypes);
 		List projectIds = String2IntList(projects);
 		List<Container> searchResults = new ArrayList();
 
-		if (plateIdFrom.isEmpty() && plateIdsInTextArea.isEmpty()
-				&& externalIdFrom.isEmpty()) {
-			ModelAndView mav = new ModelAndView(new RedirectView(
-					"searchPlates.htm"));
-			mav.addObject("message",
-					"Error: Must enter value for either Plate ID or External ID");
+		if (plateIdFrom.isEmpty() && plateIdsInTextArea.isEmpty() && externalIdFrom.isEmpty()) {
+			ModelAndView mav = new ModelAndView(new RedirectView("searchPlates.htm"));
+			mav.addObject("message", "Error: Must enter value for either Plate ID or External ID");
 			return mav;
 		}
 		// Search single Container or range
 		else if (!plateIdFrom.isEmpty() || !externalIdFrom.isEmpty()) {
-			List<Container> simpleSearchContainers = containerManager
-					.getContainerDAO().simpleSearchContainers(plateIdFrom,
-							plateIdTo, externalIdFrom, externalIdTo,
-							plateTypeIds, projectIds);
+			List<Container> simpleSearchContainers = containerManager.getContainerDAO().simpleSearchContainers(
+					plateIdFrom, plateIdTo, externalIdFrom, externalIdTo, plateTypeIds, projectIds);
 
 			searchResults.addAll(simpleSearchContainers);
 
@@ -86,30 +75,29 @@ public class PlatesSearchController extends BasicSearchController {
 
 			if (plateIdsInTextArea.trim().length() > 0) {
 				plateIds = String2List(plateIdsInTextArea);
-			} else if (!aFile.isEmpty()) {
-				InputStream is = aFile.getInputStream();
-				BufferedReader br = new BufferedReader(
-						new InputStreamReader(is));
-				br.readLine();
-				String aLine = "";
-
-				while ((aLine = br.readLine()) != null) {
-					String intPlateId = aLine.trim();
-					plateIds.add(intPlateId);
-				}
-				is.close();
 			}
+			// } else if (!aFile.isEmpty()) {
+			// InputStream is = aFile.getInputStream();
+			// BufferedReader br = new BufferedReader(
+			// new InputStreamReader(is));
+			// br.readLine();
+			// String aLine = "";
+			//
+			// while ((aLine = br.readLine()) != null) {
+			// String intPlateId = aLine.trim();
+			// plateIds.add(intPlateId);
+			// }
+			// is.close();
+			// }
 
-			List<Container> simpleSearchContainers = containerManager
-					.getContainerDAO().simpleSearchContainers(plateIds,
-							plateTypeIds, projectIds);
+			List<Container> simpleSearchContainers = containerManager.getContainerDAO().simpleSearchContainers(
+					plateIds, plateTypeIds, projectIds);
 
 			searchResults.addAll(simpleSearchContainers);
 		}
 
 		if (searchResults.size() < 1) {
-			ModelAndView mav = new ModelAndView(new RedirectView(
-					"searchPlates.htm"));
+			ModelAndView mav = new ModelAndView(new RedirectView("searchPlates.htm"));
 			mav.addObject("message", "No results found.");
 			return mav;
 		}
@@ -126,8 +114,7 @@ public class PlatesSearchController extends BasicSearchController {
 
 	protected Map referenceData(HttpServletRequest request) throws Exception {
 		Map models = new HashMap();
-		String message = RequestUtils
-				.getStringParameter(request, "message", "");
+		String message = ServletRequestUtils.getStringParameter(request, "message", "");
 
 		LPlateTypes = agtcManager.getPlateTypes();
 		LProjects = projectManager.getAllProjects();
@@ -158,11 +145,13 @@ public class PlatesSearchController extends BasicSearchController {
 		return l;
 	}
 
-	private static List String2IntList(String[] sArray) {
-		List l = new ArrayList();
+	private static List<Integer> String2IntList(String[] sArray) {
+		List<Integer> l = new ArrayList<Integer>();
 
 		for (int i = 0; i <= sArray.length - 1; i++) {
-			l.add(Integer.parseInt(sArray[i]));
+			if (!sArray[i].isEmpty()) {
+				l.add(Integer.parseInt(sArray[i]));
+			}
 		}
 		return l;
 	}

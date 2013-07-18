@@ -34,6 +34,11 @@ public class SampleManager implements ConstantInterface {
 		return sample;
 	}
 	
+	public Sample getSampleByExtId(String extSampleId, Date birthDate, Integer projectId) {
+		Sample sample = sampleDAO.getSampleByExtId(extSampleId, birthDate, projectId);
+		return sample;
+	}
+	
 	public Sample getSample(String intSampleId,String sampleTypeSuffix,Integer dupNo){
 		Sample sample = sampleDAO.getSample(intSampleId,sampleTypeSuffix,dupNo);
 		return sample;

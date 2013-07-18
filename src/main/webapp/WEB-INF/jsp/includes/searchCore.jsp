@@ -1,11 +1,11 @@
 <div class="left">
 	<div class="searchBuilder">
-	<form method="post">
-		<table class="searchBuilder">
+	<form method="post" enctype="multipart/form-data">
+		<table class="table">
 			
 			<tr>
-				<td><input class="button buttonPad" type="submit" name="action" value="AND"> 
-				<input class="button buttonPad" type="submit" name="action" value="SEARCH"></td>
+				<td><input class="btn" type="submit" name="action" value="AND"> 
+				<input class="btn" type="submit" name="action" value="SEARCH"></td>
 			</tr>
 			<tr>
 				<td><spring:bind path="command.searchField">
@@ -45,7 +45,7 @@
 </div>
 
 <div style="float: none">
-	<table class="searchCriteria" >
+	<table class="table" class="searchCriteria" >
 		<tr>
 			<td ><b>Your search criteria:</b> <br> <c:out
 					value="${currentCriteria}" escapeXml="false" /></td>

@@ -1,6 +1,6 @@
 package agtc.sampletracking.web.controller;
 
-import org.springframework.web.bind.RequestUtils;
+import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.*;
 import org.springframework.web.util.WebUtils;
@@ -300,7 +300,7 @@ public class BarcodeController extends BasicController {
 		List actionList = (List) WebUtils.getOrCreateSessionAttribute(request.getSession(), "actionedList", ArrayList.class);
 		String storeContainer = (String) WebUtils.getOrCreateSessionAttribute(request.getSession(), "storeContainer", String.class);
 
-		String action = RequestUtils.getStringParameter(request, "action", "");
+		String action = ServletRequestUtils.getStringParameter(request, "action", "");
 		
 		if (action.equals("ADD")) {
 			String barcodeResponse = processBarcode(barcodeItem, storeContainer);
@@ -331,15 +331,12 @@ public class BarcodeController extends BasicController {
 		// Needed to populate the search fields
 		Map models = new HashMap();
 
-		String message = RequestUtils.getStringParameter(request, "message", "");
+		String message = ServletRequestUtils.getStringParameter(request, "message", "");
 				
 		List actionedList = (List) WebUtils.getOrCreateSessionAttribute(request.getSession(), "actionedList", ArrayList.class);
 
 		models.put("actionedList", actionedList);
-
-		if (!message.equals("")) {
-			models.put("message", message);
-		}
+		models.put("message", message);
 
 		return models;
 	}

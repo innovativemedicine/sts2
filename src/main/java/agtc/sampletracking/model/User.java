@@ -2,6 +2,7 @@ package agtc.sampletracking.model;
 
 import java.io.Serializable;
 import java.util.Iterator;
+import java.util.Set;
 
 import net.sf.acegisecurity.GrantedAuthority;
 import net.sf.acegisecurity.GrantedAuthorityImpl;
@@ -18,15 +19,15 @@ public class User implements Serializable,UserDetails  {
     /** identifier field */
     private Integer userId;
 
-    private java.lang.String loginname;
-	private java.lang.String password;
-	private java.lang.String activity;
-	private java.lang.String firstName;
-	private java.lang.String lastName;
+    private String loginname;
+	private String password;
+	private String activity;
+	private String firstName;
+	private String lastName;
 
 	// collections
-	private java.util.Set userRoles;
-	private java.util.Set ROLESs;
+	private Set userRoles;
+	private Set ROLESs;
 
     /** default constructor */
     public User() {
@@ -53,6 +54,7 @@ public class User implements Serializable,UserDetails  {
     public String getUsername(){
     	return getLoginname();
     }
+    
     public boolean isAccountNonExpired(){
     	boolean b=(activity.equals("on"));
     	return b;
@@ -69,15 +71,9 @@ public class User implements Serializable,UserDetails  {
     	boolean b=(activity.equals("on"));
     	return b;    	
     }
+    
     //  methods for UserDetails interface END
     
-    /** 
-     *            @hibernate.id
-     *             generator-class="assigned"
-     *             type="long"
-     *             column="USER_ID"
-     *         
-     */
     public Integer getUserId() {
         return this.userId;
     }
@@ -86,13 +82,6 @@ public class User implements Serializable,UserDetails  {
         this.userId = userId;
     }
     
-    /** 
-     *            @hibernate.property
-     *             column="PASSWORD"
-     *             length="16"
-     *             not-null="true"
-     *         
-     */
     public String getPassword() {
         return this.password;
     }
@@ -101,52 +90,52 @@ public class User implements Serializable,UserDetails  {
         this.password = password;
     }
 
-	public java.lang.String getActivity() {
+	public String getActivity() {
 		return activity;
 	}
 
-	public void setActivity(java.lang.String activity) {
+	public void setActivity(String activity) {
 		this.activity = activity;
 	}
 
-	public java.lang.String getFirstName() {
+	public String getFirstName() {
 		return firstName;
 	}
 
-	public void setFirstName(java.lang.String firstName) {
+	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
 
-	public java.lang.String getLastName() {
+	public String getLastName() {
 		return lastName;
 	}
 
-	public void setLastName(java.lang.String lastName) {
+	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
 
-	public java.lang.String getLoginname() {
+	public String getLoginname() {
 		return loginname;
 	}
 
-	public void setLoginname(java.lang.String loginname) {
+	public void setLoginname(String loginname) {
 		this.loginname = loginname;
 	}
 
-
-	public java.util.Set getROLESs() {
+	public Set getROLESs() {
 		return ROLESs;
 	}
 
-	public void setROLESs(java.util.Set ss) {
+	public void setROLESs(Set ss) {
 		ROLESs = ss;
 	}
 
-	public java.util.Set getUserRoles() {
+	
+	public Set getUserRoles() {
 		return userRoles;
 	}
 
-	public void setUserRoles(java.util.Set userRoles) {
+	public void setUserRoles(Set userRoles) {
 		this.userRoles = userRoles;
 	}
  

@@ -10,52 +10,49 @@ import org.hibernate.Criteria;
 
 import agtc.sampletracking.web.command.SearchCommand;
 
-
 /**
  * @author Gloria Deng
- *
- This class provides searchfields for Projects.jsp search field, THe Projects.jsp loop through all
- * the list and display them in a drop down list, the ProjectSearchController will get the value from
- * the response and pass them to ProjectManager, which will manipulate the sql string, then call the
- * ProjectDAO to make the query.
+ * 
+ *         This class provides searchfields for Projects.jsp search field, THe
+ *         Projects.jsp loop through all the list and display them in a drop
+ *         down list, the ProjectSearchController will get the value from the
+ *         response and pass them to ProjectManager, which will manipulate the
+ *         sql string, then call the ProjectDAO to make the query.
  */
 public class ProjectSearchFields extends BasicSearchFiels {
-	public ProjectSearchFields(){
+	public ProjectSearchFields() {
 		super();
 		loadElements();
 	}
-	
-	public void loadElements(){
+
+	public void loadElements() {
 		add("Name");
-		add("Description");
 		add("Status");
 		add("Created date");
 		add("Investigator first name");
 		add("Investigator last name");
 	}
-	
-	public static void getExpression(Criteria crt,SearchCommand searchCommand){
-		
+
+	public static void getExpression(Criteria crt, SearchCommand searchCommand) {
+
 		String field = searchCommand.getSearchField();
 		String fieldExp = "";
-		if(field.equals("Name")){
+		if (field.equals("Name")) {
 			fieldExp = "name";
-		}else if(field.equals("Description")){
-			fieldExp = "description";
-		}else if(field.equals("Status")){
+		} else if (field.equals("Status")) {
 			fieldExp = "status";
-		}else if(field.equals("Created date")){
+		} else if (field.equals("Created date")) {
 			fieldExp = "createdOn";
-		}else if(field.equals("Investigator first name")){
-			crt.createAlias("investigator","investigator");
+		} else if (field.equals("Investigator first name")) {
+			crt.createAlias("investigator", "investigator");
 			fieldExp = "investigator.name.fname";
-		}else if(field.equals("Investigator last name")){
-			crt.createAlias("investigator","investigator");
+		} else if (field.equals("Investigator last name")) {
+			crt.createAlias("investigator", "investigator");
 			fieldExp = "investigator.name.lname";
 		}
-	
-		addOperator(fieldExp,searchCommand,crt);
-	
+
+		addOperator(fieldExp, searchCommand, crt);
+
 	}
-	
+
 }

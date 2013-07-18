@@ -32,7 +32,11 @@ public class ContainerTypeDAOHbImpl
 	}
 
 	public List getPlateTypes() {
-		return getHibernateTemplate().find("from ContainerType c where c.name like '" + PLATE + "%' order by c.id ");
+		return getHibernateTemplate().find("from ContainerType c where c.name like '" + PLATE + "%' order by c.name ");
+	}
+	
+	public List getBoxTypes() {
+		return getHibernateTemplate().find("from ContainerType c where c.name not like '" + PLATE + "%' order by c.name ");
 	}
 	
 	public ContainerType getContainerType(Integer containerTypeId) {

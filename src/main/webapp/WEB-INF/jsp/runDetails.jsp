@@ -1,14 +1,12 @@
 <%@ include file="/WEB-INF/jsp/includes/head.jsp"%>
-<%@ include file="/WEB-INF/jsp/includes/success.jsp"%>
 
-
-<h2 class="noMargin">Run Details</h2>
-<a class="button"
+<h2>Run Details</h2>
+<a class="btn"
 	href="<c:url value="/modifyRun.htm">
 	<c:param name="runId" value="${command.runId}"/></c:url>"><span>Edit
 </span></a>
 
-<a class="button"
+<a class="btn"
 	href="<c:url value="/deleteRun.htm">
 	<c:param name="runId" value="${command.runId}"/></c:url>"
 	onclick="return (confirm('Deleting a run will also delete ALL its results! Are you sure you want to delete this run?')) ">
@@ -16,7 +14,7 @@
 </a>
 
 <p>
-<table>
+<table class="table">
 
 	<tr>
 		<td>Project:</td>
@@ -66,7 +64,7 @@
 
 	<input type="hidden" name="runId"
 		value="<c:out value="${command.runId}"/>" />
-	<table>
+	<table class="table">
 		<tr>
 			<th>Assay Name</th>
 			<th></th>
@@ -79,7 +77,7 @@
 			</tr>
 		</c:forEach>
 		<tr>
-			<td colspan="2"><input class="button buttonPad" type="submit" name="delete"
+			<td colspan="2"><input class="btn" type="submit" name="delete"
 				value="Delete Assay Result"></td>
 		</tr>
 	</table>

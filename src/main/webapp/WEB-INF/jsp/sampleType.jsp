@@ -4,7 +4,7 @@
 
 <form method="post" action="sampleType.htm">
 
-	<table class="details">
+	<table class="table">
 
 		<tr>
 			<td>Sample Type Name</td>
@@ -27,7 +27,7 @@
 					</FONT>
 				</spring:bind></td>
 		</tr>
-		
+
 		<tr>
 			<td>Initial Label No</td>
 			<td><spring:bind path="command.initialLabelNo">
@@ -39,30 +39,30 @@
 				</spring:bind></td>
 		</tr>
 		<tr>
-			<td colspan="2"><input type="submit" name="Submit" value="Edit">
-				<input type="submit" name="Submit" value="New"></td>
+			<td colspan="2"><input class="btn" type="submit" name="Submit" value="Edit">
+				<input class="btn" type="submit" name="Submit" value="New"></td>
 		</tr>
 	</table>
 
 </form>
 <p>
-<table class="details">
-	<tr>
-		<th>Sample Type</th>
-		<th>Suffix</th>
-		<th>Initial Label No</th>
+<table class="table">
+	<tr class="info">
+		<td><b>Sample Type</b></td>
+		<td><b>Suffix</b></td>
+		<td><b>Initial Label No</b></td>
 	</tr>
 
 	<c:forEach items="${LSampleTypes}" var="container">
 		<tr>
-			<td><a
+			<td><a class="act act-primary"
 				href="<c:url value="/sampleType.htm">
 			<c:param name="sampleTypeId" value="${container.sampleTypeId}"/></c:url>">
 					<c:out value="${container.name}" />
 			</a></td>
 			<td><c:out value="${container.suffix}" /></td>
 			<td><c:out value="${container.initialLabelNo}" /></td>
-			
+
 
 		</tr>
 	</c:forEach>

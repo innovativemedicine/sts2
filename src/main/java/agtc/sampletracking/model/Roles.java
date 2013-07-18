@@ -1,24 +1,29 @@
 package agtc.sampletracking.model;
 
 import java.io.Serializable;
+import java.util.Set;
 
 public class Roles implements Serializable{
 //	 primary key
-	private java.lang.Integer id;
+	private Integer id;
 
 	// fields
-	private java.lang.String name;
-	private java.lang.String description;
-	private java.lang.String note;
+	private String name;
+	private String description;
+	private String note;
 
 	// collections
-	private java.util.Set userRoles;;
+	private Set userRoles;;
+	
+	public String toString(){
+		return name;
+	}
 
-	public java.util.Set getUserRoles() {
+	public Set getUserRoles() {
 		return userRoles;
 	}
 
-	public void setUserRoles(java.util.Set userRoles) {
+	public void setUserRoles(Set userRoles) {
 		this.userRoles = userRoles;
 	}
 
@@ -30,27 +35,27 @@ public class Roles implements Serializable{
 		this.description = description;
 	}
 
-	public java.lang.Integer getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(java.lang.Integer id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
-	public java.lang.String getName() {
+	public String getName() {
 		return name;
 	}
 
-	public void setName(java.lang.String name) {
+	public void setName(String name) {
 		this.name = name;
 	}
 
-	public java.lang.String getNote() {
+	public String getNote() {
 		return note;
 	}
 
-	public void setNote(java.lang.String note) {
+	public void setNote(String note) {
 		this.note = note;
 	}
 

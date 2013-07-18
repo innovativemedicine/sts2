@@ -1,7 +1,5 @@
 /*
  * Created on Jun 22, 2005
- *
- * TODO To change the template for this generated file go to
  * Window - Preferences - Java - Code Style - Code Templates
  */
 package agtc.sampletracking.bus.report;
@@ -19,15 +17,13 @@ import agtc.sampletracking.ConstantInterface;
 
 public class SatoLabelPrinter implements ConstantInterface {
 
-	public void printSampleLabel(List sampleList, String contextPath)
-			throws Exception {
+	public void printSampleLabel(List sampleList, String contextPath) throws Exception {
 
 		Iterator ir = sampleList.iterator();
 		// String filename="e:\\commandFiles\\"+UnqueString.UnqueStr()+".DAT";
 		SimpleDateFormat timeStamp = new SimpleDateFormat("ddMMMyyyykkmmss");
 		String fileTime = timeStamp.format(new Date());
-		String filename = contextPath + LABELPATH + "samples_" + fileTime
-				+ ".cmd";
+		String filename = contextPath + LABELPATH + "samples_" + fileTime + ".cmd";
 		File outputFile = new File(filename);
 		FileWriter out = new FileWriter(outputFile);
 
@@ -60,7 +56,7 @@ public class SatoLabelPrinter implements ConstantInterface {
 		content.append("FIELD=dupNo1\r\n");
 		content.append("FIELD=dupNo2\r\n");
 		content.append("LABELDATA=THISFILE\r\n");
-		
+
 		while (ir.hasNext()) {
 
 			Sample sample = (Sample) ir.next();
@@ -69,68 +65,68 @@ public class SatoLabelPrinter implements ConstantInterface {
 			String sampleTypeSuffix = sample.getSampleType().getSuffix();
 			String sampleDupNo = sample.getSampleDupNo().toString();
 			SimpleDateFormat receivedDateFormat = new SimpleDateFormat("dd-MMM-yyyy");
-			//String receivedDate = receivedDateFormat.format(sample.getReceiveDate());
+			// String receivedDate =
+			// receivedDateFormat.format(sample.getReceiveDate());
 			String receivedDate = receivedDateFormat.format(new Date());
 
 			String intIdPre = "";
 			String intIdNum = "";
-			
+
 			Pattern pattern = Pattern.compile("([a-zA-Z]+?)(\\d+)");
-			
+
 			Matcher m = pattern.matcher(internalId);
-			while(m.find()){
+			while (m.find()) {
 				intIdPre = m.group(1);
 				intIdNum = m.group(2);
 			}
-			
-			
+
 			if (externalId == null) {
 				externalId = "";
 			}
 
-			//content.append("FIELD=EXTID11\n");
+			// content.append("FIELD=EXTID11\n");
 			content.append(externalId).append(",");
-//			content.append("FIELD=EXTID12\n");
+			// content.append("FIELD=EXTID12\n");
 			content.append("").append(",");
-//			content.append("FIELD=INTID1\n");
+			// content.append("FIELD=INTID1\n");
 			content.append(internalId).append(",");
-//			content.append("FIELD=SUFFIX1\n");
+			// content.append("FIELD=SUFFIX1\n");
 			content.append(sampleTypeSuffix).append(",");
-//			content.append("FIELD=BARCODE1\n");
+			// content.append("FIELD=BARCODE1\n");
 			content.append("S-").append(internalId).append(",");
-//			content.append("FIELD=TOPLINE12\n");
+			// content.append("FIELD=TOPLINE12\n");
 			content.append(intIdPre).append(",");
-//			content.append("FIELD=TOPLINE22\n");
+			// content.append("FIELD=TOPLINE22\n");
 			content.append(intIdNum).append(",");
-//			content.append("FIELD=SUFFIX2\n");
+			// content.append("FIELD=SUFFIX2\n");
 			content.append(sampleTypeSuffix).append(",");
-//			content.append("FIELD=TOPLINECD12\n");
+			// content.append("FIELD=TOPLINECD12\n");
 			content.append(intIdPre).append(",");
-//			content.append("FIELD=TOPLINECD22\n");
+			// content.append("FIELD=TOPLINECD22\n");
 			content.append(intIdNum).append(",");
-//			content.append("FIELD=SUFFIX4\n");
+			// content.append("FIELD=SUFFIX4\n");
 			content.append(sampleTypeSuffix).append(",");
-//			content.append("FIELD=EXTID21\n");
+			// content.append("FIELD=EXTID21\n");
 			content.append(externalId).append(",");
-//			content.append("FIELD=EXTID22\n");
+			// content.append("FIELD=EXTID22\n");
 			content.append("").append(",");
-//			content.append("FIELD=INTID\n");
+			// content.append("FIELD=INTID\n");
 			content.append(internalId).append(",");
-//			content.append("FIELD=SUFFIX3\n");
+			// content.append("FIELD=SUFFIX3\n");
 			content.append(sampleTypeSuffix).append(",");
-//			content.append("FIELD=BARCODE2\n");
+			// content.append("FIELD=BARCODE2\n");
 			content.append("S-").append(internalId).append(",");
-//			content.append("FIELD=DATE1\n");
+			// content.append("FIELD=DATE1\n");
 			content.append(receivedDate).append(",");
-//			content.append("FIELD=DATE2\n");
+			// content.append("FIELD=DATE2\n");
 			content.append(receivedDate).append(",");
-//			content.append("FIELD=CONCENTRATION1\n");
+			// content.append("FIELD=CONCENTRATION1\n");
 			content.append("").append(",");
-//			content.append("FIELD=CONCENTRATION2\n");
+			// content.append("FIELD=CONCENTRATION2\n");
 			content.append("").append(",");
-//			content.append("FIELD=dupNo1\n");
+			// content.append("FIELD=dupNo1\n");
 			content.append(sampleDupNo).append(",");
-//			content.append("FIELD=dupNo2\n");
+			// content.append("FIELD=dupNo2\n");
 			content.append(sampleDupNo).append("");
 
 			content.append("\r\n");
@@ -146,15 +142,13 @@ public class SatoLabelPrinter implements ConstantInterface {
 	 * plate, then print out labels for plates (P-prefix)
 	 */
 
-	public void printPlateLabel(List<Container> plateList, String contextPath)
-			throws Exception {
+	public void printPlateLabel(List<Container> plateList, String contextPath) throws Exception {
 		Iterator<Container> ir = plateList.iterator();
 
 		// String filename="e:\\commandFiles\\"+UnqueString.UnqueStr()+".DAT";
 		SimpleDateFormat timeStamp = new SimpleDateFormat("ddMMMyyyykkmmss");
 		String fileTime = timeStamp.format(new Date());
-		String filename = contextPath + LABELPATH + "plates_" + fileTime
-				+ ".cmd";
+		String filename = contextPath + LABELPATH + "plates_" + fileTime + ".cmd";
 		File outputFile = new File(filename);
 		FileWriter out = new FileWriter(outputFile);
 
@@ -176,7 +170,11 @@ public class SatoLabelPrinter implements ConstantInterface {
 			String internalId = plate.getName();
 			String externalId = plate.getExtContainerId();
 
-			if (externalId.isEmpty()) {
+			try {
+				if (externalId.isEmpty()) {
+					externalId = "";
+				}
+			} catch (NullPointerException e) {
 				externalId = "";
 			}
 

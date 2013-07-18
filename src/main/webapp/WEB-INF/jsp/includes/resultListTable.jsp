@@ -1,6 +1,6 @@
 
 <h3>Results:</h3>
-  <table class="details">
+  <table class="table" class="details">
     <tr>
 		<c:forEach items="${resultList[0]}" var="head">
 		<th><c:out value="${head}" /></th>

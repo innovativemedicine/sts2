@@ -5,11 +5,11 @@
 <urlrewrite>
     <rule>
         <from>/$</from>
-        <to type="forward">index.html</to>
+        <to type="forward">barcode.htm</to>
     </rule>
     <rule>
         <from>/index.jsp</from>
-        <to type="forward">index.html</to>
+        <to type="forward">barcode.htm</to>
     </rule>
 </urlrewrite>
 

@@ -1,13 +1,6 @@
-<%--
- * Edit user self's information, change password
- * 
- * @author Jianan Xiao 2005-10-06
- --%>
-
 <%@ include file="/WEB-INF/jsp/includes/head.jsp"%>
-<%@ include file="/WEB-INF/jsp/includes/success.jsp"%>
 
-		<h2>Edit Users</h2> <spring:bind path="command.*">
+		<h2>Profile Settings</h2> <spring:bind path="command.*">
 			<FONT color="red"> <c:forEach items="${status.errorMessages}"
 					var="container">
 					<B><c:out value="${container}" /></B>
@@ -18,7 +11,7 @@
 
 		<form method="post" action="EditProfile.htm">
 
-			<table class="details">
+			<table class="table" class="details">
 
 				<tr>
 					<td>Login Name<FONT color=RED>*</FONT></td>

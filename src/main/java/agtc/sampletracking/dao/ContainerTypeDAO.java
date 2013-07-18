@@ -18,6 +18,7 @@ import agtc.sampletracking.model.*;
 public interface ContainerTypeDAO {
 	public List getContainerTypes();
 	public List getPlateTypes();
+	public List getBoxTypes();
 	public ContainerType getContainerType(Integer containerTypeId);
 	public ContainerType getContainerType(String name);
 	public void saveContainerType(ContainerType containerType) throws Exception;

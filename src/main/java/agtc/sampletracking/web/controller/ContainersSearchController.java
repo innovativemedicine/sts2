@@ -6,57 +6,55 @@
  */
 package agtc.sampletracking.web.controller;
 
-import org.springframework.web.bind.RequestUtils;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.*;
-
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-
-import agtc.sampletracking.model.Container;
-import agtc.sampletracking.bus.manager.*;
-import org.springframework.validation.BindException;
-import org.springframework.web.util.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.validation.BindException;
+import org.springframework.web.bind.ServletRequestUtils;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
+import org.springframework.web.util.WebUtils;
+
+import agtc.sampletracking.bus.manager.AGTCManager;
+import agtc.sampletracking.bus.manager.ContainerManager;
+import agtc.sampletracking.bus.manager.ProjectManager;
+import agtc.sampletracking.model.Container;
+
 public class ContainersSearchController extends BasicSearchController {
-	private ContainerManager containerManager;
-	private ProjectManager projectManager;
-	private AGTCManager agtcManager;
-	private List LProjects;
-	private List LContainerTypes;
+	private ContainerManager	containerManager;
+	private ProjectManager		projectManager;
+	private AGTCManager			agtcManager;
+	private List				LProjects;
+	private List				LContainerTypes;
 
-	protected ModelAndView onSubmit(HttpServletRequest request,
-			HttpServletResponse response, Object command, BindException errors)
-			throws Exception {
+	protected ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response, Object command,
+			BindException errors) throws Exception {
 
-		String action = RequestUtils.getStringParameter(request, "action", "");
+		String action = ServletRequestUtils.getStringParameter(request, "action", "");
 
-		String containerIdsInTextArea = RequestUtils.getStringParameter(request,
-				"containerIdsInTextArea", "");
-		String containerIdFrom = RequestUtils.getStringParameter(request,
-				"containerIdFrom", "");
-		String containerIdTo = RequestUtils.getStringParameter(request,
-				"containerIdTo", "");
+		String containerIdsInTextArea = ServletRequestUtils.getStringParameter(request, "containerIdsInTextArea", "");
+		String containerIdFrom = ServletRequestUtils.getStringParameter(request, "containerIdFrom", "");
+		String containerIdTo = ServletRequestUtils.getStringParameter(request, "containerIdTo", "");
 
-		String[] containertypes = RequestUtils.getStringParameters(request,
-				"containerTypeFilter");
-		String[] projects = RequestUtils.getStringParameters(request,
-				"projectFilter");
+		String[] containertypes = ServletRequestUtils.getStringParameters(request, "containerTypeFilter");
+		String[] projects = ServletRequestUtils.getStringParameters(request, "projectFilter");
 
 		List containerTypeIds = String2IntList(containertypes);
 		List projectIds = String2IntList(projects);
 		List<Container> searchResults = new ArrayList();
-		
+
 		if (containerIdFrom.isEmpty() && containerIdsInTextArea.isEmpty()) {
-			ModelAndView mav = new ModelAndView(new RedirectView(
-					"searchContainers.htm"));
+			ModelAndView mav = new ModelAndView(new RedirectView("searchContainers.htm"));
 			mav.addObject("message", "Please enter Container ID");
 			return mav;
 		}
@@ -64,12 +62,12 @@ public class ContainersSearchController extends BasicSearchController {
 		else if (!containerIdFrom.isEmpty()) {
 			String externalIdFrom = "";
 			String externalIdTo = "";
-			List<Container> simpleSearchContainers = (List<Container>) containerManager
-					.getContainerDAO().simpleSearchContainers(containerIdFrom, containerIdTo, externalIdFrom, externalIdTo,
+			List<Container> simpleSearchContainers = (List<Container>) containerManager.getContainerDAO()
+					.simpleSearchContainers(containerIdFrom, containerIdTo, externalIdFrom, externalIdTo,
 							containerTypeIds, projectIds);
-			
+
 			searchResults.addAll(simpleSearchContainers);
-			
+
 		} else {
 			List containerIds = new ArrayList();
 
@@ -80,8 +78,7 @@ public class ContainersSearchController extends BasicSearchController {
 				containerIds = String2List(containerIdsInTextArea);
 			} else if (!aFile.isEmpty()) {
 				InputStream is = aFile.getInputStream();
-				BufferedReader br = new BufferedReader(
-						new InputStreamReader(is));
+				BufferedReader br = new BufferedReader(new InputStreamReader(is));
 				br.readLine();
 				String aLine = "";
 
@@ -92,16 +89,14 @@ public class ContainersSearchController extends BasicSearchController {
 				is.close();
 			}
 
-			List<Container> simpleSearchContainers = containerManager.getContainerDAO().simpleSearchContainers(containerIds,
-							containerTypeIds, projectIds);
-			
+			List<Container> simpleSearchContainers = containerManager.getContainerDAO().simpleSearchContainers(
+					containerIds, containerTypeIds, projectIds);
+
 			searchResults.addAll(simpleSearchContainers);
 		}
-		
 
 		if (searchResults.size() < 1) {
-			ModelAndView mav = new ModelAndView(new RedirectView(
-					"searchContainers.htm"));
+			ModelAndView mav = new ModelAndView(new RedirectView("searchContainers.htm"));
 			mav.addObject("message", "No results found.");
 			return mav;
 		}
@@ -118,12 +113,9 @@ public class ContainersSearchController extends BasicSearchController {
 
 	protected Map referenceData(HttpServletRequest request) throws Exception {
 		Map models = new HashMap();
-		String message = RequestUtils
-				.getStringParameter(request, "message", "");
-
-		LContainerTypes = agtcManager.getContainerTypes();
-		List LPlateTypes = agtcManager.getPlateTypes();
-		LContainerTypes.removeAll(LPlateTypes);
+		String message = ServletRequestUtils.getStringParameter(request, "message", "");
+		
+		LContainerTypes = agtcManager.getBoxTypes();
 		LProjects = projectManager.getAllProjects();
 
 		models.put("LContainerTypes", LContainerTypes);
@@ -132,7 +124,6 @@ public class ContainersSearchController extends BasicSearchController {
 
 		return models;
 	}
-
 
 	private static List String2List(String s) {
 		List l = new ArrayList();
@@ -149,15 +140,17 @@ public class ContainersSearchController extends BasicSearchController {
 		return l;
 	}
 
-	private static List String2IntList(String[] sArray) {
-		List l = new ArrayList();
+	private static List<Integer> String2IntList(String[] sArray) {
+		List<Integer> l = new ArrayList<Integer>();
 
 		for (int i = 0; i <= sArray.length - 1; i++) {
-			l.add(Integer.parseInt(sArray[i]));
+			if (!sArray[i].isEmpty()) {
+				l.add(Integer.parseInt(sArray[i]));
+			}
 		}
 		return l;
 	}
-	
+
 	public ContainerManager getContainerManager() {
 		return containerManager;
 	}
@@ -173,7 +166,7 @@ public class ContainersSearchController extends BasicSearchController {
 	public void setProjectManager(ProjectManager manager) {
 		projectManager = manager;
 	}
-	
+
 	public AGTCManager getAgtcManager() {
 		return agtcManager;
 	}
@@ -181,6 +174,5 @@ public class ContainersSearchController extends BasicSearchController {
 	public void setAgtcManager(AGTCManager manager) {
 		agtcManager = manager;
 	}
-
 
 }

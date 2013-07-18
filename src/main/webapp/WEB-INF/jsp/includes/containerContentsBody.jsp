@@ -1,14 +1,11 @@
 
-
-	<p>
-	
-	<table class="containerMap">
+	<table class="table containerMap table-condensed table-bordered">
 
 		<c:forEach begin="0" end="${command.rowNo-1}" var="rowCount">
 			<tr>
 				<c:forEach begin="0" end="${command.columnNo-1}" var="columnCount">
-					<td>					
-						<span class="header"><c:out value="${command.cells[rowCount][columnCount].well}" /></span>
+					<td class="span1">					
+						<span class="container-header"><c:out value="${command.cells[rowCount][columnCount].well}" /></span>
 						<c:if test="${!command.cells[rowCount][columnCount].notOccupied}">
 							<a class="close"
 								href="<c:url value="/deleteSampleFromContainer.htm"><c:param name="sicId" value="${command.cells[rowCount][columnCount].sicId}"/><c:param name="containerId" value="${container.containerId}"/></c:url>"
@@ -19,13 +16,13 @@
 						<c:if test="${command.cells[rowCount][columnCount].notOccupied}">
 							<spring:bind
 								path="command.cells[${rowCount}][${columnCount}].sampleDesc">
-								<INPUT disabled placeholder="Empty" type="text" maxlength="55" size="10"
+								<input class="span12" disabled placeholder="Empty" type="text"
 									name='<c:out value="${status.expression}" />' />
 							</spring:bind>
 						</c:if> 
 						
 						<c:if test="${!command.cells[rowCount][columnCount].notOccupied}">
-							<span class="details"><c:out value="${command.cells[rowCount][columnCount].sampleDesc}" /></span>
+							<p class="uneditable-input span1 input container-details"><c:out value="${command.cells[rowCount][columnCount].sampleDesc}" /> </p>
 						</c:if>
 						
 						</td>

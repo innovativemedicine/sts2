@@ -1,12 +1,10 @@
 <%@ include file="/WEB-INF/jsp/includes/head.jsp" %>
-<%@ include file="/WEB-INF/jsp/includes/success.jsp" %>
-<%@ include file="/WEB-INF/jsp/includes/errorMessage.jsp" %>
 
 <h2>Edit Runs</h2>
 
 
 <form method="post" enctype="multipart/form-data">
-  <table class="details">
+  <table class="table" class="details">
      
     <tr> 
           <td>Project: </td>

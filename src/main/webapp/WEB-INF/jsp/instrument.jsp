@@ -1,12 +1,11 @@
 <%@ include file="/WEB-INF/jsp/includes/head.jsp" %>
- 
 
 <tr><td>
 <h2>Edit Instruments</h2>
     
     <form method="post" action="instrument.htm" >
           
-	<table class="details">
+	<table class="table" class="details">
           
     <tr> 
         <td>Instrument Name</td>
@@ -31,18 +30,18 @@
        
     <tr> 
       <td colspan="2">
-          <input type="submit" name="Submit" value="Edit">
-          <input type="submit" name="Submit" value="New">
+          <input class="btn" type="submit" name="Submit" value="Edit">
+          <input class="btn" type="submit" name="Submit" value="New">
         </td>
     </tr>
   </table>
 
 	<p>
     </form>
-    <table class="details">
-    <tr>
-    	<th>Instrument Name</th>
-    	<th>Note</th>
+    <table class="table" class="details">
+    <tr class="info">
+    	<td><b>Instrument Name</b></td>
+    	<td><b>Note</b></td>
     </tr>
     
     <c:forEach items="${LInstruments}" var="container">
