@@ -18,7 +18,7 @@
 				<td class="span1"><b>Internal ID</b></td>
 				<td class="span1"><b>External ID</b></td>
 				<td class="span1"><b>Sample Type</b></td>
-				<td class="span2"><b>Project</b></td>
+				<td class="span1"><b>Project</b></td>
 				<td class="span1"><b>Birth<br>Date</b><br><span class="small-list-details">YYYY-MM-DD</span></td>
 				<td class="span1"><b>Received<br> Date</b><br><span class="small-list-details">YYYY-MM-DD</span></td>
 				<td class="span2"><b>Note</b></td>

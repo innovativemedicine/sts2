@@ -12,15 +12,15 @@
 				</tr>
 
 				<tr>
-					<td class="form-inline"><label>Sample &nbsp;ID:</label> <input
+					<td class="form-inline"><label>Sample &nbsp;ID:</label> <input autocomplete="off"
 						type="text" class="setFocus span4" name="sampleIdFrom"> <label>TO</label>
-						<input type="text" class="span4" name="sampleIdTo"
+						<input autocomplete="off" type="text" class="span4" name="sampleIdTo"
 						placeholder="Optional"></td>
 				</tr>
 				<tr>
-					<td class="form-inline"><label>External ID:</label> <input
+					<td class="form-inline"><label>External ID:</label> <input autocomplete="off"
 						type="text" class="span4" name="externalIdFrom"> <label>TO</label>
-						<input type="text" class="span4" name="externalIdTo"
+						<input autocomplete="off" type="text" class="span4" name="externalIdTo"
 						placeholder="Optional"></td>
 				</tr>
 			</table>
