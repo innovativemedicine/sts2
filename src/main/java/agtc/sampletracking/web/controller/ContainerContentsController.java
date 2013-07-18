@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.web.bind.RequestUtils;
+import org.springframework.web.bind.ServletRequestUtils;
 
 import agtc.sampletracking.bus.PlateWorker;
 import agtc.sampletracking.bus.manager.*;
@@ -40,8 +40,8 @@ public class ContainerContentsController extends BasicController {
 	
 
 	protected Object formBackingObject(HttpServletRequest request) throws ServletException {
-		Container container = containerManager.getContainer(new Integer(RequestUtils.getIntParameter(request, "containerId", -1)));
-		String isOrdered = RequestUtils.getStringParameter(request, "isOrdered", "");
+		Container container = containerManager.getContainer(new Integer(ServletRequestUtils.getIntParameter(request, "containerId", -1)));
+		String isOrdered = ServletRequestUtils.getStringParameter(request, "isOrdered", "");
 		ContainerContentCommand result = new ContainerContentCommand();
 		if(container != null){
 			Set allSamplesInContainer = container.getSamplesInContainers();

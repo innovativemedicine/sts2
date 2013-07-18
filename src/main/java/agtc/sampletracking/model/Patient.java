@@ -5,9 +5,9 @@
  * Window - Preferences - Java - Code Style - Code Templates
  */
 package agtc.sampletracking.model;
-import java.util.*;
-
 import java.io.Serializable;
+import java.util.Date;
+import java.util.Set;
 
 /**
  * @author Hongjing

@@ -1,18 +1,17 @@
 <%@ include file="/WEB-INF/jsp/includes/head.jsp"%>
-<%@ include file="/WEB-INF/jsp/includes/success.jsp"%>
 
 <h2 class="noMargin">Test Details</h2>
-<a class="button"
+<a class="btn"
 	href="<c:url value="/editTest.htm"><c:param name="testId" value="${command.testId}"/></c:url>">
 	<span>Edit it</span>
 </a>
-<a class="button"
+<a class="btn"
 	href="<c:url value="/deleteTest.htm"><c:param name="testId" value="${command.testId}"/></c:url>"
 	onclick="return (confirm('Are you sure you want to delete this test?)) ">
 	<span>Delete it</span>
 </a>
 <p>
-<table>
+<table class="table">
 	<tr>
 		<td>Test Name</td>
 		<td><c:out value="${command.name}" /></td>

@@ -28,6 +28,7 @@ import org.apache.poi.ss.util.CellRangeAddress;
 import org.springframework.validation.BindException;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.RequestUtils;
+import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.WebUtils;
 
@@ -38,19 +39,16 @@ import agtc.sampletracking.model.SamplesInContainer;
 
 public class SampleListController extends BasicController {
 
-	private SampleManager sampleManager;
+	private SampleManager	sampleManager;
 
-	protected Object formBackingObject(HttpServletRequest request)
-			throws ServletException {
+	protected Object formBackingObject(HttpServletRequest request) throws ServletException {
 		return new SampleListController();
 	}
 
-	protected ModelAndView onSubmit(HttpServletRequest request,
-			HttpServletResponse response, Object command, BindException errors)
-			throws Exception {
-		String action = RequestUtils.getStringParameter(request, "action", "");
-		List sampleList = (List) WebUtils.getSessionAttribute(request,
-				"sampleList");
+	protected ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response, Object command,
+			BindException errors) throws Exception {
+		String action = ServletRequestUtils.getStringParameter(request, "action", "");
+		List sampleList = (List) WebUtils.getSessionAttribute(request, "sampleList");
 		String message = "";
 		String contextPath = request.getRealPath("/");
 
@@ -71,8 +69,7 @@ public class SampleListController extends BasicController {
 
 			Workbook wb = formatSampleData(sampleList, is);
 			Sample firstSample = (Sample) sampleList.get(0);
-			String fileName = firstSample.getPatient().getIntSampleId()
-					+ "List";
+			String fileName = firstSample.getPatient().getIntSampleId() + "List";
 			downloadManifest(response, wb, fileName);
 
 			return null;
@@ -86,36 +83,30 @@ public class SampleListController extends BasicController {
 		return mav;
 	}
 
-	protected Map referenceData(HttpServletRequest request, Object command,
-			Errors errors) {
+	protected Map referenceData(HttpServletRequest request, Object command, Errors errors) {
 		Map models = new HashMap();
-		List<Sample> sampleList = (List<Sample>) WebUtils.getSessionAttribute(
-				request, "sampleList");
+		List<Sample> sampleList = (List<Sample>) WebUtils.getSessionAttribute(request, "sampleList");
 
-		String message = RequestUtils
-				.getStringParameter(request, "message", "");
-		if (!message.equals("")) {
-			models.put("message", message);
-		}
+		String message = ServletRequestUtils.getStringParameter(request, "message", "");
+
+		models.put("message", message);
 
 		models.put("sampleList", sampleList);
 		return models;
 	}
 
-	private Workbook formatSampleData(List sampleList, InputStream is)
-			throws Exception {
+	private Workbook formatSampleData(List sampleList, InputStream is) throws Exception {
 
 		Workbook workbook = WorkbookFactory.create(is);
 		Sheet sheet = workbook.getSheetAt(0);
 
 		Iterator<Sample> sampleIterator = sampleList.iterator();
 
-	    CreationHelper createHelper = workbook.getCreationHelper();
+		CreationHelper createHelper = workbook.getCreationHelper();
 
-	    CellStyle cellDateStyle = workbook.createCellStyle();
-	    cellDateStyle.setDataFormat(
-	        createHelper.createDataFormat().getFormat("mmm/dd/yy"));
-	    
+		CellStyle cellDateStyle = workbook.createCellStyle();
+		cellDateStyle.setDataFormat(createHelper.createDataFormat().getFormat("mmm/dd/yy"));
+
 		sheet.createRow(0);
 		Row curRow = sheet.getRow(0);
 
@@ -139,10 +130,10 @@ public class SampleListController extends BasicController {
 
 		curCell = curRow.getCell(6, Row.CREATE_NULL_AS_BLANK);
 		curCell.setCellValue("Birth Date");
-		
+
 		curCell = curRow.getCell(7, Row.CREATE_NULL_AS_BLANK);
 		curCell.setCellValue("Received Date");
-		
+
 		curCell = curRow.getCell(8, Row.CREATE_NULL_AS_BLANK);
 		curCell.setCellValue("Notes");
 
@@ -151,7 +142,6 @@ public class SampleListController extends BasicController {
 
 		curCell = curRow.getCell(10, Row.CREATE_NULL_AS_BLANK);
 		curCell.setCellValue("Location");
-
 
 		Integer rowCounter = 1;
 
@@ -175,54 +165,41 @@ public class SampleListController extends BasicController {
 			curCell.setCellValue(curSample.getPatient().getProject().getName());
 
 			curCell = curRow.getCell(4, Row.CREATE_NULL_AS_BLANK);
-			try
-			{
+			try {
 				curCell.setCellValue(curSample.getVolumn());
-			}
-			catch (NullPointerException e)
-			{
+			} catch (NullPointerException e) {
 				curCell.setCellValue("");
 			}
-			
+
 			curCell = curRow.getCell(5, Row.CREATE_NULL_AS_BLANK);
-			try
-			{
+			try {
 				curCell.setCellValue(curSample.getOd());
-			}
-			catch (NullPointerException e)
-			{
+			} catch (NullPointerException e) {
 				curCell.setCellValue("");
 			}
-			
+
 			curCell = curRow.getCell(6, Row.CREATE_NULL_AS_BLANK);
-			try
-			{
+			try {
 				curCell.setCellStyle(cellDateStyle);
 				curCell.setCellValue(curSample.getPatient().getBirthDate());
-			}
-			catch (NullPointerException e)
-			{
+			} catch (NullPointerException e) {
 				curCell.setCellValue("");
 			}
-			
+
 			curCell = curRow.getCell(7, Row.CREATE_NULL_AS_BLANK);
-			try
-			{
+			try {
 				curCell.setCellStyle(cellDateStyle);
 				curCell.setCellValue(curSample.getReceiveDate());
-			}
-			catch (NullPointerException e)
-			{
+			} catch (NullPointerException e) {
 				curCell.setCellValue("");
-			}			
+			}
 			curCell = curRow.getCell(8, Row.CREATE_NULL_AS_BLANK);
 			curCell.setCellValue(curSample.getNotes());
 
 			curCell = curRow.getCell(9, Row.CREATE_NULL_AS_BLANK);
 			curCell.setCellValue(curSample.getStatus());
 
-			List sics = sampleManager
-					.getSamplesInContainersInBySample(curSample.getSampleId());
+			List sics = sampleManager.getSamplesInContainersInBySample(curSample.getSampleId());
 
 			curCell = curRow.getCell(8, Row.CREATE_NULL_AS_BLANK);
 			// Location is available
@@ -231,8 +208,7 @@ public class SampleListController extends BasicController {
 				String containerName = sic.getContainer().getName();
 				String containerLoc = "";
 				if (sic.getContainer().getLocation() != null) {
-					containerLoc = "@"
-							+ sic.getContainer().getLocation().getName();
+					containerLoc = "@" + sic.getContainer().getLocation().getName();
 				}
 				String sampleLocation = containerName + containerLoc;
 
@@ -250,8 +226,7 @@ public class SampleListController extends BasicController {
 
 	}
 
-	private void downloadManifest(HttpServletResponse response, Workbook wb,
-			String fileName) throws Exception {
+	private void downloadManifest(HttpServletResponse response, Workbook wb, String fileName) throws Exception {
 		// Write Excel Document as an attachment
 		ByteArrayOutputStream outByteStream = new ByteArrayOutputStream();
 		wb.write(outByteStream);

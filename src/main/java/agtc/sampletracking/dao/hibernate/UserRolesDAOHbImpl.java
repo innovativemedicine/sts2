@@ -17,22 +17,18 @@ public class UserRolesDAOHbImpl
 	private Log log = LogFactory.getLog(UserRolesDAOHbImpl.class);
 
 	public List getUserRoles() {
-		// TODO Auto-generated method stub
 		return  getHibernateTemplate().find("from UserRoles");
 	}
 
 	public UserRoles getUserRoles(Integer userRoleId) {
-		// TODO Auto-generated method stub
 		return (UserRoles)(getHibernateTemplate().get(UserRoles.class,userRoleId));
 	}
 
 	public void saveUserRoles(UserRoles userRoles) {
-		// TODO Auto-generated method stub
 		getHibernateTemplate().saveOrUpdate(userRoles);	
 	}
 
 	public void removeUserRoles(UserRoles userRoles) {
-		// TODO Auto-generated method stub
 		getHibernateTemplate().delete(userRoles);
 
 	}

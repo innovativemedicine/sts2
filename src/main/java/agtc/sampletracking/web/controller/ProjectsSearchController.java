@@ -6,9 +6,13 @@
  */
 package agtc.sampletracking.web.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -21,64 +25,65 @@ import agtc.sampletracking.model.Project;
 
 /**
  * @author Gloria Deng
- *
- * To change the template for this generated type comment go to
- * Window>Preferences>Java>Code Generation>Code and Comments
+ * 
+ *         To change the template for this generated type comment go to
+ *         Window>Preferences>Java>Code Generation>Code and Comments
  */
-public class ProjectsSearchController extends BasicSearchController{
-	private ProjectManager projectManager;
-	private Log log = LogFactory.getLog(ProjectsSearchController.class);
-	
-	/**
-	 * @return
-	 */
+public class ProjectsSearchController extends BasicSearchController {
+	private ProjectManager	projectManager;
+	private Log				log	= LogFactory.getLog(ProjectsSearchController.class);
+
 	public ProjectManager getProjectManager() {
 		return projectManager;
 	}
 
-	/**
-	 * @param manager
-	 */
 	public void setProjectManager(ProjectManager manager) {
 		projectManager = manager;
 	}
-	
-	protected ModelAndView onSubmit(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response, java.lang.Object command,BindException errors) throws java.lang.Exception{
-		List searchResults = handleSubmit(request,command,"project");
+
+	protected ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response, Object command,
+			BindException errors) throws Exception {
 		
-		if (searchResults.size() < 1) {
+		System.out.println("WEEWEE1");
+
+//		List searchResults = handleSubmit(request, command, "project", errors);
+
+		List searchResults = new ArrayList();
+		
+		if (	searchResults.size() < 1) {
+			System.out.println("WEEWEE2");
+			
 			ModelAndView view = new ModelAndView(new RedirectView("projects.htm"));
-			putMessage(request,view.getModel());
+			putMessage(request, view.getModel());
 			return view;
 		}
 
-		if (searchResults.size() >1) {
+		if (searchResults.size() > 1) {
 			// multiple projects found
 			return new ModelAndView("projectList", "projectList", searchResults);
 		}
+
+		System.out.println("ERRRROR");
 		
 		Project project = (Project) searchResults.iterator().next();
-		
+
 		ModelAndView view = new ModelAndView(new RedirectView(getSuccessView()));
 		Map myModel = view.getModel();
-		myModel.put("projectId",project.getProjectId());
+		myModel.put("projectId", project.getProjectId());
 		return view;
 	}
-	
-	protected  List performSearch(List crtList,List lgcList){
-		return projectManager.searchProject(crtList,lgcList);
+
+	protected List performSearch(List crtList, List lgcList) {
+		return projectManager.searchProject(crtList, lgcList);
 	}
 
-	protected java.util.Map referenceData(javax.servlet.http.HttpServletRequest request)
-							   throws java.lang.Exception
-	{
+	protected Map referenceData(HttpServletRequest request) throws Exception {
 		Map models = new HashMap();
-		referenceData(request,models,"project");
+		referenceData(request, models, "project");
 		List projectList = projectManager.getAllProjects();
 
-		models.put("projectList",projectList);
+		models.put("projectList", projectList);
 		return models;
 	}
-							   
-								
+
 }

@@ -2,7 +2,7 @@
 <h2>Edit Run</h2>
 
 <form method="post">
-	<table>
+	<table class="table">
 
 		<tr>
 			<td>Project:</td>

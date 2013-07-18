@@ -2,47 +2,57 @@
 
 <h2>Edit Assay</h2>
 
-<form method="post">
+<form class="form-horizontal form-inline" method="post">
 
-	<table class="details">
 
-		<tr>
-			<td>Assay Name</td>
-			<td><spring:bind path="command.name">
-					<INPUT type="text" maxlength="255" size="30" name="name"
-						value="<c:out value="${status.value}"/>">
-					<FONT color="red"> <B><c:out
-								value="${status.errorMessage}" /></B>
-					</FONT>
-				</spring:bind></td>
-		</tr>
+	<div class="control-group">
+		<label class="control-label"> Assay Name:</label>
+		<div class="controls">
 
-		<tr>
-			<td>Assay location in Gene</td>
-			<td><spring:bind path="command.location">
-					<INPUT type="text" maxlength="255" size="30" name="location"
-						value="<c:out value="${status.value}"/>">
-				</spring:bind></td>
-		</tr>
+			<spring:bind path="command.name">
+				<INPUT type="text" maxlength="255" size="30" name="name"
+					value="<c:out value="${status.value}"/>">
+				<FONT color="red"> <B><c:out
+							value="${status.errorMessage}" /></B>
+				</FONT>
+			</spring:bind>
+		</div>
+	</div>
 
-		<tr>
-			<td>Note</td>
-			<td><spring:bind path="command.note">
-					<INPUT type="text" maxlength="255" size="30" name="note"
-						value="<c:out value="${status.value}"/>">
-				</spring:bind></td>
-		</tr>
+	<div class="control-group">
+		<label class="control-label"> Location in Gene:</label>
+		<div class="controls">
 
-		<tr>
-			<td colspan="2">
-				<p>
-					<input type="submit" name="Submit" value="Save"> <input
-						type="reset" name="Submit2" value="Reset">
-				</p>
-			</td>
-		</tr>
+			<spring:bind path="command.location">
+				<INPUT type="text" maxlength="255" size="30" name="location"
+					value="<c:out value="${status.value}"/>">
+			</spring:bind>
+		</div>
+	</div>
 
-	</table>
+
+	<div class="control-group">
+		<label class="control-label"> Note:</label>
+		<div class="controls">
+			<spring:bind path="command.note">
+				<INPUT type="text" maxlength="255" size="30" name="note"
+					value="<c:out value="${status.value}"/>">
+			</spring:bind>
+
+
+		</div>
+	</div>
+
+	<p>
+	<div class="control-group">
+
+		<div class="controls">
+
+			<input class="btn" type="submit" name="Submit" value="Save">
+			<input class="btn" type="reset" name="Submit2" value="Reset">
+		</div>
+
+	</div>
 
 </form>
 

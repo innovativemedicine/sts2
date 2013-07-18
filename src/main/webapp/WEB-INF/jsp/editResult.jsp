@@ -1,10 +1,9 @@
 <%@ include file="/WEB-INF/jsp/includes/head.jsp" %>
-<%@ include file="/WEB-INF/jsp/includes/errorMessage.jsp" %>
 
  <h2>Edit Results</h2>
 
 <form method="post" >
-  <table class="details">
+  <table class="table" class="details">
 	<tr> 
       <td colspan="2">
         Sample: <c:out value="${command.intSampleId}"/><br>

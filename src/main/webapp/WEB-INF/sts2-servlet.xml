@@ -96,6 +96,7 @@
 	</bean>
 
 	<bean id="loginController" class="agtc.sampletracking.web.controller.LoginFormController">
+
 	</bean>
 
 	<!-- search controllers -->

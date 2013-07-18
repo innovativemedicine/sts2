@@ -25,7 +25,8 @@ public interface SampleDAO {
 			String sampleIdTo, String externalIdFrom, String externalIdTo, List sampleTypeIds, List projectIds);
 	public Sample getSample(String intSampleId, String sampleTypeSuffix,Integer sampleDupNo);
 	public Sample getSample(Integer sampleId);
-	public Sample getSample(String intSmpleId);
+	public Sample getSample(String intSampleId);
+	public Sample getSampleByExtId(String extSampleId, Date recDate, Integer projectId);
 	public void saveSample(Sample sample) throws Exception;
 	public void removeSample(Integer sampleId);
 	public Sample getSampleByIntSampleIdUniKey(String intId,SampleType sampleType,Integer sampleDupNo);

@@ -1,8 +1,8 @@
 <%@ include file="/WEB-INF/jsp/includes/head.jsp" %>
-<%@ include file="/WEB-INF/jsp/includes/errorMessage.jsp" %>
+
 <h2>Add results:</h2>
 <form method="post" >
-  <table>
+  <table class="table">
      
     <tr> 
           <td>Project: </td>

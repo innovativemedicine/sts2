@@ -1,10 +1,9 @@
 <%@ include file="/WEB-INF/jsp/includes/head.jsp" %>
 
-
 <h2>Edit Tests</h2>
 
 <form method="post" enctype="multipart/form-data">
-  <table class="details">
+  <table class="table" class="details">
     <tr> 
       <td>Test Name</td>
       <td> 

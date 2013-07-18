@@ -1,82 +1,76 @@
 <%@ include file="/WEB-INF/jsp/includes/head.jsp"%>
-<%@ include file="/WEB-INF/jsp/includes/success.jsp"%>
 
 <h2>Search Containers:</h2>
 
 <form method="post" enctype="multipart/form-data">
-	<div class="left">
-		<table style="width: 260px">
-			<tr>
-				<th colspan="2">Search by Container ID</th>
-			</tr>
+	<div class="row-fluid">
+		<div class="span6">
+			<table class="table">
+				<tr class="info">
+					<td colspan="2"><b>Search by Container ID</b></td>
+				</tr>
 
-			<tr>
-				<td>Container ID:</td>
-				<td><input class="setFocus" name="containerIdFrom"></td>
-			</tr>
-			<tr>
-				<td colspan="2"><input class="button buttonPad" type="submit"
-					name="Submit" value="Search">
-			</tr>
-		</table>
-		<br> <input type="hidden" name="containerIdTo">
+				<tr>
+					<td class="form-inline"><label>Container ID:</label> &nbsp;
+					<input class="span8 setFocus" name="containerIdFrom"></td>
+				</tr>
+			</table>
 
-		<table style="width: 260px">
-			<tr>
-				<th>Search by Container List</th>
-			</tr>
-			<tr>
-				<td>Enter/Upload list of Container ID:</td>
-			<tr>
-				<td><span style="font-size: 12px">(Separate by commas or
-						new lines)</span> <br> <textarea name="containerIdsInTextArea"
-						rows="10" cols="30"></textarea></td>
-			</tr>
-			<tr>
-				<td><input type="file" name="file" /></td>
-			</tr>
-			<tr>
-				<td><input class="button buttonPad" type="submit" name="Submit"
-					value="Search">
-			</tr>
-		</table>
+			<input type="hidden" name="containerIdTo">
+
+			<table class="table">
+				<tr class="info">
+					<td><b>Search by Container List</b></td>
+				</tr>
+				
+				<tr>
+					<td><span style="font-size: 12px">(Separate by commas
+							or new lines)</span> <br> <textarea class="span10"
+							name="containerIdsInTextArea" rows="5"></textarea>
+				<br>
+					<input class="btn" type="submit" name="Submit"
+						value="Search">
+						</td>
+				</tr>
+			</table>
+		</div>
+		<div class="span3">
+			<table class="table">
+				<tr class="info">
+					<td><b>Filter by Project</b></td>
+				</tr>
+				<tr>
+					<td><select class="span12" size="15" name="projectFilter" multiple>
+							<option value="" selected>All Projects</option>
+
+							<c:forEach items="${LProjects}" var="project" varStatus="row">
+								<option value="<c:out value="${project.projectId}"/>">
+									<c:out value="${project.name}" />
+								</option>
+							</c:forEach>
+					</select></td>
+				</tr>
+			</table>
+
+			<table class="table">
+				<tr class="info">
+					<td><b>Filter by Container Types</b></td>
+				</tr>
+				<tr>
+					<td><select class="span12" size="4" name="containerTypeFilter" multiple>
+							<c:forEach items="${LContainerTypes}" var="containerType"
+								varStatus="row">
+								<option
+									value="<c:out value="${containerType.containerTypeId}"/>">
+									<c:out value="${containerType.name}" />
+								</option>
+							</c:forEach>
+					</select></td>
+				</tr>
+			</table>
+
+		</div>
 	</div>
-	<div class="left">
-
-		<table style="width: 200px">
-			<tr>
-				<th><b>Filter by Container Types</b></th>
-			</tr>
-			<tr>
-				<td><select size="5" name="containerTypeFilter" multiple>
-						<c:forEach items="${LContainerTypes}" var="containerType"
-							varStatus="row">
-							<option value="<c:out value="${containerType.containerTypeId}"/>">
-								<c:out value="${containerType.name}" />
-							</option>
-						</c:forEach>
-				</select></td>
-			</tr>
-		</table>
-		<br>
-		<table style="width: 200px">
-			<tr>
-				<th>Filter by Project</th>
-			</tr>
-			<tr>
-				<td><select size="15" name="projectFilter" multiple>
-						<option value="" selected>All Projects</option>
-
-						<c:forEach items="${LProjects}" var="project" varStatus="row">
-							<option value="<c:out value="${project.projectId}"/>">
-								<c:out value="${project.name}" />
-							</option>
-						</c:forEach>
-				</select></td>
-			</tr>
-		</table>
-	</div>
-
 
 </form>
 

@@ -1,24 +1,28 @@
 <%@ include file="/WEB-INF/jsp/includes/head.jsp"%>
-<%@ include file="/WEB-INF/jsp/includes/success.jsp"%>
+
+<h2>Add Samples To Container</h2>
 
 <form method="post" enctype="multipart/form-data">
+	<div class="row-fluid">
+		<div class="span2">
 
-	<table>
-		<tr style="vertical-align: top">
-			<td>
-				<h3>Samples:</h3> <select size="25" name="samplesToAdd" multiple>
-					<c:forEach items="${sampleList}" var="sample">
-						<option value="<c:out value="${sample.sampleId}"/>">
-							<c:out value="${sample.patient.intSampleId}" />
-							-
-							<c:out value="${sample.sampleType.suffix}" />
-						</option>
-					</c:forEach>
+			<h3>Samples:</h3>
+			<select class="span12" size="25" name="samplesToAdd" multiple>
+				<c:forEach items="${sampleList}" var="sample">
+					<option value="<c:out value="${sample.sampleId}"/>">
+						<c:out value="${sample.patient.intSampleId}" />
+						-
+						<c:out value="${sample.sampleType.suffix}" />
+					</option>
+				</c:forEach>
 			</select>
+		</div>
+		<div class="span10">
 
-			</td>
-			<td>
-				<h3>Container:</h3> <select class="selectNav" name="container">
+			<h3>Container:</h3>
+
+			<div class="form-inline">
+				<select class="selectNav" name="container">
 					<option value="">--- Select Container ---</option>
 					<c:forEach items="${containerList}" var="aContainer">
 						<option
@@ -30,30 +34,26 @@
 						</option>
 
 					</c:forEach>
-			</select> <input type="submit" name="Submit" value="Save"> 
-			
+				</select> <input class="btn" type="submit" name="Submit" value="Save">
+			</div>
 			<c:if test="${!command.noneContainer}">
-				
-					<c:if test="${command.emptyContainer}">
-						<p>
-							<a class="button"
-								href="<c:url value="/addSample2Container.htm"><c:param name="containerId" value="${command.containerId}"/><c:param name="isOrdered" value="ordered"/></c:url>">
-								<span>Edit Content</span>
-							</a>
-					</c:if>
 
-					<c:if test="${!command.emptyContainer}">
-						<%@ include file="/WEB-INF/jsp/includes/containerContentsBody.jsp"%>
-					</c:if>
-
+				<c:if test="${command.emptyContainer}">
+					<p>
+						<a class="btn"
+							href="<c:url value="/addSample2Container.htm"><c:param name="containerId" value="${command.containerId}"/><c:param name="isOrdered" value="ordered"/></c:url>">
+							<span>Edit Content</span>
+						</a>
 				</c:if>
 
+				<c:if test="${!command.emptyContainer}">
+					<%@ include file="/WEB-INF/jsp/includes/containerContentsBody.jsp"%>
+				</c:if>
 
+			</c:if>
 
-			</td>
-		</tr>
-	</table>
-
+		</div>
+	</div>
 </form>
 
 

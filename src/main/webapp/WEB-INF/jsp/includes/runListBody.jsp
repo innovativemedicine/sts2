@@ -1,12 +1,12 @@
 <h3>Run List</h3>
-  <table>
-    <tr>
-    	<th></th>
-		<th>Project </th>
-    	<th>Date</th>
-    	<th>Test(s)</th>
-    	<th>Plate(s)</th>
-		<th>Note</th>
+  <table class="table table-condensed">
+    <tr class="info">
+    	<td><b>Run</b></td>
+		<td><b>Project </b></td>
+    	<td><b>Date</b></td>
+    	<td><b>Test(s)</b></td>
+    	<td><b>Plate(s)</b></td>
+		<td><b>Note</b></td>
     </tr>
     
     <c:forEach items="${runList}" var="run">

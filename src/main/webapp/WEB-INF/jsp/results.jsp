@@ -1,13 +1,10 @@
 <%@ include file="/WEB-INF/jsp/includes/head.jsp"%>
-<%@ include file="/WEB-INF/jsp/includes/success.jsp"%>
-<%@ include file="/WEB-INF/jsp/includes/errorMessage.jsp"%>
-
 <h2>Search Results</h2>
 
 <div class="left">
 
 	<form method="post" enctype="multipart/form-data">
-		<table class="details">
+		<table class="table" class="details">
 			<tr>
 				<td><input type="submit" name="action" value="AND"> <input
 					type="submit" name="action" value="SEARCH"></td>
@@ -73,7 +70,7 @@
 	</form>
 </div>
 <div style="float: none">
-	<table class="searchCriteria">
+	<table class="table" class="searchCriteria">
 		<tr>
 			<td><b>Your search criteria:</b> <br> <c:out
 					value="${currentCriteria}" escapeXml="false" /></td>

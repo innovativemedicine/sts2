@@ -31,6 +31,7 @@ public class AGTCManager {
 	private List locations = new ArrayList();
 	private List containerTypes = new ArrayList();
 	private List plateTypes = new ArrayList();
+	private List boxTypes = new ArrayList();
 	private List instruments = new ArrayList();
 	private List investigators = new ArrayList();
 	private List allSamplePrefixes = new ArrayList();
@@ -62,6 +63,15 @@ public class AGTCManager {
 		}
 		return plateTypes;
 	}
+	
+	public List getBoxTypes() {
+		if (boxTypes.isEmpty() || refresh == true) {
+			boxTypes = containerTypeDAO.getBoxTypes();
+			refresh = false;
+		}
+		return boxTypes;
+	}
+
 
 	public List getInstruments() {
 		if (instruments.isEmpty() || refresh == true) {

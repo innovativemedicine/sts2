@@ -1,17 +1,17 @@
 <h3>Project List</h3>
 
-<table class="details">
-	<tr>
-		<th>Project Name</th>
-		<th>Description</th>
-		<th>Created Date</th>
-		<th>Investigator</th>
-		<th>Status</th>
+<table class="table" class="details">
+	<tr class="info">
+		<td><b>Project Name</b></td>
+		<td><b>Description</b></td>
+		<td><b>Created Date</b></td>
+		<td><b>Investigator</b></td>
+		<td><b>Status</b></td>
 	</tr>
 
 	<c:forEach items="${projectList}" var="project">
 		<tr>
-			<td><a
+			<td><a class="act act-primary"
 				href="<c:url value="/projectDetails.htm"><c:param name="projectId" value="${project.projectId}"/></c:url>"><c:out
 						value="${project.name}" /></a></td>
 			<td><c:out value="${project.description}" /></td>

@@ -18,7 +18,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.validation.BindException;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.RequestUtils;
+import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -53,8 +53,8 @@ public class ModifyRunController extends BasicController {
 
 	protected Object formBackingObject(HttpServletRequest request) throws ServletException {
 		// get the Owner referred to by id in the request
-		//log.debug("run name is " + runManager.getProject(new Integer(RequestUtils.getRequiredIntParameter(request, "runId"))).getName());
-		int i = RequestUtils.getRequiredIntParameter(request, "runId");
+		//log.debug("run name is " + runManager.getProject(new Integer(ServletRequestUtils.getRequiredIntParameter(request, "runId"))).getName());
+		int i = ServletRequestUtils.getRequiredIntParameter(request, "runId");
 		
 		Run run = testManager.getRun(new Integer(i));
 		run.setTestNameList(idListResolver.resolveTestIdList(run.getTestList()));
@@ -122,10 +122,10 @@ public class ModifyRunController extends BasicController {
 		Run run = (Run)command;
 		Map models = new HashMap();
 		
-		String message = RequestUtils.getStringParameter(request, "message","");
-		if(!message.equals("")){
-			models.put("message",message);
-		}
+		String message = ServletRequestUtils.getStringParameter(request, "message","");
+		
+		models.put("message",message);
+		
 		
 		List allProjects = projectManager.getAllProjects();
 		List allTests = testManager.getAllTests();

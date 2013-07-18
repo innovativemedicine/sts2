@@ -1,6 +1,4 @@
 <%@ include file="/WEB-INF/jsp/includes/head.jsp"%>
-<%@ include file="/WEB-INF/jsp/includes/success.jsp"%>
-
 <form method="post">
 	
 	<span style="color: green">Deleting Sample From Container...</span>

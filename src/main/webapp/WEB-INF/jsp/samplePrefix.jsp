@@ -4,7 +4,7 @@
 
 <form method="post">
 	<div class="left">
-	<table>
+	<table class="table">
 
 		<tr>
 			<td>Prefix</td>
@@ -44,7 +44,7 @@
 	</table>
 	
 	</div>
-	<table>
+	<table class="table">
 		<tr>
 			<th colspan="2">Columns</th>
 		</tr>
@@ -78,7 +78,7 @@
 </form>
 
 <p>
-<table>
+<table class="table">
 	<tr>
 		<th>Description</th>
 		<th>Prefix</th>

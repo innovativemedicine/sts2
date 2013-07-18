@@ -1,11 +1,10 @@
 <%@ include file="/WEB-INF/jsp/includes/head.jsp"%>
-<%@ include file="/WEB-INF/jsp/includes/success.jsp"%>
 
-<h2 class="noMargin">Container List</h2>
+<h2>Container List</h2>
 <form method="post">
 
-	<input class="button buttonPad" type="submit" name="action"
-		value="Export Data"> <input class="button buttonPad"
+	<input disabled class="btn" type="submit" name="action"
+		value="Export Data"> <input class="btn"
 		type="submit" name="action" value="Print Labels">
 </form>
 <p>

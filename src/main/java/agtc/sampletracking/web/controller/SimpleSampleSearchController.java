@@ -27,26 +27,25 @@ import agtc.sampletracking.bus.manager.SampleManager;
 import agtc.sampletracking.model.Sample;
 import agtc.sampletracking.web.command.SearchCommand;
 
-
 @SuppressWarnings("deprecation")
-public class SimpleSampleSearchController 
-extends BasicSearchController
-//extends BasicSearchController 
+public class SimpleSampleSearchController extends BasicSearchController
+// extends BasicSearchController
 {
 	private SampleManager sampleManager;
 	private ProjectManager projectManager;
 	private List LProjects;
 	private List LSampleTypes;
 	private Log log = LogFactory.getLog(SimpleSampleSearchController.class);
-	
+
 	protected ModelAndView onSubmit(HttpServletRequest request,
 			HttpServletResponse response, Object command, BindException errors)
 			throws Exception {
 
-		//String action = RequestUtils.getStringParameter(request, "action", "");
+		// String action = RequestUtils.getStringParameter(request, "action",
+		// "");
 
-		String sampleIdsInTextArea = ServletRequestUtils.getStringParameter(request,
-				"sampleIdsInTextArea", "");
+		String sampleIdsInTextArea = ServletRequestUtils.getStringParameter(
+				request, "sampleIdsInTextArea", "");
 		String sampleIdFrom = ServletRequestUtils.getStringParameter(request,
 				"sampleIdFrom", "");
 		String sampleIdTo = ServletRequestUtils.getStringParameter(request,
@@ -54,7 +53,7 @@ extends BasicSearchController
 		String externalIdFrom = ServletRequestUtils.getStringParameter(request,
 				"externalIdFrom", "");
 		String externalIdTo = ServletRequestUtils.getStringParameter(request,
-				"externalIdTo", "");	
+				"externalIdTo", "");
 		String[] sampletypes = ServletRequestUtils.getStringParameters(request,
 				"sampleTypeFilter");
 		String[] projects = ServletRequestUtils.getStringParameters(request,
@@ -63,24 +62,28 @@ extends BasicSearchController
 		List sampleTypeIds = String2IntList(sampletypes);
 		List projectIds = String2IntList(projects);
 		List<Sample> searchResults = new ArrayList<Sample>();
-		
-		if (sampleIdFrom.isEmpty() && sampleIdsInTextArea.isEmpty() && externalIdFrom.isEmpty() && projectIds.isEmpty()) {
+
+		if (sampleIdFrom.isEmpty() && sampleIdsInTextArea.isEmpty()
+				&& externalIdFrom.isEmpty() && projectIds.isEmpty()) {
 			ModelAndView mav = new ModelAndView(new RedirectView(
 					"searchSamples.htm"));
-			mav.addObject("message", "Error: Must enter value for either Sample ID, External ID, or Project ID.");
+			mav.addObject("message",
+					"Error: Must enter value for either Sample ID, External ID, or Project ID.");
 			return mav;
 		}
 		// Search single Sample or range
 		else if (!sampleIdFrom.isEmpty() || !externalIdFrom.isEmpty()) {
-			
-			List simpleSearchSamples = sampleManager
-					.getSampleDAO().simpleSearchSamples(sampleIdFrom, sampleIdTo, externalIdFrom, externalIdTo, sampleTypeIds, projectIds);
-			
+
+			List simpleSearchSamples = sampleManager.getSampleDAO()
+					.simpleSearchSamples(sampleIdFrom, sampleIdTo,
+							externalIdFrom, externalIdTo, sampleTypeIds,
+							projectIds);
+
 			searchResults.addAll(simpleSearchSamples);
-			
+
 		} // file with SampleIDs detected
 		else {
-			
+
 			List sampleIds = new ArrayList();
 
 			MultipartHttpServletRequest mrequest = (MultipartHttpServletRequest) request;
@@ -88,26 +91,25 @@ extends BasicSearchController
 
 			if (sampleIdsInTextArea.trim().length() > 0) {
 				sampleIds = String2List(sampleIdsInTextArea);
-			} else if (!aFile.isEmpty()) {
-				InputStream is = aFile.getInputStream();
-				BufferedReader br = new BufferedReader(
-						new InputStreamReader(is));
-				br.readLine();
-				String aLine = "";
-
-				while ((aLine = br.readLine()) != null) {
-					String intSampleId = aLine.trim();
-					sampleIds.add(intSampleId);
-				}
-				is.close();
 			}
+			// else if (!aFile.isEmpty()) {
+			// InputStream is = aFile.getInputStream();
+			// BufferedReader br = new BufferedReader(
+			// new InputStreamReader(is));
+			// br.readLine();
+			// String aLine = "";
 
-			List<Sample> simpleSearchSamples = sampleManager.getSampleDAO().simpleSearchSamples(sampleIds,
-							sampleTypeIds, projectIds);
-			
+			// while ((aLine = br.readLine()) != null) {
+			// String intSampleId = aLine.trim();
+			// sampleIds.add(intSampleId);
+			// }
+			// is.close();
+
+			List<Sample> simpleSearchSamples = sampleManager.getSampleDAO()
+					.simpleSearchSamples(sampleIds, sampleTypeIds, projectIds);
+
 			searchResults.addAll(simpleSearchSamples);
 		}
-		
 
 		if (searchResults.size() < 1) {
 			ModelAndView mav = new ModelAndView(new RedirectView(
@@ -115,22 +117,23 @@ extends BasicSearchController
 			mav.addObject("message", "No results found.");
 			return mav;
 		}
-		
+
 		ModelAndView mav = new ModelAndView(new RedirectView(getSuccessView()));
-		WebUtils.setSessionAttribute(request, "sampleList", searchResults);		
+		WebUtils.setSessionAttribute(request, "sampleList", searchResults);
 		mav.addObject("message", "Search Completed");
-		
+
 		return mav;
 	}
 
-//	protected List performSearch(List crtList, List lgcList) {
-//		List dummyList = new ArrayList();
-//		return dummyList;
-//	}
+	// protected List performSearch(List crtList, List lgcList) {
+	// List dummyList = new ArrayList();
+	// return dummyList;
+	// }
 
 	protected Map referenceData(HttpServletRequest request) throws Exception {
 		Map models = new HashMap();
-		String message = ServletRequestUtils.getStringParameter(request, "message", "");
+		String message = ServletRequestUtils.getStringParameter(request,
+				"message", "");
 
 		LSampleTypes = sampleManager.getAllSampleTypes();
 		LProjects = projectManager.getAllProjects();
@@ -165,14 +168,13 @@ extends BasicSearchController
 		List<Integer> l = new ArrayList<Integer>();
 
 		for (int i = 0; i <= sArray.length - 1; i++) {
-			if (!sArray[i].isEmpty())
-			{
+			if (!sArray[i].isEmpty()) {
 				l.add(Integer.parseInt(sArray[i]));
 			}
 		}
 		return l;
 	}
-	
+
 	public SampleManager getSampleManager() {
 		return sampleManager;
 	}
@@ -191,9 +193,7 @@ extends BasicSearchController
 
 	@Override
 	protected List performSearch(List crtList, List lgcList) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
-	
 }

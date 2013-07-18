@@ -13,34 +13,21 @@ $('.barcodeInput').bind('input', function(event) {
 	}
 });
 
+$('.linkButton').click(function() {
+	$('.linkedButton').click();
+});
+
 $('.selectNav').change(function() {
 	location.search = this.value;
 });
 
-$('.generateForm').bind('input', function(event) {
-	var ns = $('.generateForm').val();
-	var sp = $('#sampleIdPreForm').val().toUpperCase();
-
-	if (ns.match(/^\d+$/)) {
-		if (ns >= 3) {
-			ns = 3;
-		}
-	} else {
-		ns = 0;
-	}
-
-	if (!$.trim(sp).length) {
-		location.search = $.param({
-			'ns' : ns
-		});
-	} else {
-		// reload page with attached param
-		location.search = $.param({
-			'ns' : ns,
-			'sp' : sp
-		});
-	}
-});
+//$('.generateForm').bind('input', function(event) {
+//	var ns = 1;
+//
+//	location.search = $.param({
+//		'ns' : ns
+//	});
+//});
 
 $('.unhider').click(function() {
 	if ($('.hide').is(':visible')) {

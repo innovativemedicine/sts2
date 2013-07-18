@@ -1,12 +1,11 @@
 <%@ include file="/WEB-INF/jsp/includes/head.jsp" %>
-<%@ include file="/WEB-INF/jsp/includes/success.jsp" %>
 
 <a href="<c:url value="/editResult.htm"><c:param name="resultId" value="${result.resultId}"/></c:url>">Edit it</a><br>
 
 <a href="<c:url value="/deleteResult.htm"><c:param name="resultId" value="${result.resultId}"/></c:url>" onclick="return (confirm('Are you sure you want to delete this result?')) ">Delete it</a>
 
 <h2>Result Details</h2>
-<table>
+<table class="table">
   <tr>
     <td>Sample:</td>
     <td><c:out value="${result.intSampleId}"/></td>
