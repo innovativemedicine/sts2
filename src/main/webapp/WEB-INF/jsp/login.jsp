@@ -1,46 +1,55 @@
-<%@ page import="net.sf.acegisecurity.context.Context" %>
-<%@ page import="net.sf.acegisecurity.context.ContextHolder" %>
-<%@ page import="net.sf.acegisecurity.context.security.SecureContext" %>
-<%@ page import="net.sf.acegisecurity.Authentication" %>
-<%@ page import="net.sf.acegisecurity.GrantedAuthority" %>
+<!doctype html>
 
-<%@ include file="/WEB-INF/jsp/includes/head.jsp" %>
+<%@ taglib prefix="spring" uri="/WEB-INF/spring.tld"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt"%>
+
+<html>
+<head>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Sample Tracking System v2</title>
+
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="css/bootstrap-responsive.min.css" rel="stylesheet">
+<link href="css/jasny-bootstrap.min.css" rel="stylesheet">
+<link href="css/jasny-bootstrap-responsive.min.css" rel="stylesheet">
+<link href="css/stylesheet.css" rel="stylesheet">
 
 
-<% Context context = ContextHolder.getContext();
-SecureContext sc = (SecureContext) context;
-Authentication auth = sc.getAuthentication();
-agtc.sampletracking.model.User user = 
-	(agtc.sampletracking.model.User)auth.getPrincipal();
-%>
+</head>
+<body>
+	<script type="text/javascript" src="js/jquery-1.10.2.min.js" defer></script>
+	<script type="text/javascript" src="js/bootstrap.min.js" defer></script>
+	<script type="text/javascript" src="js/jasny-bootstrap.min.js" defer></script>
+	<script type="text/javascript" src="js/myJs.js" defer></script>
 
+	<%@ include file="/WEB-INF/jsp/includes/menu.jsp"%>
 
-<h2><b>Welcome <%=user.getLoginname()%> </b></h2>
+	<div class="container-fluid">
 
-<br>
-<br>
+		<h2>
+			Welcome
+			<c:out value="${sessionScope.userName}" />
+		</h2>
 
-<div style="width: 800px">
-<h2>Update news:</h2>
-<p>2012-12-05: User Interface Update
-<ul>
- <li> New barcode label format for Samples, Plates, and Containers.
- <li> New <b>Barcode</b> functionality. Scan <i>samples</i> to register, store, or remove them. 
- <li> New <b>Search Sample</b> interface. Replaces:
- <ul>
- 	<li><i>Search Project Sample; Simple Search; Search Samples</i>: Combined into one search interface</li>
- 	<li><i>Update Sample</i>: Search for the sample, and then edit.</li>
- 	<li><i>Print Labels</i>: Search for the sample, and then print.</li>
- </ul>
- <li> New <b>Register Sample</b> interface. </li>
-</ul>
-<P>2005-09-30: Sample Type added a new attribute "Accept Source",
-When the sample type's of this attribute is "on", it will become one of 
-sample types when you register samples.
-<p>2005-09-09: All the internal sample Id you typed in will be
-converted to uppercase.
-<p><b>Database backup time is 11PM; it will take about 2 hours. 
-During database backup, this application will stop.</b>
-</div>
+		<br>
 
-<%@ include file="/WEB-INF/jsp/includes/foot.jsp" %>
+		<div>
+			<h3>Update news:</h3>
+			<ul>
+				<li>UI Revamp</li>
+				<li>Search and Register Sample Reworked</li>
+				<li>Search functionality for Projects, Results, Tests, Assays temporarily disabled.</li>
+				
+				<li>Search Plate, Register Plate, Barcode Functionality coming soon.</li>
+			</ul>
+
+		</div>
+
+		<div class="alert">Database backup time is 11PM and lasts about
+			2 hours. During this time, STS will be unavailable.</div>
+
+	</div>
+</body>
