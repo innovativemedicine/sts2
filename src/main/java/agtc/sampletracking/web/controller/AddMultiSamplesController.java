@@ -11,6 +11,7 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -23,8 +24,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.DataValidation;
@@ -54,14 +53,7 @@ import agtc.sampletracking.model.Project;
 import agtc.sampletracking.model.Sample;
 import agtc.sampletracking.model.SampleType;
 
-/**
- * @author Hongjing
- * 
- *         TODO To change the template for this generated type comment go to
- *         Window - Preferences - Java - Code Style - Code Templates
- */
 public class AddMultiSamplesController extends BasicController implements ConstantInterface {
-	private Log				log	= LogFactory.getLog(AddMultiSamplesController.class);
 	private SampleManager	sampleManager;
 
 	private ProjectManager	projectManager;
@@ -326,14 +318,19 @@ public class AddMultiSamplesController extends BasicController implements Consta
 
 		for (int i = 1; i <= 500; i++) {
 			row = sheet.getRow(i);
+			// External ID
+			cell = row.getCell(0, Row.CREATE_NULL_AS_BLANK);
+			cell.setCellType(Cell.CELL_TYPE_STRING);
 			// Birth Date
 			cell = row.getCell(3, Row.CREATE_NULL_AS_BLANK);
 			cell.setCellStyle(cs);
 			// Received Date
 			cell = row.getCell(4, Row.CREATE_NULL_AS_BLANK);
 			cell.setCellStyle(cs);
+			// Notes
+			cell = row.getCell(5, Row.CREATE_NULL_AS_BLANK);
+			cell.setCellType(Cell.CELL_TYPE_STRING);
 		}
-		// Received Date
 
 		return workbook;
 	}
@@ -387,8 +384,18 @@ public class AddMultiSamplesController extends BasicController implements Consta
 
 			// Eternal Id
 			cell = row.getCell(0, Row.CREATE_NULL_AS_BLANK);
-			String externalId = cell.getStringCellValue();
+			String externalId = "";
 
+			if (cell.getCellType() == Cell.CELL_TYPE_STRING)
+			{
+				externalId = cell.getStringCellValue();
+			}
+			else if (cell.getCellType() == Cell.CELL_TYPE_NUMERIC)
+			{
+				DecimalFormat nodecimal = new DecimalFormat("#");
+				externalId = nodecimal.format(cell.getNumericCellValue());
+			}
+			
 			// Stop reading if external ID in the next row is empty!
 			if (externalId.isEmpty()) {
 				return readSamples;
@@ -422,6 +429,10 @@ public class AddMultiSamplesController extends BasicController implements Consta
 			if (sampleType.isEmpty()) {
 				throw new Exception("Manifest Error: Sample Type is missing from one or more samples.");
 			}
+			// Catch empty Sample Type
+			if (recDate == null) {
+				throw new Exception("Manifest Error: Received Date is missing from one or more samples.");
+			}
 			// Catch unrecognized SampleType
 			SampleType st = sampleManager.getSampleTypeDAO().getSampleTypeByName(sampleType);
 			if (st == null) {
@@ -441,8 +452,7 @@ public class AddMultiSamplesController extends BasicController implements Consta
 
 			// Check if the externalId already exists in the current set of
 			// samples
-			String extIdKey = externalId + "-" + pj.getName();
-			System.out.println("extIdKey");
+			String extIdKey = externalId + "-" + pj.getName() + "-" + recDate.toString();
 			Sample curSampleDupe = curSampleSet.get(extIdKey);
 			// Check if a previous sample already exists by the same
 			// external ID, project, and birthdate.
@@ -477,13 +487,11 @@ public class AddMultiSamplesController extends BasicController implements Consta
 
 				// If project and birthDate are the same
 				if (project.equals(curDupeProject)) {
-					if (birthDate != null && recDate.equals(curDupeRecDay)) {
+					if (recDate != null && recDate.equals(curDupeRecDay)) {
 						intSampleId = curSampleDupe.getPatient().getIntSampleId();
 						newSample = new Sample(intSampleId);
-					} else if (birthDate == null && curDupeRecDay == null) {
-						intSampleId = curSampleDupe.getPatient().getIntSampleId();
-						newSample = new Sample(intSampleId);
-					} else {
+					}
+					else {
 
 						String largestSampleId = sampleManager.getLargestSampleId(samplePrefix);
 						Integer largestSampleNum = Integer.parseInt(largestSampleId.replace(samplePrefix, ""));
