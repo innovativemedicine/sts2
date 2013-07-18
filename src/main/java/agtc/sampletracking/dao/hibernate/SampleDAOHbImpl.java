@@ -66,7 +66,7 @@ public class SampleDAOHbImpl extends STSBasicDAO implements SampleDAO {
 		return crt.list();
 	}
 
-	public Sample getSampleByExtId(String extSampleId, Date birthDate, Integer projectId) {
+	public Sample getSampleByExtId(String extSampleId, Date recDate, Integer projectId) {
 		Session session = getSession();
 		Criteria crt = session.createCriteria(Sample.class);
 
@@ -84,9 +84,9 @@ public class SampleDAOHbImpl extends STSBasicDAO implements SampleDAO {
 			crt.add(Restrictions.in("patient", patients));
 		}
 
-		if (birthDate != null) {
+		if (recDate != null) {
 			// Search for patients that have the same birthday
-			crt.add(Restrictions.eq("patient.birthDate", birthDate));
+			crt.add(Restrictions.eq("receiveDate", recDate));
 			crt.add(Restrictions.eq("patient.extSampleId", extSampleId));
 		}
 

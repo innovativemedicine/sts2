@@ -13,7 +13,6 @@ import java.io.OutputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -26,25 +25,19 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
-import org.apache.poi.ss.usermodel.DataFormat;
 import org.apache.poi.ss.usermodel.DataValidation;
 import org.apache.poi.ss.usermodel.DataValidationConstraint;
 import org.apache.poi.ss.usermodel.DataValidationConstraint.OperatorType;
 import org.apache.poi.ss.usermodel.DataValidationHelper;
-import org.apache.poi.ss.usermodel.IndexedColors;
-import org.apache.poi.ss.usermodel.Name;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.apache.poi.ss.util.CellRangeAddressList;
-import org.apache.poi.xssf.usermodel.XSSFDataValidation;
 import org.springframework.validation.BindException;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.ServletRequestBindingException;
 import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -67,73 +60,73 @@ import agtc.sampletracking.model.SampleType;
  *         TODO To change the template for this generated type comment go to
  *         Window - Preferences - Java - Code Style - Code Templates
  */
-public class AddMultiSamplesController extends BasicController implements
-		ConstantInterface {
-	private Log log = LogFactory.getLog(AddMultiSamplesController.class);
-	private SampleManager sampleManager;
+public class AddMultiSamplesController extends BasicController implements ConstantInterface {
+	private Log				log	= LogFactory.getLog(AddMultiSamplesController.class);
+	private SampleManager	sampleManager;
 
-	private ProjectManager projectManager;
+	private ProjectManager	projectManager;
 
 	public AddMultiSamplesController() {
 		// initialize the form from the formBackingObject
 		setBindOnNewForm(true);
 	}
 
-	protected Object formBackingObject(HttpServletRequest request)
-			throws ServletException {
+	protected Object formBackingObject(HttpServletRequest request) throws ServletException {
 
 		MultiSamples multiSampleClass = new MultiSamples();
 
-		Integer numSamples = ServletRequestUtils.getIntParameter(request, "ns");
-		String samplePrefix = ServletRequestUtils.getStringParameter(request,
-				"sp");
+		// Integer numSamples = ServletRequestUtils.getIntParameter(request,
+		// "ns");
+		// String samplePrefix = ServletRequestUtils.getStringParameter(request,
+		// "sampleIdPreForm");
 
-		List autoSampleHolder = new ArrayList();
+		// List autoSampleHolder = new ArrayList();
 
-		if (samplePrefix == null) {
-			samplePrefix = SAMPLE_PREFIX;
-		}
+		// if (samplePrefix == null) {
+		// samplePrefix = SAMPLE_PREFIX;
+		// samplePrefix = "";
+		// }
 
-		if (numSamples != null) {
+		// if (numSamples != null) {
 
-			samplePrefix = samplePrefix.toUpperCase();
+		// samplePrefix = samplePrefix.toUpperCase();
+		//
+		// String largestSampleId =
+		// sampleManager.getLargestSampleId(samplePrefix);
+		// Integer largestSampleNum =
+		// Integer.parseInt(largestSampleId.replace(samplePrefix, ""));
+		//
+		// for (int i = 1; i <= numSamples; i++) {
+		// Integer intSampleNum = largestSampleNum + i;
+		// String formatNum = String.format("%05d", intSampleNum);
+		// String intSampleId = samplePrefix + formatNum;
+		// Sample sample = new Sample(intSampleId);
+		//
+		// autoSampleHolder.add(sample);
+		// }
+		// }
 
-			String largestSampleId = sampleManager
-					.getLargestSampleId(samplePrefix);
-			Integer largestSampleNum = Integer.parseInt(largestSampleId
-					.replace(samplePrefix, ""));
-
-			for (int i = 1; i <= numSamples; i++) {
-				Integer intSampleNum = largestSampleNum + i;
-				String formatNum = String.format("%06d", intSampleNum);
-				String intSampleId = samplePrefix + formatNum;
-				Sample sample = new Sample(intSampleId);
-
-				autoSampleHolder.add(sample);
-			}
-		}
-
-		multiSampleClass.setMultiSamples(autoSampleHolder);
+		// multiSampleClass.setMultiSamples(autoSampleHolder);
 
 		return multiSampleClass;
 	}
 
-	protected ModelAndView onSubmit(HttpServletRequest request,
-			HttpServletResponse response, Object command, BindException errors)
-			throws Exception {
+	protected ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response, Object command,
+			BindException errors) throws Exception {
 
 		// Input variables
-		MultiSamples multiSamples = (MultiSamples) command;
-		String action = ServletRequestUtils.getStringParameter(request,
-				"action", "");
+		String action = ServletRequestUtils.getStringParameter(request, "action", "");
 
 		// Output variables
 		List<Sample> finalSampleList = new ArrayList<Sample>();
 		String message = "";
 
-		if (action.equals("Download")) {
-			String contextPath = request.getSession().getServletContext()
-					.getRealPath("/");
+		/**
+		 * Download Manifest
+		 */
+
+		if (action.equals("Download Manifest")) {
+			String contextPath = request.getSession().getServletContext().getRealPath("/");
 
 			// Format Excel Document using filled in form and master manifest
 			String excelFileName = "samplemaster.xls";
@@ -142,186 +135,99 @@ public class AddMultiSamplesController extends BasicController implements
 			Workbook wb = formatSampleManifest(is);
 			is.close();
 
-			// Write Excel Document as an attachment
-			ByteArrayOutputStream outByteStream = new ByteArrayOutputStream();
-			wb.write(outByteStream);
-			byte[] outArray = outByteStream.toByteArray();
-			response.setContentType("application/ms-excel");
-			response.setContentLength(outArray.length);
-			response.setHeader("Expires:", "0"); // Disable browser caching
-			String header = "attachment; filename=samplemaster.xls";
-			response.setHeader("Content-Disposition", header);
-			OutputStream outStream = response.getOutputStream();
-			outStream.write(outArray);
-			outStream.flush();
+			// Download Manifest
+			downloadManifest(response, wb, excelFileName);
 
 			return null;
-		} else {
+		}
 
-			if (action.equals("Upload")) {
+		/**
+		 * Upload Manifest To Save Batch Samples
+		 */
 
-				MultipartHttpServletRequest mrequest = (MultipartHttpServletRequest) request;
-				MultipartFile aFile = mrequest.getFile("file");
+		else if (action.equals("Upload")) {
 
-				// Format Excel Document using filled in form and master
-				// manifest
-				// String fullName = MANIFESTPATH + "samplemaster.xls";
+			String samplePrefix = ServletRequestUtils.getStringParameter(request, "sampleIdPre");
+			samplePrefix = samplePrefix.trim();
+			samplePrefix = samplePrefix.toUpperCase();
 
-				String samplePrefix = "";
-				Integer sampleTypeID = -1;
-				Integer projectID = -1;
+			MultipartHttpServletRequest mrequest = (MultipartHttpServletRequest) request;
+			MultipartFile aFile = mrequest.getFile("file");
 
-				// Get Sample Prefix
-//				try {
-					samplePrefix = ServletRequestUtils.getStringParameter(
-							request, "sampleIdPre");
-					samplePrefix = samplePrefix.toUpperCase();
-//				} catch (ServletRequestBindingException e) {
-//					errors.reject("error.required",
-//							new String[] { "samplePrefix" },
-//							"SampleID Prefix is required");
-//					return showForm(request, response, errors);
-//				}
-
-				if (samplePrefix.isEmpty())
-				{
-					errors.reject("error.required",
-							new String[] { "samplePrefix" },
-							"SampleID Prefix is required");
-					return showForm(request, response, errors);
-				}
-				// // Get Sample Type
-				// try {
-				// sampleTypeID = ServletRequestUtils.getIntParameter(request,
-				// "sampleTypeID");
-				//
-				// } catch (ServletRequestBindingException e) {
-				// errors.reject("error.required",
-				// new String[] { "sampleTypeID" },
-				// "Sample Type is required");
-				// return showForm(request, response, errors);
-				// }
-				//
-				// // Get Project
-				// try {
-				// projectID = ServletRequestUtils.getIntParameter(request,
-				// "projectID");
-				//
-				// } catch (ServletRequestBindingException e) {
-				// errors.reject("error.required",
-				// new String[] { "projectID" }, "Project is required");
-				// return showForm(request, response, errors);
-				// }
-
-				if (aFile.isEmpty()) {
-					errors.reject("error.emptyFile", "Uploaded file is empty");
-					return showForm(request, response, errors);
-				}
-
-				InputStream is = aFile.getInputStream();
-				try {
-
-					finalSampleList = readSampleManifest(is, samplePrefix,
-							sampleTypeID, projectID);
-				} catch (Exception e) {
-					errors.reject("error.invalidFile", e.getMessage());
-					return showForm(request, response, errors);
-				}
-
-				is.close();
-
-			} else if (action.equals("Save")) {
-
-				// List to store results.
-				List<Sample> sampleList = (List<Sample>) multiSamples
-						.getMultiSamples();
-
-				for (int i = 0; i < sampleList.size(); i++) {
-					Sample sample = sampleList.get(i);
-
-					// associate sample with its sample type.
-					String sampleTypeField = "sampleType[" + i + "]";
-					String[] sampletypes = ServletRequestUtils
-							.getStringParameters(request, sampleTypeField);
-
-					List sampleTypeIds = String2IntList(sampletypes);
-
-					if (sample.getPatient().getProject() == null) {
-						errors.reject("error.required",
-								new String[] { "project" },
-								"Project is required");
-						return showForm(request, response, errors);
-					}
-
-					if (sampleTypeIds.isEmpty()) {
-						errors.reject("error.required",
-								new String[] { "sample type" },
-								"Sample Type is required");
-						return showForm(request, response, errors);
-					}
-
-					Iterator ir = sampleTypeIds.iterator();
-
-					while (ir.hasNext()) {
-						Integer sampleTypeId = (Integer) ir.next();
-						SampleType st = sampleManager
-								.getSampleType(sampleTypeId);
-						sample.setSampleType(st);
-
-						Integer sampleNum = st.getInitialLabelNo();
-
-						for (int j = 1; j <= sampleNum; j++) {
-							Sample sampleClone = (Sample) sample.clone();
-
-							finalSampleList.add(sampleClone);
-						}
-					}
-				}
-			}
-
-			// Save samples to DB
-			try {
-				sampleManager.saveSamples(finalSampleList);
-
-				// Print
-				SatoLabelPrinter satoP = new SatoLabelPrinter();
-				String contextPath = request.getSession().getServletContext()
-						.getRealPath("/");
-				satoP.printSampleLabel(finalSampleList, contextPath);
-
-				message += "Samples saved successfully. Labels have been printed";
-			} catch (Exception e) {
-				message = e.getMessage();
-				e.printStackTrace();
-
-				errors.reject("error.required", new String[] { "projectID" },
-						"An error has occured while trying to print labels");
-
+			if (samplePrefix.isEmpty()) {
+				errors.reject("error.required", new String[] { "samplePrefix" }, "SampleID Prefix is required");
 				return showForm(request, response, errors);
 			}
 
-			ModelAndView mav = new ModelAndView(new RedirectView(
-					getSuccessView()));
-			WebUtils.setSessionAttribute(request, "sampleList", finalSampleList);
-			mav.addObject("message", message);
+			if (aFile.isEmpty()) {
+				errors.reject("error.emptyFile", "Uploaded file is empty");
+				return showForm(request, response, errors);
+			}
 
-			return mav;
+			InputStream is = aFile.getInputStream();
+			try {
+
+				finalSampleList = readSampleManifest(is, samplePrefix);
+
+				if (finalSampleList.isEmpty()) {
+					errors.reject("error.emptyFile", "Error: Manifest File does not contain any samples");
+					return showForm(request, response, errors);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+				errors.reject("error.invalidFile", e.getMessage());
+				return showForm(request, response, errors);
+			}
+
+			is.close();
 		}
+
+		/**
+		 * Upload Form To Save Individual Samples
+		 */
+
+		else if (action.equals("Save")) {
+
+			finalSampleList = readSampleForm(request);
+		}
+
+		// Save samples to DB
+		try {
+			sampleManager.saveSamples(finalSampleList);
+
+			// Print Labels
+			SatoLabelPrinter satoP = new SatoLabelPrinter();
+			String contextPath = request.getSession().getServletContext().getRealPath("/");
+			satoP.printSampleLabel(finalSampleList, contextPath);
+
+			message += "Samples saved successfully. Labels have been printed";
+
+		} catch (Exception e) {
+			message = e.getMessage();
+			e.printStackTrace();
+			errors.reject("error.required", new String[] { "PrintError" },
+					"An error has occured while trying to print labels");
+
+			return showForm(request, response, errors);
+		}
+
+		ModelAndView mav = new ModelAndView(new RedirectView(getSuccessView()));
+		WebUtils.setSessionAttribute(request, "sampleList", finalSampleList);
+		mav.addObject("message", message);
+
+		return mav;
 	}
 
-	protected Map referenceData(HttpServletRequest request, Object command,
-			Errors errors)
+	protected Map<String, Object> referenceData(HttpServletRequest request, Object command, Errors errors)
 
 	{
-		Map models = new HashMap();
-		String message = ServletRequestUtils.getStringParameter(request,
-				"message", "");
-		if (!message.isEmpty()) {
-			models.put("message", message);
-		}
+		Map<String, Object> models = new HashMap<String, Object>();
+		String message = ServletRequestUtils.getStringParameter(request, "message", "");
 
-		List allSampleTypes = sampleManager.getAllSampleTypes();
-		List allProjects = projectManager.getAllProjects();
+		models.put("message", message);
+
+		List<SampleType> allSampleTypes = sampleManager.getAllSampleTypes();
+		List<Project> allProjects = projectManager.getAllProjects();
 
 		models.put("allSampleTypes", allSampleTypes);
 		models.put("allProjects", allProjects);
@@ -335,147 +241,6 @@ public class AddMultiSamplesController extends BasicController implements
 			l.add(Integer.parseInt(sArray[i]));
 		}
 		return l;
-	}
-
-	private Workbook retrieveSampleManifest(InputStream is) throws Exception {
-
-		Workbook workbook = WorkbookFactory.create(is);
-		Sheet sheet = workbook.getSheetAt(0);
-
-		// Populate samplemanifest if necessary
-
-		sheet.protectSheet("");
-
-		return workbook;
-	}
-
-	private List<Sample> readSampleManifest(InputStream is,
-			String samplePrefix, Integer sampleTypeID, Integer projectID)
-			throws Exception {
-
-		Workbook workbook = WorkbookFactory.create(is);
-		Sheet sheet = workbook.getSheetAt(0);
-		sheet.protectSheet("");
-
-		Iterator<Row> ri = sheet.rowIterator();
-		List<Sample> readSamples = new ArrayList<Sample>();
-
-		// First row is heading
-		Row row = ri.next();
-		Cell cell = row.getCell(0);
-
-		int samplesRead = 0;
-
-		while (ri.hasNext()) {
-
-			String largestSampleId = sampleManager
-					.getLargestSampleId(samplePrefix);
-			Integer largestSampleNum = Integer.parseInt(largestSampleId
-					.replace(samplePrefix, ""));
-
-			Integer intSampleNum = largestSampleNum + 1 + samplesRead;
-			String formatNum = String.format("%06d", intSampleNum);
-			String intSampleId = samplePrefix + formatNum;
-
-			cell.setCellValue(intSampleId);
-
-			Sample newSample = new Sample(intSampleId);
-
-			row = ri.next();
-
-			// Eternal Id
-			cell = row.getCell(0, Row.CREATE_NULL_AS_BLANK);
-			String externalId = cell.getStringCellValue();
-			newSample.getPatient().setExtSampleId(externalId);
-
-			if (externalId.isEmpty()) {
-				return readSamples;
-			}
-
-			// Project
-			cell = row.getCell(2, Row.CREATE_NULL_AS_BLANK);
-			String project = cell.getStringCellValue();
-
-			// Catch empty Project
-			if (project.isEmpty()) {
-				throw new Exception(
-						"Manifest Error: Project is missing from one or more samples.");
-			}
-
-			// Catch unrecognized Project
-			try {
-				Project pj = projectManager.getProject(project);
-				newSample.getPatient().setProject(pj);
-			} catch (Exception e) {
-				throw new Exception("Manifest Error: Project " + project
-						+ " is not recognized. Try downloading new manifest");
-			}
-
-			// Birth Date
-			cell = row.getCell(3, Row.CREATE_NULL_AS_BLANK);
-			Date birthDate = cell.getDateCellValue();
-//			Date birthDate = new SimpleDateFormat("yyyy-MM-dd")
-//					.parse(birthDateString);
-			newSample.getPatient().setBirthDate(birthDate);
-
-			// Received Date
-			cell = row.getCell(4, Row.CREATE_NULL_AS_BLANK);
-			Date recDate = cell.getDateCellValue();
-//			Date recDate = new SimpleDateFormat("yyyy-MM-dd")
-//					.parse(recDateString);
-			newSample.setReceiveDate(recDate);
-
-			// Notes
-			cell = row.getCell(5, Row.CREATE_NULL_AS_BLANK);
-			String notes = "";
-
-			notes = cell.getStringCellValue();
-
-			newSample.setNotes(notes);
-			newSample.setStatus("Registered");
-
-			// Sample Type
-			cell = row.getCell(1, Row.CREATE_NULL_AS_BLANK);
-
-			String sampleType = cell.getStringCellValue();
-
-			// Catch empty Sample Type
-			if (sampleType.isEmpty()) {
-				throw new Exception(
-						"Manifest Error: Sample Type is missing from one or more samples.");
-			}
-
-			// Catch unrecognized Sample Type
-			try {
-				SampleType st = sampleManager.getSampleTypeDAO()
-						.getSampleTypeByName(sampleType);
-				newSample.setSampleType(st);
-
-				// Set number of duplicates for sample Type
-				Integer sampleNum = st.getInitialLabelNo();
-
-				for (int i = 1; i <= sampleNum; i++) {
-					Sample sampleClone = (Sample) newSample.clone();
-					readSamples.add(sampleClone);
-					samplesRead++;
-				}
-
-			} catch (Exception e) {
-				throw new Exception("Manifest Error: Sample Type " + sampleType
-						+ " is not recognized. Try downloading new manifest");
-			}
-
-			// Project
-			// Project project = projectManager.getProject(projectID);
-			// newSample.getPatient().setProject(project);
-			//
-			// SampleType tempST =
-			// sampleManager.getSampleTypeDAO().getSampleType(
-			// sampleTypeID);
-			// newSample.setSampleType(tempST);
-
-		}
-		return readSamples;
 	}
 
 	private Workbook formatSampleManifest(InputStream is) throws Exception {
@@ -506,8 +271,8 @@ public class AddMultiSamplesController extends BasicController implements
 
 		// SampleType Validation
 		dvHelper = sheet.getDataValidationHelper();
-		dvConstraint = dvHelper.createFormulaListConstraint("hiddenST!$A$1:$A$"
-				+ String.valueOf(allSampleTypes.size()));
+		dvConstraint = dvHelper
+				.createFormulaListConstraint("hiddenST!$A$1:$A$" + String.valueOf(allSampleTypes.size()));
 		addressList = new CellRangeAddressList(1, 500, 1, 1);
 		validation = dvHelper.createValidation(dvConstraint, addressList);
 		validation.setSuppressDropDownArrow(false);
@@ -530,9 +295,8 @@ public class AddMultiSamplesController extends BasicController implements
 
 		// Project Validation
 		dvHelper = sheet.getDataValidationHelper();
-		dvConstraint = dvHelper
-				.createFormulaListConstraint("hiddenProject!$A$1:$A$"
-						+ String.valueOf(allProjects.size()));
+		dvConstraint = dvHelper.createFormulaListConstraint("hiddenProject!$A$1:$A$"
+				+ String.valueOf(allProjects.size()));
 		addressList = new CellRangeAddressList(1, 500, 2, 2);
 		validation = dvHelper.createValidation(dvConstraint, addressList);
 		validation.setSuppressDropDownArrow(false);
@@ -545,8 +309,7 @@ public class AddMultiSamplesController extends BasicController implements
 		String dateText = dateformatting.format(date);
 
 		dvHelper = sheet.getDataValidationHelper();
-		dvConstraint = dvHelper.createDateConstraint(OperatorType.BETWEEN,
-				"1900-01-01s", dateText, "yyyy-MM-dd");
+		dvConstraint = dvHelper.createDateConstraint(OperatorType.BETWEEN, "1900-01-01s", dateText, "yyyy-MM-dd");
 		addressList = new CellRangeAddressList(1, 500, 3, 4);
 		validation = dvHelper.createValidation(dvConstraint, addressList);
 		validation.setShowErrorBox(true);
@@ -575,8 +338,8 @@ public class AddMultiSamplesController extends BasicController implements
 		return workbook;
 	}
 
-	private void downloadManifest(HttpServletResponse response, Workbook wb,
-			String fileName) throws Exception {
+	private void downloadManifest(HttpServletResponse response, Workbook wb, String fileName) throws Exception {
+
 		// Write Excel Document as an attachment
 		ByteArrayOutputStream outByteStream = new ByteArrayOutputStream();
 		wb.write(outByteStream);
@@ -584,12 +347,284 @@ public class AddMultiSamplesController extends BasicController implements
 		response.setContentType("application/ms-excel");
 		response.setContentLength(outArray.length);
 		response.setHeader("Expires:", "0"); // Disable browser caching
-		String header = "attachment; filename=" + fileName + ".xls";
+		String header = "attachment; filename=" + fileName;
 		response.setHeader("Content-Disposition", header);
 		OutputStream outStream = response.getOutputStream();
 		outStream.write(outArray);
 		outStream.flush();
 		response.flushBuffer();
+	}
+
+	private List<Sample> readSampleManifest(InputStream is, String samplePrefix) throws Exception {
+
+		Workbook workbook = WorkbookFactory.create(is);
+		Sheet sheet = workbook.getSheetAt(0);
+		sheet.protectSheet("");
+
+		Iterator<Row> ri = sheet.rowIterator();
+		List<Sample> readSamples = new ArrayList<Sample>();
+		Map<String, Sample> curSampleSet = new HashMap<String, Sample>();
+
+		// First row is heading
+		Row row = ri.next();
+
+		Cell cell = row.getCell(0);
+
+		int samplesRead = 0;
+
+		while (ri.hasNext()) {
+
+			row = ri.next();
+
+			/**
+			 * 1. Read all the values from Excel first. 2. Perform validation.
+			 * 3. Assign SampleID.
+			 */
+
+			/*
+			 * 1. Reading Values
+			 */
+
+			// Eternal Id
+			cell = row.getCell(0, Row.CREATE_NULL_AS_BLANK);
+			String externalId = cell.getStringCellValue();
+
+			// Stop reading if external ID in the next row is empty!
+			if (externalId.isEmpty()) {
+				return readSamples;
+			}
+
+			// Sample Type
+			cell = row.getCell(1, Row.CREATE_NULL_AS_BLANK);
+			String sampleType = cell.getStringCellValue();
+			// Project
+			cell = row.getCell(2, Row.CREATE_NULL_AS_BLANK);
+			String project = cell.getStringCellValue();
+			// Birth Date
+			cell = row.getCell(3, Row.CREATE_NULL_AS_BLANK);
+			Date birthDate = cell.getDateCellValue();
+			// Received Date
+			cell = row.getCell(4, Row.CREATE_NULL_AS_BLANK);
+			Date recDate = cell.getDateCellValue();
+			// Notes
+			cell = row.getCell(5, Row.CREATE_NULL_AS_BLANK);
+			String notes = cell.getStringCellValue();
+
+			/*
+			 * 2. Validation
+			 */
+
+			// Catch empty Project
+			if (project.isEmpty()) {
+				throw new Exception("Manifest Error: Project is missing from one or more samples.");
+			}
+			// Catch empty Sample Type
+			if (sampleType.isEmpty()) {
+				throw new Exception("Manifest Error: Sample Type is missing from one or more samples.");
+			}
+			// Catch unrecognized SampleType
+			SampleType st = sampleManager.getSampleTypeDAO().getSampleTypeByName(sampleType);
+			if (st == null) {
+				throw new Exception("Manifest Error: Sample Type " + sampleType
+						+ " is not recognized. Try downloading new manifest");
+			}
+			// Catch unrecognized Project
+			Project pj = projectManager.getProject(project);
+			if (pj == null) {
+				throw new Exception("Manifest Error: Project " + project
+						+ " is not recognized. Try downloading new manifest");
+			}
+
+			/*
+			 * 3. Assign ID
+			 */
+
+			// Check if the externalId already exists in the current set of
+			// samples
+			String extIdKey = externalId + "-" + pj.getName();
+			System.out.println("extIdKey");
+			Sample curSampleDupe = curSampleSet.get(extIdKey);
+			// Check if a previous sample already exists by the same
+			// external ID, project, and birthdate.
+			Sample prevSampleDupe = sampleManager.getSampleByExtId(externalId, recDate, pj.getProjectId());
+
+			Sample newSample = null;
+			String intSampleId = "";
+
+			// If the sample doesn't exist in current session.
+			if (curSampleDupe == null) {
+
+				// If sample exists previously and recDate is not null
+				if (prevSampleDupe != null && recDate != null) {
+					intSampleId = prevSampleDupe.getPatient().getIntSampleId();
+					newSample = new Sample(intSampleId);
+				} else {
+					String largestSampleId = sampleManager.getLargestSampleId(samplePrefix);
+					Integer largestSampleNum = Integer.parseInt(largestSampleId.replace(samplePrefix, ""));
+
+					Integer intSampleNum = largestSampleNum + 1 + samplesRead;
+					String formatNum = String.format("%05d", intSampleNum);
+					intSampleId = samplePrefix + formatNum;
+
+					newSample = new Sample(intSampleId);
+
+					samplesRead++;
+				}
+
+			} else {
+				String curDupeProject = curSampleDupe.getPatient().getProject().getName();
+				Date curDupeRecDay = curSampleDupe.getReceiveDate();
+
+				// If project and birthDate are the same
+				if (project.equals(curDupeProject)) {
+					if (birthDate != null && recDate.equals(curDupeRecDay)) {
+						intSampleId = curSampleDupe.getPatient().getIntSampleId();
+						newSample = new Sample(intSampleId);
+					} else if (birthDate == null && curDupeRecDay == null) {
+						intSampleId = curSampleDupe.getPatient().getIntSampleId();
+						newSample = new Sample(intSampleId);
+					} else {
+
+						String largestSampleId = sampleManager.getLargestSampleId(samplePrefix);
+						Integer largestSampleNum = Integer.parseInt(largestSampleId.replace(samplePrefix, ""));
+
+						Integer intSampleNum = largestSampleNum + 1 + samplesRead;
+						String formatNum = String.format("%05d", intSampleNum);
+						intSampleId = samplePrefix + formatNum;
+
+						newSample = new Sample(intSampleId);
+
+						samplesRead++;
+					}
+				} else {
+					String largestSampleId = sampleManager.getLargestSampleId(samplePrefix);
+					Integer largestSampleNum = Integer.parseInt(largestSampleId.replace(samplePrefix, ""));
+
+					Integer intSampleNum = largestSampleNum + 1 + samplesRead;
+					String formatNum = String.format("%05d", intSampleNum);
+					intSampleId = samplePrefix + formatNum;
+
+					newSample = new Sample(intSampleId);
+
+					samplesRead++;
+
+				}
+			}
+
+			/*
+			 * 4. Add New Sample To FinalList and CurSession List
+			 */
+
+			newSample.getPatient().setExtSampleId(externalId);
+			newSample.getPatient().setBirthDate(birthDate);
+			newSample.setReceiveDate(recDate);
+			newSample.getPatient().setProject(pj);
+			newSample.setNotes(notes);
+			newSample.setStatus("Registered");
+			newSample.setSampleType(st);
+
+			// Catch unrecognized Sample Type
+
+			// Set number of duplicates for sample Type
+			Integer sampleNum = st.getInitialLabelNo();
+
+			for (int i = 1; i <= sampleNum; i++) {
+				Sample sampleClone = (Sample) newSample.clone();
+				readSamples.add(sampleClone);
+			}
+
+			curSampleSet.put(extIdKey, newSample);
+
+		}
+
+		return readSamples;
+	}
+
+	private List<Sample> readSampleForm(HttpServletRequest request) throws Exception {
+
+		List<Sample> sampleList = new ArrayList<Sample>();
+		String samplePrefix = ServletRequestUtils.getStringParameter(request, "sampleIdPreForm");
+		samplePrefix = samplePrefix.trim();
+		samplePrefix = samplePrefix.toUpperCase();
+
+		String externalId = ServletRequestUtils.getStringParameter(request, "externalId");
+		String birthDateString = ServletRequestUtils.getStringParameter(request, "birthDate");
+		String recDateString = ServletRequestUtils.getStringParameter(request, "receivedDate");
+		Integer projectId = ServletRequestUtils.getIntParameter(request, "project");
+		String notes = ServletRequestUtils.getStringParameter(request, "notes");
+		String[] sampletypes = ServletRequestUtils.getStringParameters(request, "sampleType");
+
+		Date birthDate = null;
+		Date recDate = null;
+
+		// Birth Date
+		if (!birthDateString.isEmpty()) {
+			birthDate = new SimpleDateFormat("dd-MM-yyyy").parse(birthDateString);
+		}
+		// Received Date
+		if (!recDateString.isEmpty()) {
+			recDate = new SimpleDateFormat("dd-MM-yyyy").parse(recDateString);
+		}
+
+		// Project
+		Project project = projectManager.getProject(projectId);
+
+		// Validation
+
+		// Catch empty Project
+		if (projectId < 0) {
+			throw new Exception("Error: Project required");
+		}
+
+		// Check if external ID + project + birthDate ALREADY exists.
+		Sample prevSampleDupe = sampleManager.getSampleByExtId(externalId, recDate, project.getProjectId());
+
+		Sample newSample = null;
+		String intSampleId = "";
+
+		// If not, assign a new sampleId (using the next largest number)
+		if (prevSampleDupe != null && recDate != null) {
+			intSampleId = prevSampleDupe.getPatient().getIntSampleId();
+			newSample = new Sample(intSampleId);
+
+		} else {
+			String largestSampleId = sampleManager.getLargestSampleId(samplePrefix);
+			Integer largestSampleNum = Integer.parseInt(largestSampleId.replace(samplePrefix, ""));
+
+			Integer intSampleNum = largestSampleNum + 1;
+			String formatNum = String.format("%05d", intSampleNum);
+			intSampleId = samplePrefix + formatNum;
+
+			newSample = new Sample(intSampleId);
+		}
+
+		// Setting Sample Attributes
+		newSample.getPatient().setExtSampleId(externalId);
+		newSample.getPatient().setProject(project);
+		newSample.getPatient().setBirthDate(birthDate);
+		newSample.setReceiveDate(recDate);
+		newSample.setNotes(notes);
+		newSample.setStatus("Registered");
+
+		// Sample Type
+		List<Integer> sampleTypeIds = String2IntList(sampletypes);
+		Iterator<Integer> ir = sampleTypeIds.iterator();
+
+		while (ir.hasNext()) {
+			Integer sampleTypeId = ir.next();
+			SampleType st = sampleManager.getSampleType(sampleTypeId);
+			newSample.setSampleType(st);
+
+			Integer sampleNum = st.getInitialLabelNo();
+
+			for (int j = 1; j <= sampleNum; j++) {
+				Sample sampleClone = (Sample) newSample.clone();
+
+				sampleList.add(sampleClone);
+			}
+		}
+
+		return sampleList;
 	}
 
 	public SampleManager getSampleManager() {
