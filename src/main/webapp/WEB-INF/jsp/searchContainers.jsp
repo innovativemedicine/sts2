@@ -11,26 +11,11 @@
 				</tr>
 
 				<tr>
-					<td class="form-inline"><label>Container ID:</label> &nbsp;
-					<input class="span8 setFocus" name="containerIdFrom"></td>
-				</tr>
-			</table>
+					<td class="form-inline"><label>Container ID:</label> &nbsp; <input
+						class="span8 setFocus" name="containerIdFrom"></td>
 
-			<input type="hidden" name="containerIdTo">
-
-			<table class="table">
-				<tr class="info">
-					<td><b>Search by Container List</b></td>
-				</tr>
-				
-				<tr>
-					<td><span style="font-size: 12px">(Separate by commas
-							or new lines)</span> <br> <textarea class="span10"
-							name="containerIdsInTextArea" rows="5"></textarea>
-				<br>
-					<input class="btn" type="submit" name="Submit"
-						value="Search">
-						</td>
+					<td><input class="btn" type="submit" name="Submit"
+						value="Search"></td>
 				</tr>
 			</table>
 		</div>
@@ -40,7 +25,7 @@
 					<td><b>Filter by Project</b></td>
 				</tr>
 				<tr>
-					<td><select class="span12" size="15" name="projectFilter" multiple>
+					<td><select class="span12" name="projectFilter">
 							<option value="" selected>All Projects</option>
 
 							<c:forEach items="${LProjects}" var="project" varStatus="row">
@@ -52,26 +37,15 @@
 				</tr>
 			</table>
 
-			<table class="table">
-				<tr class="info">
-					<td><b>Filter by Container Types</b></td>
-				</tr>
-				<tr>
-					<td><select class="span12" size="4" name="containerTypeFilter" multiple>
-							<c:forEach items="${LContainerTypes}" var="containerType"
-								varStatus="row">
-								<option
-									value="<c:out value="${containerType.containerTypeId}"/>">
-									<c:out value="${containerType.name}" />
-								</option>
-							</c:forEach>
-					</select></td>
-				</tr>
-			</table>
-
 		</div>
+
 	</div>
 
 </form>
+<div class="row-fluid">
+	<div class="span9">
+		<%@ include file="/WEB-INF/jsp/includes/containerListBody.jsp"%>
+	</div>
+</div>
 
 <%@ include file="/WEB-INF/jsp/includes/foot.jsp"%>
