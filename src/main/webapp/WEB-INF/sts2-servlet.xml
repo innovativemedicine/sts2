@@ -40,7 +40,6 @@
 				<prop key="/investigator.htm">investigatorController</prop>
 				<prop key="/location.htm">locationController</prop>
 				<prop key="/sampleType.htm">sampleTypeController</prop>
-				<prop key="/samplePrefix.htm">samplePrefixController</prop>
 				<prop key="/modifyRun.htm">modifyRunController</prop>
 				<prop key="/editPatient.htm">editPatientController</prop>
 				<prop key="/addSample2Container.htm">addSample2ContainerController</prop>
@@ -82,7 +81,7 @@
 
 				<prop key="/adminAddEditUser.htm">
 					addEditUserController</prop>
-				<prop key="/EditProfile.htm">
+				<prop key="/editProfile.htm">
 					editProfileController</prop>
 			</props>
 		</property>
@@ -733,30 +732,6 @@
 
 	<bean id="samplesInContainerValidator"
 		class="agtc.sampletracking.web.validator.SamplesInContainerValidator" />
-
-	<bean id="samplePrefixController"
-		class="agtc.sampletracking.web.controller.SamplePrefixController">
-		<property name="sessionForm">
-			<value>true</value>
-		</property>
-		<property name="requireSession">
-			<value>true</value>
-		</property>
-		<property name="formView">
-			<value>samplePrefix</value>
-		</property>
-		<property name="successView">
-			<value>samplePrefix.htm</value>
-		</property>
-		<property name="agtcManager">
-			<ref bean="agtcManager" />
-		</property>
-		<property name="validator">
-			<ref local="samplesSourceTypeValidator" />
-		</property>
-	</bean>
-	<bean id="samplesSourceTypeValidator"
-		class="agtc.sampletracking.web.validator.SampleSourceTypeValidator" />
 
 	<bean id="editPatientController"
 		class="agtc.sampletracking.web.controller.EditPatientController">
