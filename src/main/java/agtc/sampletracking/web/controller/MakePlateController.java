@@ -45,26 +45,22 @@ import agtc.sampletracking.model.Sample;
 import agtc.sampletracking.model.SampleType;
 import agtc.sampletracking.model.SamplesInContainer;
 
-public class MakePlateController extends BasicController implements
-		ConstantInterface {
+public class MakePlateController extends BasicController implements ConstantInterface {
 
-	private ContainerManager containerManager;
-	private SampleManager sampleManager;
-	private ProjectManager projectManager;
-	private AGTCManager agtcManager;
+	private ContainerManager	containerManager;
+	private SampleManager		sampleManager;
+	private ProjectManager		projectManager;
+	private AGTCManager			agtcManager;
 
 	public MakePlateController() {
 		// initialize the form from the formBackingObject
 		setBindOnNewForm(true);
 	}
 
-	protected Object formBackingObject(HttpServletRequest request)
-			throws ServletException {
+	protected Object formBackingObject(HttpServletRequest request) throws ServletException {
 
-		String largestPlateId = containerManager
-				.getLargestPlateId(PLATE_PREFIX);
-		Integer largestPlateNum = Integer.parseInt(largestPlateId.replace(
-				PLATE_PREFIX, ""));
+		String largestPlateId = containerManager.getLargestPlateId(PLATE_PREFIX);
+		Integer largestPlateNum = Integer.parseInt(largestPlateId.replace(PLATE_PREFIX, ""));
 		Integer plateNum = largestPlateNum + 1;
 		String formatNum = String.format("%06d", plateNum);
 		String plateId = PLATE_PREFIX + formatNum;
@@ -79,44 +75,23 @@ public class MakePlateController extends BasicController implements
 		return container;
 	}
 
-	protected ModelAndView onSubmit(HttpServletRequest request,
-			HttpServletResponse response, Object command, BindException errors)
-			throws Exception {
+	protected ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response, Object command,
+			BindException errors) throws Exception {
 		Container container = (Container) command;
 
-		String action = ServletRequestUtils.getStringParameter(request,
-				"action", "");
+		String action = ServletRequestUtils.getStringParameter(request, "action", "");
 
+		// Download Plate96 Manifest
 		if (action.equals("Download")) {
 
-			String contextPath = request.getSession().getServletContext()
-					.getRealPath("/");
-
-			if (container.getContainerType() == null) {
-				errors.rejectValue("containerType", "error.required",
-						new String[] { "Container Type" },
-						"Plate Type is required");
-				return showForm(request, response, errors);
-			}
-
-			if (container.getProject() == null) {
-				errors.rejectValue("containerType", "error.required",
-						new String[] { "Container Type" },
-						"Project is required");
-				return showForm(request, response, errors);
-			}
-
-			String plateType = container.getContainerType().getName()
-					.toLowerCase();
+			String contextPath = request.getSession().getServletContext().getRealPath("/");
 
 			// Format Excel Document using filled in form and master manifest
-			String excelFileName = plateType + "master.xls";
+			String excelFileName = "plate96master.xls";
 			String fullName = contextPath + MANIFESTPATH + excelFileName;
 			InputStream is = new FileInputStream(fullName);
 			Workbook wb = formatPlateManifest(container, is);
 			is.close();
-
-			String fileName = container.getName() + "template";
 
 			// Write Excel Document as an attachment
 			ByteArrayOutputStream outByteStream = new ByteArrayOutputStream();
@@ -125,7 +100,7 @@ public class MakePlateController extends BasicController implements
 			response.setContentType("application/ms-excel");
 			response.setContentLength(outArray.length);
 			response.setHeader("Expires:", "0"); // Disable browser caching
-			String header = "attachment; filename=" + fileName + ".xls";
+			String header = "attachment; filename=" + excelFileName;
 			response.setHeader("Content-Disposition", header);
 			OutputStream outStream = response.getOutputStream();
 			outStream.write(outArray);
@@ -141,8 +116,13 @@ public class MakePlateController extends BasicController implements
 			// Assert.state(files.size() > 0, "0 files exist");
 
 			if (aFile.isEmpty()) {
-				errors.reject("error.emptyFile", "Uploaded file is empty");
-				return showForm(request, response, errors);
+				String err = "No manifest file found";
+
+				ModelAndView mav = new ModelAndView(new RedirectView("makePlate.htm"));
+				mav.addObject("err", err);
+
+				return mav;
+
 			}
 
 			// Parse Manifest File HEre
@@ -151,8 +131,13 @@ public class MakePlateController extends BasicController implements
 			try {
 				wb = readPlateManifest(is);
 			} catch (Exception e) {
-				errors.reject("error.readFail", e.toString());
-				return showForm(request, response, errors);
+				String err = "Failed to read manifest: " + e.toString();
+
+				ModelAndView mav = new ModelAndView(new RedirectView("makePlate.htm"));
+				mav.addObject("err", err);
+
+				return mav;
+
 			}
 
 			is.close();
@@ -165,40 +150,40 @@ public class MakePlateController extends BasicController implements
 			// receiver
 			// Attach the finalXL (with the int sample ID filled in as reference
 
-			Container savedContainer = containerManager.getContainer(container
-					.getName());
+			Container savedContainer = containerManager.getContainer(container.getName());
 
 			List<Container> containerList = new ArrayList<Container>();
 			containerList.add(savedContainer)
 
 			; // Print
 			SatoLabelPrinter satoP = new SatoLabelPrinter();
-			String contextPath = request.getSession().getServletContext()
-					.getRealPath("/");
+			String contextPath = request.getSession().getServletContext().getRealPath("/");
 			satoP.printPlateLabel(containerList, contextPath);
 
 			// Redirect to containerDetails view on success.
-			ModelAndView mav = new ModelAndView(new RedirectView(
-					getSuccessView()));
-			mav.addObject("message", "Plate" + container.getName()
-					+ "saved. Labels have been printed. ");
+			ModelAndView mav = new ModelAndView(new RedirectView(getSuccessView()));
+			mav.addObject("message", "Plate" + container.getName() + "saved. Labels have been printed. ");
 			mav.addObject("containerId", savedContainer.getContainerId());
 
 			return mav;
 		} else {
+			String err = "An unknown error has occured. Please resubmit.";
 
-			return showForm(request, response, errors);
+			ModelAndView mav = new ModelAndView(new RedirectView("makePlate.htm"));
+			mav.addObject("err", err);
+			return mav;
 		}
 	}
 
-	protected Map referenceData(HttpServletRequest request, Object command,
-			Errors errors) throws Exception {
+	protected Map referenceData(HttpServletRequest request, Object command, Errors errors) throws Exception {
 		Map models = new HashMap();
 
-		// the allProjects, allLocations and allPlateTypes is all except the
-		// current one
+
 		List allProjects = projectManager.getAllProjects();
 		List allPlateTypes = agtcManager.getPlateTypes();
+
+		String err = ServletRequestUtils.getStringParameter(request, "err", "");
+		models.put("err", err);
 
 		models.put("allPlateTypes", allPlateTypes);
 		models.put("allProjects", allProjects);
@@ -206,8 +191,7 @@ public class MakePlateController extends BasicController implements
 		return models;
 	}
 
-	private Workbook formatPlateManifest(Container plate, InputStream is)
-			throws Exception {
+	private Workbook formatPlateManifest(Container plate, InputStream is) throws Exception {
 
 		Workbook workbook = WorkbookFactory.create(is);
 		Sheet sheet = workbook.getSheetAt(0);
@@ -222,31 +206,25 @@ public class MakePlateController extends BasicController implements
 		// Plate ID
 		row = sheet.getRow(0);
 		cell = row.getCell(1);
-		cell.setCellValue(plate.getName());
 
 		// Ext Plate ID
 		row = sheet.getRow(1);
 		cell = row.getCell(1);
-		cell.setCellValue(plate.getExtContainerId());
 		// Plate Type
 		row = sheet.getRow(2);
 		cell = row.getCell(1);
-		cell.setCellValue(plate.getContainerType().getName());
+
 		// Project
 		row = sheet.getRow(3);
 		cell = row.getCell(1);
-		cell.setCellValue(plate.getProject().getName());
+
 		// Created Date
 		row = sheet.getRow(4);
 		cell = row.getCell(1);
-		SimpleDateFormat s = new SimpleDateFormat("dd-MM-yyyy");
-		cell.setCellValue(s.format(plate.getCreatedDate()));
+
 		// Comments
 		row = sheet.getRow(5);
 		cell = row.getCell(1);
-		cell.setCellValue(plate.getComments());
-
-		sheet.protectSheet("");
 
 		return workbook;
 	}
@@ -268,8 +246,7 @@ public class MakePlateController extends BasicController implements
 		container.setName(plateName);
 
 		if (containerManager.getContainer(plateName) != null) {
-			throw new Exception(
-					"Plate ID is no longer unique! Please reload form to update Manifest with new ID.");
+			throw new Exception("Plate ID is no longer unique! Please reload form to update Manifest with new ID.");
 		}
 
 		// Plate Type
@@ -304,8 +281,7 @@ public class MakePlateController extends BasicController implements
 		row = sheet.getRow(4);
 		cell = row.getCell(1);
 		String createdDate = cell.getStringCellValue();
-		Date date = new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH)
-				.parse(createdDate);
+		Date date = new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH).parse(createdDate);
 		container.setCreatedDate(date);
 
 		// Comments
@@ -322,10 +298,8 @@ public class MakePlateController extends BasicController implements
 			row = sheet.getRow(7 + i);
 			cell = row.getCell(3);
 			// Auto assign next available sample Id;
-			String largestSampleId = sampleManager
-					.getLargestSampleId(SAMPLE_PREFIX);
-			Integer largestSampleNum = Integer.parseInt(largestSampleId
-					.replace(SAMPLE_PREFIX, ""));
+			String largestSampleId = sampleManager.getLargestSampleId(SAMPLE_PREFIX);
+			Integer largestSampleNum = Integer.parseInt(largestSampleId.replace(SAMPLE_PREFIX, ""));
 
 			Integer intSampleNum = largestSampleNum + 1;
 			String formatNum = String.format("%06d", intSampleNum);
@@ -382,8 +356,7 @@ public class MakePlateController extends BasicController implements
 			String sampleComments = cell.getStringCellValue();
 
 			// Temporary placeholder for SampleType as "DNA"
-			SampleType tempST = sampleManager.getSampleTypeDAO()
-					.getSampleTypeByName("DNA");
+			SampleType tempST = sampleManager.getSampleTypeDAO().getSampleTypeByName("DNA");
 			newSample.setSampleType(tempST);
 			newSample.setStatus("Stored");
 			newSample.getPatient().setProject(project);
@@ -412,8 +385,7 @@ public class MakePlateController extends BasicController implements
 		return workbook;
 	}
 
-	private void downloadManifest(HttpServletResponse response, Workbook wb,
-			String fileName) throws Exception {
+	private void downloadManifest(HttpServletResponse response, Workbook wb, String fileName) throws Exception {
 		// Write Excel Document as an attachment
 		ByteArrayOutputStream outByteStream = new ByteArrayOutputStream();
 		wb.write(outByteStream);
