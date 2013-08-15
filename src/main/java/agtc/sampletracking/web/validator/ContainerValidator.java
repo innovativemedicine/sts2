@@ -27,12 +27,12 @@ public class ContainerValidator implements Validator {
 	public void validate(Object obj, Errors errors) {
 		Container container = (Container)obj;
 		
-		ValidationUtils.rejectIfEmpty(errors, "name", "required", "ID required");
-		ValidationUtils.rejectIfEmpty(errors, "extContainerId", "required", "External ID required");
-		ValidationUtils.rejectIfEmpty(errors, "createdDate", "required", "Created Date required");
+		// ValidationUtils.rejectIfEmpty(errors, "name", "required", "ID required");
+		// ValidationUtils.rejectIfEmpty(errors, "extContainerId", "required", "External ID required");
+		// ValidationUtils.rejectIfEmpty(errors, "createdDate", "required", "Created Date required");
 
-		if(container.getName().length()>128){
-			errors.rejectValue( "name","error.nameTooLong",new String[]{Integer.toString(container.getName().length())},"Name too long");
-		}
+		// if(container.getName().length()>128){
+		//	errors.rejectValue( "name","error.nameTooLong",new String[]{Integer.toString(container.getName().length())},"Name too long");
+		// }
 	}
 }
