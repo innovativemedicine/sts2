@@ -13,6 +13,11 @@ $('.barcodeInput').bind('input', function(event) {
 	}
 });
 
+$('.datepicker').datepicker(
+{
+	autoclose: true
+});
+
 $('.linkButton').click(function() {
 	$('.linkedButton').click();
 });
