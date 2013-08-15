@@ -15,6 +15,7 @@
 <link href="css/bootstrap-responsive.min.css" rel="stylesheet">
 <link href="css/jasny-bootstrap.min.css" rel="stylesheet">
 <link href="css/jasny-bootstrap-responsive.min.css" rel="stylesheet">
+<link href="css/datepicker.css" rel="stylesheet">
 <link href="css/stylesheet.css" rel="stylesheet">
 
 
@@ -23,6 +24,7 @@
 	<script type="text/javascript" src="js/jquery-1.10.2.min.js" defer></script>
 	<script type="text/javascript" src="js/bootstrap.min.js" defer></script>
 	<script type="text/javascript" src="js/jasny-bootstrap.min.js" defer></script>
+	<script type="text/javascript" src="js/bootstrap-datepicker.js" defer></script>
 	<script type="text/javascript" src="js/myJs.js" defer></script>
 
 	<%@ include file="/WEB-INF/jsp/includes/menu.jsp"%>
