@@ -147,13 +147,21 @@ public class AddMultiSamplesController extends BasicController implements Consta
 			MultipartFile aFile = mrequest.getFile("file");
 
 			if (samplePrefix.isEmpty()) {
-				errors.reject("error.required", new String[] { "samplePrefix" }, "SampleID Prefix is required");
-				return showForm(request, response, errors);
+				message = "SampleID Prefix is required";
+
+				ModelAndView mav = new ModelAndView(new RedirectView("addMultiSamples.htm"));
+				mav.addObject("err", message);
+
+				return mav;
 			}
 
 			if (aFile.isEmpty()) {
-				errors.reject("error.emptyFile", "Uploaded file is empty");
-				return showForm(request, response, errors);
+				message = "Uploaded file is empty";
+
+				ModelAndView mav = new ModelAndView(new RedirectView("addMultiSamples.htm"));
+				mav.addObject("err", message);
+
+				return mav;
 			}
 
 			InputStream is = aFile.getInputStream();
@@ -162,13 +170,21 @@ public class AddMultiSamplesController extends BasicController implements Consta
 				finalSampleList = readSampleManifest(is, samplePrefix);
 
 				if (finalSampleList.isEmpty()) {
-					errors.reject("error.emptyFile", "Error: Manifest File does not contain any samples");
-					return showForm(request, response, errors);
+					message = "Error: Manifest File does not contain any samples";
+
+					ModelAndView mav = new ModelAndView(new RedirectView("addMultiSamples.htm"));
+					mav.addObject("err", message);
+
+					return mav;
 				}
 			} catch (Exception e) {
-				e.printStackTrace();
-				errors.reject("error.invalidFile", e.getMessage());
-				return showForm(request, response, errors);
+				message = e.getMessage();
+
+				ModelAndView mav = new ModelAndView(new RedirectView("addMultiSamples.htm"));
+				mav.addObject("err", message);
+
+				return mav;
+
 			}
 
 			is.close();
@@ -180,7 +196,16 @@ public class AddMultiSamplesController extends BasicController implements Consta
 
 		else if (action.equals("Save")) {
 
-			finalSampleList = readSampleForm(request);
+			try {
+				finalSampleList = readSampleForm(request);
+			} catch (Exception e) {
+				message = e.getMessage();
+
+				ModelAndView mav = new ModelAndView(new RedirectView("addMultiSamples.htm"));
+				mav.addObject("err", message);
+
+				return mav;
+			}
 		}
 
 		// Save samples to DB
@@ -200,7 +225,12 @@ public class AddMultiSamplesController extends BasicController implements Consta
 			errors.reject("error.required", new String[] { "PrintError" },
 					"An error has occured while trying to print labels");
 
-			return showForm(request, response, errors);
+			message = e.getMessage();
+
+			ModelAndView mav = new ModelAndView(new RedirectView("addMultiSamples.htm"));
+			mav.addObject("err", message);
+
+			return mav;
 		}
 
 		ModelAndView mav = new ModelAndView(new RedirectView(getSuccessView()));
@@ -215,8 +245,10 @@ public class AddMultiSamplesController extends BasicController implements Consta
 	{
 		Map<String, Object> models = new HashMap<String, Object>();
 		String message = ServletRequestUtils.getStringParameter(request, "message", "");
+		String err = ServletRequestUtils.getStringParameter(request, "err", "");
 
 		models.put("message", message);
+		models.put("err", err);
 
 		List<SampleType> allSampleTypes = sampleManager.getAllSampleTypes();
 		List<Project> allProjects = projectManager.getAllProjects();
@@ -224,15 +256,6 @@ public class AddMultiSamplesController extends BasicController implements Consta
 		models.put("allSampleTypes", allSampleTypes);
 		models.put("allProjects", allProjects);
 		return models;
-	}
-
-	private static List<Integer> String2IntList(String[] sArray) {
-		List<Integer> l = new ArrayList<Integer>();
-
-		for (int i = 0; i <= sArray.length - 1; i++) {
-			l.add(Integer.parseInt(sArray[i]));
-		}
-		return l;
 	}
 
 	private Workbook formatSampleManifest(InputStream is) throws Exception {
@@ -386,16 +409,13 @@ public class AddMultiSamplesController extends BasicController implements Consta
 			cell = row.getCell(0, Row.CREATE_NULL_AS_BLANK);
 			String externalId = "";
 
-			if (cell.getCellType() == Cell.CELL_TYPE_STRING)
-			{
+			if (cell.getCellType() == Cell.CELL_TYPE_STRING) {
 				externalId = cell.getStringCellValue();
-			}
-			else if (cell.getCellType() == Cell.CELL_TYPE_NUMERIC)
-			{
+			} else if (cell.getCellType() == Cell.CELL_TYPE_NUMERIC) {
 				DecimalFormat nodecimal = new DecimalFormat("#");
 				externalId = nodecimal.format(cell.getNumericCellValue());
 			}
-			
+
 			// Stop reading if external ID in the next row is empty!
 			if (externalId.isEmpty()) {
 				return readSamples;
@@ -490,8 +510,7 @@ public class AddMultiSamplesController extends BasicController implements Consta
 					if (recDate != null && recDate.equals(curDupeRecDay)) {
 						intSampleId = curSampleDupe.getPatient().getIntSampleId();
 						newSample = new Sample(intSampleId);
-					}
-					else {
+					} else {
 
 						String largestSampleId = sampleManager.getLargestSampleId(samplePrefix);
 						Integer largestSampleNum = Integer.parseInt(largestSampleId.replace(samplePrefix, ""));
@@ -560,7 +579,6 @@ public class AddMultiSamplesController extends BasicController implements Consta
 		String recDateString = ServletRequestUtils.getStringParameter(request, "receivedDate");
 		Integer projectId = ServletRequestUtils.getIntParameter(request, "project");
 		String notes = ServletRequestUtils.getStringParameter(request, "notes");
-		String[] sampletypes = ServletRequestUtils.getStringParameters(request, "sampleType");
 
 		Date birthDate = null;
 		Date recDate = null;
@@ -614,22 +632,49 @@ public class AddMultiSamplesController extends BasicController implements Consta
 		newSample.setNotes(notes);
 		newSample.setStatus("Registered");
 
-		// Sample Type
-		List<Integer> sampleTypeIds = String2IntList(sampletypes);
-		Iterator<Integer> ir = sampleTypeIds.iterator();
+		// Sample Types
+		List<SampleType> sampleTypes = sampleManager.getSampleTypeDAO().getSampleTypes();
+		Iterator<SampleType> stIter = sampleTypes.iterator();
+		Boolean noST = true;
 
-		while (ir.hasNext()) {
-			Integer sampleTypeId = ir.next();
-			SampleType st = sampleManager.getSampleType(sampleTypeId);
-			newSample.setSampleType(st);
+		while (stIter.hasNext()) {
+			SampleType curST = stIter.next();
+			Integer sampleTypeId = curST.getSampleTypeId();
+			String stChkboxName = "st" + sampleTypeId;
 
-			Integer sampleNum = st.getInitialLabelNo();
+			Boolean stChk = ServletRequestUtils.getBooleanParameter(request, stChkboxName);
 
-			for (int j = 1; j <= sampleNum; j++) {
-				Sample sampleClone = (Sample) newSample.clone();
-
-				sampleList.add(sampleClone);
+			if (stChk != null) {
+				noST = false;
+				newSample.setSampleType(curST);
+				Integer sampleNum = curST.getInitialLabelNo();
+				for (int j = 1; j <= sampleNum; j++) {
+					Sample sampleClone = (Sample) newSample.clone();
+					sampleList.add(sampleClone);
+				}
 			}
+		}
+
+		// Sample Type
+		// List<Integer> sampleTypeIds = String2IntList(sampletypes);
+		// Iterator<Integer> ir = sampleTypeIds.iterator();
+		//
+		// while (ir.hasNext()) {
+		// Integer sampleTypeId = ir.next();
+		// SampleType st = sampleManager.getSampleType(sampleTypeId);
+		// newSample.setSampleType(st);
+		//
+		// Integer sampleNum = st.getInitialLabelNo();
+		//
+		// for (int j = 1; j <= sampleNum; j++) {
+		// Sample sampleClone = (Sample) newSample.clone();
+		//
+		// sampleList.add(sampleClone);
+		// }
+		// }
+
+		if (noST) {
+			throw new Exception("Error: Sample Type required");
 		}
 
 		return sampleList;
