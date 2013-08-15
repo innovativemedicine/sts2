@@ -42,9 +42,7 @@ public class ModifyRunController extends BasicController {
 	private AGTCManager agtcManager;
 	private IdListResolver idListResolver;
 	private Log log = LogFactory.getLog(ModifyRunController.class);
-	/* (non-Javadoc)
-	 * @see agtc.sampletracking.web.controller.BasicController#showFormAfterAllowed(null, null, org.springframework.validation.BindException)
-	 */
+	
 	public ModifyRunController(){
 		//initialize the form from the formBackingObject
 		 setBindOnNewForm(true);

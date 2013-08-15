@@ -11,6 +11,7 @@ package agtc.sampletracking.web.controller;
 
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.validation.*;
 import javax.servlet.*;
@@ -42,24 +43,12 @@ public class EditRunController extends BasicController {
 	private IdListResolver		idListResolver;
 	private Log					log	= LogFactory.getLog(EditRunController.class);
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * agtc.sampletracking.web.controller.BasicController#showFormAfterAllowed
-	 * (null, null, org.springframework.validation.BindException)
-	 */
 	public EditRunController() {
-		// initialize the form from the formBackingObject
 		setBindOnNewForm(true);
-
 	}
 
 	protected Object formBackingObject(HttpServletRequest request) throws ServletException {
-		// get the Owner referred to by id in the request
-		// log.debug("run name is " + runManager.getProject(new
-		// Integer(ServletRequestUtils.getRequiredIntParameter(request,
-		// "runId"))).getName());
+
 		int i = ServletRequestUtils.getIntParameter(request, "runId", -1);
 		if (i == -1) {
 			Run run = new Run();
@@ -85,25 +74,11 @@ public class EditRunController extends BasicController {
 			BindException errors) throws Exception {
 		Run run = (Run) command;
 		log.debug("the runid is " + run.getRunId());
-		// log.debug("runDate name is " + run.getRunDate().toString());
 
-		// int studyGroupId = ServletRequestUtils.getIntParameter(request,
-		// "studyGroupId",-1);
-		// the following column no is 1 based, for the convience of user, will
-		// change to 0 based one
-		// construct a ResultParse
 		int sampleIdColumnNo = ServletRequestUtils.getIntParameter(request, "sampleIdColumnNo", -1);
 		int assayNameColumnNo = ServletRequestUtils.getIntParameter(request, "assayNameColumnNo", -1);
 		int resultColumnNo = ServletRequestUtils.getIntParameter(request, "resultColumnNo", -1);
 
-		/*
-		 * String format = ServletRequestUtils.getStringParameter(request,
-		 * "format",""); if(format == null || format.length()==0){
-		 * errors.reject("error.required",new
-		 * String[]{"Sample file type"},"Sample file type is required"); return
-		 * showForm(request, response, errors); } SamplePrefix samplePrefix =
-		 * agtcManager.getSamplePrefixByDescription(format);
-		 */
 		String[] pIds = request.getParameterValues("plateIds");
 		String plateIdList = "";
 		if (pIds != null) {
@@ -129,8 +104,13 @@ public class EditRunController extends BasicController {
 		MultipartHttpServletRequest mrequest = (MultipartHttpServletRequest) request;
 		MultipartFile aFile = mrequest.getFile("file");
 		if (aFile.isEmpty()) {
-			errors.reject("error.emptyFile", "Uploaded file is empty");
-			return showForm(request, response, errors);
+			String err = "Uploaded File is empty";
+
+			ModelAndView mav = new ModelAndView(new RedirectView("editRun.htm"));
+			mav.addObject("err", err);
+
+			return mav;
+
 		}
 		String note = run.getNote();
 		if (note == null || note.trim().length() == 0) {
@@ -180,38 +160,22 @@ public class EditRunController extends BasicController {
 		return mav;
 	}
 
-	/**
-	 * protected ModelAndView
-	 * processFormSubmission(javax.servlet.http.HttpServletRequest request,
-	 * javax.servlet.http.HttpServletResponse response, java.lang.Object
-	 * command, BindException errors) throws java.lang.Exception {
-	 * 
-	 * log.debug(errors); return null; }
-	 */
-
-	protected java.util.Map referenceData(javax.servlet.http.HttpServletRequest request, java.lang.Object command,
-			Errors errors) throws java.lang.Exception {
-		Run run = (Run) command;
+	protected Map referenceData(HttpServletRequest request, Object command, Errors errors) throws java.lang.Exception {
 		Map models = new HashMap();
 
 		String message = ServletRequestUtils.getStringParameter(request, "message", "");
+		String err = ServletRequestUtils.getStringParameter(request, "err", "");
+		models.put("err", err);
 		models.put("message", message);
 
 		List allProjects = projectManager.getAllProjects();
 		List allTests = testManager.getAllTests();
 		List allPlates = containerManager.getAllPlates();
 
-		/*
-		 * Modified by Jianan Xiao 2005-09-06 delete reference of study group to
-		 * CGG
-		 */
-		// List allStudyGroups = testManager.getAllCGGStudyGroups();
-
 		List allColumnNumbers = new ArrayList();
 
 		CGGStudyGroup empty = new CGGStudyGroup();
 		// allStudyGroups.add(0,empty);
-		List allSamplePrefixes = agtcManager.getAllSamplePrefixes();
 
 		for (int i = 1; i < 21; i++) {
 			allColumnNumbers.add(new Integer(i));
@@ -220,79 +184,46 @@ public class EditRunController extends BasicController {
 		models.put("allTests", allTests);
 		models.put("allPlates", allPlates);
 		models.put("allProjects", allProjects);
-		// models.put("allStudyGroups",allStudyGroups);
-		models.put("allSamplePrefixes", allSamplePrefixes);
 		models.put("allColumnNumbers", allColumnNumbers);
 		return models;
 	}
 
-	/**
-	 * @return
-	 */
 	public ContainerManager getContainerManager() {
 		return containerManager;
 	}
 
-	/**
-	 * @return
-	 */
 	public ProjectManager getProjectManager() {
 		return projectManager;
 	}
 
-	/**
-	 * @return
-	 */
 	public TestManager getTestManager() {
 		return testManager;
 	}
 
-	/**
-	 * @param manager
-	 */
 	public void setContainerManager(ContainerManager manager) {
 		containerManager = manager;
 	}
 
-	/**
-	 * @param manager
-	 */
 	public void setProjectManager(ProjectManager manager) {
 		projectManager = manager;
 	}
 
-	/**
-	 * @param manager
-	 */
 	public void setTestManager(TestManager manager) {
 		testManager = manager;
 	}
 
-	/**
-	 * @return
-	 */
 	public IdListResolver getIdListResolver() {
 		return idListResolver;
 	}
 
-	/**
-	 * @param resolver
-	 */
 	public void setIdListResolver(IdListResolver resolver) {
 		idListResolver = resolver;
 	}
 
-	/**
-	 * @return Returns the agtcManager.
-	 */
 	public AGTCManager getAgtcManager() {
 		return agtcManager;
 	}
 
-	/**
-	 * @param agtcManager
-	 *            The agtcManager to set.
-	 */
 	public void setAgtcManager(AGTCManager agtcManager) {
 		this.agtcManager = agtcManager;
 	}
