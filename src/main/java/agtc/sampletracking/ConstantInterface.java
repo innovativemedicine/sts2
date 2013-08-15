@@ -42,5 +42,6 @@ public interface ConstantInterface {
 	
 	public static String MANIFESTPATH = "/manifest/";
 	public static String LABELPATH = "/label/";
+	public static String PROTOCOLPATH = "/protocol/";
 
 }
