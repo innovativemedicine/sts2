@@ -1,4 +1,3 @@
-
 <%@ include file="/WEB-INF/jsp/includes/head.jsp"%>
 
 <h2>Add / Edit User Information</h2>

@@ -9,7 +9,7 @@
 			</FONT>
 		</spring:bind>
 
-		<form method="post" action="EditProfile.htm">
+		<form method="post" action="editProfile.htm">
 
 			<table class="table" class="details">
 

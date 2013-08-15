@@ -1,6 +1,6 @@
 <%@ include file="/WEB-INF/jsp/includes/head.jsp"%>
 
-<h2>Add Containers</h2>
+<h2>Register Containers</h2>
 
 <c:if test="${command.motherContainer != null}">
 	Mother Container: <c:out value="${command.motherContainer.name}" />
@@ -13,11 +13,8 @@
 		<label class="control-label">Container Name:</label>
 		<div class="controls">
 			<spring:bind path="command.name">
-				<INPUT class="setFocus" type="text" maxlength="255" size="20"
+				<INPUT required class="setFocus" type="text" maxlength="255" size="20"
 					name="name" value="<c:out value="${status.value}"/>">
-				<FONT color="red"> <B><c:out
-							value="${status.errorMessage}" /></B>
-				</FONT>
 			</spring:bind>
 		</div>
 	</div>
@@ -82,7 +79,7 @@
 		<label class="control-label">Container Type<FONT color=RED>*</FONT></label>
 		<div class="controls">
 			<spring:bind path="command.containerType">
-				<select name='<c:out value="${status.expression}" />'>
+				<select required name='<c:out value="${status.expression}" />'>
 					<option value="">Select Container Type</option>
 					<c:forEach items="${allContainerTypes}" var="containerType">
 						<option
@@ -94,9 +91,6 @@
 						</option>
 					</c:forEach>
 				</select>
-				<FONT color="red"> <B><c:out
-							value="${status.errorMessage}" /></B>
-				</FONT>
 
 			</spring:bind>
 		</div>
@@ -107,7 +101,7 @@
 		<div class="controls">
 
 			<spring:bind path="command.location">
-				<select name='<c:out value="${status.expression}" />'>
+				<select required name='<c:out value="${status.expression}" />'>
 					<option value="">Select Location</option>
 
 					<c:forEach items="${allLocations}" var="location">
@@ -120,19 +114,14 @@
 						</option>
 					</c:forEach>
 				</select>
-				<FONT color="red"> <B><c:out
-							value="${status.errorMessage}" /></B>
-				</FONT>
-
+				
 			</spring:bind>
 		</div>
 	</div>
 
-
 	<div class="control-group">
 		<label class="control-label">Project</label>
 		<div class="controls">
-
 
 			<spring:bind path="command.project">
 				<select name="<c:out value="${status.expression}" />">

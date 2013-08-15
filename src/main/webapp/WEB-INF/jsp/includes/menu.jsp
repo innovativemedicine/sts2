@@ -87,7 +87,7 @@
 						data-toggle="dropdown"><c:out value="${sessionScope.userName}" />&nbsp;<i
 							class="iconic-user"></i></a>
 						<ul class="dropdown-menu">
-							<li><a href="EditProfile.htm">Profile Settings</a></li>
+							<li><a href="editProfile.htm">Profile Settings</a></li>
 							<li><a href="index.htm?login=on">Logout</a></li>
 						</ul></li>
 				</ul>
