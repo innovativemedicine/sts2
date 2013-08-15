@@ -57,6 +57,7 @@ public class SampleListController extends BasicController {
 			SatoLabelPrinter satoP = new SatoLabelPrinter();
 			// Collections.sort(sampleList,new SampleComparator());
 			satoP.printSampleLabel(sampleList, contextPath);
+			System.out.println("Worked up to here");
 
 			message = "Labels have been printed.";
 		} else if (action.equalsIgnoreCase("Export Data")) {
@@ -90,8 +91,8 @@ public class SampleListController extends BasicController {
 		String message = ServletRequestUtils.getStringParameter(request, "message", "");
 
 		models.put("message", message);
-
 		models.put("sampleList", sampleList);
+		
 		return models;
 	}
 

@@ -15,6 +15,5 @@ public class AddEditUserValidator implements Validator{
 
 		ValidationUtils.rejectIfEmpty(errors, "loginname", "required", "Login Name is required");
 		ValidationUtils.rejectIfEmpty(errors, "password", "required", "Password is required");
-		//ValidationUtils.rejectIfEmpty(errors, "roles", "required", "Roles is required");
 	}
 }
