@@ -9,7 +9,8 @@
 			<value>com.mysql.jdbc.Driver</value>
 		</property>
 		<property name="url">
-			<value>jdbc:mysql://localhost:3306/sts</value>
+<!-- 			<value>jdbc:mysql://localhost:3306/sts</value> -->
+			<value>jdbc:mysql://localhost:3306/STRACK</value>
 		</property>
 
 		<property name="username">
@@ -583,7 +584,7 @@
 				/containers.htm*=ROLE_GUEST,ROLE_USER,ROLE_ADMINISTRATOR
 				/sampleDetails.htm*=ROLE_GUEST,ROLE_USER,ROLE_ADMINISTRATOR
 				/containerDetails.htm*=ROLE_GUEST,ROLE_USER,ROLE_ADMINISTRATOR
-				/EditProfile.htm*=ROLE_GUEST,ROLE_USER,ROLE_ADMINISTRATOR
+				/editProfile.htm*=ROLE_GUEST,ROLE_USER,ROLE_ADMINISTRATOR
 				/addMultiSamples.htm*=ROLE_GUEST,ROLE_USER,ROLE_ADMINISTRATOR
 				/barcode.htm*=ROLE_GUEST,ROLE_USER,ROLE_ADMINISTRATOR
 				/admin**=ROLE_ADMINISTRATOR
