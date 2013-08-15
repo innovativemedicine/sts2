@@ -1,127 +1,47 @@
 <%@ include file="/WEB-INF/jsp/includes/head.jsp"%>
 
-<h2>Register Plate</h2>
+<h2>Register Plates</h2>
 
 <form method="post" enctype="multipart/form-data">
 	<div class="row-fluid">
-		<div class="span4">
-			<table class="table">
-				<tr class="info">
-					<td colspan="2"><b>Step 1: Fill In Plate Info</b></td>
-				</tr>
-				<tr>
-					<td class="span2">Plate ID *</td>
-					<td><spring:bind path="command.name">
-							<input disabled class="one span2" type="text" maxlength="60" size="20"
-								name='<c:out value="${status.expression}" />'
-								value="<c:out value="${status.value}"/>">
-							<c:if test="${status.errorMessage != ''}">
-								<FONT color="red">*</FONT>
-							</c:if>
-						</spring:bind></td>
-				</tr>
-				<tr>
-					<td>External Plate ID *</td>
-					<td><spring:bind path="command.extContainerId">
-							<input class="one span2 setFocus" type="text" maxlength="60" size="20"
-								required name='<c:out value="${status.expression}" />'
-								value="<c:out value="${status.value}"/>">
-							<c:if test="${status.errorMessage != ''}">
-								<FONT color="red">*</FONT>
-							</c:if>
-						</spring:bind></td>
-				</tr>
-				<tr>
-					<td>Plate Type: *</td>
-					<td><spring:bind path="command.containerType">
-							<select class="one span2" size="1"
-								name='<c:out value="${status.expression}" />'>
-								<option value="">Select Plate Type</option>
-								<c:forEach items="${allPlateTypes}" var="plateType">
-									<option
-										<c:if test="${command.containerType != null && command.containerType.containerTypeId eq plateType.containerTypeId}">
-				   					selected
-			 					</c:if>
-										value="<c:out value="${plateType.containerTypeId}"/>">
-										<c:out value="${plateType.name}" />
-									</option>
-								</c:forEach>
-							</select>
-						</spring:bind></td>
-				</tr>
-				<tr>
-					<td>Project *</td>
-					<td><spring:bind path="command.project">
-							<select class="one span2" class="one span2" size="1"
-								name='<c:out value="${status.expression}" />'>
-								<option value="">Select Project</option>
-								<c:forEach items="${allProjects}" var="project">
-									<option
-										<c:if test="${command.project != null && command.project.projectId eq project.projectId}">
-				   					selected
-			 					</c:if>
-										value="<c:out value="${project.projectId}"/>">
-										<c:out value="${project.name}" />
-									</option>
-								</c:forEach>
-							</select>
-						</spring:bind></td>
-				</tr>
-				<tr>
-					<td>Created Date *</td>
-					<td><spring:bind path="command.createdDate">
-							<input class="one span2" type="text" maxlength="10" size="20"
-								placeholder="DD-MM-YYYY" name="createdDate" required
-								value="<c:out value="${status.value}"/>">
-							<c:if test="${status.errorMessage != ''}">
-								<FONT color="red">*</FONT>
-							</c:if>
-						</spring:bind></td>
-				</tr>
-				<tr>
-					<td>Comments</td>
-					<td><spring:bind path="command.comments">
-							<input class="one span2" type="text" maxlength="255" size="20"
-								name="comments" value="<c:out value="${status.value}"/>">
-						</spring:bind></td>
-				</tr>
-				<tr>
-					<td colspan="2"><span style="font-size: 10pt">*
-							Required Fields</span></td>
-				</tr>
-				<tr>
-					<td colspan="2"><a class="btn unhider"><span>Next</span></a></td>
-				</tr>
-			</table>
+		<div class="span8">
 
-		</div>
-		<div class="span4">
-			<table class="table">
-				<tr class="info">
-					<td colspan="2"><b>Step 2: Download and Complete Manifest File</b></td>
-				</tr>
-				<tr>
-					<td>Manifest file</td>
-					<td><div id="dlManifest">
-							<input class="btn unhider2" type="submit" name="action"
-								value="Download">
+			<div class="alert alert-info">
+				<h2>Plate Manifest</h2>
+			</div>
 
-						</div></td>
-				</tr>
-			</table>
-			<p>
 			<table class="table">
-				<tr class="info">
-					<td colspan="2"><b>Step 3: Upload Manifest File</b></td>
-				</tr>
 				<tr>
-					<td>Upload Manifest</td>
-					<td><input type="file" name="file" /></td>
+					<td class="form-inline"><label>Plate ID *</label> <input
+						required class="span3" type="text" name="platePrefix" value=""></td>
+					<td>
+						<!-- 					Upload File Manifest -->
+						<div class="fileupload fileupload-new " data-provides="fileupload">
+							<span class="input-prepend input-append form-inline"> 
+							<span class="btn btn-file"> <span class="fileupload-new">Select
+										Manifest</span> <span class="fileupload-exists">Change
+										Manifest</span> <input type="file" name="file" />
+							</span> <span class="uneditable-input fileupload-preview"></span> <input
+								class="btn fileupload-exists" type="submit" name="action"
+								value="Upload">
+							</span>
+						</div>
+					</td>
+
 				</tr>
 				<tr>
 					<td colspan="2"><input class="btn" type="submit" name="action"
 						value="Save"></td>
 				</tr>
+			</table>
+			<div class="alert">
+				Download Plate Manifest <input class="btn unhider2" type="submit"
+					name="action" value="Download">
+			</div>
+
+			<p>
+			<table class="table">
+
 			</table>
 		</div>
 	</div>
