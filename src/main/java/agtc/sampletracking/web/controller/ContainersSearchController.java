@@ -114,13 +114,18 @@ public class ContainersSearchController extends BasicSearchController {
 	protected Map referenceData(HttpServletRequest request) throws Exception {
 		Map models = new HashMap();
 		String message = ServletRequestUtils.getStringParameter(request, "message", "");
-		
+		String err = ServletRequestUtils.getStringParameter(request, "err", "");
+
 		LContainerTypes = agtcManager.getBoxTypes();
+		List<Container> containerList = containerManager.getAllBoxes();
+		WebUtils.setSessionAttribute(request, "containerList", containerList);
+
 		LProjects = projectManager.getAllProjects();
 
 		models.put("LContainerTypes", LContainerTypes);
 		models.put("LProjects", LProjects);
 		models.put("message", message);
+		models.put("err", err);
 
 		return models;
 	}

@@ -16,6 +16,7 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.validation.BindException;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
+import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -24,47 +25,27 @@ import agtc.sampletracking.bus.manager.TestManager;
 import agtc.sampletracking.model.Result;
 import agtc.sampletracking.model.Run;
 
-/**
- * @author Hongjing
- *
- * TODO To change the template for this generated type comment go to
- * Window - Preferences - Java - Code Style - Code Templates
- */
+
 public class AddResultController extends BasicController {
 	private TestManager testManager;
 	private ProjectManager projectManager;
-	/**
-	 * @return Returns the projectManager.
-	 */
+	
 	public ProjectManager getProjectManager() {
 		return projectManager;
 	}
-	/**
-	 * @param projectManager The projectManager to set.
-	 */
+	
 	public void setProjectManager(ProjectManager projectManager) {
 		this.projectManager = projectManager;
 	}
-	/**
-	 * @return Returns the testManager.
-	 */
 	public TestManager getTestManager() {
 		return testManager;
 	}
-	/**
-	 * @param testManager The testManager to set.
-	 */
 	public void setTestManager(TestManager testManager) {
 		this.testManager = testManager;
 	}
-	private Log log = LogFactory.getLog(AddResultController.class);
-	/* (non-Javadoc)
-	 * @see agtc.sampletracking.web.controller.BasicController#showFormAfterAllowed(null, null, org.springframework.validation.BindException)
-	 */
 
 	protected Object formBackingObject(HttpServletRequest request) throws ServletException {
 		// get the Owner referred to by id in the request
-		//log.debug("run name is " + runManager.getProject(new Integer(RequestUtils.getRequiredIntParameter(request, "runId"))).getName());
 		Result result = new Result();
 		result.setResultId(new Integer(-1));
 		
@@ -94,46 +75,32 @@ public class AddResultController extends BasicController {
 			testManager.saveResult(result);
 			testManager.refreshResult(result);
 			ModelAndView view = new ModelAndView(new RedirectView(getSuccessView()));
-			Map myModel = view.getModel();
-			myModel.put("message","Have successfully save the result !");
-			log.debug("have put the message, will put resultId" );
-			log.debug("resultId is " + result.getResultId());
-			myModel.put("resultId",result.getResultId());
+			Map m = view.getModel();
+			m.put("message","Have successfully save the result !");
+			m.put("resultId",result.getResultId());
 			return view;
 		}catch(Exception e){
-			e.printStackTrace();
-			log.debug(e.getMessage());
-			log.debug(e.getStackTrace());
-			saveResult = "Could not load the results. Please make sure that the sample is already in the STS ! <br>";
-			saveResult += e.toString();
-			errors.reject("error.sampleNotExisted",new String[]{result.getIntSampleId()},saveResult);
-			return showForm(request, response, errors);
+			
+			String err = "Could not load the results. Please make sure that the sample is already in the STS !";
+						
+			ModelAndView mav = new ModelAndView(new RedirectView("addResult.htm"));
+			mav.addObject("err", err);
+
+			return mav;
 		}
 		
 	}
 	
-	
-	/**
-	protected ModelAndView processFormSubmission(javax.servlet.http.HttpServletRequest request,
-													 javax.servlet.http.HttpServletResponse response,
-													 java.lang.Object command,
-													 BindException errors)
-											  throws java.lang.Exception
-		{
-			
-			log.debug(errors);
-			return null;
-		}
-
-	*/
-	protected java.util.Map referenceData(javax.servlet.http.HttpServletRequest request,
-									  java.lang.Object command,Errors errors)
-							   throws java.lang.Exception
+	protected Map referenceData(HttpServletRequest request,
+									 Object command,Errors errors)
+							   throws Exception
 	{
 		Result result = (Result)command;
 		Map models = new HashMap();
 		List allProjects = projectManager.getAllProjects();
 		List allAssays = testManager.getAllAssays();
+		String err = ServletRequestUtils.getStringParameter(request, "err", "");
+
 /* Modified by Jianan Xiao 2005-09-06
  * delete reference of study group to CGG*/
 /*		List allStudyGroups = testManager.getAllCGGStudyGroups();
@@ -143,6 +110,7 @@ public class AddResultController extends BasicController {
 */		
 		models.put("allAssays",allAssays);
 		models.put("allProjects",allProjects);
+		models.put("err", err);
 		
 		return models;
 	}

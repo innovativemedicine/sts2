@@ -13,6 +13,7 @@ import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -47,10 +48,6 @@ public class EditSampleController extends BasicController {
 	}
 
 	protected Object formBackingObject(HttpServletRequest request) throws ServletException {
-		// get the Owner referred to by id in the request
-		// log.debug("project name is " + projectManager.getproject(new
-		// Integer(RequestUtils.getRequiredIntParameter(request,
-		// "projectId"))).getName());
 		int i = ServletRequestUtils.getIntParameter(request, "sampleId", -1);
 
 		if (i == -1) {
@@ -76,20 +73,20 @@ public class EditSampleController extends BasicController {
 		}
 	}
 
-	protected ModelAndView onSubmit(javax.servlet.http.HttpServletRequest request,
-			javax.servlet.http.HttpServletResponse response, java.lang.Object command, BindException errors)
-			throws Exception {
+	protected ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response, Object command,
+			BindException errors) throws Exception {
 		Sample sample = (Sample) command;
 
-		log.debug(sample);
-		// delegate the update to the Business layer
-		log.debug("sample type is " + sample.getSampleType().getName());
 		try {
 			sampleManager.saveSample(sample);
 		} catch (Exception e) {
-			errors.rejectValue("patient.intSampleId", "error.notUnique", new String[] { sample.getPatient()
-					.getIntSampleId() + sample.getSampleType().getSuffix() + sample.getSampleDupNo() }, "Not unique");
-			return showForm(request, response, errors);
+			String err = "Sample is not unique";
+
+			ModelAndView mav = new ModelAndView(new RedirectView("editSample.htm"));
+			mav.addObject("err", err);
+
+			return mav;
+
 		}
 		ModelAndView view = new ModelAndView(new RedirectView(getSuccessView()));
 		Map myModel = view.getModel();
@@ -99,21 +96,19 @@ public class EditSampleController extends BasicController {
 
 	}
 
-	protected Map referenceData(HttpServletRequest request, Object command, Errors errors)
-	{
+	protected Map referenceData(HttpServletRequest request, Object command, Errors errors) {
 		Map models = new HashMap();
-		// Sample sample = (Sample) command;
-		// List existingSampleTypes =
-		// sampleManager.getExistingSampleTypes(sample.getPatient().getIntSampleId());
-		String message = ServletRequestUtils.getStringParameter(request, "message", "");
 
+		String message = ServletRequestUtils.getStringParameter(request, "message", "");
+		String err = ServletRequestUtils.getStringParameter(request, "err", "");
+		models.put("err", err);
 		models.put("message", message);
 
 		List allStockContainers = containerManager.getAllContainers();
 
 		List allSampleTypes = agtcManager.getSampleTypes();
 		List numbers = new ArrayList();
-		for (int i = 1; i < 11; i++) {
+		for (int i = 1; i <= 10; i++) {
 			numbers.add(new Integer(i));
 		}
 
@@ -124,53 +119,26 @@ public class EditSampleController extends BasicController {
 		return models;
 	}
 
-	/*
-	 * protected ModelAndView
-	 * processFormSubmission(javax.servlet.http.HttpServletRequest request,
-	 * javax.servlet.http.HttpServletResponse response, java.lang.Object
-	 * command, BindException errors) throws java.lang.Exception { Sample sample
-	 * = (Sample) command; log.debug(sample); log.debug(errors); return null; }
-	 */
-
-	/**
-	 * @return
-	 */
 	public SampleManager getSampleManager() {
 		return sampleManager;
 	}
 
-	/**
-	 * @param manager
-	 */
 	public void setSampleManager(SampleManager manager) {
 		sampleManager = manager;
 	}
 
-	/**
-	 * @return
-	 */
 	public ContainerManager getContainerManager() {
 		return containerManager;
 	}
 
-	/**
-	 * @param manager
-	 */
 	public void setContainerManager(ContainerManager manager) {
 		containerManager = manager;
 	}
 
-	/**
-	 * @return Returns the agtcManager.
-	 */
 	public AGTCManager getAgtcManager() {
 		return agtcManager;
 	}
 
-	/**
-	 * @param agtcManager
-	 *            The agtcManager to set.
-	 */
 	public void setAgtcManager(AGTCManager agtcManager) {
 		this.agtcManager = agtcManager;
 	}

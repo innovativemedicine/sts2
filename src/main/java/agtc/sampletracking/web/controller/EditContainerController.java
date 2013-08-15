@@ -15,7 +15,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.validation.BindException;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.RequestUtils;
+import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -32,7 +32,7 @@ import agtc.sampletracking.model.SamplesInContainer;
  * Window>Preferences>Java>Code Generation>Code and Comments
  */
 public class EditContainerController extends BasicController {
-	private Log log = LogFactory.getLog(EditContainerController.class);
+	
 	private ContainerManager containerManager;
 	private ProjectManager projectManager;
 	private AGTCManager agtcManager;
@@ -46,14 +46,16 @@ public class EditContainerController extends BasicController {
 
 	protected Object formBackingObject(HttpServletRequest request) throws ServletException {
 		// get the Owner referred to by id in the request
-		//log.debug("project name is " + projectManager.getproject(new Integer(RequestUtils.getRequiredIntParameter(request, "projectId"))).getName());
-		int i = RequestUtils.getIntParameter(request, "containerId",-1);
+		//log.debug("project name is " + projectManager.getproject(new Integer(ServletRequestUtils.getRequiredIntParameter(request, "projectId"))).getName());
+		int i = ServletRequestUtils.getIntParameter(request, "containerId",-1);
+		
 		if(i==-1){
 			Container container = new Container();
 			container.setContainerId(new Integer(-1));
 		
-			int ip = RequestUtils.getIntParameter(request, "projectId",-1);
-			int im = RequestUtils.getIntParameter(request, "motherContainerId",-1);
+			int ip = ServletRequestUtils.getIntParameter(request, "projectId",-1);
+			int im = ServletRequestUtils.getIntParameter(request, "motherContainerId",-1);
+			
 			if(ip != -1){
 				container.setProject(projectManager.getProject(new Integer(ip)));
 			}
@@ -62,13 +64,9 @@ public class EditContainerController extends BasicController {
 				container.setMotherContainer(containerManager.getContainer(new Integer(im)));
 			}
 			
-			
 			return container;
 		}else{
 			Container container = containerManager.getContainer(new Integer(i));
-			log.debug("in formBackingObject");
-			log.debug("container name is " + container.getName());
-			log.debug("container containerType name is " + container.getContainerType().getName());
 			
 			return container;
 		}
@@ -77,6 +75,7 @@ public class EditContainerController extends BasicController {
 	protected ModelAndView onSubmit(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response, java.lang.Object command,BindException errors) throws Exception {
 		Container container = (Container) command;
 		Container motherContainer = container.getMotherContainer();
+		
 		Set sics = new HashSet();
 		if(motherContainer != null){
 			List s = containerManager.getSamplesInContainerByContainer(motherContainer.getContainerId());
@@ -95,14 +94,22 @@ public class EditContainerController extends BasicController {
 			}
 		}
 		
-		if(container.getContainerType().getName().equals("-")){
-			errors.rejectValue( "containerType","error.required",new String[]{"Container Type"},"Container Type is required");
-			return showForm(request, response, errors);
+		if(container.getContainerType() == null){
+			String err = "Container Type is required";
+
+			ModelAndView mav = new ModelAndView(new RedirectView("editContainer.htm"));
+			mav.addObject("err", err);
+
+			return mav;
 		}
 
-		if(container.getLocation().getName().equals("-")){
-			errors.rejectValue( "location","error.required",new String[]{"Container Type"},"Container Type is required");
-			return showForm(request, response, errors);
+		if(container.getLocation() == null){
+			String err = "Container Location is required";
+
+			ModelAndView mav = new ModelAndView(new RedirectView("editContainer.htm"));
+			mav.addObject("err", err);
+
+			return mav;
 		}
 
 		container.setSamplesInContainers(sics);
@@ -110,8 +117,13 @@ public class EditContainerController extends BasicController {
 		try{
 			containerManager.saveContainer(container);
 		}catch(Exception e){
-			errors.rejectValue( "name","error.notUnique",new String[]{container.getName()},"Not unique");
-			return showForm(request, response, errors);
+			String err = "Container Name is not unique";
+
+			ModelAndView mav = new ModelAndView(new RedirectView("editContainer.htm"));
+			mav.addObject("err", err);
+
+			return mav;
+
 		}
 		
 		ModelAndView view = new ModelAndView(new RedirectView(getSuccessView()));
@@ -126,22 +138,21 @@ public class EditContainerController extends BasicController {
 							   throws java.lang.Exception
 	{
 		Map models = new HashMap();
-		Container container = (Container) command;
 		
+		String err = ServletRequestUtils.getStringParameter(request, "err", "");
+		
+		Container container = (Container) command;
 	    
 	    //the allProjects, allLocations and allContainerTypes is all except the current one
 		List allProjects = projectManager.getAllProjects();
 		List allLocations = agtcManager.getLocations();
-		List allContainerTypes = agtcManager.getContainerTypes();
-		List allPlateTypes = agtcManager.getPlateTypes();
-		allContainerTypes.removeAll(allPlateTypes);
+		List allContainerTypes = agtcManager.getBoxTypes();
 
 		models.put("allLocations",allLocations);
 		models.put("allContainerTypes",allContainerTypes);
 		models.put("allProjects",allProjects);
-	
+		models.put("err", err);
 
-		log.debug("referenceData is called");
 		return models;
 	}
 

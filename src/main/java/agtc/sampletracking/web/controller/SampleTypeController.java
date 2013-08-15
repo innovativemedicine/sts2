@@ -12,7 +12,7 @@ package agtc.sampletracking.web.controller;
  * TODO To change the template for this generated type comment go to
  * Window - Preferences - Java - Code Style - Code Templates
  */
- 
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,101 +31,91 @@ import org.springframework.web.servlet.view.RedirectView;
 import agtc.sampletracking.bus.manager.AGTCManager;
 import agtc.sampletracking.model.SampleType;
 
- 
 public class SampleTypeController extends BasicController {
-	private AGTCManager agtcManager;
-	private List<SampleType> LSampleTypes;
-	private Log log = LogFactory.getLog(SampleTypeController.class);
-	/* (non-Javadoc)
-	 * @see agtc.sampletracking.web.controller.BasicController
-	 * #showFormAfterAllowed(null, null, org.springframework.validation.BindException)
-	 */
-	public SampleTypeController(){
-		//initialize the form from the formBackingObject
-		 setBindOnNewForm(true);
-		
-	}
-	
-	protected Object formBackingObject(HttpServletRequest request) throws ServletException {
-		// get the Owner referred to by id in the request
-		//log.debug("project name is " + projectManager.getProject(new Integer(RequestUtils.getRequiredIntParameter(request, "projectId"))).getName());
-		SampleType sampleType=null;
-		int i = ServletRequestUtils.getIntParameter(request, "sampleTypeId",-1);
+	private AGTCManager			agtcManager;
+	private List<SampleType>	LSampleTypes;
+	private Log					log	= LogFactory.getLog(SampleTypeController.class);
 
-		if(i==-1){
+	public SampleTypeController() {
+		setBindOnNewForm(true);
+	}
+
+	protected Object formBackingObject(HttpServletRequest request) throws ServletException {
+		SampleType sampleType = null;
+		int i = ServletRequestUtils.getIntParameter(request, "sampleTypeId", -1);
+
+		if (i == -1) {
 			sampleType = new SampleType();
 			sampleType.setSampleTypeId(new Integer(-1));
-		}else{
+		} else {
 			sampleType = agtcManager.getSampleType(new Integer(i));
 		}
 
-		return (Object)sampleType;
+		return (Object) sampleType;
 	}
 
-//	protected ModelAndView onSubmit(Object command) throws ServletException {
-	protected ModelAndView onSubmit(
-			HttpServletRequest request,
-			HttpServletResponse response,
-			Object command,
-			BindException errors)
-			throws Exception{
-		String submit = ServletRequestUtils.getStringParameter(request, "Submit",null);
-			
+	// protected ModelAndView onSubmit(Object command) throws ServletException {
+	protected ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response, Object command,
+			BindException errors) throws Exception {
+		String submit = ServletRequestUtils.getStringParameter(request, "Submit", null);
+
 		SampleType sampleType = (SampleType) command;
 		String labelnu = request.getParameter("isSource");
-		//System.out.println("Is Source="+labelnu);
-		if ((labelnu!=null)&&(labelnu.equals("on"))) sampleType.setIsSource("on");
-		else sampleType.setIsSource("off");
-		if(submit.compareTo("New")==0){
+
+		if ((labelnu != null) && (labelnu.equals("on")))
+			sampleType.setIsSource("on");
+		else
+			sampleType.setIsSource("off");
+		if (submit.compareTo("New") == 0) {
 			sampleType.setSampleTypeId(new Integer(-1));
 		}
-		
-		try{
+
+		try {
 			agtcManager.saveSampleType(sampleType);
-			
-			//Refresh Sample Types List
+
+			// Refresh Sample Types List
 			LSampleTypes = agtcManager.getSampleTypes();
-		}catch(Exception e){
-			errors.reject("error.notUnique",new String[]{sampleType.getName()+ " or " + sampleType.getSuffix()},"Not unique");
-			return showForm(request, response, errors);
+		} catch (Exception e) {
+			String err = "Sampe Type name not unique";
+
+			ModelAndView mav = new ModelAndView(new RedirectView("sampleType.htm"));
+			mav.addObject("err", err);
+
+			return mav;
+
+
 		}
-		
-		log.debug("success view is " + getSuccessView());
 
 		return new ModelAndView(new RedirectView(getSuccessView()));
 	}
-	
-	protected Map referenceData(HttpServletRequest request)
-				throws java.lang.Exception{
-		//super.referenceData(request);
+
+	protected Map referenceData(HttpServletRequest request) throws java.lang.Exception {
+
 		Map m = new HashMap();
 		LSampleTypes = agtcManager.getSampleTypes();
-		m.put("LSampleTypes",LSampleTypes);
+		String err = ServletRequestUtils.getStringParameter(request, "err", "");
+
+		m.put("err", err);
+		m.put("LSampleTypes", LSampleTypes);
+		
 		return m;
 	}
 
- 
-	
-	/**
-	 * @return
-	 */
+
 	public AGTCManager getAgtcManager() {
 		return agtcManager;
 	}
 
-	/**
-	 * @param manager
-	 */
 	public void setAgtcManager(AGTCManager manager) {
 		agtcManager = manager;
 	}
-	
-	public List<SampleType> getSampleTypes(){
+
+	public List<SampleType> getSampleTypes() {
 		return LSampleTypes;
 	}
 
-	public void setLSampleTypes(List<SampleType> stock){
-		LSampleTypes=stock;
+	public void setLSampleTypes(List<SampleType> stock) {
+		LSampleTypes = stock;
 	}
 
 }

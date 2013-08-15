@@ -37,13 +37,6 @@ public class EditProjectController extends BasicController {
 	private AGTCManager		agtcManager;
 	private Log				log	= LogFactory.getLog(EditProjectController.class);
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * agtc.sampletracking.web.controller.BasicController#showFormAfterAllowed
-	 * (null, null, org.springframework.validation.BindException)
-	 */
 	public EditProjectController() {
 		// initialize the form from the formBackingObject
 		setBindOnNewForm(true);
@@ -51,10 +44,6 @@ public class EditProjectController extends BasicController {
 	}
 
 	protected Object formBackingObject(HttpServletRequest request) throws ServletException {
-		// get the Owner referred to by id in the request
-		// log.debug("project name is " + projectManager.getProject(new
-		// Integer(ServletRequestUtils.getRequiredIntParameter(request,
-		// "projectId"))).getName());
 		int i = ServletRequestUtils.getIntParameter(request, "projectId", -1);
 		if (i == -1) {
 			Project project = new Project();
@@ -69,15 +58,16 @@ public class EditProjectController extends BasicController {
 	protected ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response, Object command,
 			BindException errors) throws Exception {
 		Project project = (Project) command;
-		log.debug(project);
-		// delegate the update to the Business layer
 		try {
 			projectManager.saveProject(project);
 		} catch (Exception e) {
-			errors.rejectValue("name", "error.notUnique", new String[] { project.getName() }, "Not unique");
-			return showForm(request, response, errors);
+			String err = "Project Name not unique";
+
+			ModelAndView mav = new ModelAndView(new RedirectView("editProject.htm"));
+			mav.addObject("err", err);
+
+			return mav;
 		}
-		log.debug("success view is " + getSuccessView());
 		ModelAndView view = new ModelAndView(new RedirectView(getSuccessView()));
 		Map myModel = view.getModel();
 		myModel.put("message", "Have successfully saved this project !");
@@ -92,52 +82,26 @@ public class EditProjectController extends BasicController {
 
 		models.put("message", message);
 
-		/*
-		 * Project project = (Project) command; Investigator currentInvg =
-		 * project.getInvestigator(); if(currentInvg == null){
-		 * allInvgs.add(0,null); }else{ allInvgs.remove(currentInvg);
-		 * allInvgs.add(0,currentInvg); }
-		 */
+		String err = ServletRequestUtils.getStringParameter(request, "err", "");
+		models.put("err", err);
 
 		models.put("availableIvgs", allInvgs);
 
 		return models;
 	}
 
-	/**
-	 * protected ModelAndView
-	 * processFormSubmission(javax.servlet.http.HttpServletRequest request,
-	 * javax.servlet.http.HttpServletResponse response, java.lang.Object
-	 * command, BindException errors) throws java.lang.Exception { Project
-	 * project = (Project) command; log.debug(project); log.debug(errors);
-	 * return null; }
-	 */
-
-	/**
-	 * @return
-	 */
-	public ProjectManager getProjectManager() {
+		public ProjectManager getProjectManager() {
 		return projectManager;
 	}
 
-	/**
-	 * @param manager
-	 */
 	public void setProjectManager(ProjectManager manager) {
 		projectManager = manager;
 	}
 
-	/**
-	 * @return Returns the agtcManager.
-	 */
 	public AGTCManager getAgtcManager() {
 		return agtcManager;
 	}
 
-	/**
-	 * @param agtcManager
-	 *            The agtcManager to set.
-	 */
 	public void setAgtcManager(AGTCManager agtcManager) {
 		this.agtcManager = agtcManager;
 	}

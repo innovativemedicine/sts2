@@ -12,7 +12,7 @@ package agtc.sampletracking.web.controller;
  * TODO To change the template for this generated type comment go to
  * Window - Preferences - Java - Code Style - Code Templates
  */
- 
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,103 +24,90 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.validation.BindException;
-import org.springframework.web.bind.RequestUtils;
+import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import agtc.sampletracking.bus.manager.AGTCManager;
 import agtc.sampletracking.model.Location;
 
- 
 public class LocationController extends BasicController {
-	private AGTCManager agtcManager;
-	private List LLocations;
-	private Log log = LogFactory.getLog(LocationController.class);
-	/* (non-Javadoc)
-	 * @see agtc.sampletracking.web.controller.BasicController
-	 * #showFormAfterAllowed(null, null, org.springframework.validation.BindException)
-	 */
-	public LocationController(){
-		//initialize the form from the formBackingObject
-		 setBindOnNewForm(true);
-		
+	private AGTCManager	agtcManager;
+	private List		LLocations;
+	private Log			log	= LogFactory.getLog(LocationController.class);
+
+	public LocationController() {
+		setBindOnNewForm(true);
 	}
-	
+
 	protected Object formBackingObject(HttpServletRequest request) throws ServletException {
 		// get the Owner referred to by id in the request
-		Location location=null;
-		int i = RequestUtils.getIntParameter(request, "locationId",-1);
+		Location location = null;
+		int i = ServletRequestUtils.getIntParameter(request, "locationId", -1);
 
-		if(i==-1){
+		if (i == -1) {
 			location = new Location();
 			location.setLocationId(new Integer(-1));
-		}else{
+		} else {
 			location = agtcManager.getLocation(new Integer(i));
 		}
 
-		return (Object)location;
+		return (Object) location;
 	}
 
-//	protected ModelAndView onSubmit(Object command) throws ServletException {
-	protected ModelAndView onSubmit(
-			HttpServletRequest request,
-			HttpServletResponse response,
-			Object command,
-			BindException errors)
-			throws Exception {
-		String submit = RequestUtils.getStringParameter(request, "Submit",null);
-			
+	protected ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response, Object command,
+			BindException errors) throws Exception {
+		String submit = ServletRequestUtils.getStringParameter(request, "Submit", null);
+
 		Location location = (Location) command;
-		
-//		System.out.println("command fax="+(location.getContact()).getFax());
-//		System.out.println("request fax="+request.getParameterValues("fax")[0]);
-		
-		if(submit.compareTo("New")==0){
+
+		if (submit.compareTo("New") == 0) {
 			location.setLocationId(new Integer(-1));
 		}
-		try{
+		try {
 			agtcManager.saveLocation(location);
-		}catch(Exception e){
-			errors.rejectValue("name","error.notUnique",new String[]{location.getName()},"Not unique");
-			return showForm(request, response, errors);
+		} catch (Exception e) {
+			String err = "Location name not nunique";
+
+			ModelAndView mav = new ModelAndView(new RedirectView("location.htm"));
+			mav.addObject("err", err);
+
+			return mav;
+
 		}
-		
+
 		log.debug("success view is " + getSuccessView());
 
 		return new ModelAndView(new RedirectView(getSuccessView()));
 	}
-	
-	protected Map referenceData(HttpServletRequest request)
-				throws java.lang.Exception{
-		//super.referenceData(request);
+
+	protected Map referenceData(HttpServletRequest request) throws java.lang.Exception {
+
 		Map m = new HashMap();
 		LLocations = agtcManager.getLocations();
-		m.put("LLocations",LLocations);
+		m.put("LLocations", LLocations);
+		
+		String err = ServletRequestUtils.getStringParameter(request, "err", "");
+		m.put("err", err);
+
 		return m;
 	}
 
- 
-	
-	/**
-	 * @return
-	 */
+
 	public AGTCManager getAgtcManager() {
 		return agtcManager;
 	}
 
-	/**
-	 * @param manager
-	 */
 	public void setAgtcManager(AGTCManager manager) {
 		agtcManager = manager;
 	}
-	
-	public List getLocations(){
+
+	public List getLocations() {
 		return LLocations;
 	}
 
-	public void setLLocations(List stock){
-		LLocations=stock;
+	public void setLLocations(List stock) {
+		LLocations = stock;
 	}
 
 }

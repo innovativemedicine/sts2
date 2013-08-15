@@ -27,33 +27,18 @@ import java.util.*;
 
 /**
  * @author Gloria Deng
- * 
- *         To change the template for this generated type comment go to
- *         Window>Preferences>Java>Code Generation>Code and Comments
  */
 public class EditAssayController extends BasicController {
 	private TestManager		testManager;
 	private ProjectManager	projectManager;
 	private Log				log	= LogFactory.getLog(EditAssayController.class);
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * agtc.sampletracking.web.controller.BasicController#showFormAfterAllowed
-	 * (null, null, org.springframework.validation.BindException)
-	 */
 	public EditAssayController() {
-		// initialize the form from the formBackingObject
 		setBindOnNewForm(true);
-
 	}
 
 	protected Object formBackingObject(HttpServletRequest request) throws ServletException {
-		// get the Owner referred to by id in the request
-		// log.debug("project name is " + projectManager.getProject(new
-		// Integer(ServletRequestUtils.getRequiredIntParameter(request,
-		// "projectId"))).getName());
+
 		int i = ServletRequestUtils.getRequiredIntParameter(request, "assayId");
 
 		if (i == -1) {
@@ -64,9 +49,7 @@ public class EditAssayController extends BasicController {
 			Set projects = new HashSet();
 			assay.setProjects(projects);
 			assay.getProjects().add(project);
-			// project.getAssays().add(assay);
-			// log.debug("the assayid in the formBackingObject is " +
-			// assay.getAssayId());
+	
 
 			return assay;
 		} else {
@@ -75,54 +58,38 @@ public class EditAssayController extends BasicController {
 		}
 	}
 
-	protected ModelAndView onSubmit(javax.servlet.http.HttpServletRequest request,
-			javax.servlet.http.HttpServletResponse response, java.lang.Object command, BindException errors)
+	protected ModelAndView onSubmit(HttpServletRequest request,
+			HttpServletResponse response, Object command, BindException errors)
 			throws Exception {
 		Assay assay = (Assay) command;
-
-		/**
-		 * the following two line of codes cause
-		 * org.hibernate.LazyInitializationException: Failed to lazily
-		 * initialize a collection - no session or session was closed
-		 * 
-		 * Project project = (Project)(assay.getProjects().iterator().next());
-		 * log.debug("the project name for this assay is "+project.getName());
-		 */
-		log.debug("the assay id for this assay is " + assay.getAssayId());
-
-		log.debug(assay);
 
 		try {
 			testManager.saveAssay(assay);
 		} catch (Exception e) {
-			errors.rejectValue("name", "error.notUnique", new String[] { assay.getName() }, "Not unique");
-			return showForm(request, response, errors);
-		}
+			
+			String err = "Assay name not unique";
+			ModelAndView mav = new ModelAndView(new RedirectView("editAssay.htm"));
+			mav.addObject("err", err);
 
-		log.debug("success view is " + getSuccessView());
+			return mav;		}
+
 		ModelAndView view = new ModelAndView(new RedirectView(getSuccessView()));
 		Map myModel = view.getModel();
 		myModel.put("message", "Have successfully saved this assay !");
 		myModel.put("assayId", assay.getAssayId());
 		return view;
 	}
-
-	/**
-	 * protected ModelAndView
-	 * processFormSubmission(javax.servlet.http.HttpServletRequest request,
-	 * javax.servlet.http.HttpServletResponse response, java.lang.Object
-	 * command, BindException errors) throws java.lang.Exception { Assay assay =
-	 * (Assay) command; log.debug(assay); log.debug(errors); return null; }
-	 */
-
-	protected java.util.Map referenceData(javax.servlet.http.HttpServletRequest request, java.lang.Object command,
+	
+	protected Map referenceData(javax.servlet.http.HttpServletRequest request, java.lang.Object command,
 			Errors errors) throws java.lang.Exception {
 		Map models = new HashMap();
 
 		String message = ServletRequestUtils.getStringParameter(request, "message", "");
+		String err = ServletRequestUtils.getStringParameter(request, "err", "");
 
 		models.put("message", message);
-
+		models.put("err", err);
+		
 		return models;
 	}
 

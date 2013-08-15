@@ -45,20 +45,12 @@ public class ResultsSearchController extends BasicSearchController {
 		String action = ServletRequestUtils.getStringParameter(request, "action", "");
 		String format = ServletRequestUtils.getStringParameter(request, "format", "");
 		String linkageFormat = ServletRequestUtils.getStringParameter(request, "linkageFormat", "");
-		// String searchByAssays =
-		// ServletRequestUtils.getStringParameter(request,
-		// "searchByAssays","");
+
 		List searchResults = new ArrayList();
 		String[] assayIds = request.getParameterValues("assayIds");
 
 		List sampleIds = new ArrayList();
-		/*
-		 * List crtList = (List)WebUtils.getOrCreateSessionAttribute(
-		 * request.getSession(), "resultCriteriaList", ArrayList.class);
-		 * 
-		 * List lgcList = (List)WebUtils.getOrCreateSessionAttribute(
-		 * request.getSession(), "resultLogicalList", ArrayList.class);
-		 */
+
 		List crtList = new ArrayList();
 		WebUtils.setSessionAttribute(request, "resultCriteriaList", crtList);
 		List lgcList = new ArrayList();
@@ -100,8 +92,13 @@ public class ResultsSearchController extends BasicSearchController {
 
 		if (action.equals("SEARCH")) {
 			if (format == null || format.length() == 0) {
-				errors.reject("error.required", new String[] { "Output format" }, "Output format is required");
-				return showForm(request, response, errors);
+
+				String err = "Output format is required.";
+
+				ModelAndView mav = new ModelAndView(new RedirectView("results.htm"));
+				mav.addObject("err", err);
+
+				return mav;
 			}
 
 		}
@@ -210,21 +207,19 @@ public class ResultsSearchController extends BasicSearchController {
 
 		List assays = testManager.getAssayDAO().getAssays();
 		Collections.sort(assays, new AssayComparator());
+
+		String err = ServletRequestUtils.getStringParameter(request, "err", "");
+		models.put("err", err);
+
 		models.put("assayList", assays);
 
 		return models;
 	}
 
-	/**
-	 * @return
-	 */
 	public TestManager getTestManager() {
 		return testManager;
 	}
 
-	/**
-	 * @param manager
-	 */
 	public void setTestManager(TestManager manager) {
 		testManager = manager;
 	}

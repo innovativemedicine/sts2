@@ -32,9 +32,6 @@ import agtc.sampletracking.model.Test;
 
 /**
  * @author Gloria Deng
- * 
- *         To change the template for this generated type comment go to
- *         Window>Preferences>Java>Code Generation>Code and Comments
  */
 public class EditTestController extends BasicController {
 	private TestManager		testManager;
@@ -43,24 +40,12 @@ public class EditTestController extends BasicController {
 	private AGTCManager		agtcManager;
 	private Log				log	= LogFactory.getLog(EditTestController.class);
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * agtc.sampletracking.web.controller.BasicController#showFormAfterAllowed
-	 * (null, null, org.springframework.validation.BindException)
-	 */
 	public EditTestController() {
-		// initialize the form from the formBackingObject
 		setBindOnNewForm(true);
-
 	}
 
 	protected Object formBackingObject(HttpServletRequest request) throws ServletException {
-		// get the Owner referred to by id in the request
-		// log.debug("project name is " + projectManager.getProject(new
-		// Integer(ServletRequestUtils.getRequiredIntParameter(request,
-		// "projectId"))).getName());
+
 		int i = ServletRequestUtils.getIntParameter(request, "testId", -1);
 		if (i == -1) {
 			Test test = new Test();
@@ -93,10 +78,14 @@ public class EditTestController extends BasicController {
 		try {
 			testManager.saveTest(test);
 		} catch (Exception e) {
-			errors.rejectValue("name", "error.notUnique", new String[] { test.getName() }, "Not unique");
-			return showForm(request, response, errors);
+			String err = "Test Name not unique";
+
+			ModelAndView mav = new ModelAndView(new RedirectView("editTest.htm"));
+			mav.addObject("err", err);
+
+			return mav;
 		}
-		log.debug("success view is " + getSuccessView());
+		
 		ModelAndView view = new ModelAndView(new RedirectView(getSuccessView()));
 		Map myModel = view.getModel();
 		myModel.put("message", "Have successfully saved this test !");
@@ -105,34 +94,35 @@ public class EditTestController extends BasicController {
 	}
 
 	private void handleUpload(HttpServletRequest request, Test test) throws Exception {
+		String contextPath = request.getSession().getServletContext().getRealPath("/");
 		MultipartHttpServletRequest mrequest = (MultipartHttpServletRequest) request;
-		String protocalS = "";
+		String protocols = "";
 
 		MultipartFile aFile1 = mrequest.getFile("file1");
 		String fileName1 = aFile1.getOriginalFilename();
 		if (!fileName1.equals("")) {
 			log.debug("the file name is " + fileName1);
-			File file1 = new File("..\\webapps\\SampleTracking\\protocals\\" + fileName1);
+			File file1 = new File(contextPath + PROTOCOLPATH + fileName1);
 			aFile1.transferTo(file1);
-			protocalS = fileName1;
+			protocols = fileName1;
 		}
 
 		MultipartFile aFile2 = mrequest.getFile("file2");
 		String fileName2 = aFile2.getOriginalFilename();
 		if (!fileName2.equals("")) {
 			log.debug("the file name is " + fileName2);
-			File file2 = new File("..\\webapps\\SampleTracking\\protocals\\" + fileName2);
+			File file2 = new File(contextPath + PROTOCOLPATH + fileName2);
 			aFile2.transferTo(file2);
-			protocalS += "," + fileName2;
+			protocols += "," + fileName2;
 		}
 
 		MultipartFile aFile3 = mrequest.getFile("file3");
 		String fileName3 = aFile3.getOriginalFilename();
 		if (!fileName3.equals("")) {
 			log.debug("the file name is " + fileName3);
-			File file3 = new File("..\\webapps\\SampleTracking\\protocals\\" + fileName3);
+			File file3 = new File(contextPath + PROTOCOLPATH + fileName3);
 			aFile3.transferTo(file3);
-			protocalS += "," + fileName3;
+			protocols += "," + fileName3;
 
 		}
 
@@ -140,12 +130,12 @@ public class EditTestController extends BasicController {
 		String fileName4 = aFile4.getOriginalFilename();
 		if (!fileName4.equals("")) {
 			log.debug("the file name is " + fileName4);
-			File file4 = new File("..\\webapps\\SampleTracking\\protocals\\" + fileName4);
+			File file4 = new File(contextPath + PROTOCOLPATH + fileName4);
 			aFile4.transferTo(file4);
-			protocalS += "," + fileName4;
+			protocols += "," + fileName4;
 		}
 
-		test.setProtocal(protocalS);
+		test.setProtocal(protocols);
 	}
 
 	protected Map referenceData(HttpServletRequest request, Object command, Errors errors) throws java.lang.Exception {
@@ -154,25 +144,26 @@ public class EditTestController extends BasicController {
 		Test test = (Test) command;
 
 		String message = ServletRequestUtils.getStringParameter(request, "message", "");
-
+		String err = ServletRequestUtils.getStringParameter(request, "err", "");
+		
+		models.put("err", err);
 		models.put("message", message);
 
 		String assayNameList = "";
 		String assayIdList = test.getAssayList();
 
-		String protocal = test.getProtocal();
-		log.debug("the protocal is " + protocal);
-		if (protocal != null) {
-			String[] protocals = null;
-			if (protocal.indexOf(",") > 0) {
-				protocals = protocal.split(",");
+		String protocol = test.getProtocal();
+		
+		if (protocol != null) {
+			String[] protocols = null;
+			if (protocol.indexOf(",") > 0) {
+				protocols = protocol.split(",");
 			} else {
-				protocals = new String[1];
-				protocals[0] = protocal;
+				protocols = new String[1];
+				protocols[0] = protocol;
 			}
 
-			log.debug("the length of protocal is " + protocals.length);
-			models.put("protocals", protocals);
+			models.put("protocols", protocols);
 
 		}
 
@@ -194,70 +185,38 @@ public class EditTestController extends BasicController {
 		models.put("allAssays", allAssays);
 		models.put("assayNameList", assayNameList);
 
-		log.debug("referenceData is called");
 		return models;
 	}
 
-	/**
-	 * protected ModelAndView
-	 * processFormSubmission(javax.servlet.http.HttpServletRequest request,
-	 * javax.servlet.http.HttpServletResponse response, java.lang.Object
-	 * command, BindException errors) throws java.lang.Exception { Test test =
-	 * (Test) command; log.debug(test); log.debug(errors); return null; }
-	 */
-	/**
-	 * @return
-	 */
+
 	public TestManager getTestManager() {
 		return testManager;
 	}
 
-	/**
-	 * @param manager
-	 */
 	public void setTestManager(TestManager manager) {
 		testManager = manager;
 	}
 
-	/**
-	 * @return
-	 */
 	public ProjectManager getProjectManager() {
 		return projectManager;
 	}
 
-	/**
-	 * @param manager
-	 */
 	public void setProjectManager(ProjectManager manager) {
 		projectManager = manager;
 	}
 
-	/**
-	 * @return
-	 */
 	public IdListResolver getIdListResolver() {
 		return idListResolver;
 	}
 
-	/**
-	 * @param resolver
-	 */
 	public void setIdListResolver(IdListResolver resolver) {
 		idListResolver = resolver;
 	}
 
-	/**
-	 * @return Returns the agtcManager.
-	 */
 	public AGTCManager getAgtcManager() {
 		return agtcManager;
 	}
 
-	/**
-	 * @param agtcManager
-	 *            The agtcManager to set.
-	 */
 	public void setAgtcManager(AGTCManager agtcManager) {
 		this.agtcManager = agtcManager;
 	}

@@ -33,24 +33,11 @@ public class AddEditUserController extends BasicController {
 	private List				LRoles;
 	private Log					log	= LogFactory.getLog(SampleTypeController.class);
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see agtc.sampletracking.web.controller.BasicController
-	 * #showFormAfterAllowed(null, null,
-	 * org.springframework.validation.BindException)
-	 */
 	public AddEditUserController() {
-		// initialize the form from the formBackingObject
 		setBindOnNewForm(true);
-
 	}
 
 	protected Object formBackingObject(HttpServletRequest request) throws ServletException {
-		// get the Owner referred to by id in the request
-		// log.debug("project name is " + projectManager.getProject(new
-		// Integer(ServletRequestUtils.getRequiredIntParameter(request,
-		// "projectId"))).getName());
 		User user = null;
 		int i = ServletRequestUtils.getIntParameter(request, "userId", -1);
 
@@ -64,7 +51,6 @@ public class AddEditUserController extends BasicController {
 		return (Object) user;
 	}
 
-	// protected ModelAndView onSubmit(Object command) throws ServletException {
 	protected ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response, Object command,
 			BindException errors) throws Exception {
 		String submit = ServletRequestUtils.getStringParameter(request, "Submit", null);
@@ -87,13 +73,13 @@ public class AddEditUserController extends BasicController {
 
 			// handle roles
 			userManager.saveUserRoles(user, roles);
-		} catch (ServletRequestBindingException e0) {
-			errors.reject("error.roles", new String[] { "role" }, "role is required");
-			return showForm(request, response, errors);
 		} catch (Exception e) {
-			e.printStackTrace();
-			errors.reject("error.notUnique", new String[] { user.getLoginname() }, "Not unique");
-			return showForm(request, response, errors);
+			String err = "User name not unique";
+
+			ModelAndView mav = new ModelAndView(new RedirectView("adminAddEditUser.htm"));
+			mav.addObject("err", err);
+
+			return mav;
 		}
 
 		log.debug("success view is " + getSuccessView());
@@ -106,6 +92,10 @@ public class AddEditUserController extends BasicController {
 		Map m = new HashMap();
 		LRoles = userManager.getRoles();
 		List LUsers = userManager.getUsers();
+
+		String err = ServletRequestUtils.getStringParameter(request, "err", "");
+		m.put("err", err);
+
 		m.put("RolesList", LRoles);
 		m.put("LUsers", LUsers);
 		return m;
