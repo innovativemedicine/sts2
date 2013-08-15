@@ -267,7 +267,8 @@ public class SampleManager implements ConstantInterface {
 	}
 	
 	public List getAllSampleTypes(){
-		return sampleDAO.getAllSampleTypes();
+//		return sampleDAO.getAllSampleTypes();
+		return sampleTypeDAO.getSampleTypes();
 	}
 	
 	/**
