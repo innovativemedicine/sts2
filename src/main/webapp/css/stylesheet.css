@@ -78,3 +78,7 @@ fieldset.column2 {
 label.checkbox {
 	white-space: nowrap;
 }
+
+.input-micro {
+	width: 20px;
+}
