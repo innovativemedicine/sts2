@@ -336,9 +336,6 @@
 		<property name="successView">
 			<value>sampleDetails.htm</value>
 		</property>
-		<property name="validator">
-			<ref local="sampleValidator" />
-		</property>
 		<property name="sampleManager">
 			<ref bean="sampleManager" />
 		</property>
@@ -349,9 +346,6 @@
 			<ref bean="agtcManager" />
 		</property>
 	</bean>
-
-	<bean id="sampleValidator" class="agtc.sampletracking.web.validator.SampleValidator" />
-
 
 	<bean id="addMultiSamplesController"
 		class="agtc.sampletracking.web.controller.AddMultiSamplesController">
@@ -367,9 +361,6 @@
 		<property name="successView">
 			<value>sampleList.htm</value>
 		</property>
-		<property name="validator">
-			<ref local="multiSamplesValidator" />
-		</property>
 		<property name="sampleManager">
 			<ref bean="sampleManager" />
 		</property>
@@ -377,8 +368,6 @@
 			<ref bean="projectManager" />
 		</property>
 	</bean>
-
-	<bean id="multiSamplesValidator" class="agtc.sampletracking.web.validator.MultiSamplesValidator" />
 
 	<bean id="editContainerController"
 		class="agtc.sampletracking.web.controller.EditContainerController">
@@ -390,9 +379,6 @@
 		</property>
 		<property name="formView">
 			<value>editContainer</value>
-		</property>
-		<property name="validator">
-			<ref local="containerValidator" />
 		</property>
 		<property name="successView">
 			<value>containerDetails.htm</value>
@@ -407,7 +393,6 @@
 			<ref bean="agtcManager" />
 		</property>
 	</bean>
-	<bean id="containerValidator" class="agtc.sampletracking.web.validator.ContainerValidator" />
 
 	<bean id="editProjectController"
 		class="agtc.sampletracking.web.controller.EditProjectController">
@@ -420,9 +405,6 @@
 		<property name="formView">
 			<value>editProject</value>
 		</property>
-		<property name="validator">
-			<ref local="projectValidator" />
-		</property>
 		<property name="successView">
 			<value>projectDetails.htm</value>
 		</property>
@@ -433,7 +415,6 @@
 			<ref bean="agtcManager" />
 		</property>
 	</bean>
-	<bean id="projectValidator" class="agtc.sampletracking.web.validator.ProjectValidator" />
 
 	<bean id="editTestController" class="agtc.sampletracking.web.controller.EditTestController">
 		<property name="sessionForm">
@@ -448,9 +429,6 @@
 		<property name="successView">
 			<value>testDetails.htm</value>
 		</property>
-		<property name="validator">
-			<ref local="testValidator" />
-		</property>
 		<property name="testManager">
 			<ref bean="testManager" />
 		</property>
@@ -464,7 +442,6 @@
 			<ref bean="agtcManager" />
 		</property>
 	</bean>
-	<bean id="testValidator" class="agtc.sampletracking.web.validator.TestValidator" />
 
 	<bean id="editAssayController" class="agtc.sampletracking.web.controller.EditAssayController">
 		<property name="sessionForm">
@@ -479,9 +456,6 @@
 		<property name="successView">
 			<value>assayDetails.htm</value>
 		</property>
-		<property name="validator">
-			<ref local="assayValidator" />
-		</property>
 		<property name="testManager">
 			<ref bean="testManager" />
 		</property>
@@ -489,7 +463,6 @@
 			<ref bean="projectManager" />
 		</property>
 	</bean>
-	<bean id="assayValidator" class="agtc.sampletracking.web.validator.AssayValidator" />
 
 	<bean id="editRunController" class="agtc.sampletracking.web.controller.EditRunController">
 		<property name="sessionForm">
@@ -583,15 +556,10 @@
 		<property name="successView">
 			<value>containerType.htm</value>
 		</property>
-		<property name="validator">
-			<ref local="containerTypeAddEditValidator" />
-		</property>
 		<property name="agtcManager">
 			<ref bean="agtcManager" />
 		</property>
 	</bean>
-	<bean id="containerTypeAddEditValidator"
-		class="agtc.sampletracking.web.validator.ContainerTypeAddEditValidator" />
 
 	<bean id="instrumentController" class="agtc.sampletracking.web.controller.InstrumentController">
 		<property name="sessionForm">
@@ -606,14 +574,10 @@
 		<property name="successView">
 			<value>instrument.htm</value>
 		</property>
-		<property name="validator">
-			<ref local="instrumentValidator" />
-		</property>
 		<property name="agtcManager">
 			<ref bean="agtcManager" />
 		</property>
 	</bean>
-	<bean id="instrumentValidator" class="agtc.sampletracking.web.validator.InstrumentValidator" />
 
 	<bean id="investigatorController"
 		class="agtc.sampletracking.web.controller.InvestigatorController">
@@ -629,14 +593,10 @@
 		<property name="successView">
 			<value>investigator.htm</value>
 		</property>
-		<property name="validator">
-			<ref local="investigatorValidator" />
-		</property>
 		<property name="agtcManager">
 			<ref bean="agtcManager" />
 		</property>
 	</bean>
-	<bean id="investigatorValidator" class="agtc.sampletracking.web.validator.InvestigatorValidator" />
 
 	<bean id="locationController" class="agtc.sampletracking.web.controller.LocationController">
 		<property name="sessionForm">
@@ -651,14 +611,10 @@
 		<property name="successView">
 			<value>location.htm</value>
 		</property>
-		<property name="validator">
-			<ref local="locationValidator" />
-		</property>
 		<property name="agtcManager">
 			<ref bean="agtcManager" />
 		</property>
 	</bean>
-	<bean id="locationValidator" class="agtc.sampletracking.web.validator.LocationValidator" />
 
 	<bean id="sampleTypeController" class="agtc.sampletracking.web.controller.SampleTypeController">
 		<property name="sessionForm">
@@ -673,14 +629,10 @@
 		<property name="successView">
 			<value>sampleType.htm</value>
 		</property>
-		<property name="validator">
-			<ref local="sampleTypeValidator" />
-		</property>
 		<property name="agtcManager">
 			<ref bean="agtcManager" />
 		</property>
 	</bean>
-	<bean id="sampleTypeValidator" class="agtc.sampletracking.web.validator.SampleTypeValidator" />
 
 	<bean id="deleteSampleFromContainerController"
 		class="agtc.sampletracking.web.controller.DeleteSampleFromContainerController">
@@ -818,9 +770,6 @@
 		</property>
 		<property name="successView">
 			<value>containerDetails.htm</value>
-		</property>
-		<property name="validator">
-			<ref local="containerValidator" />
 		</property>
 		<property name="sampleManager">
 			<ref bean="sampleManager" />
@@ -965,12 +914,7 @@
 		<property name="userManager">
 			<ref bean="systemUserManager" />
 		</property>
-		<property name="validator">
-			<ref local="addEditUserValidator" />
-		</property>
 	</bean>
-
-	<bean id="addEditUserValidator" class="agtc.sampletracking.web.validator.AddEditUserValidator" />
 
 	<bean id="editProfileController"
 		class="agtc.sampletracking.web.controller.EditProfileController">
@@ -986,10 +930,6 @@
 		<property name="userManager">
 			<ref bean="systemUserManager" />
 		</property>
-		<property name="validator">
-			<ref local="EditProfileValidator" />
-		</property>
 	</bean>
 
-	<bean id="EditProfileValidator" class="agtc.sampletracking.web.validator.EditProfileValidator" />
 </beans>
