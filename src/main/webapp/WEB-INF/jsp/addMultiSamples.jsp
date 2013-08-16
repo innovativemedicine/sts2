@@ -3,7 +3,7 @@
 <jsp:useBean id="now" class="java.util.Date" />
 
 <h2>Register Samples</h2>
-<div id="myCarousel" class="carousel slide span10" data-interval="false">
+<div id="myCarousel" class="carousel slide span12" data-interval="false">
 	<!-- Carousel items -->
 	<div class="carousel-inner">
 		<div class="item">
@@ -128,18 +128,27 @@
 							</div>
 						</div>
 
-						<div class="span4">
-								<h5>Sample Type</h5>
-								<fieldset class="column2">							
-									<c:forEach items="${allSampleTypes}" var="sampleTypeOpt">
+						<div class="span6">
+							<h5>Sample Type</h5>
+							<fieldset class="column2">
+
+								<c:forEach items="${allSampleTypes}" var="sampleTypeOpt">
+									<div class="form-inline">
 										<label class="checkbox"> <input type="checkbox"
 											name="st<c:out value="${sampleTypeOpt.sampleTypeId}"/>">
+											<input class="input-micro clickSelect" maxlength="2" type="text"
+											name="st<c:out value="${sampleTypeOpt.sampleTypeId}num"/>"
+											value="<c:out value="${sampleTypeOpt.initialLabelNo}"/>"
+											pattern="[0-9]{1,2}">
+
 											<c:out value="${sampleTypeOpt.name}" />
 										</label>
-									</c:forEach>
-								</fieldset>
+									</div>
+								</c:forEach>
 
-							
+							</fieldset>
+
+
 							<!-- 							<div class="control-group"> -->
 							<!-- 								<label class="control-label">Sample Type</label> -->
 							<!-- 								<div class="controls"> -->
