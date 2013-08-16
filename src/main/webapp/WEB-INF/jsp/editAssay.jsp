@@ -10,11 +10,8 @@
 		<div class="controls">
 
 			<spring:bind path="command.name">
-				<INPUT type="text" maxlength="255" size="30" name="name"
+				<input required type="text" maxlength="255" size="30" name="name"
 					value="<c:out value="${status.value}"/>">
-				<FONT color="red"> <B><c:out
-							value="${status.errorMessage}" /></B>
-				</FONT>
 			</spring:bind>
 		</div>
 	</div>
@@ -24,7 +21,7 @@
 		<div class="controls">
 
 			<spring:bind path="command.location">
-				<INPUT type="text" maxlength="255" size="30" name="location"
+				<input type="text" maxlength="255" size="30" name="location"
 					value="<c:out value="${status.value}"/>">
 			</spring:bind>
 		</div>
@@ -35,7 +32,7 @@
 		<label class="control-label"> Note:</label>
 		<div class="controls">
 			<spring:bind path="command.note">
-				<INPUT type="text" maxlength="255" size="30" name="note"
+				<input type="text" maxlength="255" size="30" name="note"
 					value="<c:out value="${status.value}"/>">
 			</spring:bind>
 

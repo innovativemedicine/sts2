@@ -15,18 +15,16 @@
 							<input class="span8" disabled type="text"
 								value="<c:out value="${command.patient.intSampleId}" />" />
 						</c:if>
-						<c:if test="${command.patient.newPatient}">
-							<spring:bind path="command.patient.intSampleId">
-								<input class="span8" type="text" maxlength="255" size="20"
-									name="patient.intSampleId"
-									value="<c:out value="${status.value}"/>">
-								<FONT color="red"> <B><c:out
-											value="${status.errorMessage}" /></B>
-								</FONT>
-							</spring:bind>
-						</c:if>
 					</div>
 
+				</div>
+
+				<div class="control-group">
+					<label class="control-label">External ID:</label>
+					<div class="controls">
+						<input class="span8" type="text"
+							value="<c:out value="${command.patient.extSampleId}" />" />
+					</div>
 				</div>
 
 				<div class="control-group">

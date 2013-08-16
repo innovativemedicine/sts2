@@ -7,50 +7,48 @@
 	<table class="table">
 
 		<tr>
-			<td>Login Name<FONT color=RED>*</FONT></td>
+			<td>Login Name<font color=RED>*</font></td>
 			<td><spring:bind path="command.loginname">
-					<INPUT type="text" maxlength="32" size="30" name="loginname"
+					<input required type="text" maxlength="32" size="30" name="loginname"
 						value="<c:out value="${status.value}"/>">
 				</spring:bind></td>
 		</tr>
 
 		<tr>
-			<td>Password<FONT color=RED>*</FONT></td>
+			<td>Password<font color=RED>*</font></td>
 			<td><spring:bind path="command.password">
-					<INPUT type="password" maxlength="32" size="30" name="password"
+					<input required type="password" maxlength="32" size="30" name="password"
 						value="<c:out value="${status.value}"/>">
 				</spring:bind></td>
 		</tr>
-
-
 
 		<tr>
 			<td>First Name</td>
 			<td><spring:bind path="command.firstName">
-					<INPUT type="text" maxlength="32" size="30" name="firstName"
+					<input type="text" maxlength="32" size="30" name="firstName"
 						value="<c:out value="${status.value}"/>">
-					<FONT color="red"> <B><c:out
+					<font color="red"> <B><c:out
 								value="${status.errorMessage}" /></B>
-					</FONT>
+					</font>
 				</spring:bind></td>
 		</tr>
 
 		<tr>
 			<td>Last Name</td>
 			<td><spring:bind path="command.lastName">
-					<INPUT type="text" maxlength="32" size="30" name="lastName"
+					<input type="text" maxlength="32" size="30" name="lastName"
 						value="<c:out value="${status.value}"/>">
-					<FONT color="red"> <B><c:out
+					<font color="red"> <B><c:out
 								value="${status.errorMessage}" /></B>
-					</FONT>
+					</font>
 				</spring:bind></td>
 		</tr>
 
 
 		<tr>
-			<td>Role<FONT color=RED>*</FONT></td>
+			<td>Role<font color=RED>*</font></td>
 			<td><spring:bind path="command.ROLESs">
-					<select name="roles" size="2">
+					<select required name="roles">
 						<c:forEach var="witem" items="${RolesList}">
 							<c:set value="false" var="mytest" scope="page" />
 							<c:forEach var="cc" items="${command.ROLESs}">
@@ -69,14 +67,14 @@
 		<tr>
 			<td>Activity</td>
 			<td><spring:bind path="command.activity">
-					<INPUT type="checkbox" maxlength="3" size="3" name="activity"
+					<input type="checkbox" maxlength="3" size="3" name="activity"
 						<c:if test="${status.value=='on'}">
 				checked value="on"
 			</c:if> />
 
-					<FONT color="red"> <B><c:out
+					<font color="red"> <B><c:out
 								value="${status.errorMessage}" /></B>
-					</FONT>
+					</font>
 				</spring:bind></td>
 		</tr>
 

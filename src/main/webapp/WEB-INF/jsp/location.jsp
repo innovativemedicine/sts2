@@ -4,24 +4,21 @@
 	<td>
 		<h2>Edit Locations</h2>
 
-		<form method="post" action="location.htm">
+		<form method="post">
 			<table class="table" class="details">
 
 				<tr>
 					<th>Location Name</th>
 					<td><spring:bind path="command.name">
-							<INPUT type="text" maxlength="64" size="20" name="name"
+							<input required type="text" maxlength="64" size="20" name="name"
 								value="<c:out value="${status.value}"/>">
-							<FONT color="red"> <B><c:out
-										value="${status.errorMessage}" /></B>
-							</FONT>
 						</spring:bind></td>
 				</tr>
 
 				<tr>
 					<th>Building</th>
 					<td><spring:bind path="command.building">
-							<INPUT type="text" maxlength="128" size="20" name="building"
+							<input type="text" maxlength="128" size="20" name="building"
 								value="<c:out value="${status.value}"/>">
 						</spring:bind></td>
 				</tr>
@@ -29,21 +26,21 @@
 				<tr>
 					<th>Room</th>
 					<td><spring:bind path="command.room">
-							<INPUT type="text" maxlength="32" size="20" name="room"
+							<input type="text" maxlength="32" size="20" name="room"
 								value="<c:out value="${status.value}"/>">
 						</spring:bind></td>
 				</tr>
 				<tr>
 					<th>Freezer</th>
 					<td><spring:bind path="command.freezer">
-							<INPUT type="text" maxlength="16" size="20" name="freezer"
+							<input type="text" maxlength="16" size="20" name="freezer"
 								value="<c:out value="${status.value}"/>">
 						</spring:bind></td>
 				</tr>
 				<tr>
 					<th>Freezer Shelf</th>
 					<td><spring:bind path="command.freezerShelf">
-							<INPUT type="text" maxlength="16" size="20" name="freezerShelf"
+							<input type="text" maxlength="16" size="20" name="freezerShelf"
 								value="<c:out value="${status.value}"/>">
 						</spring:bind></td>
 				</tr>

@@ -13,8 +13,8 @@
 		<label class="control-label">Container Name:</label>
 		<div class="controls">
 			<spring:bind path="command.name">
-				<INPUT required class="setFocus" type="text" maxlength="255" size="20"
-					name="name" value="<c:out value="${status.value}"/>">
+				<INPUT required class="setFocus" type="text" maxlength="255"
+					size="20" name="name" value="<c:out value="${status.value}"/>">
 			</spring:bind>
 		</div>
 	</div>
@@ -35,12 +35,11 @@
 		<div class="controls">
 
 			<spring:bind path="command.createdDate">
-				<INPUT type="text" placeholder="DD-MM-YYYY" maxlength="255"
-					size="20" name="createdDate"
-					value="<c:out value="${status.value}"/>">
-				<FONT color="red"> <B><c:out
-							value="${status.errorMessage}" /></B>
-				</FONT>
+				<INPUT required type="text" class="datepicker"
+					placeholder="DD-MM-YYYY" maxlength="255" size="20"
+					name="createdDate" value="<c:out value="${status.value}"/>"
+					data-date-format="dd-mm-yyyy">
+
 			</spring:bind>
 
 		</div>
@@ -114,7 +113,7 @@
 						</option>
 					</c:forEach>
 				</select>
-				
+
 			</spring:bind>
 		</div>
 	</div>

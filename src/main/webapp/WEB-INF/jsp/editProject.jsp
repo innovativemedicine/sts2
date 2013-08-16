@@ -7,11 +7,8 @@
 		<label class="control-label">Project Name:</label>
 		<div class="controls">
 			<spring:bind path="command.name">
-				<INPUT type="text" maxlength="255" size="20" name="name"
+				<input required type="text" maxlength="255" size="20" name="name"
 					value="<c:out value="${status.value}"/>">
-				<FONT color="red"> <B><c:out
-							value="${status.errorMessage}" /></B>
-				</FONT>
 			</spring:bind>
 		</div>
 	</div>
@@ -19,10 +16,8 @@
 		<label class="control-label">Description:</label>
 		<div class="controls">
 			<spring:bind path="command.description">
-
-				<INPUT type="text" maxlength="255" size="20" name="description"
+				<input type="text" maxlength="255" size="20" name="description"
 					value="<c:out value="${status.value}"/>">
-
 			</spring:bind>
 		</div>
 	</div>
@@ -31,7 +26,7 @@
 		<div class="controls">
 			<spring:bind path="command.status">
 
-				<INPUT type="text" maxlength="255" size="20" name="status"
+				<input type="text" maxlength="255" size="20" name="status"
 					value="<c:out value="${status.value}"/>">
 
 			</spring:bind>
@@ -42,8 +37,8 @@
 		<div class="controls">
 			<spring:bind path="command.createdOn">
 
-				<INPUT type="text" maxlength="255" size="20" name="createdOn"
-					placeholder="DD-MM-YYYY" value="<c:out value="${status.value}"/>">
+				<input required type="text" class="datepicker" maxlength="255" size="20" name="createdOn"
+					placeholder="DD-MM-YYYY" data-date-format="dd-mm-yy" value="<c:out value="${status.value}"/>">
 				<FONT color="red"> <B><c:out
 							value="${status.errorMessage}" /></B>
 				</FONT>

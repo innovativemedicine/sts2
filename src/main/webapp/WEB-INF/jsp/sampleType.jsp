@@ -9,33 +9,33 @@
 		<tr>
 			<td>Sample Type Name</td>
 			<td><spring:bind path="command.name">
-					<INPUT type="text" maxlength="32" size="20" name="name"
+					<input required type="text" maxlength="32" size="20" name="name"
 						value="<c:out value="${status.value}"/>">
-					<FONT color="red"> <B><c:out
+					<font color="red"> <B><c:out
 								value="${status.errorMessage}" /></B>
-					</FONT>
+					</font>
 				</spring:bind></td>
 		</tr>
 
 		<tr>
 			<td>Suffix</td>
 			<td><spring:bind path="command.suffix">
-					<INPUT type="text" maxlength="3" size="20" name="suffix"
+					<input required type="text" maxlength="3" size="20" name="suffix"
 						value="<c:out value="${status.value}"/>">
-					<FONT color="red"> <B><c:out
+					<font color="red"> <B><c:out
 								value="${status.errorMessage}" /></B>
-					</FONT>
+					</font>
 				</spring:bind></td>
 		</tr>
 
 		<tr>
 			<td>Initial Label No</td>
 			<td><spring:bind path="command.initialLabelNo">
-					<INPUT type="text" maxlength="3" size="20" name="initialLabelNo"
+					<input required type="text" maxlength="3" size="20" name="initialLabelNo"
 						value="<c:out value="${status.value}"/>">
-					<FONT color="red"> <B><c:out
+					<font color="red"> <B><c:out
 								value="${status.errorMessage}" /></B>
-					</FONT>
+					</font>
 				</spring:bind></td>
 		</tr>
 		<tr>

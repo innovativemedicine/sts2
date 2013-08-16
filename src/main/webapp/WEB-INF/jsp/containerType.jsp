@@ -8,11 +8,8 @@
 		<label class="control-label">Container Type:</label>
 		<div class="controls">
 			<spring:bind path="command.name">
-				<INPUT type="text" maxlength="16" size="30" name="name"
+				<input required type="text" maxlength="16" size="30" name="name"
 					value="<c:out value="${status.value}"/>">
-				<FONT color="red"> <B><c:out
-							value="${status.errorMessage}" /></B>
-				</FONT>
 			</spring:bind>
 		</div>
 	</div>
@@ -21,11 +18,9 @@
 		<label class="control-label">Num. of Columns:</label>
 		<div class="controls">
 			<spring:bind path="command.columnNo">
-				<INPUT type="text" maxlength="38" size="30" name="columnNo"
-					value="<c:out value="${status.value}"/>">
-				<FONT color="red"> <B><c:out
-							value="${status.errorMessage}" /></B>
-				</FONT>
+				<input required type="text" maxlength="38" size="30" name="columnNo"
+					value="<c:out value="${status.value}"/>"
+					pattern="[0-9]{1,3}">
 			</spring:bind>
 		</div>
 	</div>
@@ -35,11 +30,9 @@
 		<label class="control-label">Num. of Rows:</label>
 		<div class="controls">
 			<spring:bind path="command.rowNo">
-				<INPUT type="text" maxlength="38" size="30" name="rowNo"
-					value="<c:out value="${status.value}"/>">
-				<FONT color="red"> <B><c:out
-							value="${status.errorMessage}" /></B>
-				</FONT>
+				<input required type="text" maxlength="38" size="30" name="rowNo"
+					value="<c:out value="${status.value}"/>"
+					pattern="[0-9]{1,3}">
 			</spring:bind>
 		</div>
 	</div>
