@@ -10,42 +10,39 @@ import java.beans.PropertyEditorSupport;
 import agtc.sampletracking.model.*;
 import agtc.sampletracking.dao.*;
 
-
 /**
  * @author Hongjing
- *
- * Window - Preferences - Java - Code Style - Code Templates
+ * 
+ *         Window - Preferences - Java - Code Style - Code Templates
  */
 public class AssayEditor extends PropertyEditorSupport {
-	private AssayDAO assayDAO;
-	public void setAsText(String assayId) throws IllegalArgumentException { 
-	 
-		 // text is the string from the form, the containerTypeId is the identifier in 
-		 // the database 
+	private AssayDAO	assayDAO;
 
-		 Assay assay=null; 
-		  if(assayId!=null&&!assayId.equals("")){ 
-		  	assay=assayDAO.getAssay(new Integer(assayId));       
-		  }      
-		  setValue(assay); 
- 
-	   } 
+	public void setAsText(String assayId) throws IllegalArgumentException {
 
-	   public String getAsText(Object value) { 
-	   //return the id value of the object 
+		// text is the string from the form, the containerTypeId is the
+		// identifier in
+		// the database
 
-		   Assay assay = (Assay) value; 
-		   return String.valueOf(assay.getAssayId()); 
-	   }
-	/**
-	 * @return Returns the assayDAO.
-	 */
+		Assay assay = null;
+		if (assayId != null && !assayId.equals("")) {
+			assay = assayDAO.getAssay(new Integer(assayId));
+		}
+		setValue(assay);
+
+	}
+
+	public String getAsText(Object value) {
+		// return the id value of the object
+
+		Assay assay = (Assay) value;
+		return String.valueOf(assay.getAssayId());
+	}
+
 	public AssayDAO getAssayDAO() {
 		return assayDAO;
 	}
-	/**
-	 * @param assayDAO The assayDAO to set.
-	 */
+
 	public void setAssayDAO(AssayDAO assayDAO) {
 		this.assayDAO = assayDAO;
 	}

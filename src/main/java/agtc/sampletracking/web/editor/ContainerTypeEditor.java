@@ -10,34 +10,36 @@ import java.beans.PropertyEditorSupport;
 import agtc.sampletracking.dao.*;
 import agtc.sampletracking.model.*;
 
-
 /**
  * @author Gloria Deng
- *
- * To change the template for this generated type comment go to
- * Window>Preferences>Java>Code Generation>Code and Comments
+ * 
+ *         To change the template for this generated type comment go to
+ *         Window>Preferences>Java>Code Generation>Code and Comments
  */
 public class ContainerTypeEditor extends PropertyEditorSupport {
-	private ContainerTypeDAO containerTypeDAO;
-	public void setAsText(String containerTypeId) throws IllegalArgumentException { 
-	 
-		 // text is the string from the form, the containerTypeId is the identifier in 
-		 // the database 
+	private ContainerTypeDAO	containerTypeDAO;
 
-		 ContainerType containerType=null; 
-		  if(containerTypeId!=null&&!containerTypeId.equals("")){ 
-			containerType=containerTypeDAO.getContainerType(new Integer(containerTypeId));       
-		  }      
-		  setValue(containerType); 
- 
-	   } 
+	public void setAsText(String containerTypeId) throws IllegalArgumentException {
 
-	   public String getAsText(Object value) { 
-	   //return the id value of the object 
+		// text is the string from the form, the containerTypeId is the
+		// identifier in
+		// the database
 
-		   ContainerType containerType = (ContainerType) value; 
-		   return String.valueOf(containerType.getContainerTypeId()); 
-	   }
+		ContainerType containerType = null;
+		if (containerTypeId != null && !containerTypeId.equals("")) {
+			containerType = containerTypeDAO.getContainerType(new Integer(containerTypeId));
+		}
+		setValue(containerType);
+
+	}
+
+	public String getAsText(Object value) {
+		// return the id value of the object
+
+		ContainerType containerType = (ContainerType) value;
+		return String.valueOf(containerType.getContainerTypeId());
+	}
+
 	/**
 	 * @return
 	 */
