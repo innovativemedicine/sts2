@@ -49,6 +49,7 @@ import agtc.sampletracking.bus.manager.ProjectManager;
 import agtc.sampletracking.bus.manager.SampleManager;
 import agtc.sampletracking.bus.report.SatoLabelPrinter;
 import agtc.sampletracking.model.MultiSamples;
+import agtc.sampletracking.model.Patient;
 import agtc.sampletracking.model.Project;
 import agtc.sampletracking.model.Sample;
 import agtc.sampletracking.model.SampleType;
@@ -233,6 +234,12 @@ public class AddMultiSamplesController extends BasicController implements Consta
 			return mav;
 		}
 
+		// Goes through the samples and extract unique set of patient. 
+		// This list is used to generate a list of patients in the sample list view.
+
+		Iterator<Sample> sampleIter = finalSampleList.iterator();
+
+		
 		ModelAndView mav = new ModelAndView(new RedirectView(getSuccessView()));
 		WebUtils.setSessionAttribute(request, "sampleList", finalSampleList);
 		mav.addObject("message", message);
@@ -641,13 +648,17 @@ public class AddMultiSamplesController extends BasicController implements Consta
 			SampleType curST = stIter.next();
 			Integer sampleTypeId = curST.getSampleTypeId();
 			String stChkboxName = "st" + sampleTypeId;
+			String stChkboxNum = "st" + sampleTypeId + "num";
 
 			Boolean stChk = ServletRequestUtils.getBooleanParameter(request, stChkboxName);
 
+			
 			if (stChk != null) {
 				noST = false;
 				newSample.setSampleType(curST);
-				Integer sampleNum = curST.getInitialLabelNo();
+				//Integer sampleNum = curST.getInitialLabelNo();
+				Integer sampleNum = ServletRequestUtils.getIntParameter(request, stChkboxNum);
+				
 				for (int j = 1; j <= sampleNum; j++) {
 					Sample sampleClone = (Sample) newSample.clone();
 					sampleList.add(sampleClone);
