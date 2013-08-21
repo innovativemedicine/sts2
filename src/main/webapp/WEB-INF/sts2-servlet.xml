@@ -9,7 +9,6 @@
 			<list>
 
 				<ref bean="openSessionInViewInterceptor" />
-				<!--ref bean="checkUserRoleInterceptor"/ -->
 			</list>
 		</property>
 		<property name="mappings">
@@ -17,7 +16,7 @@
 				<prop key="/index.htm">loginController</prop>
 				<!-- search controllers -->
 				<prop key="/barcode.htm">barcodeController</prop>
-				<prop key="/searchSamples.htm">simpleSamplesSearchController</prop>
+				<prop key="/searchSamples.htm">SamplesSearchController</prop>
 				<prop key="/searchContainers.htm">containersSearchController</prop>
 				<prop key="/projects.htm">projectsSearchController</prop>
 				<prop key="/tests.htm">testsSearchController</prop>
@@ -28,7 +27,7 @@
 
 				<!-- edit controllers -->
 				<prop key="/editSample.htm">editSampleController</prop>
-				<prop key="/addMultiSamples.htm">addMultiSamplesController</prop>
+				<prop key="/addSamples.htm">addSamplesController</prop>
 				<prop key="/editContainer.htm">editContainerController</prop>
 				<prop key="/editProject.htm">editProjectController</prop>
 				<prop key="/editTest.htm">editTestController</prop>
@@ -75,7 +74,7 @@
 				<prop key="/addResult.htm">addResultController</prop>
 				<prop key="/sampleList.htm">SampleListController</prop>
 				<prop key="/containerList.htm">ContainerListController</prop>
-				<prop key="/makePlate.htm">makePlateController</prop>
+				<prop key="/addPlate.htm">addPlateController</prop>
 				<prop key="/containerContents.htm">containerContentsController</prop>
 				<prop key="/deleteSampleFromContainer.htm">deleteSampleFromContainerController</prop>
 
@@ -127,8 +126,8 @@
 		</property>
 	</bean>
 
-	<bean id="simpleSamplesSearchController"
-		class="agtc.sampletracking.web.controller.SimpleSampleSearchController">
+	<bean id="SamplesSearchController"
+		class="agtc.sampletracking.web.controller.SampleSearchController">
 		<property name="sessionForm">
 			<value>true</value>
 		</property>
@@ -136,7 +135,7 @@
 			<value>true</value>
 		</property>
 		<property name="formView">
-			<value>simpleSearchSamples</value>
+			<value>searchSamples</value>
 		</property>
 		<property name="successView">
 			<value>sampleList.htm</value>
@@ -161,7 +160,7 @@
 			<value>searchContainers</value>
 		</property>
 		<property name="successView">
-			<value>containerList.htm</value>
+			<value>searchContainers.htm</value>
 		</property>
 		<property name="containerManager">
 			<ref bean="containerManager" />
@@ -347,8 +346,8 @@
 		</property>
 	</bean>
 
-	<bean id="addMultiSamplesController"
-		class="agtc.sampletracking.web.controller.AddMultiSamplesController">
+	<bean id="addSamplesController"
+		class="agtc.sampletracking.web.controller.AddSamplesController">
 		<property name="sessionForm">
 			<value>true</value>
 		</property>
@@ -356,7 +355,7 @@
 			<value>true</value>
 		</property>
 		<property name="formView">
-			<value>addMultiSamples</value>
+			<value>addSamples</value>
 		</property>
 		<property name="successView">
 			<value>sampleList.htm</value>
@@ -758,7 +757,7 @@
 		</property>
 	</bean>
 
-	<bean id="makePlateController" class="agtc.sampletracking.web.controller.MakePlateController">
+	<bean id="addPlateController" class="agtc.sampletracking.web.controller.AddPlateController">
 		<property name="sessionForm">
 			<value>true</value>
 		</property>
@@ -766,7 +765,7 @@
 			<value>true</value>
 		</property>
 		<property name="formView">
-			<value>makePlate</value>
+			<value>addPlate</value>
 		</property>
 		<property name="successView">
 			<value>containerDetails.htm</value>
