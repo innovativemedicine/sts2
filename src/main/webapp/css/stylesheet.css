@@ -75,10 +75,25 @@ fieldset.column2 {
 	border-radius: 4px;
 }
 
+fieldset.column3 {
+	border: 1px solid #ccc;
+	-moz-column-count: 3; /* Firefox */
+	-webkit-column-count: 3; /* Safari and Chrome */
+	column-count: 3;
+	padding: 10px 5px;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+}
+
 label.checkbox {
 	white-space: nowrap;
 }
 
 .input-micro {
 	width: 20px;
+}
+
+.input-login {
+	height: 30px;
 }
