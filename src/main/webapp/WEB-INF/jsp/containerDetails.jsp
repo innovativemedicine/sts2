@@ -121,10 +121,6 @@
 					</table>
 				</c:if>
 				<c:if test="${command.unorderedSample}">
-					<a class="btn"
-						href="<c:url value="/containerContents.htm"><c:param name="containerId" value="${command.containerId}"/></c:url>">
-						<span>Edit Sample List</span>
-					</a>
 					<p>
 					<table class="table">
 						<tr>
