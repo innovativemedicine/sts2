@@ -2,44 +2,53 @@
 
 <h2>Edit Investigators</h2>
 
-<form method="post" action="investigator.htm">
+<form class="form-horizontal" method="post" action="investigator.htm">
 
-	<table class="table" class="details">
+	<div class="control-group">
+		<label class="control-label">Name</label>
+		<div class="controls">
+			<spring:bind path="command.name.fname">
+				<input required type="text" maxlength="32" size="15"
+					name="name.fname" value="<c:out value="${status.value}"/>"
+					placeholder="First Name">
+			</spring:bind>
 
-		<tr>
-			<th>First Name</th>
-			<th>Last Name</th>
-			<th>Phone</th>
-			<th>Email</th>
-		</tr>
-		<tr>
-			<td><spring:bind path="command.name.fname">
-					<input required type="text" maxlength="32" size="15"
-						name="name.fname" value="<c:out value="${status.value}"/>">
-				</spring:bind></td>
+			<spring:bind path="command.name.lname">
+				<input required type="text" maxlength="32" size="15"
+					name="name.lname" value="<c:out value="${status.value}"/>"
+					placeholder="Last Name">
+			</spring:bind>
+		</div>
+	</div>
 
-			<td><spring:bind path="command.name.lname">
-					<input required type="text" maxlength="32" size="15"
-						name="name.lname" value="<c:out value="${status.value}"/>">
-				</spring:bind></td>
+	<div class="control-group">
+		<label class="control-label">Phone</label>
+		<div class="controls">
+			<spring:bind path="command.contact.phone">
+				<input type="text" maxlength="10" size="15" name="contact.phone"
+					value="<c:out value="${status.value}"/>">
+			</spring:bind>
+		</div>
+	</div>
 
-			<td><spring:bind path="command.contact.phone">
-					<input type="text" maxlength="10" size="15" name="contact.phone"
-						value="<c:out value="${status.value}"/>">
-				</spring:bind></td>
+	<div class="control-group">
+		<label class="control-label" for="inputEmail">Email</label>
+		<div class="controls">
+			<spring:bind path="command.contact.email">
+				<input type="text" maxlength="32" size="15" name="contact.email"
+					value="<c:out value="${status.value}"/>">
+			</spring:bind>
+		</div>
+	</div>
 
-			<td><spring:bind path="command.contact.email">
-					<input type="text" maxlength="32" size="15" name="contact.email"
-						value="<c:out value="${status.value}"/>">
-				</spring:bind></td>
-		<tr>
-			<td colspan="4"><input type="submit" name="Submit" value="Edit">
-				<input type="submit" name="Submit" value="New"></td>
-		</tr>
-	</table>
-
-	<p>
+	<div class="control-group">
+		<div class="controls">
+			<input type="submit" name="Submit" value="Edit" class="btn">
+			<input type="submit" name="Submit" value="New" class="btn">
+		</div>
+	</div>
 </form>
+
 <table class="table">
 	<tr class="info">
 		<td><b>Investigator Name</b></td>

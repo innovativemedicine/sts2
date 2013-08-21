@@ -1,126 +1,117 @@
-<%@ include file="/WEB-INF/jsp/includes/head.jsp" %>
+<%@ include file="/WEB-INF/jsp/includes/head.jsp"%>
 
 <h2>Edit Runs</h2>
 
 
-<form method="post" enctype="multipart/form-data">
-  <table class="table" class="details">
-     
-    <tr> 
-          <td>Project: </td>
-          <td> 
-          <spring:bind path="command.project">
-          <select name='<c:out value="${status.expression}" />' size="1">
-          
-    	 <c:forEach items="${allProjects}" var="project">
-    	     <option 
-			 
-			 <c:if test="${command.project != null && command.project.projectId eq project.projectId}">
+<form class="form-horizontal" method="post"
+	enctype="multipart/form-data">
+
+	<div class="control-group">
+		<label class="control-label">Project:</label>
+		<div class="controls">
+			<spring:bind path="command.project">
+				<select name='<c:out value="${status.expression}" />'>
+
+					<c:forEach items="${allProjects}" var="project">
+						<option
+							<c:if test="${command.project != null && command.project.projectId eq project.projectId}">
 			   selected
 		  </c:if>
+							value="<c:out value="${project.projectId}"/>">
+							<c:out value="${project.name}" />
+						</option>
+					</c:forEach>
+				</select>
+			</spring:bind>
+		</div>
+	</div>
+	<div class="control-group">
+		<label class="control-label">Notes:</label>
+		<div class="controls">
+			<spring:bind path="command.note">
+				<INPUT type="text" maxlength="255" size="30" name="note"
+					value="<c:out value="${status.value}"/>">
+			</spring:bind>
+		</div>
+	</div>
 
-			 value="<c:out value="${project.projectId}"/>"><c:out value="${project.name}"/></option>
-    	  </c:forEach>
-          </select>
-          </spring:bind>
-    
-       </td>
-    </tr>
+	<div class="control-group">
+		<label class="control-label">Run Date:</label>
+		<div class="controls">
+			<spring:bind path="command.runDate">
+				<INPUT type="text" maxlength="255" size="30" name="runDate"
+					value="<c:out value="${status.value}"/>" placeholder="DD-MM-YYYY">
 
-	<tr> 
-              <td>Note:</td>
-              <td> 
-                <spring:bind path="command.note">
-        	   <INPUT type="text" maxlength="255" size="30" name="note" value="<c:out value="${status.value}"/>">
-        	</spring:bind>
-              </td>
-    </tr>
+			</spring:bind>
 
-	<tr> 
-              <td>Run Date:</td>
-              <td> 
-                <spring:bind path="command.runDate">
-        	   <INPUT type="text" maxlength="255" size="30" name="runDate" value="<c:out value="${status.value}"/>">
-			    <FONT color="red">
-		         <B><c:out value="${status.errorMessage}"/></B>
-		        </FONT>
-        	</spring:bind> (DD-MM-YYYY)
-              </td>
-    </tr>
+		</div>
+	</div>
 
-    <tr> 
-	 <td>Test(s):</td>
-	 <td>
-	    <c:out value="${command.testNameList}"/><br>
-	    <select name="testIds" size="10" multiple>
-	     <c:forEach items="${allTests}" var="test">
-	     
-		 <option value="<c:out value="${test.testId}"/>"><c:out value="${test.name}"/></option>
+	<div class="control-group">
+		<label class="control-label">Tests:</label>
+		<div class="controls">
+			<c:out value="${command.testNameList}" />
+			<select name="testIds" ; nnnmkjn>
+				<c:forEach items="${allTests}" var="test">
 
-	     </c:forEach>
-	   </select>
-	    
-	 </td>
-    </tr>
+					<option value="<c:out value="${test.testId}"/>">
+						<c:out value="${test.name}" />
+					</option>
 
-	 <tr> 
-	 <td>Plate(s):</td>
-	 <td>
-	    <c:out value="${command.plateNameList}"/><br>
-	    <select name="plateIds" size="10" multiple>
-	     <c:forEach items="${allPlates}" var="plate">
-	     <option value="<c:out value="${plate.containerId}"/>"><c:out value="${plate.name}"/></option>
-	     </c:forEach>
-	   </select>
-	    
-	 </td>
-    </tr>
+				</c:forEach>
+			</select>
+		</div>
+	</div>
+
+	<div class="control-group">
+		<label class="control-label">Plates:</label>
+		<div class="controls">
+			<c:out value="${command.plateNameList}" />
+			<select name="plateIds">
+				<c:forEach items="${allPlates}" var="plate">
+					<option value="<c:out value="${plate.containerId}"/>">
+						<c:out value="${plate.name}" />
+					</option>
+				</c:forEach>
+			</select>
+		</div>
+	</div>
+
+	<div class="control-group">
+		<label class="control-label"><h4>Result File</h4></label>
+
+		<div class="controls"></div>
+	</div>
 
 
-	<tr> 
-          <td>Result file format</td>
-          <td> SampleId column number:
-			<select name="sampleIdColumnNo" >
-			    <c:forEach items="${allColumnNumbers}" var="colNo">
-	              <option value="<c:out value="${colNo}"/>"><c:out value="${colNo}"/></option>
-	            </c:forEach>
-	       </select>  <br>
-		   Assay Name column number:
-			<select name="assayNameColumnNo" >
-			    <c:forEach items="${allColumnNumbers}" var="colNo">
-	              <option value="<c:out value="${colNo}"/>"><c:out value="${colNo}"/></option>
-	            </c:forEach>
-	       </select>  <br>
-		   Result column number:
-			<select name="resultColumnNo" >
-			    <c:forEach items="${allColumnNumbers}" var="colNo">
-	              <option value="<c:out value="${colNo}"/>"><c:out value="${colNo}"/></option>
-	            </c:forEach>
-	       </select>
-			
-		  </td>
-    </tr>
+	<div class="control-group">
+		<label class="control-label">Column Number:</label>
+		<div class="controls form-inline">
+			<label class="text inline">Sample ID</label> <input
+				class="input-micro" type="text" pattern=[0-9]{2}> <label
+				class="text inline">Assay</label> <input class="input-micro"
+				type="text" pattern=[0-9]{2}> <label class="text inline">Result</label>
+			<input class="input-micro" type="text" pattern=[0-9]{2}>
+		</div>
+	</div>
 
-	 <tr> 
-          <td>Upload Result file:</td>
-          <td>
-             <input type="file" name="file"/> <br>
-			 (tab delimited text file)
-          </td>
-    </tr>
+	<div class="control-group">
+		<label class="control-label">Upload:</label>
+		<div class="controls form-inline">
 
-    
-    
 
-    <tr> 
-      <td colspan="2">
-        <p>
-          <input type="submit" name="Submit" value="Save">
-          <input type="reset" name="Submit2" value="Reset">
-        </p>
-        </td>
-    </tr>
-  </table>
-  </form>
+			<input type="file" name="file" /> <br> (tab delimited)
+		</div>
+	</div>
 
-<%@ include file="/WEB-INF/jsp/includes/foot.jsp" %>
+	<div class="control-group">
+		<div class="controls form-inline">
+
+			<input class="btn" type="submit" name="Submit" value="Save">
+			<input class="btn" type="reset" name="Submit2" value="Reset">
+		</div>
+	</div>
+
+</form>
+
+<%@ include file="/WEB-INF/jsp/includes/foot.jsp"%>

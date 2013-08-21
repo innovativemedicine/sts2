@@ -10,60 +10,56 @@
 	</font>
 </spring:bind>
 
-<form method="post" action="editProfile.htm">
-
-	<table class="table" class="details">
-
-		<tr>
-			<td>Login Name<font color=RED> *</font></td>
-			<td><spring:bind path="command.loginname">
-					<input required type="text" maxlength="32" size="30" name="loginname"
-						value="<c:out value="${status.value}"/>">
-				</spring:bind></td>
-		</tr>
-
-		<tr>
-			<td>Password<font color=RED> *</font></td>
-			<td><input required type="password" maxlength="32" size="30"
-				name="password" value="<c:out value="${status.value}"/>"></td>
-		</tr>
+<form class="form-horizontal" method="post" action="editProfile.htm">
 
 
-		<tr>
-			<td>New Password</td>
-			<td><input required type="password" maxlength="32" size="30"
-				name="newpassword1"></td>
-		</tr>
+	<div class="control-group">
+		<label class="control-label" for="inputEmail">Login Name</label>
+		<div class="controls">
+			<spring:bind path="command.loginname">
+				<input required type="text" maxlength="32"
+					name="loginname" value="<c:out value="${status.value}"/>">
+			</spring:bind>
+		</div>
+	</div>
 
-		<tr>
-			<td>Reenter New Password</td>
-			<td><input required type="password" maxlength="32" size="30"
-				name="newpassword2"></td>
-		</tr>
+	<div class="control-group">
+		<label class="control-label" for="inputEmail">Password</label>
+		<div class="controls">
+			<input required type="password" maxlength="32"
+				name="password" value="<c:out value="${status.value}"/>">
+		</div>
+	</div>
 
-		<tr>
-			<td>First Name</td>
-			<td><spring:bind path="command.firstName">
-					<input required type="text" maxlength="32" size="30" name="firstName"
-						value="<c:out value="${status.value}"/>">
-				</spring:bind></td>
-		</tr>
+	<div class="control-group">
+		<label class="control-label" for="inputEmail">New Password</label>
+		<div class="controls">
+			<input required type="password" maxlength="32"
+				name="newpassword1"> <input required type="password"
+				maxlength="32" size="30" name="newpassword2"
+				placeholder="Re-enter New Password">
+		</div>
+	</div>
 
-		<tr>
-			<td>Last Name</td>
-			<td><spring:bind path="command.lastName">
-					<input required type="text" maxlength="32" size="30" name="lastName"
-						value="<c:out value="${status.value}"/>">
-				</spring:bind></td>
-		</tr>
+	<div class="control-group">
+		<label class="control-label" for="inputEmail">Name</label>
+		<div class="controls">
+			<spring:bind path="command.firstName">
+				<input required type="text" maxlength="32"
+					name="firstName" value="<c:out value="${status.value}"/>" placeholder="First Name">
+			</spring:bind>
 
-		<tr>
-			<td colspan="2">
-				<p>
-					<input class="btn" type="submit" name="Submit" value="Submit">
-				</p>
-			</td>
-		</tr>
-	</table>
+			<spring:bind path="command.lastName">
+				<input required type="text" maxlength="32" name="lastName"
+					value="<c:out value="${status.value}"/>" placeholder="Last Name">
+			</spring:bind>
+		</div>
+	</div>
+
+	<div class="control-group">
+		<div class="controls">
+		<input class="btn" type="submit" name="Submit" value="Submit">
+		</div>
+	</div>
 </form>
 <%@ include file="/WEB-INF/jsp/includes/foot.jsp"%>

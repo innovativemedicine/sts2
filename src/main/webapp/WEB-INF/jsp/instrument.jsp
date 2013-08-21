@@ -4,33 +4,41 @@
 	<td>
 		<h2>Edit Instruments</h2>
 
-		<form method="post" action="instrument.htm">
+		<form class="form-horizontal" method="post" action="instrument.htm">
 
-			<table class="table" class="details">
 
-				<tr>
-					<td>Instrument Name</td>
-					<td><spring:bind path="command.name">
-							<INPUT required type="text" maxlength="64" size="20" name="name"
-								value="<c:out value="${status.value}"/>">
+			<div class="control-group">
+				<label class="control-label">Instrument Name</label>
+				<div class="controls">
 
-						</spring:bind></td>
-				</tr>
+					<spring:bind path="command.name">
+						<INPUT required type="text" maxlength="64" size="20" name="name"
+							value="<c:out value="${status.value}"/>">
 
-				<tr>
-					<td>Note</td>
-					<td><spring:bind path="command.note">
-							<INPUT type="text" maxlength="100" size="20" name="note"
-								value="<c:out value="${status.value}"/>">
-						</spring:bind></td>
-				</tr>
+					</spring:bind>
+				</div>
+			</div>
 
-				<tr>
-					<td colspan="2"><input class="btn" type="submit" name="Submit"
-						value="Edit"> <input class="btn" type="submit"
-						name="Submit" value="New"></td>
-				</tr>
-			</table>
+			<div class="control-group">
+				<label class="control-label">Note</label>
+				<div class="controls">
+
+					<spring:bind path="command.note">
+						<INPUT type="text" maxlength="100" size="20" name="note"
+							value="<c:out value="${status.value}"/>">
+					</spring:bind>
+				</div>
+			</div>
+
+			<div class="control-group">
+				<div class="controls">
+					<input class="btn" type="submit" name="Submit" value="Edit">
+					<input class="btn" type="submit" name="Submit" value="New">
+				</div>
+			</div>
+
+
+
 
 			<p>
 		</form>

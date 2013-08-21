@@ -2,47 +2,47 @@
 
 <h2>Edit Sample Types</h2>
 
-<form method="post" action="sampleType.htm">
+<form class="form-horizontal" method="post" action="sampleType.htm">
 
-	<table class="table">
+	<div class="control-group">
+		<label class="control-label">Sample Type Name</label>
+		<div class="controls">
 
-		<tr>
-			<td>Sample Type Name</td>
-			<td><spring:bind path="command.name">
-					<input required type="text" maxlength="32" size="20" name="name"
-						value="<c:out value="${status.value}"/>">
-					<font color="red"> <B><c:out
-								value="${status.errorMessage}" /></B>
-					</font>
-				</spring:bind></td>
-		</tr>
+			<spring:bind path="command.name">
+				<input required type="text" maxlength="32" size="20" name="name"
+					value="<c:out value="${status.value}"/>">
+			</spring:bind>
+		</div>
+	</div>
 
-		<tr>
-			<td>Suffix</td>
-			<td><spring:bind path="command.suffix">
-					<input required type="text" maxlength="3" size="20" name="suffix"
-						value="<c:out value="${status.value}"/>">
-					<font color="red"> <B><c:out
-								value="${status.errorMessage}" /></B>
-					</font>
-				</spring:bind></td>
-		</tr>
+	<div class="control-group">
+		<label class="control-label">Suffix</label>
+		<div class="controls">
+			<spring:bind path="command.suffix">
+				<input required type="text" maxlength="3" size="20" name="suffix"
+					value="<c:out value="${status.value}"/>">
+			</spring:bind>
+		</div>
+	</div>
 
-		<tr>
-			<td>Initial Label No</td>
-			<td><spring:bind path="command.initialLabelNo">
-					<input required type="text" maxlength="3" size="20" name="initialLabelNo"
-						value="<c:out value="${status.value}"/>">
-					<font color="red"> <B><c:out
-								value="${status.errorMessage}" /></B>
-					</font>
-				</spring:bind></td>
-		</tr>
-		<tr>
-			<td colspan="2"><input class="btn" type="submit" name="Submit" value="Edit">
-				<input class="btn" type="submit" name="Submit" value="New"></td>
-		</tr>
-	</table>
+	<div class="control-group">
+		<label class="control-label">Initial Label #</label>
+		<div class="controls">
+
+			<spring:bind path="command.initialLabelNo">
+				<input required type="text" maxlength="3" size="20"
+					name="initialLabelNo" value="<c:out value="${status.value}"/>">
+			</spring:bind>
+
+		</div>
+	</div>
+
+	<div class="control-group">
+		<div class="controls">
+			<input class="btn" type="submit" name="Submit" value="Edit">
+			<input class="btn" type="submit" name="Submit" value="New">
+		</div>
+	</div>
 
 </form>
 <p>
