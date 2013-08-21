@@ -41,7 +41,7 @@ public class SampleDAOHbImpl extends STSBasicDAO implements SampleDAO {
 	public String getLargestSampleId(String intSamplePrefix) {
 		Session session = getSession();
 		String regex = "'^" + intSamplePrefix.toUpperCase() + "[0-9]+$'";
-		String sql = "SELECT INT_SAMPLE_ID FROM sts.SAMPLE WHERE INT_SAMPLE_ID RLIKE " + regex
+		String sql = "SELECT INT_SAMPLE_ID FROM SAMPLE WHERE INT_SAMPLE_ID RLIKE " + regex
 				+ " ORDER BY SAMPLE_ID DESC LIMIT 1;";
 
 		Query query = session.createSQLQuery(sql).addScalar("INT_SAMPLE_ID", Hibernate.STRING);
@@ -49,7 +49,7 @@ public class SampleDAOHbImpl extends STSBasicDAO implements SampleDAO {
 		List results = query.list();
 
 		if (results.isEmpty()) {
-			return intSamplePrefix.toUpperCase() + "0";
+			return intSamplePrefix.toUpperCase() + "00000";
 		} else {
 			return results.get(0).toString();
 		}
@@ -62,7 +62,7 @@ public class SampleDAOHbImpl extends STSBasicDAO implements SampleDAO {
 		crt.add(Restrictions.in("patient.intSampleId", sampleIds));
 		crt.add(Restrictions.in("sampleType.suffix", sampleTypeSuffixes));
 		crt.add(Restrictions.eq("sampleDupNo", sampleDupNo));
-		log.debug(" the criteria is " + crt.toString());
+
 		return crt.list();
 	}
 
@@ -106,7 +106,6 @@ public class SampleDAOHbImpl extends STSBasicDAO implements SampleDAO {
 		crt.add(Restrictions.eq("patient.intSampleId", intSampleId));
 		crt.add(Restrictions.eq("sampleType.suffix", sampleTypeSuffix));
 		crt.add(Restrictions.eq("sampleDupNo", sampleDupNo));
-		log.debug(" the criteria is " + crt.toString());
 
 		List result = crt.list();
 
@@ -132,30 +131,30 @@ public class SampleDAOHbImpl extends STSBasicDAO implements SampleDAO {
 	}
 
 	// This is used for searching samples using an uploaded file of SampleIds
-	public List simpleSearchSamples(List sampleIds, List sampleTypeIds, List projectIds) {
+	public List simpleSearchSamples(List sampleIds, List extSampleIds, List sampleTypeIds, List projectIds) {
 		Session session = getSession();
-		List<Patient> patients = new ArrayList<Patient>();
-
-		// Search for patients that are in projectId
-		if (!projectIds.isEmpty()) {
-			Criteria patientCrt = session.createCriteria(Patient.class);
-			patientCrt = patientCrt.add(Restrictions.in("project.projectId", projectIds));
-			patients = patientCrt.list();
-		}
 
 		Criteria crt = session.createCriteria(Sample.class);
-		crt.setFetchMode("patient", FetchMode.JOIN);
+		crt.setFetchMode("patient", FetchMode.JOIN).createAlias("patient", "patient");;
 		crt.setFetchMode("sampleType", FetchMode.JOIN);
-		crt.setFetchMode("patient.project", FetchMode.JOIN);
+		crt.setFetchMode("patient.project", FetchMode.JOIN).createAlias("patient.project", "patient.project");
 
 		if (!sampleIds.isEmpty()) {
 			crt.add(Restrictions.in("patient.intSampleId", sampleIds));
 		}
+
+		if (!extSampleIds.isEmpty())
+		{
+			crt.add(Restrictions.in("patient.extSampleId", extSampleIds));
+		}
+		
 		if (!sampleTypeIds.isEmpty()) {
 			crt.add(Restrictions.in("sampleType.sampleTypeId", sampleTypeIds));
 		}
-		if (!projectIds.isEmpty()) {
-			crt.add(Restrictions.in("patient", patients));
+		
+		// Search for patients that are in projectId
+		if (!projectIds.isEmpty()){
+			crt.add(Restrictions.in("patient.project.projectId", projectIds));
 		}
 
 		return crt.list();
@@ -205,11 +204,7 @@ public class SampleDAOHbImpl extends STSBasicDAO implements SampleDAO {
 		return getHibernateTemplate().find(query);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see agtc.sampletracking.dao.SampleDAO#getSample(java.lang.Integer)
-	 */
+
 	public Sample getSample(Integer sampleId) {
 
 		return (Sample) (getHibernateTemplate().get(Sample.class, sampleId));
