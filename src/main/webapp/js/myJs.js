@@ -13,49 +13,46 @@ $('.barcodeInput').bind('input', function(event) {
 	}
 });
 
-$('.clickSelect').click(function() {
-	this.select();
-});
-
+// Universal setting for datepicker object. 
+// The Date format of datepicker is specified in the textbox using data-date-format="dd-mm-yyyy" 
 $('.datepicker').datepicker(
 {
 	autoclose: true
 });
 
+// Linked button is used in registerMultiple Samples to link the button to a submit button
+// Use <button> instead of <input> to fix this later
 $('.linkButton').click(function() {
 	$('.linkedButton').click();
 });
 
+// selectNav is used in addSample2Container which changes the select box into URL navigation
 $('.selectNav').change(function() {
 	location.search = this.value;
 });
 
-//$('.generateForm').bind('input', function(event) {
-//	var ns = 1;
-//
-//	location.search = $.param({
-//		'ns' : ns
-//	});
-//});
+// Helper function to return hex instead of RGB
+$.fn.getHexBgColour = function() {
+    var rgb = $(this).css('background-color');
+    rgb = rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
+    function hex(x) {return ("0" + parseInt(x).toString(16)).slice(-2);}
+    return "#" + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]);
+};
 
-$('.unhider').click(function() {
-	if ($('.hide').is(':visible')) {
-		$('.hide').fadeToggle();
-		if ($('.unhider').text() == '[Hide]') {
-			$('.unhider').text('[Show]');
-		}
-	} else {
-		$('.hide').fadeToggle();
-		if ($('.unhider').text() == '[Show]') {
-			$('.unhider').text('[Hide]');
-		}
-	}
+//clickSelect is used for Sample Type Number and Selection in Register Sample
+$('.clickSelect').click(function() {
+	this.select();
 });
 
-$('.unhider2').click(function() {
-	if (!($('.hide2').is(':visible'))) {
-		$('.hide1').hide();
-		$('.hide2').fadeIn();
-
+$('.clickSelect').change(function() {
+	
+	var selectValue = this.value;
+	var labelId = '#' + this.name + '_label';
+		
+	if(selectValue > 0) {
+		$(labelId).css('background-color', '#ffffff');
+	}
+	else {
+		$(labelId).css('background-color', '#eeeeee');
 	}
 });
