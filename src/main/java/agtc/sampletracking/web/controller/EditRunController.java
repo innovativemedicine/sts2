@@ -177,14 +177,9 @@ public class EditRunController extends BasicController {
 		CGGStudyGroup empty = new CGGStudyGroup();
 		// allStudyGroups.add(0,empty);
 
-		for (int i = 1; i < 21; i++) {
-			allColumnNumbers.add(new Integer(i));
-		}
-
 		models.put("allTests", allTests);
 		models.put("allPlates", allPlates);
 		models.put("allProjects", allProjects);
-		models.put("allColumnNumbers", allColumnNumbers);
 		return models;
 	}
 

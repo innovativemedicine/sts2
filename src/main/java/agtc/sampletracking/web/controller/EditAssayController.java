@@ -49,7 +49,6 @@ public class EditAssayController extends BasicController {
 			Set projects = new HashSet();
 			assay.setProjects(projects);
 			assay.getProjects().add(project);
-	
 
 			return assay;
 		} else {
@@ -58,20 +57,20 @@ public class EditAssayController extends BasicController {
 		}
 	}
 
-	protected ModelAndView onSubmit(HttpServletRequest request,
-			HttpServletResponse response, Object command, BindException errors)
-			throws Exception {
+	protected ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response, Object command,
+			BindException errors) throws Exception {
 		Assay assay = (Assay) command;
 
 		try {
 			testManager.saveAssay(assay);
 		} catch (Exception e) {
-			
+
 			String err = "Assay name not unique";
 			ModelAndView mav = new ModelAndView(new RedirectView("editAssay.htm"));
 			mav.addObject("err", err);
 
-			return mav;		}
+			return mav;
+		}
 
 		ModelAndView view = new ModelAndView(new RedirectView(getSuccessView()));
 		Map myModel = view.getModel();
@@ -79,9 +78,8 @@ public class EditAssayController extends BasicController {
 		myModel.put("assayId", assay.getAssayId());
 		return view;
 	}
-	
-	protected Map referenceData(javax.servlet.http.HttpServletRequest request, java.lang.Object command,
-			Errors errors) throws java.lang.Exception {
+
+	protected Map referenceData(HttpServletRequest request, Object command, Errors errors) throws Exception {
 		Map models = new HashMap();
 
 		String message = ServletRequestUtils.getStringParameter(request, "message", "");
@@ -89,34 +87,23 @@ public class EditAssayController extends BasicController {
 
 		models.put("message", message);
 		models.put("err", err);
-		
+
 		return models;
 	}
 
-	/**
-	 * @return
-	 */
+
 	public TestManager getTestManager() {
 		return testManager;
 	}
 
-	/**
-	 * @param manager
-	 */
 	public void setTestManager(TestManager manager) {
 		testManager = manager;
 	}
 
-	/**
-	 * @return
-	 */
 	public ProjectManager getProjectManager() {
 		return projectManager;
 	}
 
-	/**
-	 * @param manager
-	 */
 	public void setProjectManager(ProjectManager manager) {
 		projectManager = manager;
 	}
