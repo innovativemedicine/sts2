@@ -52,12 +52,29 @@ public class ResultsSearchController extends BasicSearchController {
 		List sampleIds = new ArrayList();
 
 		List crtList = new ArrayList();
-		WebUtils.setSessionAttribute(request, "resultCriteriaList", crtList);
 		List lgcList = new ArrayList();
-		WebUtils.setSessionAttribute(request, "resultLogicalList", lgcList);
 
+		// Sample ID file
 		MultipartHttpServletRequest mrequest = (MultipartHttpServletRequest) request;
 		MultipartFile aFile = mrequest.getFile("file");
+		
+		SearchCommand sc = new SearchCommand();
+
+		// Search by Assays ID
+		if (assayIds != null && assayIds.length > 0) {
+			List searchItems = new ArrayList();
+			for (int a = 0; a < assayIds.length; a++) {
+				searchItems.add(new Integer(assayIds[a]));
+			}
+			sc.setOperator("in");
+			sc.setSearchField("assayId");
+			sc.setSearchItems(searchItems);
+			crtList.add(sc);
+			lgcList.add("AND");
+		}
+		
+		// Search by File of SampleIDs
+		
 		if (!aFile.isEmpty()) {
 			InputStream is = aFile.getInputStream();
 			BufferedReader br = new BufferedReader(new InputStreamReader(is));
@@ -69,30 +86,17 @@ public class ResultsSearchController extends BasicSearchController {
 				sampleIds.add(intSampleId);
 			}
 			is.close();
-			SearchCommand sc = new SearchCommand();
 			sc.setOperator("in");
 			sc.setSearchField("Internal Sample Id");
 			sc.setSearchItems(sampleIds);
 			crtList.add(sc);
 			lgcList.add("AND");
 		}
+		
 
-		if (assayIds != null && assayIds.length > 0) {
-			List searchItems = new ArrayList();
-			for (int a = 0; a < assayIds.length; a++) {
-				searchItems.add(new Integer(assayIds[a]));
-			}
-			SearchCommand sc = new SearchCommand();
-			sc.setOperator("in");
-			sc.setSearchField("assayId");
-			sc.setSearchItems(searchItems);
-			crtList.add(sc);
-			lgcList.add("AND");
-		}
 
 		if (action.equals("SEARCH")) {
 			if (format == null || format.length() == 0) {
-
 				String err = "Output format is required.";
 
 				ModelAndView mav = new ModelAndView(new RedirectView("results.htm"));
@@ -103,9 +107,8 @@ public class ResultsSearchController extends BasicSearchController {
 
 		}
 
-		searchResults = handleSubmit(request, command, "result");
+		searchResults = handleSubmit(request, sc, "result");
 
-		log.debug(" retrieve no is " + searchResults.size());
 		if (searchResults.size() < 1) {
 			ModelAndView view = new ModelAndView(new RedirectView("results.htm"));
 			putMessage(request, view.getModel());
