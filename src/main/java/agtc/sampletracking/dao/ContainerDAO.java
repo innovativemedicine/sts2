@@ -10,15 +10,8 @@ import java.util.*;
 
 import agtc.sampletracking.model.*;
 
-/**
- * @author Gloria Deng
- * 
- *         To change the template for this generated type comment go to
- *         Window>Preferences>Java>Code Generation>Code and Comments
- */
-
 public interface ContainerDAO {
-	public List getContainers();
+	public List<Container> getContainers();
 
 	public Container getContainer(Integer stockId);
 
@@ -30,17 +23,15 @@ public interface ContainerDAO {
 
 	public void removeContainer(Integer stockId);
 
-	public List getContainers(List crtList, List lgcList);
+	public List<Container> getContainers(List crtList, List lgcList);
 
-	public List getAllPlates();
+	public List<Container> getAllPlates();
 
-	public List getAllBoxes();
+	public List<Container> getAllBoxes();
 
-	public List<Container> simpleSearchContainers(String containerIdFrom,
-			String containerIdTo, String extIdFrom, String extIdTo,
-			List containerTypeIds, List projectIds);
+	public List<Container> simpleSearchContainers(String containerIdFrom, String containerIdTo, String extIdFrom,
+			String extIdTo, List containerTypeIds, List projectIds);
 
-	public List<Container> simpleSearchContainers(List plateIds,
-			List plateTypeIds, List projectIds);
+	public List<Container> simpleSearchContainers(List plateIds, List plateTypeIds, List projectIds);
 
 }
