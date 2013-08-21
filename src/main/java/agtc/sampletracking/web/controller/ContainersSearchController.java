@@ -6,9 +6,6 @@
  */
 package agtc.sampletracking.web.controller;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -19,8 +16,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.validation.BindException;
 import org.springframework.web.bind.ServletRequestUtils;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 import org.springframework.web.util.WebUtils;
@@ -41,70 +36,44 @@ public class ContainersSearchController extends BasicSearchController {
 			BindException errors) throws Exception {
 
 		String action = ServletRequestUtils.getStringParameter(request, "action", "");
-
-		String containerIdsInTextArea = ServletRequestUtils.getStringParameter(request, "containerIdsInTextArea", "");
 		String containerIdFrom = ServletRequestUtils.getStringParameter(request, "containerIdFrom", "");
-		String containerIdTo = ServletRequestUtils.getStringParameter(request, "containerIdTo", "");
 
-		String[] containertypes = ServletRequestUtils.getStringParameters(request, "containerTypeFilter");
-		String[] projects = ServletRequestUtils.getStringParameters(request, "projectFilter");
+		List<Container> searchResults = new ArrayList<Container>();
 
-		List containerTypeIds = String2IntList(containertypes);
-		List projectIds = String2IntList(projects);
-		List<Container> searchResults = new ArrayList();
-
-		if (containerIdFrom.isEmpty() && containerIdsInTextArea.isEmpty()) {
-			ModelAndView mav = new ModelAndView(new RedirectView("searchContainers.htm"));
-			mav.addObject("message", "Please enter Container ID");
+		if (action.equalsIgnoreCase("Show")) {
+			// Returning null would cause the page to reload with all boxes
+			WebUtils.setSessionAttribute(request, "containerList", null);
+			ModelAndView mav = new ModelAndView(new RedirectView(getSuccessView()));
+			mav.addObject("message", "Search Completed");
 			return mav;
-		}
-		// Search single Container or range
-		else if (!containerIdFrom.isEmpty()) {
-			String externalIdFrom = "";
-			String externalIdTo = "";
-			List<Container> simpleSearchContainers = (List<Container>) containerManager.getContainerDAO()
-					.simpleSearchContainers(containerIdFrom, containerIdTo, externalIdFrom, externalIdTo,
-							containerTypeIds, projectIds);
-
-			searchResults.addAll(simpleSearchContainers);
-
 		} else {
-			List containerIds = new ArrayList();
+			if (containerIdFrom.isEmpty()) {
+				ModelAndView mav = new ModelAndView(new RedirectView("searchContainers.htm"));
+				mav.addObject("message", "Please enter Container ID");
+				return mav;
+			}
+			// Search single Container or range
+			else if (!containerIdFrom.isEmpty()) {
 
-			MultipartHttpServletRequest mrequest = (MultipartHttpServletRequest) request;
-			MultipartFile aFile = mrequest.getFile("file");
+				List<Container> simpleSearchContainers = (List<Container>) containerManager.getContainerDAO()
+						.simpleSearchContainers(containerIdFrom, "", "", "", new ArrayList<Object>(),
+								new ArrayList<Object>());
 
-			if (containerIdsInTextArea.trim().length() > 0) {
-				containerIds = String2List(containerIdsInTextArea);
-			} else if (!aFile.isEmpty()) {
-				InputStream is = aFile.getInputStream();
-				BufferedReader br = new BufferedReader(new InputStreamReader(is));
-				br.readLine();
-				String aLine = "";
+				searchResults.addAll(simpleSearchContainers);
 
-				while ((aLine = br.readLine()) != null) {
-					String intContainerId = aLine.trim();
-					containerIds.add(intContainerId);
-				}
-				is.close();
 			}
 
-			List<Container> simpleSearchContainers = containerManager.getContainerDAO().simpleSearchContainers(
-					containerIds, containerTypeIds, projectIds);
+			if (searchResults.size() < 1) {
+				ModelAndView mav = new ModelAndView(new RedirectView("searchContainers.htm"));
+				mav.addObject("message", "No results found.");
+				return mav;
+			}
 
-			searchResults.addAll(simpleSearchContainers);
-		}
-
-		if (searchResults.size() < 1) {
-			ModelAndView mav = new ModelAndView(new RedirectView("searchContainers.htm"));
-			mav.addObject("message", "No results found.");
+			ModelAndView mav = new ModelAndView(new RedirectView(getSuccessView()));
+			WebUtils.setSessionAttribute(request, "containerList", searchResults);
+			mav.addObject("message", "Search Completed");
 			return mav;
 		}
-
-		ModelAndView mav = new ModelAndView(new RedirectView(getSuccessView()));
-		WebUtils.setSessionAttribute(request, "containerList", searchResults);
-		mav.addObject("message", "Search Completed");
-		return mav;
 	}
 
 	protected List performSearch(List crtList, List lgcList) {
@@ -117,8 +86,14 @@ public class ContainersSearchController extends BasicSearchController {
 		String err = ServletRequestUtils.getStringParameter(request, "err", "");
 
 		LContainerTypes = agtcManager.getBoxTypes();
-		List<Container> containerList = containerManager.getAllBoxes();
-		WebUtils.setSessionAttribute(request, "containerList", containerList);
+
+		List<Container> containerList = (List<Container>) WebUtils.getSessionAttribute(request, "containerList");
+
+		
+		if (containerList == null) {
+			containerList = containerManager.getAllBoxes();
+			WebUtils.setSessionAttribute(request, "containerList", containerList);
+		}
 
 		LProjects = projectManager.getAllProjects();
 
