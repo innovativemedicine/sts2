@@ -25,12 +25,12 @@ public class ContainerManager {
 	private LocationDAO locationDAO;
 	private ContainerTypeDAO containerTypeDAO;
 	private SamplesInContainerDAO samplesInContainerDAO;
-	private List allContainers;
-	private List allBoxes;
-	private List allPlates;
+	private List<Container> allContainers;
+	private List<Container> allBoxes;
+	private List<Container> allPlates;
 	private boolean refresh = false;
 	
-	public List getAllContainers() {
+	public List<Container> getAllContainers() {
 		if(allContainers==null || refresh == true){
 			allContainers = containerDAO.getContainers();
 			refresh = false;
@@ -38,7 +38,7 @@ public class ContainerManager {
 		return allContainers;
 	}
 
-	public List getAllPlates() {
+	public List<Container> getAllPlates() {
 		if(allPlates==null || refresh == true ){
 			allPlates = containerDAO.getAllPlates();
 			refresh = false;
@@ -46,7 +46,7 @@ public class ContainerManager {
 		return allPlates;
 	}
 	
-	public List getAllBoxes() {
+	public List<Container> getAllBoxes() {
 		if(allBoxes==null || refresh == true ){
 			allBoxes = containerDAO.getAllBoxes();
 			refresh = false;
@@ -113,68 +113,39 @@ public class ContainerManager {
 		containerDAO.removeContainer(containerId);
 	}
 	
-	
-	/**
-	 * 
-	 * see comments of ContainerSearchFields.java
-	 */
 	public List searchContainer(List crtList,List lgcList){
 		
 		return containerDAO.getContainers(crtList,lgcList);
 	}
-	/**
-	 * @return
-	 */
+
 	public ContainerTypeDAO getContainerTypeDAO() {
 		return containerTypeDAO;
 	}
 
-	/**
-	 * @return
-	 */
 	public LocationDAO getLocationDAO() {
 		return locationDAO;
 	}
 
-
-	/**
-	 * @param typeDAO
-	 */
 	public void setContainerTypeDAO(ContainerTypeDAO typeDAO) {
 		containerTypeDAO = typeDAO;
 	}
 
-	/**
-	 * @param locationDAO
-	 */
 	public void setLocationDAO(LocationDAO locationDAO) {
 		this.locationDAO = locationDAO;
 	}
 
-	/**
-	 * @return
-	 */
 	public ContainerDAO getContainerDAO() {
 		return containerDAO;
 	}
 
-	/**
-	 * @param containerDAO
-	 */
 	public void setContainerDAO(ContainerDAO containerDAO) {
 		this.containerDAO = containerDAO;
 	}
-
 	
-	/**
-	 * @return Returns the samplesInContainerDAO.
-	 */
 	public SamplesInContainerDAO getSamplesInContainerDAO() {
 		return samplesInContainerDAO;
 	}
-	/**
-	 * @param samplesInContainerDAO The samplesInContainerDAO to set.
-	 */
+
 	public void setSamplesInContainerDAO(
 			SamplesInContainerDAO samplesInContainerDAO) {
 		this.samplesInContainerDAO = samplesInContainerDAO;
