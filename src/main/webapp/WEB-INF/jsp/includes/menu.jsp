@@ -15,11 +15,11 @@
 						<ul class="dropdown-menu">
 							<li class="nav-header">Samples</li>
 							<li><a href="searchSamples.htm">Search Samples</a></li>
-							<li><a href="addMultiSamples.htm?">Register Samples</a></li>
+							<li><a href="addSamples.htm">Register Samples</a></li>
 							<li class="divider"></li>
 							<li class="nav-header">Plates</li>
 							<li><a href="searchPlates.htm">Search Plates (Demo) </a></li>
-							<li><a href="makePlate.htm">Register Plates (Demo)</a></li>
+							<li><a href="addPlate.htm">Register Plates (Demo)</a></li>
 							<li class="divider"></li>
 							<li><a href="barcode.htm">Barcode (Demo)</a></li>
 						</ul></li>

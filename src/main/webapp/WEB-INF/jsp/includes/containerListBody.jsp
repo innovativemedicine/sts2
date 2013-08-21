@@ -8,7 +8,7 @@
 
 	<c:forEach items="${containerList}" var="container">
 		<tr>
-			<td><a
+			<td><a class="act act-primary"
 				href="<c:url value="/containerDetails.htm"><c:param name="containerId" value="${container.containerId}"/></c:url>"><c:out
 						value="${container.name}" /></a>&nbsp;</td>
 

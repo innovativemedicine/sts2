@@ -16,7 +16,7 @@
 		<tr>
 			<td>Instrument:</td>
 			<td><spring:bind path="command.instrument">
-					<select name='<c:out value="${status.expression}" />' size="1">
+					<select name='<c:out value="${status.expression}" />'>
 
 						<c:forEach items="${allInstruments}" var="instrument">
 							<option

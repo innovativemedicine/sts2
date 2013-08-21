@@ -26,9 +26,6 @@
 						</select>
 					</spring:bind> <spring:bind path="command.searchItem">
 						<input name="searchItem" type="text">
-						<FONT color="red"> <B><c:out
-									value="${status.errorMessage}" /></B>
-						</FONT>
 					</spring:bind></td>
 
 
