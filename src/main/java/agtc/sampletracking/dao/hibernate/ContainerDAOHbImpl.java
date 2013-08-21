@@ -36,7 +36,7 @@ public class ContainerDAOHbImpl
 	implements ContainerDAO, ConstantInterface{
 	private Log log = LogFactory.getLog(ContainerDAOHbImpl.class);
 
-	public List getContainers() {
+	public List<Container> getContainers() {
 		return  getHibernateTemplate().find("from Container c left join fetch c.location left join fetch c.project left join fetch c.containerType order by c.name");
 	}
 
@@ -94,7 +94,7 @@ public class ContainerDAOHbImpl
 
 	}
 	
-	public List getContainers(List crtList,List lgcList){
+	public List<Container> getContainers(List crtList,List lgcList){
 		Session session = getSession();
 		Criteria crt = session.createCriteria(Container.class);
 		
@@ -116,19 +116,18 @@ public class ContainerDAOHbImpl
 		return crt.list();
 	}
 	
-	public List getAllBoxes(){
+	public List<Container> getAllBoxes(){
 		return getHibernateTemplate().find("from Container c where c.containerType.name like '%" + BOX + "'");
 	}
 	
-	public List getAllPlates(){
+	public List<Container> getAllPlates(){
 		return getHibernateTemplate().find("from Container c where c.containerType.name like '" 
 				+ PLATE + "%' order by c.name ");
 	}
 	
-	public List simpleSearchContainers(List containerIds, List containerTypeIds, List projectIds){
+	public List<Container> simpleSearchContainers(List containerIds, List containerTypeIds, List projectIds){
 		Session session = getSession();
-		List patients = new ArrayList();
-						
+		
 		Criteria crt = session.createCriteria(Container.class);
 		crt.setFetchMode("project", FetchMode.JOIN);
 		crt.setFetchMode("containerType", FetchMode.JOIN);
