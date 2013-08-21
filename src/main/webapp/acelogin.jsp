@@ -1,3 +1,5 @@
+<!doctype html>
+
 <%@ taglib prefix='c' uri='http://java.sun.com/jstl/core'%>
 <%@ page import="net.sf.acegisecurity.ui.AbstractProcessingFilter"%>
 <%@ page
@@ -6,50 +8,74 @@
 
 <html>
 <head>
-<title>Login</title>
+
+
+<title>STS2: Login</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Sample Tracking System v2</title>
+
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="css/bootstrap-responsive.min.css" rel="stylesheet">
+<link href="css/stylesheet.css" rel="stylesheet">
+
 
 </head>
 
 <body>
-	<h1>Sample Tracking System 2.0</h1>
+	<div class="navbar navbar-inverse navbar-static-top">
+		<div class="navbar-inner">
+			<div class="container-fluid">
+				<button type="button" class="btn btn-navbar" data-toggle="collapse"
+					data-target=".nav-collapse">
+					<span class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="brand" href="acelogin.jsp">Sample Tracking System
+					2.0&nbsp;</a>
+			</div>
+		</div>
+	</div>
+	<div class="container-fluid">
 
-	<h3>Login</h3>
+		<h2>Login</h2>
 
-	<c:if test="${not empty param.login_error}">
-		<font color="red"> Your login attempt was not successful, try
-			again.<BR>
-		<BR> Reason: <%= ((AuthenticationException) 
-        	session.getAttribute(AbstractProcessingFilter.ACEGI_SECURITY_LAST_EXCEPTION_KEY)).getMessage() %>
-		</font>
-	</c:if>
+		<c:if test="${not empty param.login_error}">
+			<font color="red"> Login Failed: <br> Reason: <%=((AuthenticationException) session
+						.getAttribute(AbstractProcessingFilter.ACEGI_SECURITY_LAST_EXCEPTION_KEY)).getMessage()%>
+			</font>
+		</c:if>
 
-	<form action="<c:url value='j_acegi_security_check'/>" method="POST">
-		<table class="table">
-			<tr>
-				<td>User:</td>
-				<td><input type='text' name='j_username'
-					<c:if test="${not empty param.login_error}">value='<%= 
+
+		<form class="form-inline form-horizontal" action="j_acegi_security_check"
+			method="POST">
+
+			<div class="control-group">
+				<label class="control-label" for="j_username">User:</label>
+				<div class="controls">
+					<input type="text" name="j_username"
+						<c:if test="${not empty param.login_error}">value='<%= 
         		session.getAttribute(AuthenticationProcessingFilter.ACEGI_SECURITY_LAST_USERNAME_KEY) %>'
         		</c:if>>
-				</td>
-			</tr>
-			<tr>
-				<td>Password:</td>
-				<td><input type='password' name='j_password'></td>
-			</tr>
+				</div>
+			</div>
 
-			<tr>
-				<td colspan='2'><input name="login" type="submit"><input
-					name="reset" type="reset"></td>
-			</tr>
-		</table>
+			<div class="control-group">
+				<label class="control-label" for="j_password">Password:</label>
+				<div class="controls">
+					<input type="password" name="j_password" placeholder="Password">
+				</div>
+			</div>
 
-	</form>
+			<div class="control-group">
+				<label class="control-label"></label>
+				<div class="controls">
+					<input class="btn" name="login" type="submit"> <input
+						class="btn" name="reset" type="reset">
+				</div>
+			</div>
+		</form>
 
-
+	</div>
 </body>
 </html>
