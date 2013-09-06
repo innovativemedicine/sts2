@@ -55,7 +55,7 @@ public class SatoLabelPrinter implements ConstantInterface {
 		content.append("FIELD=CONCENTRATION2\r\n");
 		content.append("FIELD=dupNo1\r\n");
 		content.append("FIELD=dupNo2\r\n");
-		content.append("LABELDATA=THISFILE\r\n");
+		content.append("LABELDATA=THISFILE");
 
 		while (ir.hasNext()) {
 
@@ -67,7 +67,7 @@ public class SatoLabelPrinter implements ConstantInterface {
 			SimpleDateFormat receivedDateFormat = new SimpleDateFormat("dd-MMM-yyyy");
 			// String receivedDate =
 			// receivedDateFormat.format(sample.getReceiveDate());
-			String receivedDate = receivedDateFormat.format(new Date());
+			String receivedDate = receivedDateFormat.format(sample.getReceiveDate()).toUpperCase();
 
 			String intIdPre = "";
 			String intIdNum = "";
@@ -84,6 +84,8 @@ public class SatoLabelPrinter implements ConstantInterface {
 				externalId = "";
 			}
 
+			content.append("\r\n");
+
 			// content.append("FIELD=EXTID11\n");
 			content.append(externalId).append(",");
 			// content.append("FIELD=EXTID12\n");
@@ -93,7 +95,7 @@ public class SatoLabelPrinter implements ConstantInterface {
 			// content.append("FIELD=SUFFIX1\n");
 			content.append(sampleTypeSuffix).append(",");
 			// content.append("FIELD=BARCODE1\n");
-			content.append("S-").append(internalId).append(",");
+			content.append(internalId).append(",");
 			// content.append("FIELD=TOPLINE12\n");
 			content.append(intIdPre).append(",");
 			// content.append("FIELD=TOPLINE22\n");
@@ -127,9 +129,7 @@ public class SatoLabelPrinter implements ConstantInterface {
 			// content.append("FIELD=dupNo1\n");
 			content.append(sampleDupNo).append(",");
 			// content.append("FIELD=dupNo2\n");
-			content.append(sampleDupNo).append("");
-
-			content.append("\r\n");
+			content.append(sampleDupNo);
 		}
 		out.write(content.toString());
 		out.close();
@@ -180,7 +180,7 @@ public class SatoLabelPrinter implements ConstantInterface {
 
 			// FIELD=2DBAR1
 			// For the barcode: It should be in the format P-internalId
-			content.append("P-").append(internalId).append(",");
+			content.append(internalId).append(",");
 			// FIELD=INTID1
 			content.append(internalId).append(",");
 			// FIELD=EXTID1
