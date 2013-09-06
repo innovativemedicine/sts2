@@ -7,7 +7,6 @@
 		<div class="controls">
 			<spring:bind path="command.run.project">
 				<select required name='<c:out value="${status.expression}" />'>
-
 					<c:forEach items="${allProjects}" var="project">
 						<option value="<c:out value="${project.projectId}"/>">
 							<c:out value="${project.name}" />

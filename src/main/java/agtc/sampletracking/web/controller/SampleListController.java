@@ -51,7 +51,6 @@ public class SampleListController extends BasicController {
 			SatoLabelPrinter satoP = new SatoLabelPrinter();
 			// Collections.sort(sampleList,new SampleComparator());
 			satoP.printSampleLabel(sampleList, contextPath);
-			System.out.println("Worked up to here");
 
 			message = "Labels have been printed.";
 		} else if (action.equalsIgnoreCase("Export Data")) {

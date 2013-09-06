@@ -33,14 +33,12 @@ public class PlateWorker {
 	public PlateWorker(ContainerType containerType){
 		maxRow = containerType.getRowNo().intValue();
 		maxVolume = containerType.getColumnNo().intValue();
-		capacity = maxRow*maxVolume;
-		
+		capacity = maxRow*maxVolume;		
 	}
 	
 	public PlateWorker(ContainerType containerType,boolean orderSamplesInContainer){
 		this(containerType);
 		this.orderSamplesInContainer = orderSamplesInContainer;
-		
 		
 	}
 	
