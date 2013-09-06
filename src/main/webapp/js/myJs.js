@@ -41,10 +41,12 @@ $.fn.getHexBgColour = function() {
 
 //clickSelect is used for Sample Type Number and Selection in Register Sample
 $('.clickSelect').click(function() {
+	this.value = this.placeholder;
+	//alert(this.placeholder);
 	this.select();
 });
 
-$('.clickSelect').change(function() {
+$('.clickSelect').blur(function() {
 	
 	var selectValue = this.value;
 	var labelId = '#' + this.name + '_label';
