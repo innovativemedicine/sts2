@@ -36,9 +36,8 @@
 					</div>
 
 					<div class="alert">
-						Download Manifest Template&nbsp;<a class="btn btn-mini linkButton"><i
-							class="iconic-download"></i></a> <input class="hide linkedButton"
-							type="submit" name="action" value="Download Manifest">
+						Download Manifest Template&nbsp;
+						<button class="btn btn-mini" type="submit" name="action" value="Download Manifest"><i class="iconic-download"></i></button>
 					</div>
 
 				</form>
@@ -62,7 +61,7 @@
 								<div class="controls">
 
 									<input autocomplete="off" required type="text"
-										class="input-small" id="sampleIdPreForm"
+										class="input-mini" id="sampleIdPreForm"
 										name="sampleIdPreForm" value="<c:out value="${param.sp}"/>"
 										pattern="[A-Za-z]{1,4}$">
 								</div>
@@ -71,7 +70,7 @@
 							<div class="control-group">
 								<label class="control-label">External ID</label>
 								<div class="controls">
-									<input autocomplete="off" required class="input-small"
+									<input autocomplete="off" required class="input-medium"
 										type="text" name="externalId" value="">
 								</div>
 							</div>
