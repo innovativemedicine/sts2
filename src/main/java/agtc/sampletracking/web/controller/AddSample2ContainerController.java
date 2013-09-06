@@ -48,65 +48,72 @@ public class AddSample2ContainerController extends ContainerContentsController {
 		int containerId = ServletRequestUtils.getIntParameter(request, "containerId", -1);
 		String[] samplesToAdd = ServletRequestUtils.getStringParameters(request, "samplesToAdd");
 		List samplesToAddList = Arrays.asList(samplesToAdd);
-		List samplesList = (List) WebUtils.getSessionAttribute(request, "sampleList");
-		List samplesRemainingList = new ArrayList();
-		Container container = containerManager.getContainer(new Integer(containerId));
-
-		String message = "";
-		String isOrdered = "ordered";
 
 		ModelAndView view = new ModelAndView(new RedirectView(getSuccessView()));
 		Map myModel = view.getModel();
+		String message = "No samples selected";
+		
+		if (samplesToAddList.size() > 0) {
 
-		myModel.put("containerId", new Integer(containerId));
-		myModel.put("isOrdered", isOrdered);
+			List samplesList = (List) WebUtils.getSessionAttribute(request, "sampleList");
+			List samplesRemainingList = new ArrayList();
+			Container container = containerManager.getContainer(new Integer(containerId));
 
-		int spaceAvailable = container.getContainerType().getCapacity() - container.getTotalSamples();
-		if (samplesToAddList.size() > spaceAvailable) {
-			message = "Error: There are only " + spaceAvailable + " spaces available in container. You tried to store "
-					+ samplesToAdd.length + " samples.";
-			myModel.put("message", message);
-			return view;
-		} else {
-			Iterator sampleListIr = samplesToAddList.iterator();
+	
+			String isOrdered = "ordered";
 
-			while (sampleListIr.hasNext()) {
-				int curSampleId = Integer.parseInt((String) sampleListIr.next());
 
-				Sample curSample = sampleManager.getSample(curSampleId);
 
-				try {
-					container = sampleManager.storeSampleInContainer(container, curSample);
-				} catch (Exception e1) {
-					message = e1.getMessage();
-					e1.printStackTrace();
-					myModel.put("message", message);
-					return view;
+			myModel.put("containerId", new Integer(containerId));
+			myModel.put("isOrdered", isOrdered);
+
+			int spaceAvailable = container.getContainerType().getCapacity() - container.getTotalSamples();
+			if (samplesToAddList.size() > spaceAvailable) {
+				message = "Error: There are only " + spaceAvailable
+						+ " spaces available in container. You tried to store " + samplesToAdd.length + " samples.";
+				myModel.put("message", message);
+				return view;
+			} else {
+				Iterator sampleListIr = samplesToAddList.iterator();
+
+				while (sampleListIr.hasNext()) {
+					int curSampleId = Integer.parseInt((String) sampleListIr.next());
+
+					Sample curSample = sampleManager.getSample(curSampleId);
+
+					try {
+						container = sampleManager.storeSampleInContainer(container, curSample);
+					} catch (Exception e1) {
+						message = e1.getMessage();
+						e1.printStackTrace();
+						myModel.put("message", message);
+						return view;
+					}
+
+					try {
+						containerManager.saveContainer(container);
+						message = samplesToAdd.length + " samples saved successfully";
+					} catch (Exception e) {
+						message = e.getMessage();
+						e.printStackTrace();
+						myModel.put("message", message);
+						return view;
+					}
 				}
 
-				try {
-					containerManager.saveContainer(container);
-					message = samplesToAdd.length + " samples saved successfully";
-				} catch (Exception e) {
-					message = e.getMessage();
-					e.printStackTrace();
-					myModel.put("message", message);
-					return view;
+				// Remove saved samples from sample list
+				Iterator sampleRemainIr = samplesList.iterator();
+
+				while (sampleRemainIr.hasNext()) {
+					Sample chkSample = (Sample) sampleRemainIr.next();
+
+					if (!Arrays.toString(samplesToAdd).contains(String.valueOf(chkSample.getSampleId()))) {
+						samplesRemainingList.add(chkSample);
+					}
 				}
+
+				WebUtils.setSessionAttribute(request, "sampleList", samplesRemainingList);
 			}
-
-			// Remove saved samples from sample list
-			Iterator sampleRemainIr = samplesList.iterator();
-
-			while (sampleRemainIr.hasNext()) {
-				Sample chkSample = (Sample) sampleRemainIr.next();
-
-				if (!Arrays.toString(samplesToAdd).contains(String.valueOf(chkSample.getSampleId()))) {
-					samplesRemainingList.add(chkSample);
-				}
-			}
-
-			WebUtils.setSessionAttribute(request, "sampleList", samplesRemainingList);
 		}
 
 		myModel.put("message", message.toString());
