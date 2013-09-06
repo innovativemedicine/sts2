@@ -72,8 +72,8 @@ public class ContainerContentsController extends BasicController {
 					
 				}
 				if(unOrderedSamplesInContainers.size()>0 || unOrdered){ // in this case, is unorderedSamples, give a four colume array to jsp
-					columnNo = 4;
-					rowNo = (container.getContainerType().getCapacity())/columnNo;
+					columnNo = container.getContainerType().getColumnNo();
+					rowNo = container.getContainerType().getRowNo();
 					
 					cells = new ContainerContentCellUnit[rowNo][columnNo];
 					int counter = 0;
@@ -88,8 +88,6 @@ public class ContainerContentsController extends BasicController {
 						}
 						
 					}
-					
-					
 					
 				}else{ //in this case, is ordered samples,
 					rowNo = orderedSamplesInContainer.length;
