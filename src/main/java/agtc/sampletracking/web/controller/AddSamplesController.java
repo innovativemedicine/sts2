@@ -91,7 +91,7 @@ public class AddSamplesController extends BasicController implements ConstantInt
 		//
 		// for (int i = 1; i <= numSamples; i++) {
 		// Integer intSampleNum = largestSampleNum + i;
-		// String formatNum = String.format("%05d", intSampleNum);
+		// String formatNum = String.format("%04d", intSampleNum);
 		// String intSampleId = samplePrefix + formatNum;
 		// Sample sample = new Sample(intSampleId);
 		//
@@ -500,7 +500,7 @@ public class AddSamplesController extends BasicController implements ConstantInt
 					Integer largestSampleNum = Integer.parseInt(largestSampleId.replace(samplePrefix, ""));
 
 					Integer intSampleNum = largestSampleNum + 1 + samplesRead;
-					String formatNum = String.format("%05d", intSampleNum);
+					String formatNum = String.format("%04d", intSampleNum);
 					intSampleId = samplePrefix + formatNum;
 
 					newSample = new Sample(intSampleId);
@@ -523,7 +523,7 @@ public class AddSamplesController extends BasicController implements ConstantInt
 						Integer largestSampleNum = Integer.parseInt(largestSampleId.replace(samplePrefix, ""));
 
 						Integer intSampleNum = largestSampleNum + 1 + samplesRead;
-						String formatNum = String.format("%05d", intSampleNum);
+						String formatNum = String.format("%04d", intSampleNum);
 						intSampleId = samplePrefix + formatNum;
 
 						newSample = new Sample(intSampleId);
@@ -535,7 +535,7 @@ public class AddSamplesController extends BasicController implements ConstantInt
 					Integer largestSampleNum = Integer.parseInt(largestSampleId.replace(samplePrefix, ""));
 
 					Integer intSampleNum = largestSampleNum + 1 + samplesRead;
-					String formatNum = String.format("%05d", intSampleNum);
+					String formatNum = String.format("%04d", intSampleNum);
 					intSampleId = samplePrefix + formatNum;
 
 					newSample = new Sample(intSampleId);
@@ -621,16 +621,11 @@ public class AddSamplesController extends BasicController implements ConstantInt
 			newSample = new Sample(intSampleId);
 
 		} else {
-			System.out.println(samplePrefix);
 			String largestSampleId = sampleManager.getLargestSampleId(samplePrefix);
-			System.out.println(largestSampleId);
 			Integer largestSampleNum = Integer.parseInt(largestSampleId.replace(samplePrefix, ""));
-			System.out.println(largestSampleNum);
 			Integer intSampleNum = largestSampleNum + 1;
-			String formatNum = String.format("%05d", intSampleNum);
-			System.out.println(formatNum);
+			String formatNum = String.format("%04d", intSampleNum);
 			intSampleId = samplePrefix + formatNum;
-			System.out.println(intSampleId);
 			newSample = new Sample(intSampleId);
 		}
 
