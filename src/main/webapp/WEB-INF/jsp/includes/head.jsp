@@ -3,6 +3,8 @@
 <%@ taglib prefix="spring" uri="/WEB-INF/spring.tld"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="cj" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <html>
 <head>

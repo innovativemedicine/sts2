@@ -22,7 +22,7 @@
 						</c:if> 
 						
 						<c:if test="${!command.cells[rowCount][columnCount].notOccupied}">
-							<p class="uneditable-input span1 input container-details"><c:out value="${command.cells[rowCount][columnCount].sampleDesc}" /> </p>
+							<p class="uneditable-input input-mini container-details"><c:out value="${command.cells[rowCount][columnCount].sampleDesc}" /> </p>
 						</c:if>
 						
 						</td>
@@ -30,6 +30,4 @@
 					
 			</tr>
 		</c:forEach>
-
-
 	</table>
