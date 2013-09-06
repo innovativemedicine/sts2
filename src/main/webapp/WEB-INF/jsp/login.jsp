@@ -26,6 +26,7 @@
 	<script type="text/javascript" src="js/myJs.js" defer></script>
 
 	<%@ include file="/WEB-INF/jsp/includes/menu.jsp"%>
+	<%@ include file="/WEB-INF/jsp/includes/success.jsp"%>
 
 	<div class="container-fluid">
 

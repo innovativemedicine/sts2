@@ -256,8 +256,7 @@ public class StsController extends MultiActionController implements Initializing
 		ContainerType currentContainerType = container.getContainerType();
 		Map models = new HashMap();
 		if (allSamplesInContainer != null && allSamplesInContainer.size() > 0) {
-			// log.debug("the length of List is " +
-			// allSamplesInContainer.size());
+
 			PlateWorker plateWorker = new PlateWorker(currentContainerType);
 			plateWorker.formatContainer(allSamplesInContainer);
 			Sample[][] orderedSamples = plateWorker.getOrderedSamples();
@@ -294,14 +293,14 @@ public class StsController extends MultiActionController implements Initializing
 			throws ServletException {
 		int testId = ServletRequestUtils.getRequiredIntParameter(request, "testId");
 		testManager.removeTest(new Integer(testId));
-		return new ModelAndView("successDelete", "entityName", "test");
+		return new ModelAndView("login", "message", "Test deleted");
 	}
 
 	public ModelAndView deleteRunHandler(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException {
 		int runId = ServletRequestUtils.getRequiredIntParameter(request, "runId");
 		testManager.removeRun(new Integer(runId));
-		return new ModelAndView("successDelete", "entityName", "run and its results");
+		return new ModelAndView("login", "message", "Run and its results deleted");
 	}
 
 	public ModelAndView deleteAssayHandler(HttpServletRequest request, HttpServletResponse response)
@@ -310,7 +309,7 @@ public class StsController extends MultiActionController implements Initializing
 		Assay assay = testManager.getAssay(new Integer(assayId));
 		assay.getProjects().clear();
 		testManager.removeAssay(new Integer(assayId));
-		return new ModelAndView("successDelete", "entityName", "assay");
+		return new ModelAndView("login", "message", "Assay Deleted");
 	}
 
 	// Delete all results of select assay(s) from a RUN
@@ -321,7 +320,7 @@ public class StsController extends MultiActionController implements Initializing
 		String[] assays = request.getParameterValues("assay");
 
 		testManager.removeResultByAssay(new Integer(runId), assays);
-		return new ModelAndView("successDelete", "entityName", "assay(s)");
+		return new ModelAndView("login", "message", "Assay(s) deleted");
 	}
 
 	public ModelAndView deleteResultHandler(HttpServletRequest request, HttpServletResponse response)
@@ -329,7 +328,7 @@ public class StsController extends MultiActionController implements Initializing
 		int resultId = ServletRequestUtils.getRequiredIntParameter(request, "resultId");
 
 		testManager.removeResult(new Integer(resultId));
-		return new ModelAndView("successDelete", "entityName", "result");
+		return new ModelAndView("login", "message", "Result deleted");
 
 	}
 
@@ -338,7 +337,7 @@ public class StsController extends MultiActionController implements Initializing
 		int id = ServletRequestUtils.getRequiredIntParameter(request, "sampleId");
 		Sample sample = sampleManager.getSample(new Integer(id));
 		sampleManager.removeSample(new Integer(id));
-		return new ModelAndView("successDelete", "entityName", "sample");
+		return new ModelAndView("login", "message", "Sample deleted");
 	}
 
 	public ModelAndView deleteAllSamplesInContainerHandler(HttpServletRequest request, HttpServletResponse response)
@@ -348,7 +347,7 @@ public class StsController extends MultiActionController implements Initializing
 
 		sampleManager.removeAllSamplesInContainer(container);
 
-		return new ModelAndView("successDelete", "entityName", "all samples in this container");
+		return new ModelAndView("login", "message", "All samples in this container deleted");
 	}
 
 	public ModelAndView deleteProjectHandler(HttpServletRequest request, HttpServletResponse response)
@@ -360,7 +359,7 @@ public class StsController extends MultiActionController implements Initializing
 			log.error(e);
 			return new ModelAndView("errorPage", "message", "Could not remove this project from database !");
 		}
-		return new ModelAndView("successDelete", "entityName", "project");
+		return new ModelAndView("login", "message", "Project Deleted");
 	}
 
 	public ModelAndView deleteContainerHandler(HttpServletRequest request, HttpServletResponse response)
@@ -380,7 +379,7 @@ public class StsController extends MultiActionController implements Initializing
 			log.error(e.toString());
 			return new ModelAndView("errorPage", "message", "Could not remove this container from database !");
 		}
-		return new ModelAndView("successDelete", "entityName", "container");
+		return new ModelAndView("login", "message", "Container Deleted");
 	}
 
 	public ModelAndView emptyContainerHandler(HttpServletRequest request, HttpServletResponse response)
