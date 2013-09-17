@@ -94,6 +94,10 @@ label.checkbox {
 	width: 20px;
 }
 
-.input-login {
-	height: 30px;
+input[readonly]
+{
+	background-color: #fff;
 }
+/* .input-login { */
+/* 	height: 30px; */
+/* } */
