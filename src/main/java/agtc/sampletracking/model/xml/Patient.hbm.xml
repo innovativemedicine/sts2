@@ -34,19 +34,7 @@
 
 		</property>
 
-		<property name="isControl" type="java.lang.String" column="IS_CONTROL"
-			length="1">
-
-		</property>
-
-		<property name="familyId" type="java.lang.String" column="FAMILY_ID"
-			length="16">
-
-		</property>
-
 		<!-- associations -->
-
-
 
 		<!-- bi-directional one-to-many association to samples -->
 		<set name="samples" inverse="true" cascade="all-delete-orphan">

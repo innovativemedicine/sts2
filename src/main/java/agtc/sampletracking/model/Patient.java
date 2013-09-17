@@ -20,8 +20,6 @@ public class Patient implements Serializable{
      private String note;
      private Date birthDate;
      private Set samples;
-     private String isControl;
-     private String familyId;
      /** persistent field */
      private String extSampleId;
      private Project project;
@@ -108,35 +106,6 @@ public class Patient implements Serializable{
 	public void setSamples(Set samples) {
 		this.samples = samples;
 	}
-	
-	
-	/**
-	 * @return Returns the isControl.
-	 */
-	public String getIsControl() {
-		return isControl;
-	}
-	/**
-	 * @param isControl The isControl to set.
-	 */
-	public void setIsControl(String isControl) {
-		this.isControl = isControl;
-	}
-	
-	
-	/**
-	 * @return Returns the familyId.
-	 */
-	public String getFamilyId() {
-		return familyId;
-	}
-	/**
-	 * @param familyId The familyId to set.
-	 */
-	public void setFamilyId(String familyId) {
-		this.familyId = familyId;
-	}
-	
 	
 	/**
 	 * @return Returns the anotherExtSampleId.
