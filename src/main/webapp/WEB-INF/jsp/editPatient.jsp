@@ -17,20 +17,6 @@
 		</div>
 	</div>
 
-
-
-	<div class="control-group">
-		<label class="control-label">External ID 2:</label>
-		<div class="controls">
-
-			<spring:bind path="command.anotherExtSampleId">
-				<INPUT type="text" maxlength="255" size="30"
-					name="anotherExtSampleId" value="<c:out value="${status.value}"/>">
-			</spring:bind>
-		</div>
-	</div>
-
-
 	<div class="control-group">
 		<label class="control-label">Project:</label>
 		<div class="controls">
@@ -45,8 +31,6 @@
 			   selected
 		 </c:if>
 							value="<c:out value="${project.projectId}"/>">
-							<c:out value="${project.investigator.fullName}" />
-							&nbsp;
 							<c:out value="${project.name}" />
 						</option>
 					</c:forEach>
@@ -63,7 +47,7 @@
 
 			<spring:bind path="command.birthDate">
 				<INPUT type="text" name="birthDate"
-					value="<c:out value="${status.value}"/>">
+					value="<c:out value="${status.value}"/>" placeholder="DD-MM-YYYY">
 			</spring:bind>
 		</div>
 	</div>
