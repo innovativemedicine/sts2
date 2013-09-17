@@ -51,7 +51,7 @@
 		<label class="control-label">Tests:</label>
 		<div class="controls">
 			<c:out value="${command.testNameList}" />
-			<select name="testIds" ; nnnmkjn>
+			<select name="testIds">
 				<c:forEach items="${allTests}" var="test">
 
 					<option value="<c:out value="${test.testId}"/>">

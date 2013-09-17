@@ -2,7 +2,7 @@
 <form method="post">
 	
 	<span style="color: green">Deleting Sample From Container...</span>
-	<input class="autoSubmit" type="submit" name="action" value="Save" hidden>
+	<input class="autoSubmit" type="submit" name="action" value="Save" hidden="true">
 	
 </form>
 
