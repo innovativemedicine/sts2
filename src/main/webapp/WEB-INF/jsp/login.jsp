@@ -30,27 +30,57 @@
 
 	<div class="container-fluid">
 
-		<h2>
-			Welcome
-			<c:out value="${sessionScope.userName}" />
-		</h2>
+		<div class="span10">
+		
+			<div class="alert alert-info">
+				Welcome
+				<c:out value="${sessionScope.userName}" />
+			</div>
 
-		<br>
 
-		<div>
-			<h3>Update news:</h3>
-			<ul>
-				<li>UI Revamp</li>
-				<li>Search and Register Sample Reworked</li>
-				<li>Search functionality for Projects, Results, Tests, Assays temporarily disabled.</li>
-				
-				<li>Search Plate, Register Plate, Barcode Functionality coming soon.</li>
-			</ul>
+
+
+			<h2>Updates:</h2>
+
+			<div class="accordion" id="accordion2">
+				<div class="accordion-group">
+					<div class="accordion-heading">
+						<a class="act act-primary accordion-toggle" data-toggle="collapse"
+							data-parent="#accordion2" href="#collapseOne"> September 2013
+						</a>
+					</div>
+					<div id="collapseOne" class="accordion-body collapse in">
+						<div class="accordion-inner">
+							<ul>
+								<li>Initial Launch of STS2.0 with an updated interface</li>
+								<li>Removed support for searching and registering plates.<br>
+									(To be implemented as a separate system)
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="accordion-group">
+					<div class="accordion-heading">
+						<a class="act act-primary accordion-toggle" data-toggle="collapse"
+							data-parent="#accordion2" href="#collapseTwo"> August 2013 </a>
+					</div>
+					<div id="collapseTwo" class="accordion-body collapse">
+						<div class="accordion-inner">
+							<ul>
+								<li>Initial Launch of STS2.0 with an updated interface</li>
+								<li>Added support for barcodes</li>
+								<li>Added support for searching and registering plates</li>
+								<li>Simplified search interface</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="alert">Database backup time is 11PM and lasts about
+				2 hours. During this time, STS will be unavailable.</div>
 
 		</div>
-
-		<div class="alert">Database backup time is 11PM and lasts about
-			2 hours. During this time, STS will be unavailable.</div>
-
 	</div>
 </body>
