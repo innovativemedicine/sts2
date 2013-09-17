@@ -32,7 +32,7 @@
 							format
 					</label> <label class="checkbox inline"> <input class="inline"
 							type="checkbox" name="linkageFormat" value="yes"> Linkage
-							format <br>
+							format </label>
 					</td>
 				</tr>
 
