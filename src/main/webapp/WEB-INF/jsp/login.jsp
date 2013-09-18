@@ -31,14 +31,6 @@
 	<div class="container-fluid">
 
 		<div class="span10">
-		
-			<div class="alert alert-info">
-				Welcome
-				<c:out value="${sessionScope.userName}" />
-			</div>
-
-
-
 
 			<h2>Updates:</h2>
 
