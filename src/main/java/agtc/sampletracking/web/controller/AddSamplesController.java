@@ -56,7 +56,6 @@ import agtc.sampletracking.model.SampleType;
 
 public class AddSamplesController extends BasicController implements ConstantInterface {
 	private SampleManager	sampleManager;
-
 	private ProjectManager	projectManager;
 
 	public AddSamplesController() {
@@ -262,6 +261,7 @@ public class AddSamplesController extends BasicController implements ConstantInt
 
 		models.put("allSampleTypes", allSampleTypes);
 		models.put("allProjects", allProjects);
+				
 		return models;
 	}
 
