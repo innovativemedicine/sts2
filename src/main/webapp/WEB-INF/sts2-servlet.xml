@@ -42,7 +42,8 @@
 				<prop key="/modifyRun.htm">modifyRunController</prop>
 				<prop key="/editPatient.htm">editPatientController</prop>
 				<prop key="/addSample2Container.htm">addSample2ContainerController</prop>
-
+				<prop key="/patientDetails.htm">patientDetailsController</prop>
+				
 				<!-- multiaction controllers -->
 
 				<prop key="/successLogin.htm">stsController</prop>
@@ -67,7 +68,7 @@
 				<prop key="/shuffleSamplesInContainer.htm">stsController</prop>
 				<prop key="/deleteAllSamplesInContainer.htm">stsController</prop>
 				<prop key="/resultList.htm">stsController</prop>
-				<prop key="/patientDetails.htm">stsController</prop>
+
 
 				<!-- other controllers -->
 
@@ -362,6 +363,31 @@
 		</property>
 		<property name="sampleManager">
 			<ref bean="sampleManager" />
+		</property>
+		<property name="projectManager">
+			<ref bean="projectManager" />
+		</property>
+	</bean>
+	
+		<bean id="patientDetailsController"
+		class="agtc.sampletracking.web.controller.PatientDetailsController">
+		<property name="sessionForm">
+			<value>true</value>
+		</property>
+		<property name="requireSession">
+			<value>true</value>
+		</property>
+		<property name="formView">
+			<value>patientDetails</value>
+		</property>
+		<property name="successView">
+			<value>patientDetails.htm</value>
+		</property>
+		<property name="sampleManager">
+			<ref bean="sampleManager" />
+		</property>
+		<property name="agtcManager">
+			<ref bean="agtcManager" />
 		</property>
 		<property name="projectManager">
 			<ref bean="projectManager" />
@@ -860,8 +886,6 @@
 				<prop key="/emptyContainer.htm">emptyContainerHandler</prop>
 				<prop key="/deleteAllSamplesInContainer.htm">deleteAllSamplesInContainerHandler</prop>
 				<prop key="/resultList.htm">resultListHandler</prop>
-				<prop key="/patientDetails.htm">patientDetailsHandler</prop>
-
 			</props>
 		</property>
 	</bean>
