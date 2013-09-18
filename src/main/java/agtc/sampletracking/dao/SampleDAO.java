@@ -20,6 +20,7 @@ public interface SampleDAO {
 	public List getSamples(List sampleIds,List sampleTypeSuffixes,Integer sampleDupNo);
 	public String getLargestSampleId(String intSamplePrefix);
 	// Simple Search searches sampleId using sampleTypeId and projectId;
+	public Sample getSampleWithLargestDupNo(String intSampleId, Integer sampleTypeId);
 	public List<Sample> simpleSearchSamples(List sampleIds, List extSampleIds, List sampleTypeIds, List projectIds);
 	public List<Sample> simpleSearchSamples(String sampleIdFrom,
 			String sampleIdTo, String externalIdFrom, String externalIdTo, List sampleTypeIds, List projectIds);

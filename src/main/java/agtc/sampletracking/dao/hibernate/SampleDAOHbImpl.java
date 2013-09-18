@@ -56,6 +56,26 @@ public class SampleDAOHbImpl extends STSBasicDAO implements SampleDAO {
 
 	}
 
+	public Sample getSampleWithLargestDupNo(String intSampleId, Integer sampleTypeId) {
+		Session session = getSession();
+
+		Criteria crt = session.createCriteria(Sample.class);
+		crt.add(Restrictions.eq("patient.intSampleId", intSampleId));
+		crt.add(Restrictions.eq("sampleType.sampleTypeId", sampleTypeId));
+		crt.addOrder(Order.desc("sampleDupNo"));
+		crt.setMaxResults(1);
+
+		List<Sample> result = crt.list();
+
+		// Return SampleDupNo
+		if (result.isEmpty()) {
+			return null;
+		} else {
+			return result.get(0);
+		}
+
+	}
+
 	public List getSamples(List sampleIds, List sampleTypeSuffixes, Integer sampleDupNo) {
 		Session session = getSession();
 		Criteria crt = session.createCriteria(Sample.class);
@@ -72,7 +92,7 @@ public class SampleDAOHbImpl extends STSBasicDAO implements SampleDAO {
 
 		crt.setFetchMode("patient", FetchMode.JOIN).createAlias("patient", "patient");
 		crt.setFetchMode("patient.project", FetchMode.JOIN).createAlias("patient.project", "patient.project");
-		
+
 		List<Patient> patients = new ArrayList<Patient>();
 
 		// Search for patients that are in the same project
@@ -80,7 +100,7 @@ public class SampleDAOHbImpl extends STSBasicDAO implements SampleDAO {
 			Criteria patientCrt = session.createCriteria(Patient.class);
 			patientCrt = patientCrt.add(Restrictions.eq("project.projectId", projectId));
 			patients = patientCrt.list();
-			
+
 			crt.add(Restrictions.in("patient", patients));
 		}
 
@@ -135,7 +155,8 @@ public class SampleDAOHbImpl extends STSBasicDAO implements SampleDAO {
 		Session session = getSession();
 
 		Criteria crt = session.createCriteria(Sample.class);
-		crt.setFetchMode("patient", FetchMode.JOIN).createAlias("patient", "patient");;
+		crt.setFetchMode("patient", FetchMode.JOIN).createAlias("patient", "patient");
+		;
 		crt.setFetchMode("sampleType", FetchMode.JOIN);
 		crt.setFetchMode("patient.project", FetchMode.JOIN).createAlias("patient.project", "patient.project");
 
@@ -143,17 +164,16 @@ public class SampleDAOHbImpl extends STSBasicDAO implements SampleDAO {
 			crt.add(Restrictions.in("patient.intSampleId", sampleIds));
 		}
 
-		if (!extSampleIds.isEmpty())
-		{
+		if (!extSampleIds.isEmpty()) {
 			crt.add(Restrictions.in("patient.extSampleId", extSampleIds));
 		}
-		
+
 		if (!sampleTypeIds.isEmpty()) {
 			crt.add(Restrictions.in("sampleType.sampleTypeId", sampleTypeIds));
 		}
-		
+
 		// Search for patients that are in projectId
-		if (!projectIds.isEmpty()){
+		if (!projectIds.isEmpty()) {
 			crt.add(Restrictions.in("patient.project.projectId", projectIds));
 		}
 
@@ -203,7 +223,6 @@ public class SampleDAOHbImpl extends STSBasicDAO implements SampleDAO {
 		String query = "select s.sampleType from Sample s group by s.sampleType order by count(s.sampleId) desc";
 		return getHibernateTemplate().find(query);
 	}
-
 
 	public Sample getSample(Integer sampleId) {
 
