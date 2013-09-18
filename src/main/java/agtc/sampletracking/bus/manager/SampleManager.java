@@ -57,6 +57,19 @@ public class SampleManager implements ConstantInterface {
 		
 		return largestId;
 	}
+	
+	public Integer getLargestDupNo(String intSampleId, Integer sampleTypeId){
+		Sample sample = sampleDAO.getSampleWithLargestDupNo(intSampleId, sampleTypeId);
+		
+		if(sample == null)
+		{
+			return 0;
+		}
+		else
+		{
+			return sample.getSampleDupNo();
+		}
+	}
 
 	public void removeSample(Integer sampleId){
 		sampleDAO.removeSample(sampleId);
