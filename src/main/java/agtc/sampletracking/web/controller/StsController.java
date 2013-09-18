@@ -44,6 +44,7 @@ import agtc.sampletracking.model.Project;
 import agtc.sampletracking.model.Result;
 import agtc.sampletracking.model.Run;
 import agtc.sampletracking.model.Sample;
+import agtc.sampletracking.model.SampleType;
 import agtc.sampletracking.model.Test;
 
 /**
@@ -229,20 +230,6 @@ public class StsController extends MultiActionController implements Initializing
 		models.put("message", message);
 
 		return new ModelAndView("sampleDetails", models);
-	}
-
-	public ModelAndView patientDetailsHandler(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException {
-		Patient patient = sampleManager.getPatient(ServletRequestUtils.getStringParameter(request, "intSampleId", ""));
-
-		Map models = new HashMap();
-		models.put("command", patient);
-
-		String message = ServletRequestUtils.getStringParameter(request, "message", "");
-
-		models.put("message", message);
-
-		return new ModelAndView("patientDetails", models);
 	}
 
 	public ModelAndView containerDetailsHandler(HttpServletRequest request, HttpServletResponse response)
