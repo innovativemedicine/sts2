@@ -2,28 +2,25 @@
 
 <h2>
 	Patient:
-	<c:out value="${command.intSampleId}" />
+	<c:out value="${patient.intSampleId}" />
 </h2>
 
-<a class="btn"
-	href="<c:url value="/editPatient.htm"><c:param name="intSampleId" value="${command.intSampleId}"/></c:url>">Edit
+<a class="btn" href="<c:url value="/editPatient.htm"><c:param name="intSampleId" value="${patient.intSampleId}"/></c:url>">Edit
 	Patient</a>
 
-<%--    		<a class="btn" href="<c:url value="/deletePatient.htm"><c:param name="intSampleId" value="${command.intSampleId}"/></c:url>" onclick="return (confirm('Warning: Deleting the patient will delete all the samples of this patient as well as all the genotype results of those samples. \n\nAre you sure you want to delete this Patient?')) " >Delete Patient</a> --%>
+<%--    		<a class="btn" href="<c:url value="/deletePatient.htm"><c:param name="intSampleId" value="${patient.intSampleId}"/></c:url>" onclick="return (confirm('Warning: Deleting the patient will delete all the samples of this patient as well as all the genotype results of those samples. \n\nAre you sure you want to delete this Patient?')) " >Delete Patient</a> --%>
 
 <p>
-
 <div class="row-fluid">
 	<div class="span4">
 
 		<div class="alert alert-info">Patient Information</div>
 
-		<form class="form-horizontal">
+		<div class="form-horizontal">
 			<div class="control-group">
 				<label class="control-label">External ID:</label>
 				<div class="controls">
-					<input class="input-medium" type="text"
-						value="<c:out value="${command.extSampleId}" />" readonly />
+					<input class="input-medium" type="text" value="<c:out value="${patient.extSampleId}" />" readonly />
 				</div>
 
 			</div>
@@ -31,8 +28,7 @@
 			<div class="control-group">
 				<label class="control-label">Project:</label>
 				<div class="controls">
-					<input class="input-medium" type="text"
-						value="<c:out value="${command.project}" />" readonly />
+					<input class="input-medium" type="text" value="<c:out value="${patient.project}" />" readonly />
 				</div>
 
 			</div>
@@ -41,8 +37,7 @@
 			<div class="control-group">
 				<label class="control-label">Birth Date:</label>
 				<div class="controls">
-					<input class="input-medium" type="text"
-						value="<fmt:formatDate value="${command.birthDate}" pattern="dd-MM-yyyy" />"
+					<input class="input-medium" type="text" value="<fmt:formatDate value="${patient.birthDate}" pattern="dd-MM-yyyy" />"
 						placeholder="DD-MM-YYYY" readonly />
 				</div>
 
@@ -51,12 +46,11 @@
 			<div class="control-group">
 				<label class="control-label">Note:</label>
 				<div class="controls">
-					<input class="input-medium" type="text"
-						value="<c:out value="${command.note}" />" readonly />
+					<input class="input-medium" type="text" value="<c:out value="${patient.note}" />" readonly />
 				</div>
 
 			</div>
-		</form>
+		</div>
 
 	</div>
 </div>
@@ -69,21 +63,31 @@
 		<p>
 		<table class="table ">
 			<tr class="info">
-				<td class="span2"><b>Sample Type</b></td>
-				<td class="span1"><b>Received Date</b><br>(DD-MM-YYYY)</td>
-				<td class="span3"><b>Notes</b></td>
+				<td class="span2">
+					<b>Sample Type</b>
+				</td>
+				<td class="span1">
+					<b>Received Date</b><br>(DD-MM-YYYY)
+				</td>
+				<td class="span3">
+					<b>Notes</b>
+				</td>
 			</tr>
 
-			<c:forEach items="${command.samples}" var="sample">
+			<c:forEach items="${patient.samples}" var="sample">
 				<tr>
-					<td><a class="act act-primary"
-						href="<c:url value="/sampleDetails.htm">
+					<td>
+						<a class="act act-primary"
+							href="<c:url value="/sampleDetails.htm">
 			<c:param name="sampleId" value="${sample.sampleId}"/></c:url>"><c:out
-								value="${sample.sampleType.name}" /> - <c:out
-								value="${sample.sampleDupNo}" /> </a></td>
-					<td><fmt:formatDate value="${sample.receiveDate}"
-							pattern="dd-MM-yyyy" /></td>
-					<td><c:out value="${sample.notes}" /></td>
+								value="${sample.sampleType.name}" /> - <c:out value="${sample.sampleDupNo}" /> </a>
+					</td>
+					<td>
+						<fmt:formatDate value="${sample.receiveDate}" pattern="dd-MM-yyyy" />
+					</td>
+					<td>
+						<c:out value="${sample.notes}" />
+					</td>
 
 				</tr>
 			</c:forEach>
@@ -92,18 +96,41 @@
 	</div>
 </div>
 
-<!-- Add New SampleType -->
-<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-header">
-    <h3 id="myModalLabel">Add Sample Type</h3>
-  </div>
-  <div class="modal-body">
-    <p>One fine body</p>
-  </div>
-  <div class="modal-footer">
-    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-    <button class="btn btn-primary">Add</button>
-  </div>
+<!-- Add New SampleType Model -->
+<div id="myModal" class="modal hide fade" tabindex="-1">
+	<form method="post" class="form" enctype="multipart/form-data">
+
+		<div class="modal-body">
+			<div class="alert alert-info">
+				<h3>Add New Sample Type</h3>
+			</div>
+
+			<label>Sample Type:</label>
+			<select name="addST_sampleTypeId">
+
+				<c:forEach items="${allSampleTypes}" var="sampleTypeOpt">
+					<option value="<c:out value="${sampleTypeOpt.sampleTypeId}"/>">
+						<c:out value="${sampleTypeOpt.name}" />
+					</option>
+				</c:forEach>
+			</select>
+
+			<label>Amount To Add:</label>
+			<input required type="text" class="input-micro" name="addST_numSamples" pattern="[0-9]{1,2}"/>
+
+			<label>Received Date:</label>
+			<input name="addST_receivedDate" type="text" class="input-small datepicker" placeholder="DD-MM-YYYY"
+				data-date-format="dd-mm-yyyy" />
+
+			<label>Notes:</label>
+			<input name="addST_notes" type="text" class="input-large" />
+		</div>
+
+		<div class="modal-footer">
+			<button class="btn" data-dismiss="modal">Close</button>
+			<button class="btn btn-primary" type="submit" name="action" value="addST">Add</button>
+		</div>
+	</form>
 </div>
 
 <%@ include file="/WEB-INF/jsp/includes/foot.jsp"%>
