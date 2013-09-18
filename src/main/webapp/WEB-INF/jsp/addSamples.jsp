@@ -37,7 +37,10 @@
 
 					<div class="alert">
 						Download Manifest Template&nbsp;
-						<button class="btn btn-mini" type="submit" name="action" value="Download Manifest"><i class="iconic-download"></i></button>
+						<button class="btn btn-mini" type="submit" name="action"
+							value="Download Manifest">
+							<i class="iconic-download"></i>
+						</button>
 					</div>
 
 				</form>
@@ -61,9 +64,8 @@
 								<div class="controls">
 
 									<input autocomplete="off" required type="text"
-										class="input-mini" id="sampleIdPreForm"
-										name="sampleIdPreForm" value="<c:out value="${param.sp}"/>"
-										pattern="[A-Za-z]{1,4}$">
+										class="input-mini" id="sampleIdPreForm" name="sampleIdPreForm"
+										value="<c:out value="${param.sp}"/>" pattern="[A-Za-z]{1,4}$">
 								</div>
 							</div>
 
@@ -139,40 +141,42 @@
 											pattern="[0-9]{1,2}"
 											placeholder="<c:out value="${sampleTypeOpt.initialLabelNo}"/>">
 
-										<span class="add-on" id="st<c:out value="${sampleTypeOpt.sampleTypeId}num_label"/>"><c:out value="${sampleTypeOpt.name}" /></span>
+										<span class="add-on"
+											id="st<c:out value="${sampleTypeOpt.sampleTypeId}num_label"/>"><c:out
+												value="${sampleTypeOpt.name}" /></span>
 
 									</div>
-						</c:forEach>
+								</c:forEach>
 
-						</fieldset>
+							</fieldset>
 
 
-						<!-- 							<div class="control-group"> -->
-						<!-- 								<label class="control-label">Sample Type</label> -->
-						<!-- 								<div class="controls"> -->
+							<!-- 							<div class="control-group"> -->
+							<!-- 								<label class="control-label">Sample Type</label> -->
+							<!-- 								<div class="controls"> -->
 
-						<!-- 									<select required class="input" multiple size="13" -->
-						<!-- 										name="sampleType"> -->
-						<%-- 										<c:forEach items="${allSampleTypes}" var="sampleTypeOpt"> --%>
-						<!-- 											<option -->
-						<%-- 												value="<c:out value="${sampleTypeOpt.sampleTypeId}"/>"> --%>
+							<!-- 									<select required class="input" multiple size="13" -->
+							<!-- 										name="sampleType"> -->
+							<%-- 										<c:forEach items="${allSampleTypes}" var="sampleTypeOpt"> --%>
+							<!-- 											<option -->
+							<%-- 												value="<c:out value="${sampleTypeOpt.sampleTypeId}"/>"> --%>
 
-						<%-- 												<c:out value="${sampleTypeOpt.name}" /> --%>
-						<%-- 												<c:if test="${sampleTypeOpt.vials != null}">(<c:out --%>
-						<%-- 													value="${sampleTypeOpt.vials}" />)</c:if> --%>
-						<!-- 											</option> -->
-						<%-- 										</c:forEach> --%>
-						<!-- 									</select> -->
-						<!-- 								</div> -->
-						<!-- 							</div> -->
+							<%-- 												<c:out value="${sampleTypeOpt.name}" /> --%>
+							<%-- 												<c:if test="${sampleTypeOpt.vials != null}">(<c:out --%>
+							<%-- 													value="${sampleTypeOpt.vials}" />)</c:if> --%>
+							<!-- 											</option> -->
+							<%-- 										</c:forEach> --%>
+							<!-- 									</select> -->
+							<!-- 								</div> -->
+							<!-- 							</div> -->
+						</div>
 					</div>
+				</form>
+
 			</div>
-			</form>
 
 		</div>
-
 	</div>
-</div>
 </div>
 <!-- </form> -->
 
