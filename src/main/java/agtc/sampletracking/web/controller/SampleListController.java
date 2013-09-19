@@ -47,33 +47,57 @@ public class SampleListController extends BasicController {
 		List searchResults = (List) WebUtils.getSessionAttribute(request, "sampleList");
 		String contextPath = request.getSession().getServletContext().getRealPath("/");
 		List<Sample> sampleList = new ArrayList<Sample>();
-		
+
 		// Update the sample list based on checked boxes
-		for (int i = 0; i < searchResults.size(); i++)
-		{
-			//System.out.println(i);
+		for (int i = 0; i < searchResults.size(); i++) {
+			// System.out.println(i);
 			Boolean checkBox = ServletRequestUtils.getBooleanParameter(request, "chk" + i, false);
 
-			if(checkBox)
-			{
+			if (checkBox) {
 				Sample selectedSample = (Sample) searchResults.get(i);
 				sampleList.add(selectedSample);
 			}
 		}
-		
-		WebUtils.setSessionAttribute(request, "sampleList", sampleList);
+
 		String message = "";
-				
+
+		// Abort and prompt when sample size is zero
+
+		if (sampleList.size() == 0) {
+			message = "Warning: No sample selected";
+			ModelAndView mav = new ModelAndView("sampleList");
+
+			mav.addObject("message", message);
+
+			return mav;
+		}
+
+		WebUtils.setSessionAttribute(request, "sampleList", sampleList);
+
 		if (action.equalsIgnoreCase("Print Labels")) {
+			// Queue the number of samples to print
+			Integer numLabels = ServletRequestUtils.getIntParameter(request, "numLabels");
+
+			List<Sample> printList = new ArrayList<Sample>();
+
+			if (numLabels > 0) {
+				for (int i = 0; i < sampleList.size(); i++) {
+					Sample eachSample = (Sample) sampleList.get(i);
+					for (int j = 1; j <= numLabels; j++) {
+						printList.add(eachSample);
+					}
+
+				}
+			}
+
 			// Print
 			SatoLabelPrinter satoP = new SatoLabelPrinter();
 			// Collections.sort(sampleList,new SampleComparator());
-			satoP.printSampleLabel(sampleList, contextPath);
+			satoP.printSampleLabel(printList, contextPath);
 
 			message = "Labels have been printed.";
-		} else if (action.equalsIgnoreCase("Assign Container"))
-		{
-			//ModelAndView mav = new ModelAndView("addSample2Container");
+		} else if (action.equalsIgnoreCase("Assign Container")) {
+			// ModelAndView mav = new ModelAndView("addSample2Container");
 			ModelAndView mav = new ModelAndView(new RedirectView("addSample2Container.htm"));
 
 			return mav;
@@ -110,7 +134,7 @@ public class SampleListController extends BasicController {
 
 		models.put("message", message);
 		models.put("sampleList", sampleList);
-		
+
 		return models;
 	}
 
