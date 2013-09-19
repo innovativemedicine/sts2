@@ -152,6 +152,7 @@ public class SampleManager implements ConstantInterface {
 		
 		if(sample.getSampleId().intValue()==-1){
 			
+			// Fail saves prevent overwriting existing patient data!
 			Patient patient = sample.getPatient();
 			if(!patientDAO.containsPatient(patient.getIntSampleId())){
 				patientDAO.savePatient(patient);
@@ -167,12 +168,6 @@ public class SampleManager implements ConstantInterface {
 				}
 			}
 		}
-		
-		//		// Option 2: Check Sample ID and Sample Type. IF exists, then update Dup No. Automatically 
-		//
-		//		if(existingSample != null) {
-		//			sample.setSampleDupNo(existingSample.size()+1);
-		//		}
 		
 		if(sample.getStatus() == null) {
 			sample.setStatus("Registered");
