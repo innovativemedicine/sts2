@@ -58,7 +58,7 @@
 <div class="row-fluid">
 	<div class="span10">
 		<h3>Sample List</h3>
-		<!-- Button to trigger modal -->
+		<!-- Button to Add Sample Type modal -->
 		<a href="#myModal" role="button" class="btn" data-toggle="modal">Add Sample Type</a>
 		<p>
 		<table class="table ">
@@ -102,7 +102,7 @@
 
 		<div class="modal-body">
 			<div class="alert alert-info">
-				<h3>Add New Sample Type</h3>
+				<h3>Add Sample Type</h3>
 			</div>
 
 			<label>Sample Type:</label>
