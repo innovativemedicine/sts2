@@ -9,7 +9,6 @@
 			<value>com.mysql.jdbc.Driver</value>
 		</property>
 		<property name="url">
-<!-- 			<value>jdbc:mysql://localhost:3306/sts</value> -->
 			<value>jdbc:mysql://localhost:3306/STRACK</value>
 		</property>
 
