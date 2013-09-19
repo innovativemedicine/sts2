@@ -4,6 +4,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -24,6 +25,7 @@ import org.springframework.validation.BindException;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 import org.springframework.web.util.WebUtils;
 
 import agtc.sampletracking.bus.manager.SampleManager;
@@ -42,10 +44,26 @@ public class SampleListController extends BasicController {
 	protected ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response, Object command,
 			BindException errors) throws Exception {
 		String action = ServletRequestUtils.getStringParameter(request, "action", "");
-		List sampleList = (List) WebUtils.getSessionAttribute(request, "sampleList");
-		String message = "";
+		List searchResults = (List) WebUtils.getSessionAttribute(request, "sampleList");
 		String contextPath = request.getSession().getServletContext().getRealPath("/");
+		List<Sample> sampleList = new ArrayList<Sample>();
+		
+		// Update the sample list based on checked boxes
+		for (int i = 0; i < searchResults.size(); i++)
+		{
+			//System.out.println(i);
+			Boolean checkBox = ServletRequestUtils.getBooleanParameter(request, "chk" + i, false);
 
+			if(checkBox)
+			{
+				Sample selectedSample = (Sample) searchResults.get(i);
+				sampleList.add(selectedSample);
+			}
+		}
+		
+		WebUtils.setSessionAttribute(request, "sampleList", sampleList);
+		String message = "";
+				
 		if (action.equalsIgnoreCase("Print Labels")) {
 			// Print
 			SatoLabelPrinter satoP = new SatoLabelPrinter();
@@ -53,6 +71,12 @@ public class SampleListController extends BasicController {
 			satoP.printSampleLabel(sampleList, contextPath);
 
 			message = "Labels have been printed.";
+		} else if (action.equalsIgnoreCase("Assign Container"))
+		{
+			//ModelAndView mav = new ModelAndView("addSample2Container");
+			ModelAndView mav = new ModelAndView(new RedirectView("addSample2Container.htm"));
+
+			return mav;
 		} else if (action.equalsIgnoreCase("Export Data")) {
 			// Write Excel Document as an attachment
 
@@ -71,6 +95,7 @@ public class SampleListController extends BasicController {
 
 		ModelAndView mav = new ModelAndView("sampleList");
 		WebUtils.setSessionAttribute(request, "sampleList", sampleList);
+
 		mav.addObject("sampleList", sampleList);
 		mav.addObject("message", message);
 
@@ -195,7 +220,7 @@ public class SampleListController extends BasicController {
 
 			List sics = sampleManager.getSamplesInContainersInBySample(curSample.getSampleId());
 
-			curCell = curRow.getCell(8, Row.CREATE_NULL_AS_BLANK);
+			curCell = curRow.getCell(10, Row.CREATE_NULL_AS_BLANK);
 			// Location is available
 			if (!sics.isEmpty()) {
 				SamplesInContainer sic = (SamplesInContainer) sics.get(0);
@@ -206,7 +231,7 @@ public class SampleListController extends BasicController {
 				}
 				String sampleLocation = containerName + containerLoc;
 
-				curCell = curRow.getCell(8, Row.CREATE_NULL_AS_BLANK);
+				curCell = curRow.getCell(10, Row.CREATE_NULL_AS_BLANK);
 				curCell.setCellValue(sampleLocation);
 
 			} else // Location not specified
