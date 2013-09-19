@@ -67,7 +67,7 @@
 					<b>Sample Type</b>
 				</td>
 				<td class="span1">
-					<b>Received Date</b><br>(DD-MM-YYYY)
+					<b>Received Date</b><br><span class="small-list-details">DD-MM-YYYY</span>
 				</td>
 				<td class="span3">
 					<b>Notes</b>
