@@ -42,7 +42,7 @@ public class SampleDAOHbImpl extends STSBasicDAO implements SampleDAO {
 		Session session = getSession();
 		String regex = "'^" + intSamplePrefix.toUpperCase() + "[0-9]+$'";
 		String sql = "SELECT INT_SAMPLE_ID FROM SAMPLE WHERE INT_SAMPLE_ID RLIKE " + regex
-				+ " ORDER BY SAMPLE_ID DESC LIMIT 1;";
+				+ " ORDER BY INT_SAMPLE_ID DESC LIMIT 1;";
 
 		Query query = session.createSQLQuery(sql).addScalar("INT_SAMPLE_ID", Hibernate.STRING);
 
