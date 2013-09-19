@@ -37,41 +37,48 @@
 			<div class="accordion" id="accordion2">
 				<div class="accordion-group">
 					<div class="accordion-heading">
-						<a class="act act-primary accordion-toggle" data-toggle="collapse"
-							data-parent="#accordion2" href="#collapseOne"> September 2013
-						</a>
+						<a class="act act-primary accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
+							September 2013 </a>
 					</div>
 					<div id="collapseOne" class="accordion-body collapse in">
 						<div class="accordion-inner">
+
+							<h4>1. Add new sample types to existing patient</h4>
+
 							<ul>
-								<li>Initial Launch of STS2.0 with an updated interface</li>
-								<li>Removed support for searching and registering plates.<br>
-									(To be implemented as a separate system)
-								</li>
+								<li>Search for sample -> Click on the Sample ID to see Patient Info -> Click on Add Sample Type.</li>
 							</ul>
+
+							<h4>2. Removed Search Plates and Register plates.</h4>
+							<ul>
+								<li>Plate tracking will be implemented as a separate system.</li>
+							</ul>
+
 						</div>
 					</div>
 				</div>
 				<div class="accordion-group">
 					<div class="accordion-heading">
-						<a class="act act-primary accordion-toggle" data-toggle="collapse"
-							data-parent="#accordion2" href="#collapseTwo"> August 2013 </a>
+						<a class="act act-primary accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">
+							August 2013 </a>
 					</div>
 					<div id="collapseTwo" class="accordion-body collapse">
 						<div class="accordion-inner">
+
+							<h4>Initial Launch of STS2.0 with an updated interface</h4>
+							
 							<ul>
-								<li>Initial Launch of STS2.0 with an updated interface</li>
 								<li>Added support for barcodes</li>
 								<li>Added support for searching and registering plates</li>
 								<li>Simplified search interface</li>
 							</ul>
+
 						</div>
 					</div>
 				</div>
 			</div>
 
-			<div class="alert">Database backup time is 11PM and lasts about
-				2 hours. During this time, STS will be unavailable.</div>
+			<div class="alert">Database backup time is 11PM and lasts about 2 hours. During this time, STS will be unavailable.</div>
 
 		</div>
 	</div>
