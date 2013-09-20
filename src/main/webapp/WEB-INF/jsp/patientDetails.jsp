@@ -102,7 +102,7 @@
 
 		<div class="modal-body">
 			<div class="alert alert-info">
-				<h3>Add Sample Type</h3>
+				<h4>Add Sample Type</h4>
 			</div>
 
 			<label>Sample Type:</label>
