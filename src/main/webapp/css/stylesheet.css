@@ -98,6 +98,7 @@ input[readonly]
 {
 	background-color: #fff;
 }
-/* .input-login { */
-/* 	height: 30px; */
-/* } */
+
+.input-append .active, .input-prepend .active {
+	border-color: #ccc;
+}
