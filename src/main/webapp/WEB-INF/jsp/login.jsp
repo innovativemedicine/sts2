@@ -42,16 +42,41 @@
 					</div>
 					<div id="collapseOne" class="accordion-body collapse in">
 						<div class="accordion-inner">
-
-							<h4>1. Add new sample types to existing patient</h4>
-
+							<h4>
+								<span class="label label-info">New</span> Toggle buttons for Sample Types in Register Sample
+							</h4>
 							<ul>
-								<li>Search for sample -> Click on the Sample ID to see Patient Info -> Click on Add Sample Type.</li>
+								<li>This allows user to add sample types using buttons while choosing 0 to skip printing labels</li>
+								<li>Sorry Kyle, still no checkboxes</li>
 							</ul>
 
-							<h4>2. Removed Search Plates and Register plates.</h4>
+							<h4>
+								<span class="label label-success">Add</span> Reprint multiple copies of same label
+							</h4>
+
+							<ul>
+								<li>Search Sample -> Select samples to reprint -> Click on Reprint Label -> Enter # of copies to reprint.</li>
+							</ul>
+							<h4>
+								<span class="label label-success">Add</span> Add new sample types to existing patient
+							</h4>
+
+							<ul>
+								<li>Search Sample -> Click on the Sample ID to see Patient Info -> Click on Add Sample Type.</li>
+							</ul>
+
+							<h4>
+								<span class="label label-important">Del</span> Search Plates and Register plates.
+							</h4>
 							<ul>
 								<li>Plate tracking will be implemented as a separate system.</li>
+							</ul>
+							
+							<h4>
+								<span class="label label-important">Del</span> Register Multiple Samples
+							</h4>
+							<ul>
+								<li> This function is rarely used and it needs to be redefined b/c Register Single Samples changed a bit since release.</li>
 							</ul>
 
 						</div>
@@ -65,8 +90,10 @@
 					<div id="collapseTwo" class="accordion-body collapse">
 						<div class="accordion-inner">
 
-							<h4>Initial Launch of STS2.0 with an updated interface</h4>
-							
+							<h4>
+								<span class="label label-success">Add</span> Initial Launch of STS2.0 with an updated interface
+							</h4>
+
 							<ul>
 								<li>Added support for barcodes</li>
 								<li>Added support for searching and registering plates</li>
