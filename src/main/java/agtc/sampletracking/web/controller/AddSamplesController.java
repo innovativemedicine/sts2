@@ -111,6 +111,8 @@ public class AddSamplesController extends BasicController implements ConstantInt
 
 		// Output variables
 		List<Sample> finalSampleList = new ArrayList<Sample>();
+		List<Sample> labelList = new ArrayList<Sample>();
+
 		String message = "";
 
 		/**
@@ -188,6 +190,9 @@ public class AddSamplesController extends BasicController implements ConstantInt
 			}
 
 			is.close();
+
+			// Print all labels that are indicated in finalSampleList
+			labelList = finalSampleList;
 		}
 
 		/**
@@ -197,7 +202,7 @@ public class AddSamplesController extends BasicController implements ConstantInt
 		else if (action.equals("Save")) {
 
 			try {
-				finalSampleList = readSampleForm(request);
+				finalSampleList = readSampleForm(request, labelList);
 			} catch (Exception e) {
 				message = e.getMessage();
 
@@ -215,7 +220,7 @@ public class AddSamplesController extends BasicController implements ConstantInt
 			// Print Labels
 			SatoLabelPrinter satoP = new SatoLabelPrinter();
 			String contextPath = request.getSession().getServletContext().getRealPath("/");
-			satoP.printSampleLabel(finalSampleList, contextPath);
+			satoP.printSampleLabel(labelList, contextPath);
 
 			message += "Samples saved successfully. Labels have been printed";
 
@@ -232,12 +237,6 @@ public class AddSamplesController extends BasicController implements ConstantInt
 
 			return mav;
 		}
-
-		// Goes through the samples and extract unique set of patient.
-		// This list is used to generate a list of patients in the sample list
-		// view.
-
-		Iterator<Sample> sampleIter = finalSampleList.iterator();
 
 		ModelAndView mav = new ModelAndView(new RedirectView(getSuccessView()));
 		WebUtils.setSessionAttribute(request, "sampleList", finalSampleList);
@@ -261,7 +260,7 @@ public class AddSamplesController extends BasicController implements ConstantInt
 
 		models.put("allSampleTypes", allSampleTypes);
 		models.put("allProjects", allProjects);
-				
+
 		return models;
 	}
 
@@ -574,7 +573,22 @@ public class AddSamplesController extends BasicController implements ConstantInt
 		return readSamples;
 	}
 
-	private List<Sample> readSampleForm(HttpServletRequest request) throws Exception {
+	/**
+	 * Read sample information from Register Single Sample Form and creates
+	 * Sample Object. List of samples to be saved and list of samples to be
+	 * printed are returned and to be handled by the onSubmit method.
+	 * 
+	 * @param request
+	 *            - HTTPRequest
+	 * @param labelList
+	 *            - Empty list of labels to be updated with samples that need
+	 *            labels
+	 * @return sampleList - List of samples that need to be added (some may not
+	 *         need labels)
+	 * @throws Exception
+	 */
+
+	private List<Sample> readSampleForm(HttpServletRequest request, List<Sample> labelList) throws Exception {
 
 		List<Sample> sampleList = new ArrayList<Sample>();
 		String samplePrefix = ServletRequestUtils.getStringParameter(request, "sampleIdPreForm");
@@ -646,44 +660,36 @@ public class AddSamplesController extends BasicController implements ConstantInt
 			SampleType curST = stIter.next();
 			Integer sampleTypeId = curST.getSampleTypeId();
 			// String stChkboxName = "st" + sampleTypeId;
-			String stChkboxNum = "st" + sampleTypeId + "num";
+			String stChkboxNum = "st" + sampleTypeId + "_value";
 
-			// Boolean stChk = ServletRequestUtils.getBooleanParameter(request,
-			// stChkboxName);
+			Integer sampleNum = ServletRequestUtils.getIntParameter(request, stChkboxNum, -1);
 
-			// if (stChk != null) {
-
-			// Integer sampleNum = curST.getInitialLabelNo();
-			Integer sampleNum = ServletRequestUtils.getIntParameter(request, stChkboxNum, 0);
-
-			if (sampleNum > 0) {
+			if (sampleNum != -1) {				
 				noST = false;
 				newSample.setSampleType(curST);
-				// Clone sample based on the number of sample type to add
-				for (int j = 1; j <= sampleNum; j++) {
+
+				// Add sample as long as value is not empty (defaulted to -1)
+				// Note that a value of 0 should still be added to the database. It just means 0 labels are printed
+				// If number is greater than 0, then add corresponding number of aliquots to DB and print label
+				if (sampleNum > 0) {
+
+					for (int j = 1; j <= sampleNum; j++) {
+						// Clone sample based on the number of sample type to add
+						Sample sampleClone = (Sample) newSample.clone();
+						sampleList.add(sampleClone);
+						labelList.add(sampleClone);
+					}
+				}
+				// If number is 0, don't add to print list
+				else
+				{
+					// Need to clone or else it will just add by reference (and end up adding the very last sampletype added)
 					Sample sampleClone = (Sample) newSample.clone();
+					
 					sampleList.add(sampleClone);
 				}
 			}
 		}
-
-		// Sample Type
-		// List<Integer> sampleTypeIds = String2IntList(sampletypes);
-		// Iterator<Integer> ir = sampleTypeIds.iterator();
-		//
-		// while (ir.hasNext()) {
-		// Integer sampleTypeId = ir.next();
-		// SampleType st = sampleManager.getSampleType(sampleTypeId);
-		// newSample.setSampleType(st);
-		//
-		// Integer sampleNum = st.getInitialLabelNo();
-		//
-		// for (int j = 1; j <= sampleNum; j++) {
-		// Sample sampleClone = (Sample) newSample.clone();
-		//
-		// sampleList.add(sampleClone);
-		// }
-		// }
 
 		if (noST) {
 			throw new Exception("Error: Sample Type required");
