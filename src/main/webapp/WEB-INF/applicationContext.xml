@@ -49,7 +49,6 @@
 				<value>agtc/sampletracking/model/xml/Run.hbm.xml</value>
 				<value>agtc/sampletracking/model/xml/SamplesInContainer.hbm.xml</value>
 				<value>agtc/sampletracking/model/xml/Patient.hbm.xml</value>
-				<value>agtc/sampletracking/model/xml/SamplePrefix.hbm.xml</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
@@ -220,9 +219,6 @@
 	</bean>
 
 	<bean id="agtcManagerTarget" class="agtc.sampletracking.bus.manager.AGTCManager">
-		<property name="samplePrefixDAO">
-			<ref local="samplePrefixDAO" />
-		</property>
 		<property name="containerTypeDAO">
 			<ref local="containerTypeDAO" />
 		</property>
@@ -387,11 +383,6 @@
 	</bean>
 	<bean id="samplesInContainerDAO"
 		class="agtc.sampletracking.dao.hibernate.SamplesInContainerDAOHbImpl">
-		<property name="sessionFactory">
-			<ref local="sessionFactory" />
-		</property>
-	</bean>
-	<bean id="samplePrefixDAO" class="agtc.sampletracking.dao.hibernate.SamplePrefixDAOHbImpl">
 		<property name="sessionFactory">
 			<ref local="sessionFactory" />
 		</property>
