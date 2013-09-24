@@ -41,14 +41,7 @@
             not-null="true"
         </meta>    
     </property>
-    <property
-        name="mname"
-        type="java.lang.String"
-        column="MNAME"
-        length="32"
-    >
-   
-    </property>
+  
     <property
         name="lname"
         type="java.lang.String"
