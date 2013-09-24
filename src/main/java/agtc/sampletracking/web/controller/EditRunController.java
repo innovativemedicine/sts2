@@ -124,7 +124,7 @@ public class EditRunController extends BasicController {
 		 * now, so we need not them from this time, and alos deleted
 		 * "sample file type" and "study group id"
 		 */
-		ResultParser rp = new ResultParser(is, null, sampleIdColumnNo - 1, assayNameColumnNo - 1, resultColumnNo - 1);
+		ResultParser rp = new ResultParser(is, sampleIdColumnNo - 1, assayNameColumnNo - 1, resultColumnNo - 1);
 		String parseResult = rp.parseResults();
 		List results = rp.getResults();
 		/*

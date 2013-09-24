@@ -10,13 +10,11 @@ import agtc.sampletracking.dao.ContainerTypeDAO;
 import agtc.sampletracking.dao.InstrumentDAO;
 import agtc.sampletracking.dao.InvestigatorDAO;
 import agtc.sampletracking.dao.LocationDAO;
-import agtc.sampletracking.dao.SamplePrefixDAO;
 import agtc.sampletracking.dao.SampleTypeDAO;
 import agtc.sampletracking.model.ContainerType;
 import agtc.sampletracking.model.Instrument;
 import agtc.sampletracking.model.Investigator;
 import agtc.sampletracking.model.Location;
-import agtc.sampletracking.model.SamplePrefix;
 import agtc.sampletracking.model.SampleType;
 
 public class AGTCManager {
@@ -26,7 +24,6 @@ public class AGTCManager {
 	private InvestigatorDAO investigatorDAO;
 	private LocationDAO locationDAO;
 	private SampleTypeDAO sampleTypeDAO;
-	private SamplePrefixDAO samplePrefixDAO;
 	private List sampleTypes = new ArrayList();
 	private List locations = new ArrayList();
 	private List containerTypes = new ArrayList();
@@ -34,19 +31,7 @@ public class AGTCManager {
 	private List boxTypes = new ArrayList();
 	private List instruments = new ArrayList();
 	private List investigators = new ArrayList();
-	private List allSamplePrefixes = new ArrayList();
 	private boolean refresh = false;
-
-	/**
-	 * @return Returns the allSamplePrefixes.
-	 */
-	public List getAllSamplePrefixes() {
-		if (allSamplePrefixes.isEmpty() || refresh == true) {
-			allSamplePrefixes = samplePrefixDAO.getSamplePrefixes();
-			refresh = false;
-		}
-		return allSamplePrefixes;
-	}
 
 	public List getContainerTypes() {
 		if (containerTypes.isEmpty() || refresh == true) {
@@ -207,26 +192,4 @@ public class AGTCManager {
 	public void setInvestigatorDAO(InvestigatorDAO typeDAO) {
 		investigatorDAO = typeDAO;
 	}
-
-	public SamplePrefix getSamplePrefix(Integer id) {
-		return samplePrefixDAO.getSamplePrefix(id);
-	}
-
-	public void saveSamplePrefix(SamplePrefix o) throws Exception {
-		samplePrefixDAO.saveSamplePrefix(o);
-		refresh = true;
-	}
-
-	public SamplePrefix getSamplePrefixByDescription(String des) {
-		return samplePrefixDAO.getSamplePrefixByDescription(des);
-	}
-
-	public SamplePrefixDAO getSamplePrefixDAO() {
-		return samplePrefixDAO;
-	}
-
-	public void setSamplePrefixDAO(SamplePrefixDAO samplePrefixDAO) {
-		this.samplePrefixDAO = samplePrefixDAO;
-	}
-
 }
