@@ -21,18 +21,18 @@
 		<property name="volumn" type="java.lang.Float" column="VOLUMN">
 
 		</property>
-		<property name="madeDate" type="java.sql.Timestamp" column="MADE_DATE">
+		<property name="madeDate" type="java.sql.Date" column="MADE_DATE">
 
 		</property>
-		<property name="refillDate" type="java.sql.Timestamp" column="REFILL_DATE">
-
-		</property>
-
-		<property name="odDate" type="java.sql.Timestamp" column="OD_DATE">
+		<property name="refillDate" type="java.sql.Date" column="REFILL_DATE">
 
 		</property>
 
-		<property name="volumnDate" type="java.sql.Timestamp" column="volumn_DATE">
+		<property name="odDate" type="java.sql.Date" column="OD_DATE">
+
+		</property>
+
+		<property name="volumnDate" type="java.sql.Date" column="volumn_DATE">
 
 		</property>
 
@@ -41,23 +41,16 @@
 
 		</property>
 
-		<property name="transDate" type="java.sql.Timestamp" column="TRANS_DATE">
+		<property name="transDate" type="java.sql.Date" column="TRANS_DATE">
 
 		</property>
 		<property name="status" type="java.lang.String" column="STATUS"
 			length="10">
 
 		</property>
-		<property name="removeDate" type="java.sql.Timestamp" column="REMOVE_DATE">
+		<property name="removeDate" type="java.sql.Date" column="REMOVE_DATE">
 
 		</property>
-
-		<property name="receiveDate" type="java.sql.Timestamp"
-			column="RECEIVE_DATE">
-
-		</property>
-
-
 
 		<property name="sampleDupNo" type="java.lang.Integer" column="SAMPLE_DUP_NO">
 
