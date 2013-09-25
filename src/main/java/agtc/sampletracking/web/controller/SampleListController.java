@@ -232,7 +232,7 @@ public class SampleListController extends BasicController {
 			curCell = curRow.getCell(7, Row.CREATE_NULL_AS_BLANK);
 			try {
 				curCell.setCellStyle(cellDateStyle);
-				curCell.setCellValue(curSample.getReceiveDate());
+				curCell.setCellValue(curSample.getPatient().getReceiveDate());
 			} catch (NullPointerException e) {
 				curCell.setCellValue("");
 			}
