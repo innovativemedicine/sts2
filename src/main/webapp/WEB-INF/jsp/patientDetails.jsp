@@ -44,6 +44,15 @@
 			</div>
 
 			<div class="control-group">
+				<label class="control-label">Receive Date:</label>
+				<div class="controls">
+					<input class="input-medium" type="text" value="<fmt:formatDate value="${patient.receiveDate}" pattern="dd-MM-yyyy" />"
+						placeholder="DD-MM-YYYY" readonly />
+				</div>
+
+			</div>
+
+			<div class="control-group">
 				<label class="control-label">Note:</label>
 				<div class="controls">
 					<input class="input-medium" type="text" value="<c:out value="${patient.note}" />" readonly />
@@ -66,9 +75,7 @@
 				<td class="span2">
 					<b>Sample Type</b>
 				</td>
-				<td class="span1">
-					<b>Received Date</b><br><span class="small-list-details">DD-MM-YYYY</span>
-				</td>
+
 				<td class="span3">
 					<b>Notes</b>
 				</td>
@@ -82,9 +89,7 @@
 			<c:param name="sampleId" value="${sample.sampleId}"/></c:url>"><c:out
 								value="${sample.sampleType.name}" /> - <c:out value="${sample.sampleDupNo}" /> </a>
 					</td>
-					<td>
-						<fmt:formatDate value="${sample.receiveDate}" pattern="dd-MM-yyyy" />
-					</td>
+
 					<td>
 						<c:out value="${sample.notes}" />
 					</td>
@@ -116,11 +121,7 @@
 			</select>
 
 			<label>Amount To Add:</label>
-			<input required type="text" class="input-micro" name="addST_numSamples" pattern="[0-9]{1,2}"/>
-
-			<label>Received Date:</label>
-			<input name="addST_receivedDate" type="text" class="input-small datepicker" placeholder="DD-MM-YYYY"
-				data-date-format="dd-mm-yyyy" />
+			<input required type="text" class="input-micro" name="addST_numSamples" pattern="[0-9]{1,2}" />
 
 			<label>Notes:</label>
 			<input name="addST_notes" type="text" class="input-large" />
