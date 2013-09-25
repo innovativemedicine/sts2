@@ -106,7 +106,7 @@ public class SampleDAOHbImpl extends STSBasicDAO implements SampleDAO {
 
 		if (recDate != null) {
 			// Search for patients that have the same birthday
-			crt.add(Restrictions.eq("receiveDate", recDate));
+			crt.add(Restrictions.eq("patient.receiveDate", recDate));
 			crt.add(Restrictions.eq("patient.extSampleId", extSampleId));
 		}
 

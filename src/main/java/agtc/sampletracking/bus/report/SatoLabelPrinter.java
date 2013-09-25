@@ -67,9 +67,9 @@ public class SatoLabelPrinter implements ConstantInterface {
 			SimpleDateFormat receivedDateFormat = new SimpleDateFormat("dd-MMM-yyyy");
 			String receivedDate = "";
 			
-			if (sample.getReceiveDate() != null)
+			if (sample.getPatient().getReceiveDate() != null)
 			{
-				receivedDate = receivedDateFormat.format(sample.getReceiveDate()).toUpperCase();
+				receivedDate = receivedDateFormat.format(sample.getPatient().getReceiveDate()).toUpperCase();
 			}
 			
 			String intIdPre = "";
