@@ -42,12 +42,13 @@
 				<prop key="/modifyRun.htm">modifyRunController</prop>
 				<prop key="/editPatient.htm">editPatientController</prop>
 				<prop key="/addSample2Container.htm">addSample2ContainerController</prop>
-				<prop key="/patientDetails.htm">patientDetailsController</prop>
-				
+				<!-- <prop key="/patientDetails.htm">patientDetailsController</prop> -->
+				<prop key="/sampleDetails.htm">sampleDetailsController</prop>
+
 				<!-- multiaction controllers -->
 
 				<prop key="/successLogin.htm">stsController</prop>
-				<prop key="/sampleDetails.htm">stsController</prop>
+				<!-- <prop key="/sampleDetails.htm">stsController</prop> -->
 				<prop key="/containerDetails.htm">stsController</prop>
 				<prop key="/projectDetails.htm">stsController</prop>
 				<prop key="/derivedContainerDetails.htm">stsController</prop>
@@ -347,8 +348,7 @@
 		</property>
 	</bean>
 
-	<bean id="addSamplesController"
-		class="agtc.sampletracking.web.controller.AddSamplesController">
+	<bean id="addSamplesController" class="agtc.sampletracking.web.controller.AddSamplesController">
 		<property name="sessionForm">
 			<value>true</value>
 		</property>
@@ -368,9 +368,34 @@
 			<ref bean="projectManager" />
 		</property>
 	</bean>
-	
-		<bean id="patientDetailsController"
-		class="agtc.sampletracking.web.controller.PatientDetailsController">
+
+	<!-- <bean id="patientDetailsController" -->
+	<!-- class="agtc.sampletracking.web.controller.PatientDetailsController"> -->
+	<!-- <property name="sessionForm"> -->
+	<!-- <value>true</value> -->
+	<!-- </property> -->
+	<!-- <property name="requireSession"> -->
+	<!-- <value>true</value> -->
+	<!-- </property> -->
+	<!-- <property name="formView"> -->
+	<!-- <value>patientDetails</value> -->
+	<!-- </property> -->
+	<!-- <property name="successView"> -->
+	<!-- <value>patientDetails.htm</value> -->
+	<!-- </property> -->
+	<!-- <property name="sampleManager"> -->
+	<!-- <ref bean="sampleManager" /> -->
+	<!-- </property> -->
+	<!-- <property name="agtcManager"> -->
+	<!-- <ref bean="agtcManager" /> -->
+	<!-- </property> -->
+	<!-- <property name="projectManager"> -->
+	<!-- <ref bean="projectManager" /> -->
+	<!-- </property> -->
+	<!-- </bean> -->
+
+	<bean id="sampleDetailsController"
+		class="agtc.sampletracking.web.controller.SampleDetailsController">
 		<property name="sessionForm">
 			<value>true</value>
 		</property>
@@ -378,10 +403,10 @@
 			<value>true</value>
 		</property>
 		<property name="formView">
-			<value>patientDetails</value>
+			<value>sampleDetails</value>
 		</property>
 		<property name="successView">
-			<value>patientDetails.htm</value>
+			<value>sampleDetails.htm</value>
 		</property>
 		<property name="sampleManager">
 			<ref bean="sampleManager" />
@@ -722,7 +747,7 @@
 			<value>editPatient</value>
 		</property>
 		<property name="successView">
-			<value>patientDetails.htm</value>
+			<value>sampleDetails.htm</value>
 		</property>
 		<property name="sampleManager">
 			<ref bean="sampleManager" />
@@ -869,7 +894,7 @@
 				<prop key="/successLogin.htm">successLoginHandler</prop>
 				<prop key="/assayDetails.htm">assayDetailsHandler</prop>
 				<prop key="/resultDetails.htm">resultDetailsHandler</prop>
-				<prop key="/sampleDetails.htm">sampleDetailsHandler</prop>
+				<!-- <prop key="/sampleDetails.htm">sampleDetailsHandler</prop> -->
 				<prop key="/containerDetails.htm">containerDetailsHandler</prop>
 				<prop key="/projectDetails.htm">projectDetailsHandler</prop>
 				<prop key="/testDetails.htm">testDetailsHandler</prop>
