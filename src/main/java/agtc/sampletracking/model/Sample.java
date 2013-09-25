@@ -27,7 +27,6 @@ public class Sample implements Serializable,Comparator,Cloneable {
     private Date removeDate;
 	private Date odDate;
 	private Date volumnDate;	
-	private Date receiveDate;
 
 	private Integer sampleDupNo;
 
@@ -182,25 +181,7 @@ public class Sample implements Serializable,Comparator,Cloneable {
 	 */
 	public void setVolumnDate(Date date) {
 		volumnDate = date;
-	}
-
-
-	/**
-	 * @return
-	 */
-	public Date getReceiveDate() {
-		return receiveDate;
-	}
-
-	/**
-	 * @param date
-	 */
-	public void setReceiveDate(Date date) {
-		receiveDate = date;
-	}
-
-
-	
+	}	
 
 	/**
 	 * @return Returns the samplesInContainersIn.
