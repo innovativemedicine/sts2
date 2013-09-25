@@ -7,7 +7,6 @@
 
 	<class name="agtc.sampletracking.model.Patient" table="PATIENT">
 
-
 		<id name="intSampleId" type="java.lang.String" column="INT_SAMPLE_ID"
 			length="16" unsaved-value="undefined">
 			<generator class="assigned">
@@ -25,13 +24,17 @@
 
 		</property>
 
-		<property name="birthDate" type="java.sql.Timestamp" column="BIRTHDATE">
+		<property name="birthDate" type="java.sql.Date" column="BIRTHDATE">
 
 		</property>
 
 		<property name="note" type="java.lang.String" column="NOTE"
 			length="128">
 
+		</property>
+
+		<property name="receiveDate" type="java.sql.Date"
+			column="RECEIVE_DATE">
 		</property>
 
 		<!-- associations -->
