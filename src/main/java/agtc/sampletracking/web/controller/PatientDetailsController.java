@@ -60,21 +60,11 @@ public class PatientDetailsController extends BasicController implements Constan
 			Patient patient = sampleManager.getPatient(ServletRequestUtils.getStringParameter(request, "intSampleId",
 					""));
 
-			String recDateString = ServletRequestUtils.getStringParameter(request, "addST_receivedDate");
 			String notes = ServletRequestUtils.getStringParameter(request, "addST_notes");
-
-			Date recDate = null;
-
-			// Received Date
-			if (!recDateString.isEmpty()) {
-				recDate = new SimpleDateFormat("dd-MM-yyyy").parse(recDateString);
-			}
 
 			Sample newSample = new Sample();
 			newSample.setPatient(patient);
-
 			// Setting Sample Attributes
-			newSample.setReceiveDate(recDate);
 			newSample.setNotes(notes);
 			newSample.setStatus("Registered");
 
