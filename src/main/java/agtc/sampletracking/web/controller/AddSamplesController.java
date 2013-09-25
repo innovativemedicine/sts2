@@ -509,7 +509,7 @@ public class AddSamplesController extends BasicController implements ConstantInt
 
 			} else {
 				String curDupeProject = curSampleDupe.getPatient().getProject().getName();
-				Date curDupeRecDay = curSampleDupe.getReceiveDate();
+				Date curDupeRecDay = curSampleDupe.getPatient().getReceiveDate();
 
 				// If project and birthDate are the same
 				if (project.equals(curDupeProject)) {
@@ -550,7 +550,7 @@ public class AddSamplesController extends BasicController implements ConstantInt
 
 			newSample.getPatient().setExtSampleId(externalId);
 			newSample.getPatient().setBirthDate(birthDate);
-			newSample.setReceiveDate(recDate);
+			newSample.getPatient().setReceiveDate(recDate);
 			newSample.getPatient().setProject(pj);
 			newSample.setNotes(notes);
 			newSample.setStatus("Registered");
@@ -647,7 +647,7 @@ public class AddSamplesController extends BasicController implements ConstantInt
 		newSample.getPatient().setExtSampleId(externalId);
 		newSample.getPatient().setProject(project);
 		newSample.getPatient().setBirthDate(birthDate);
-		newSample.setReceiveDate(recDate);
+		newSample.getPatient().setReceiveDate(recDate);
 		newSample.setNotes(notes);
 		newSample.setStatus("Registered");
 
