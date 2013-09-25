@@ -20,11 +20,13 @@ public class Patient implements Serializable{
      private String note;
      private Date birthDate;
      private Set samples;
+     private Date receiveDate;
      /** persistent field */
      private String extSampleId;
      private Project project;
      private String anotherExtSampleId;
-   
+ 	 
+
      public Patient()
      {
      }
@@ -107,6 +109,20 @@ public class Patient implements Serializable{
 		this.samples = samples;
 	}
 	
+	/**
+	 * @return
+	 */
+	public Date getReceiveDate() {
+		return receiveDate;
+	}
+
+	/**
+	 * @param date
+	 */
+	public void setReceiveDate(Date date) {
+		receiveDate = date;
+	}
+
 	/**
 	 * @return Returns the anotherExtSampleId.
 	 */
