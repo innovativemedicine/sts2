@@ -52,6 +52,18 @@
 		</div>
 	</div>
 	
+		<div class="control-group">
+		<label class="control-label">Receive Date:</label>
+		<div class="controls">
+
+
+			<spring:bind path="command.receiveDate">
+				<INPUT type="text" name="receiveDate"
+					value="<c:out value="${status.value}"/>" placeholder="DD-MM-YYYY">
+			</spring:bind>
+		</div>
+	</div>
+	
 	<div class="control-group">
 		<label class="control-label">Note:</label>
 		<div class="controls">
