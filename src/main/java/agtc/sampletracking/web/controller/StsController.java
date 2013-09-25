@@ -212,26 +212,6 @@ public class StsController extends MultiActionController implements Initializing
 		return new ModelAndView("testDetails", models);
 	}
 
-	public ModelAndView sampleDetailsHandler(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException {
-		Sample sample = sampleManager.getSample(new Integer(ServletRequestUtils
-				.getIntParameter(request, "sampleId", -1)));
-		String linkageFormat = ServletRequestUtils.getStringParameter(request, "linkageFormat", "");
-		if (sample == null) {
-			return new ModelAndView(new RedirectView("containers.htm"));
-		}
-		// Set samplesInContainers = sample.getSamplesInContainers();
-		// log.debug("samplesInContainer size is " +
-		// samplesInContainers.size());
-		Map models = new HashMap();
-		models.put("command", sample);
-
-		String message = ServletRequestUtils.getStringParameter(request, "message", "");
-		models.put("message", message);
-
-		return new ModelAndView("sampleDetails", models);
-	}
-
 	public ModelAndView containerDetailsHandler(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException {
 		Container container = containerManager.getContainer(new Integer(ServletRequestUtils.getIntParameter(request,
