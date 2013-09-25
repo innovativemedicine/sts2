@@ -128,7 +128,7 @@
 		</div>
 
 		<div class="span4">
-			<div class="alert alert-info">Patient Information</div>
+			<div class="alert alert-success">Patient Information</div>
 
 			<div class="form-horizontal">
 				<div class="control-group">
