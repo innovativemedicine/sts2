@@ -1,7 +1,7 @@
 
 <table class="table table-bordered table-condensed">
 	<tr class="info">
-		<td class="input-small">
+		<td class="input-medium">
 			<b>Internal ID</b>
 		</td>
 		<td class="input-small">
@@ -54,7 +54,7 @@
 					<fmt:formatDate value="${sample.patient.birthDate}" pattern="dd-MM-yyyy" />
 				</td>
 				<td>
-					<fmt:formatDate value="${sample.receiveDate}" pattern="dd-MM-yyyy" />
+					<fmt:formatDate value="${sample.patient.receiveDate}" pattern="dd-MM-yyyy" />
 				</td>
 				<td>
 					<c:out value="${sample.notes}" />
