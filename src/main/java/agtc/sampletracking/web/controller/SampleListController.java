@@ -92,7 +92,7 @@ public class SampleListController extends BasicController {
 
 			// Print
 			SatoLabelPrinter satoP = new SatoLabelPrinter();
-			// Collections.sort(sampleList,new SampleComparator());
+			
 			satoP.printSampleLabel(printList, contextPath);
 
 			message = "Labels have been printed.";
