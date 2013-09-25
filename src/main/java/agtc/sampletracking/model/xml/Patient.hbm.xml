@@ -40,7 +40,7 @@
 		<!-- associations -->
 
 		<!-- bi-directional one-to-many association to samples -->
-		<set name="samples" inverse="true" cascade="all-delete-orphan">
+		<set name="samples" inverse="true" cascade="all-delete-orphan" sort="agtc.sampletracking.bus.comparator.SampleComparator">
 			<key>
 				<column name="INT_SAMPLE_ID" />
 			</key>
