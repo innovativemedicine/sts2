@@ -1,25 +1,15 @@
-/*
- * Created on Jan 19, 2005
- *
- * TODO To change the template for this generated file go to
- * Window - Preferences - Java - Code Style - Code Templates
- */
+
 package agtc.sampletracking.model;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
+import java.util.SortedSet;
 
-/**
- * @author Hongjing
- *
- * TODO To change the template for this generated type comment go to
- * Window - Preferences - Java - Code Style - Code Templates
- */
 public class Patient implements Serializable{
 	 private String intSampleId;
      private String note;
      private Date birthDate;
-     private Set samples;
+     private SortedSet samples;
      private Date receiveDate;
      /** persistent field */
      private String extSampleId;
@@ -99,13 +89,13 @@ public class Patient implements Serializable{
 	/**
 	 * @return Returns the samples.
 	 */
-	public Set getSamples() {
+	public SortedSet getSamples() {
 		return samples;
 	}
 	/**
 	 * @param samples The samples to set.
 	 */
-	public void setSamples(Set samples) {
+	public void setSamples(SortedSet samples) {
 		this.samples = samples;
 	}
 	
