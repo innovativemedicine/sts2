@@ -28,7 +28,7 @@
 			length="128">
 		</property>
 
-		<property name="runDate" type="java.sql.Timestamp" column="RUN_DATE"
+		<property name="runDate" type="java.sql.Date" column="RUN_DATE"
 			length="7">
 
 		</property>

@@ -27,7 +27,7 @@
 			length="32">
 
 		</property>
-		<property name="createdOn" type="java.sql.Timestamp" column="CREATED_ON"
+		<property name="createdOn" type="java.sql.Date" column="CREATED_ON"
 			length="7">
 
 		</property>

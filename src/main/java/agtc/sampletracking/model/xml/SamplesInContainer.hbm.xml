@@ -25,7 +25,7 @@
 			length="1">
 		</property>
 
-		<property name="operationDate" type="java.sql.Timestamp"
+		<property name="operationDate" type="java.sql.Date"
 			column="OPERATIONDATE">
 
 		</property>
