@@ -156,9 +156,10 @@ public class SampleDAOHbImpl extends STSBasicDAO implements SampleDAO {
 
 		Criteria crt = session.createCriteria(Sample.class);
 		crt.setFetchMode("patient", FetchMode.JOIN).createAlias("patient", "patient");
-		;
-		crt.setFetchMode("sampleType", FetchMode.JOIN);
+		crt.setFetchMode("sampleType", FetchMode.JOIN).createAlias("sampleType", "sampleType");
 		crt.setFetchMode("patient.project", FetchMode.JOIN).createAlias("patient.project", "patient.project");
+		crt.addOrder(Order.desc("patient.intSampleId"));
+		crt.addOrder(Order.asc("sampleType.suffix"));
 
 		if (!sampleIds.isEmpty()) {
 			crt.add(Restrictions.in("patient.intSampleId", sampleIds));
@@ -188,9 +189,11 @@ public class SampleDAOHbImpl extends STSBasicDAO implements SampleDAO {
 
 		Criteria crt = session.createCriteria(Sample.class);
 		crt.setFetchMode("patient", FetchMode.JOIN).createAlias("patient", "patient");
-		crt.setFetchMode("sampleType", FetchMode.JOIN);
+		crt.setFetchMode("sampleType", FetchMode.JOIN).createAlias("sampleType", "sampleType");
 		crt.setFetchMode("patient.project", FetchMode.JOIN).createAlias("patient.project", "patient.project");
-
+		crt.addOrder(Order.desc("patient.intSampleId"));
+		crt.addOrder(Order.asc("sampleType.suffix"));
+		
 		if (!sampleIdFrom.isEmpty() && sampleIdTo.isEmpty()) {
 			crt.add(Restrictions.ilike("patient.intSampleId", sampleIdFrom, MatchMode.START));
 		} else if (!sampleIdTo.isEmpty()) {
