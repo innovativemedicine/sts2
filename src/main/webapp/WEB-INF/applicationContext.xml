@@ -17,8 +17,8 @@
 		</property>
 		<property name="password">
 <!-- 			Uncomment password value for deployment -->
-<!-- 				<value>1000anag3r</value> -->
-				<value></value>
+				<value>1000anag3r</value>
+<!-- 				<value></value> -->
 		</property>
 	</bean>
 
