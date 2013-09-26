@@ -12,12 +12,14 @@ import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.validation.BindException;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.RequestUtils;
+import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -27,78 +29,70 @@ import agtc.sampletracking.model.Patient;
 
 /**
  * @author Hongjing
- *
- * TODO To change the template for this generated type comment go to
- * Window - Preferences - Java - Code Style - Code Templates
+ * 
+ *         TODO To change the template for this generated type comment go to
+ *         Window - Preferences - Java - Code Style - Code Templates
  */
 public class EditPatientController extends BasicController {
-	private Log log = LogFactory.getLog(EditPatientController.class);
-	private SampleManager sampleManager;
-	private ProjectManager projectManager;
+	private Log				log	= LogFactory.getLog(EditPatientController.class);
+	private SampleManager	sampleManager;
+	private ProjectManager	projectManager;
 
-	public EditPatientController(){
-		//initialize the form from the formBackingObject
-		 setBindOnNewForm(true);
-	
+	public EditPatientController() {
+		// initialize the form from the formBackingObject
+		setBindOnNewForm(true);
+
 	}
-	
+
 	protected Object formBackingObject(HttpServletRequest request) throws ServletException {
 		// get the Owner referred to by id in the request
-		//log.debug("project name is " + projectManager.getproject(new Integer(RequestUtils.getRequiredIntParameter(request, "projectId"))).getName());
-		String intSampleId = RequestUtils.getRequiredStringParameter(request, "intSampleId");
-		
-		
+		// log.debug("project name is " + projectManager.getproject(new
+		// Integer(RequestUtils.getRequiredIntParameter(request,
+		// "projectId"))).getName());
+		String intSampleId = ServletRequestUtils.getRequiredStringParameter(request, "intSampleId");
+
 		Patient patient = sampleManager.getPatient(intSampleId);
 		return patient;
-	
+
 	}
 
-	/**
-	 * @return Returns the sampleManager.
-	 */
-	public SampleManager getSampleManager() {
-		return sampleManager;
-	}
-	/**
-	 * @param sampleManager The sampleManager to set.
-	 */
-	public void setSampleManager(SampleManager sampleManager) {
-		this.sampleManager = sampleManager;
-	}
-	protected ModelAndView onSubmit(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response, java.lang.Object command,BindException errors) throws Exception {
-		Patient patient = (Patient)command;
+	protected ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response, Object command,
+			BindException errors) throws Exception {
+		Patient patient = (Patient) command;
 		sampleManager.updatePatient(patient);
-		ModelAndView view = new ModelAndView(new RedirectView(getSuccessView()));
-		Map myModel = view.getModel();
-		myModel.put("message","Have successfully saved this sample !");
-		myModel.put("intSampleId",patient.getIntSampleId());
-		return view;
-	
+
+		String sampleId = ServletRequestUtils.getStringParameter(request, "sampleId", "");
+
+
+			ModelAndView view = new ModelAndView(new RedirectView(getSuccessView()));
+			Map myModel = view.getModel();
+			myModel.put("message", "Have successfully updated patient info!");
+			myModel.put("sampleId", sampleId);
+			return view;
 	}
 
-	
-	protected java.util.Map referenceData(javax.servlet.http.HttpServletRequest request,
-			  java.lang.Object command,Errors errors)
-	   
-	{
+	protected Map referenceData(HttpServletRequest request, Object command, Errors errors) {
 		Map models = new HashMap();
-		
+
 		List allProjects = projectManager.getAllProjects();
-		
-		models.put("allProjects",allProjects);
+
+		models.put("allProjects", allProjects);
 		return models;
 	}
-	
-	/**
-	 * @return Returns the projectManager.
-	 */
+
 	public ProjectManager getProjectManager() {
 		return projectManager;
 	}
-	/**
-	 * @param projectManager The projectManager to set.
-	 */
+
 	public void setProjectManager(ProjectManager projectManager) {
 		this.projectManager = projectManager;
+	}
+
+	public SampleManager getSampleManager() {
+		return sampleManager;
+	}
+
+	public void setSampleManager(SampleManager sampleManager) {
+		this.sampleManager = sampleManager;
 	}
 }
