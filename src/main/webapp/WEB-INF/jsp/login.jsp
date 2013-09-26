@@ -43,6 +43,15 @@
 					<div id="collapseOne" class="accordion-body collapse in">
 						<div class="accordion-inner">
 							<h4>
+								<span class="label label-info">New</span> Minor UI Improvements
+							</h4>
+							<ul>
+								<li>Sample Search Results now ordered by IntID in descending order</li>
+								<li>Patient Details and Sample Details are now merged into the same page</li>
+								<li>Updating ReceivedDate now updates ReceivedDate of all samples types with same Internal ID</li>
+							</ul>
+						
+							<h4>
 								<span class="label label-info">New</span> Toggle buttons for Sample Types in Register Sample
 							</h4>
 							<ul>
