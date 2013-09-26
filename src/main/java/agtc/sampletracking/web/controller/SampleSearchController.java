@@ -1,14 +1,10 @@
 package agtc.sampletracking.web.controller;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -25,17 +21,16 @@ import org.springframework.web.util.WebUtils;
 import agtc.sampletracking.bus.manager.ProjectManager;
 import agtc.sampletracking.bus.manager.SampleManager;
 import agtc.sampletracking.model.Sample;
-import agtc.sampletracking.web.command.SearchCommand;
 
 @SuppressWarnings("deprecation")
 public class SampleSearchController extends BasicSearchController
 // extends BasicSearchController
 {
-	private SampleManager sampleManager;
-	private ProjectManager projectManager;
-	private List LProjects;
-	private List LSampleTypes;
-	private Log log = LogFactory.getLog(SampleSearchController.class);
+	private SampleManager	sampleManager;
+	private ProjectManager	projectManager;
+	private List			LProjects;
+	private List			LSampleTypes;
+	private Log				log	= LogFactory.getLog(SampleSearchController.class);
 
 	protected ModelAndView onSubmit(HttpServletRequest request,
 			HttpServletResponse response, Object command, BindException errors)
@@ -103,18 +98,6 @@ public class SampleSearchController extends BasicSearchController
 					extSampleIds = String2List(sampleIdsInTextArea);
 				}
 			}
-			// else if (!aFile.isEmpty()) {
-			// InputStream is = aFile.getInputStream();
-			// BufferedReader br = new BufferedReader(
-			// new InputStreamReader(is));
-			// br.readLine();
-			// String aLine = "";
-
-			// while ((aLine = br.readLine()) != null) {
-			// String intSampleId = aLine.trim();
-			// sampleIds.add(intSampleId);
-			// }
-			// is.close();
 
 			List<Sample> simpleSearchSamples = sampleManager.getSampleDAO()
 					.simpleSearchSamples(sampleIds, extSampleIds, sampleTypeIds, projectIds);
@@ -123,8 +106,7 @@ public class SampleSearchController extends BasicSearchController
 		}
 
 		if (searchResults.size() < 1) {
-			ModelAndView mav = new ModelAndView(new RedirectView(
-					"searchSamples.htm"));
+			ModelAndView mav = new ModelAndView(new RedirectView("searchSamples.htm"));
 			mav.addObject("message", "No results found.");
 			return mav;
 		}
@@ -143,8 +125,7 @@ public class SampleSearchController extends BasicSearchController
 
 	protected Map referenceData(HttpServletRequest request) throws Exception {
 		Map models = new HashMap();
-		String message = ServletRequestUtils.getStringParameter(request,
-				"message", "");
+		String message = ServletRequestUtils.getStringParameter(request, "message", "");
 
 		LSampleTypes = sampleManager.getAllSampleTypes();
 		LProjects = projectManager.getAllProjects();
