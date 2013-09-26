@@ -49,8 +49,8 @@
 						<spring:bind path="command.odDate">
 
 
-							<input class="input-small" type="text" name="odDate"
-								pattern="(0[1-9]|[12][0-9]|3[01])[-](0[1-9]|1[012])[-](19|20|21)\d\d" placeholder="DD-MM-YYYY"
+							<input autocomplete="off" class="input-small datepicker" type="text" name="odDate"
+								data-date-format="dd-mm-yyyy" placeholder="DD-MM-YYYY"
 								value="<c:out value="${status.value}"/>">
 
 						</spring:bind>
@@ -71,12 +71,9 @@
 						<label>Read Date:</label>
 
 						<spring:bind path="command.volumnDate">
-							<input class="input-small" type="text" placeholder="DD-MM-YYYY" name="volumnDate"
-								pattern="(0[1-9]|[12][0-9]|3[01])[-](0[1-9]|1[012])[-](19|20|21)\d\d" value="<c:out value="${status.value}"/>">
+							<input autocomplete="off" class="input-small datepicker" type="text" placeholder="DD-MM-YYYY" name="volumnDate"
+								data-date-format="dd-mm-yyyy" value="<c:out value="${status.value}"/>">
 						</spring:bind>
-
-						<FONT color="red"> <B><c:out value="${status.errorMessage}" /></B>
-						</FONT>
 					</div>
 				</div>
 
@@ -84,10 +81,8 @@
 					<label class="control-label">Created Date:</label>
 					<div class="controls">
 						<spring:bind path="command.madeDate">
-							<input class="input-small" type="text" placeholder="DD-MM-YYYY" name="madeDate"
-								pattern="(0[1-9]|[12][0-9]|3[01])[-](0[1-9]|1[012])[-](19|20|21)\d\d" value="<c:out value="${status.value}"/>">
-							<FONT color="red"> <B><c:out value="${status.errorMessage}" /></B>
-							</FONT>
+							<input autocomplete="off" class="input-small datepicker" type="text" placeholder="DD-MM-YYYY" name="madeDate"
+								data-date-format="dd-mm-yyyy" value="<c:out value="${status.value}"/>">
 						</spring:bind>
 					</div>
 				</div>
@@ -96,10 +91,8 @@
 					<label class="control-label">Transformed Date:</label>
 					<div class="controls">
 						<spring:bind path="command.transDate">
-							<input class="input-small" type="text" placeholder="DD-MM-YYYY" name="transDate"
-								pattern="(0[1-9]|[12][0-9]|3[01])[-](0[1-9]|1[012])[-](19|20|21)\d\d" value="<c:out value="${status.value}"/>">
-							<FONT color="red"> <B><c:out value="${status.errorMessage}" /></B>
-							</FONT>
+							<input autocomplete="off" class="input-small datepicker" type="text" placeholder="DD-MM-YYYY" name="transDate"
+								data-date-format="dd-mm-yyyy" value="<c:out value="${status.value}"/>">
 						</spring:bind>
 					</div>
 				</div>
@@ -108,16 +101,13 @@
 					<label class="control-label">Removed Date:</label>
 					<div class="controls">
 						<spring:bind path="command.removeDate">
-							<input class="input-small" type="text" placeholder="DD-MM-YYYY" name="removeDate"
-								pattern="(0[1-9]|[12][0-9]|3[01])[-](0[1-9]|1[012])[-](19|20|21)\d\d" value="<c:out value="${status.value}"/>">
-							<FONT color="red"> <B><c:out value="${status.errorMessage}" /></B>
-							</FONT>
+							<input autocomplete="off" class="input-small datepicker" type="text" placeholder="DD-MM-YYYY" name="removeDate"
+								data-date-format="dd-mm-yyyy" value="<c:out value="${status.value}"/>">
 						</spring:bind>
 					</div>
 				</div>
 
 				<div class="control-group">
-
 					<div class="controls">
 						<input class="btn" type="submit" name="Submit" value="Save">
 						<input class="btn" type="reset" name="Submit2" value="Reset">

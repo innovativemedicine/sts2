@@ -4,92 +4,74 @@
 
 <form method="post" enctype="multipart/form-data">
 	<div class="row-fluid">
-		<div class="span6">
+		<div class="span5">
 
-			<table class="table">
-				<tr class=info>
-					<td colspan="2"><b>Search by Sample ID</b></td>
-				</tr>
-
-				<tr>
-					<td class="form-inline"><label>Sample &nbsp;ID:</label> <input
-						autocomplete="off" type="text" class="setFocus span4"
-						name="sampleIdFrom"> <label>TO</label> <input
-						autocomplete="off" type="text" class="span4" name="sampleIdTo"
-						placeholder="Optional"></td>
-				</tr>
-				<tr>
-					<td class="form-inline"><label>External ID:</label> <input
-						autocomplete="off" type="text" class="span4" name="externalIdFrom">
-						<label>TO</label> <input autocomplete="off" type="text"
-						class="span4" name="externalIdTo" placeholder="Optional"></td>
-				</tr>
-			</table>
-
-			<table class="table">
-				<tr class=info>
-					<td><b>Search by Sample List</b></td>
-				</tr>
-				<tr>
-					<td><label class="radio inline"> <input type="radio"
-							name="optionsID" value="internal" checked>
-							Sample ID
-					</label> <label class="radio inline"> <input type="radio"
-							name="optionsID" value="external">
-							External ID
-					</label> <br> <textarea class="span10"
-							name="sampleIdsInTextArea" rows="5" placeholder="Separate samples by commas or new lines"></textarea> <br> <br>
-						<input class="btn" type="submit" name="Submit" value="Search">
-					</td>
+			<div class="alert alert-info">Search by Sample ID</div>
 
 
-				</tr>
-			</table>
+			<div class="form-inline">
+				<label>Sample &nbsp;ID:</label>
+				<input autocomplete="off" type="text" class="setFocus span4" name="sampleIdFrom">
+				<label>TO</label>
+				<input autocomplete="off" type="text" class="span4" name="sampleIdTo" placeholder="Optional">
+			</div>
+			<p></p>
+			<div class="form-inline">
 
+				<label>External ID:</label>
+				<input autocomplete="off" type="text" class="span4" name="externalIdFrom">
+				<label>TO</label>
+				<input autocomplete="off" type="text" class="span4" name="externalIdTo" placeholder="Optional">
+			</div>
+			<p></p>
+			<div class="alert alert-info">Search by Sample List</div>
+
+
+			<div>
+				<label class="radio inline">
+					<input type="radio" name="optionsID" value="internal" checked>
+					Sample ID
+				</label>
+				<label class="radio inline">
+					<input type="radio" name="optionsID" value="external">
+					External ID
+				</label>
+
+				<textarea class="span11" name="sampleIdsInTextArea" rows="5" placeholder="Separate samples by commas or new lines"></textarea>
+
+				<p></p>
+				<input class="btn" type="submit" name="Submit" value="Search">
+			</div>
 		</div>
 
 		<div class="span3">
-			<table class="table">
-				<tr class="info">
-					<td><b>Filter by Project</b></td>
-				</tr>
-				<tr>
-					<td><select class="span12" size="15" name="projectFilter"
-						multiple>
-							<option value="" selected>All Projects</option>
+			<div class="alert alert-info span11">Filter by Project</div>
 
-							<c:forEach items="${LProjects}" var="project" varStatus="row">
-								<option value="<c:out value="${project.projectId}"/>">
-									<c:out value="${project.name}" />
-								</option>
-							</c:forEach>
-					</select></td>
-				</tr>
-			</table>
+			<select class="span11" size="15" name="projectFilter" multiple>
+				<option value="" selected>All Projects</option>
+
+				<c:forEach items="${LProjects}" var="project" varStatus="row">
+					<option value="<c:out value="${project.projectId}"/>">
+						<c:out value="${project.name}" />
+					</option>
+				</c:forEach>
+			</select>
+
 		</div>
 		<div class="span3">
 
-			<table class="table">
-				<tr class="info">
-					<td><b>Filter by Sample Types</b></td>
-				</tr>
-				<tr>
-					<td><select class="span12" size="15" name="sampleTypeFilter"
-						multiple>
-							<option value="" selected>All Sample Types</option>
+			<div class="alert alert-info span10">Filter by Sample Types</div>
 
-							<c:forEach items="${LSampleTypes}" var="sampleType"
-								varStatus="row">
-								<option value="<c:out value="${sampleType.sampleTypeId}"/>">
-									<c:out value="${sampleType.name}" />
-									<c:if test="${sampleType.vials != null}">(<c:out
-											value="${sampleType.vials}" />)</c:if>
-								</option>
-							</c:forEach>
-					</select></td>
-				</tr>
-			</table>
+			<select class="span10" size="15" name="sampleTypeFilter" multiple>
+				<option value="" selected>All Sample Types</option>
 
+				<c:forEach items="${LSampleTypes}" var="sampleType" varStatus="row">
+					<option value="<c:out value="${sampleType.sampleTypeId}"/>">
+						<c:out value="${sampleType.name}" />
+						<c:if test="${sampleType.vials != null}">(<c:out value="${sampleType.vials}" />)</c:if>
+					</option>
+				</c:forEach>
+			</select>
 		</div>
 	</div>
 </form>

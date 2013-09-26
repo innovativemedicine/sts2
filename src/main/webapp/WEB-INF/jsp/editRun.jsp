@@ -39,8 +39,8 @@
 		<label class="control-label">Run Date:</label>
 		<div class="controls">
 			<spring:bind path="command.runDate">
-				<INPUT type="text" maxlength="255" size="30" name="runDate"
-					value="<c:out value="${status.value}"/>" placeholder="DD-MM-YYYY">
+				<input class="datepicker" type="text" name="runDate"
+					value="<c:out value="${status.value}"/>" placeholder="DD-MM-YYYY" data-date-format="dd-mm-yyyy" >
 
 			</spring:bind>
 

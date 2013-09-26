@@ -22,7 +22,7 @@
 		<label class="control-label">Note</label>
 		<div class="controls">
 			<spring:bind path="command.note">
-				<input type="text" maxlength="255" size="30" name="note"
+				<input type="text" name="note"
 					value="<c:out value="${status.value}"/>">
 			</spring:bind>
 
@@ -33,7 +33,7 @@
 		<label class="control-label">Test Date</label>
 		<div class="controls">
 			<spring:bind path="command.run.runDate">
-				<input required type="text" maxlength="255" size="30"
+				<input required class="datepicker" type="text" data-date-format="dd-mm-yyyy" 
 					name="run.runDate" value="<c:out value="${status.value}"/>"
 					placeholder="DD-MM-YY">
 			</spring:bind>

@@ -47,7 +47,7 @@
 
 
 				<spring:bind path="command.birthDate">
-					<INPUT type="text" name="birthDate" value="<c:out value="${status.value}"/>" placeholder="DD-MM-YYYY">
+					<INPUT autocomplete="off" class="datepicker" data-date-format="dd-mm-yyyy" type="text" name="birthDate" value="<c:out value="${status.value}"/>" placeholder="DD-MM-YYYY">
 				</spring:bind>
 			</div>
 		</div>
@@ -58,7 +58,7 @@
 
 
 				<spring:bind path="command.receiveDate">
-					<INPUT type="text" name="receiveDate" value="<c:out value="${status.value}"/>" placeholder="DD-MM-YYYY">
+					<INPUT autocomplete="off" class="datepicker" type="text" name="receiveDate" value="<c:out value="${status.value}"/>" data-date-format="dd-mm-yyyy" placeholder="DD-MM-YYYY">
 				</spring:bind>
 			</div>
 		</div>
