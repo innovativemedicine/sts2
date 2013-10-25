@@ -150,6 +150,9 @@ public class SampleListController extends BasicController {
 		CellStyle cellDateStyle = workbook.createCellStyle();
 		cellDateStyle.setDataFormat(createHelper.createDataFormat().getFormat("mmm/dd/yy"));
 
+		CellStyle cellDecimalStyle = workbook.createCellStyle();
+		cellDecimalStyle.setDataFormat(createHelper.createDataFormat().getFormat("0.00"));
+
 		sheet.createRow(0);
 		Row curRow = sheet.getRow(0);
 
@@ -235,6 +238,7 @@ public class SampleListController extends BasicController {
 
 			curCell = curRow.getCell(4, Row.CREATE_NULL_AS_BLANK);
 			try {
+				curCell.setCellStyle(cellDecimalStyle);
 				curCell.setCellValue(curSample.getVolumn());
 			} catch (NullPointerException e) {
 				curCell.setCellValue("");
@@ -283,6 +287,7 @@ public class SampleListController extends BasicController {
 
 			curCell = curRow.getCell(10, Row.CREATE_NULL_AS_BLANK);
 			try {
+				curCell.setCellStyle(cellDecimalStyle);
 				curCell.setCellValue(curSample.getOd());
 			} catch (NullPointerException e) {
 				curCell.setCellValue("");
@@ -298,6 +303,7 @@ public class SampleListController extends BasicController {
 
 			curCell = curRow.getCell(12, Row.CREATE_NULL_AS_BLANK);
 			try {
+				curCell.setCellStyle(cellDecimalStyle);
 				curCell.setCellValue(curSample.getOdA260());
 			} catch (NullPointerException e) {
 				curCell.setCellValue("");
@@ -305,6 +311,7 @@ public class SampleListController extends BasicController {
 
 			curCell = curRow.getCell(13, Row.CREATE_NULL_AS_BLANK);
 			try {
+				curCell.setCellStyle(cellDecimalStyle);
 				curCell.setCellValue(curSample.getOdA280());
 			} catch (NullPointerException e) {
 				curCell.setCellValue("");
@@ -312,6 +319,7 @@ public class SampleListController extends BasicController {
 
 			curCell = curRow.getCell(14, Row.CREATE_NULL_AS_BLANK);
 			try {
+				curCell.setCellStyle(cellDecimalStyle);
 				curCell.setCellValue(curSample.getOd260280());
 			} catch (NullPointerException e) {
 				curCell.setCellValue("");
@@ -319,6 +327,7 @@ public class SampleListController extends BasicController {
 
 			curCell = curRow.getCell(15, Row.CREATE_NULL_AS_BLANK);
 			try {
+				curCell.setCellStyle(cellDecimalStyle);
 				curCell.setCellValue(curSample.getOd260230());
 			} catch (NullPointerException e) {
 				curCell.setCellValue("");
@@ -340,6 +349,7 @@ public class SampleListController extends BasicController {
 
 			curCell = curRow.getCell(18, Row.CREATE_NULL_AS_BLANK);
 			try {
+				curCell.setCellStyle(cellDecimalStyle);
 				curCell.setCellValue(curSample.getOdCursorAbs());
 			} catch (NullPointerException e) {
 				curCell.setCellValue("");
@@ -347,6 +357,7 @@ public class SampleListController extends BasicController {
 
 			curCell = curRow.getCell(19, Row.CREATE_NULL_AS_BLANK);
 			try {
+				curCell.setCellStyle(cellDecimalStyle);
 				curCell.setCellValue(curSample.getOd340Raw());
 			} catch (NullPointerException e) {
 				curCell.setCellValue("");
@@ -355,7 +366,6 @@ public class SampleListController extends BasicController {
 			rowCounter++;
 		}
 		return workbook;
-
 	}
 
 	private void exportSampleData(HttpServletResponse response, Workbook wb, String fileName) throws Exception {
