@@ -20,6 +20,9 @@
 		<td>
 			<b>Note</b>
 		</td>
+		<td class="input-mini">
+			<b>Conc.<br> (ng/uL)</b>
+		</td>
 	</tr>
 
 	<c:forEach items="${sampleList}" var="sample" varStatus="sampleCounter">
@@ -54,6 +57,10 @@
 				<td>
 					<c:out value="${sample.notes}" />
 				</td>
+				<td>
+					<c:out value="${sample.od}" />
+				</td>
+				
 			</c:if>
 
 		</tr>
