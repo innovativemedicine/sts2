@@ -15,47 +15,26 @@
 
 		</id>
 
-		<property name="od" type="java.lang.Float" column="OD">
-
-		</property>
-		<property name="volumn" type="java.lang.Float" column="VOLUMN">
-
-		</property>
-		<property name="madeDate" type="java.sql.Date" column="MADE_DATE">
-
-		</property>
-		<property name="refillDate" type="java.sql.Date" column="REFILL_DATE">
-
-		</property>
-
-		<property name="odDate" type="java.sql.Date" column="OD_DATE">
-
-		</property>
-
-		<property name="volumnDate" type="java.sql.Date" column="volumn_DATE">
-
-		</property>
-
-		<property name="notes" type="java.lang.String" column="NOTES"
-			length="128">
-
-		</property>
-
-		<property name="transDate" type="java.sql.Date" column="TRANS_DATE">
-
-		</property>
-		<property name="status" type="java.lang.String" column="STATUS"
-			length="10">
-
-		</property>
-		<property name="removeDate" type="java.sql.Date" column="REMOVE_DATE">
-
-		</property>
-
-		<property name="sampleDupNo" type="java.lang.Integer" column="SAMPLE_DUP_NO">
-
-		</property>
-
+		<property name="od" type="java.lang.Float" column="OD"></property>
+		<property name="volumn" type="java.lang.Float" column="VOLUMN"></property>
+		<property name="madeDate" type="java.sql.Date" column="MADE_DATE"></property>
+		<property name="refillDate" type="java.sql.Date" column="REFILL_DATE"></property>
+		<property name="odDate" type="java.sql.Date" column="OD_DATE"></property>
+		<property name="volumnDate" type="java.sql.Date" column="volumn_DATE"></property>
+		<property name="notes" type="java.lang.String" column="NOTES" length="128"></property>
+		<property name="transDate" type="java.sql.Date" column="TRANS_DATE"></property>
+		<property name="status" type="java.lang.String" column="STATUS" length="10"></property>
+		<property name="removeDate" type="java.sql.Date" column="REMOVE_DATE"></property>
+		<property name="sampleDupNo" type="java.lang.Integer" column="SAMPLE_DUP_NO"></property>
+		<property name="odA260" type="java.lang.Float" column="OD_A260"></property>
+		<property name="odA280" type="java.lang.Float" column="OD_A280"></property>
+		<property name="od260280" type="java.lang.Float" column="OD_260_280"></property>
+		<property name="od260230" type="java.lang.Float" column="OD_260_230"></property>
+		<property name="odFactor" type="java.lang.Integer" column="OD_FACTOR"></property>
+		<property name="odCursorPos" type="java.lang.Integer" column="OD_CURSOR_POS"></property>
+		<property name="odCursorAbs" type="java.lang.Float" column="OD_CURSOR_ABS"></property>
+		<property name="od340Raw" type="java.lang.Float" column="OD_340_RAW"></property>
+		
 		<!-- associations -->
 
 		<!-- bi-directional one-to-many association to SamplesInContainer with 
