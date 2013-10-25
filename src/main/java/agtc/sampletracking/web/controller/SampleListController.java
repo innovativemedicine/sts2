@@ -92,7 +92,7 @@ public class SampleListController extends BasicController {
 
 			// Print
 			SatoLabelPrinter satoP = new SatoLabelPrinter();
-			
+
 			satoP.printSampleLabel(printList, contextPath);
 
 			message = "Labels have been printed.";
@@ -112,7 +112,7 @@ public class SampleListController extends BasicController {
 			Workbook wb = formatSampleData(sampleList, is);
 			Sample firstSample = (Sample) sampleList.get(0);
 			String fileName = firstSample.getPatient().getIntSampleId() + "List";
-			downloadManifest(response, wb, fileName);
+			exportSampleData(response, wb, fileName);
 
 			return null;
 		}
@@ -166,26 +166,52 @@ public class SampleListController extends BasicController {
 		curCell.setCellValue("Project");
 
 		curCell = curRow.getCell(4, Row.CREATE_NULL_AS_BLANK);
-		curCell.setCellValue("Volume (mL)");
+		curCell.setCellValue("Volume");
 
 		curCell = curRow.getCell(5, Row.CREATE_NULL_AS_BLANK);
-		curCell.setCellValue("Conc. (ug/mL)");
-
-		curCell = curRow.getCell(6, Row.CREATE_NULL_AS_BLANK);
 		curCell.setCellValue("Birth Date");
 
-		curCell = curRow.getCell(7, Row.CREATE_NULL_AS_BLANK);
+		curCell = curRow.getCell(6, Row.CREATE_NULL_AS_BLANK);
 		curCell.setCellValue("Received Date");
 
-		curCell = curRow.getCell(8, Row.CREATE_NULL_AS_BLANK);
+		curCell = curRow.getCell(7, Row.CREATE_NULL_AS_BLANK);
 		curCell.setCellValue("Notes");
 
-		curCell = curRow.getCell(9, Row.CREATE_NULL_AS_BLANK);
+		curCell = curRow.getCell(8, Row.CREATE_NULL_AS_BLANK);
 		curCell.setCellValue("Status");
 
-		curCell = curRow.getCell(10, Row.CREATE_NULL_AS_BLANK);
+		curCell = curRow.getCell(9, Row.CREATE_NULL_AS_BLANK);
 		curCell.setCellValue("Location");
 
+		curCell = curRow.getCell(10, Row.CREATE_NULL_AS_BLANK);
+		curCell.setCellValue("Conc. (ng/uL)");
+
+		curCell = curRow.getCell(11, Row.CREATE_NULL_AS_BLANK);
+		curCell.setCellValue("Conc. Date");
+
+		curCell = curRow.getCell(12, Row.CREATE_NULL_AS_BLANK);
+		curCell.setCellValue("A260");
+
+		curCell = curRow.getCell(13, Row.CREATE_NULL_AS_BLANK);
+		curCell.setCellValue("A280");
+
+		curCell = curRow.getCell(14, Row.CREATE_NULL_AS_BLANK);
+		curCell.setCellValue("260/280");
+
+		curCell = curRow.getCell(15, Row.CREATE_NULL_AS_BLANK);
+		curCell.setCellValue("260/230");
+
+		curCell = curRow.getCell(16, Row.CREATE_NULL_AS_BLANK);
+		curCell.setCellValue("Conc. Factor (ng/uL");
+
+		curCell = curRow.getCell(17, Row.CREATE_NULL_AS_BLANK);
+		curCell.setCellValue("Cursor Pos.");
+
+		curCell = curRow.getCell(18, Row.CREATE_NULL_AS_BLANK);
+		curCell.setCellValue("Cursor Abs.");
+
+		curCell = curRow.getCell(19, Row.CREATE_NULL_AS_BLANK);
+		curCell.setCellValue("340 Raw");
 		Integer rowCounter = 1;
 
 		// Iterate through the sampleList and populate excel file
@@ -216,7 +242,8 @@ public class SampleListController extends BasicController {
 
 			curCell = curRow.getCell(5, Row.CREATE_NULL_AS_BLANK);
 			try {
-				curCell.setCellValue(curSample.getOd());
+				curCell.setCellStyle(cellDateStyle);
+				curCell.setCellValue(curSample.getPatient().getBirthDate());
 			} catch (NullPointerException e) {
 				curCell.setCellValue("");
 			}
@@ -224,27 +251,19 @@ public class SampleListController extends BasicController {
 			curCell = curRow.getCell(6, Row.CREATE_NULL_AS_BLANK);
 			try {
 				curCell.setCellStyle(cellDateStyle);
-				curCell.setCellValue(curSample.getPatient().getBirthDate());
-			} catch (NullPointerException e) {
-				curCell.setCellValue("");
-			}
-
-			curCell = curRow.getCell(7, Row.CREATE_NULL_AS_BLANK);
-			try {
-				curCell.setCellStyle(cellDateStyle);
 				curCell.setCellValue(curSample.getPatient().getReceiveDate());
 			} catch (NullPointerException e) {
 				curCell.setCellValue("");
 			}
-			curCell = curRow.getCell(8, Row.CREATE_NULL_AS_BLANK);
+			curCell = curRow.getCell(7, Row.CREATE_NULL_AS_BLANK);
 			curCell.setCellValue(curSample.getNotes());
 
-			curCell = curRow.getCell(9, Row.CREATE_NULL_AS_BLANK);
+			curCell = curRow.getCell(8, Row.CREATE_NULL_AS_BLANK);
 			curCell.setCellValue(curSample.getStatus());
 
 			List sics = sampleManager.getSamplesInContainersInBySample(curSample.getSampleId());
 
-			curCell = curRow.getCell(10, Row.CREATE_NULL_AS_BLANK);
+			curCell = curRow.getCell(9, Row.CREATE_NULL_AS_BLANK);
 			// Location is available
 			if (!sics.isEmpty()) {
 				SamplesInContainer sic = (SamplesInContainer) sics.get(0);
@@ -255,11 +274,81 @@ public class SampleListController extends BasicController {
 				}
 				String sampleLocation = containerName + containerLoc;
 
-				curCell = curRow.getCell(10, Row.CREATE_NULL_AS_BLANK);
 				curCell.setCellValue(sampleLocation);
 
 			} else // Location not specified
 			{
+				curCell.setCellValue("");
+			}
+
+			curCell = curRow.getCell(10, Row.CREATE_NULL_AS_BLANK);
+			try {
+				curCell.setCellValue(curSample.getOd());
+			} catch (NullPointerException e) {
+				curCell.setCellValue("");
+			}
+
+			curCell = curRow.getCell(11, Row.CREATE_NULL_AS_BLANK);
+			try {
+				curCell.setCellStyle(cellDateStyle);
+				curCell.setCellValue(curSample.getOdDate());
+			} catch (NullPointerException e) {
+				curCell.setCellValue("");
+			}
+
+			curCell = curRow.getCell(12, Row.CREATE_NULL_AS_BLANK);
+			try {
+				curCell.setCellValue(curSample.getOdA260());
+			} catch (NullPointerException e) {
+				curCell.setCellValue("");
+			}
+
+			curCell = curRow.getCell(13, Row.CREATE_NULL_AS_BLANK);
+			try {
+				curCell.setCellValue(curSample.getOdA280());
+			} catch (NullPointerException e) {
+				curCell.setCellValue("");
+			}
+
+			curCell = curRow.getCell(14, Row.CREATE_NULL_AS_BLANK);
+			try {
+				curCell.setCellValue(curSample.getOd260280());
+			} catch (NullPointerException e) {
+				curCell.setCellValue("");
+			}
+
+			curCell = curRow.getCell(15, Row.CREATE_NULL_AS_BLANK);
+			try {
+				curCell.setCellValue(curSample.getOd260230());
+			} catch (NullPointerException e) {
+				curCell.setCellValue("");
+			}
+
+			curCell = curRow.getCell(16, Row.CREATE_NULL_AS_BLANK);
+			try {
+				curCell.setCellValue(curSample.getOdFactor());
+			} catch (NullPointerException e) {
+				curCell.setCellValue("");
+			}
+
+			curCell = curRow.getCell(17, Row.CREATE_NULL_AS_BLANK);
+			try {
+				curCell.setCellValue(curSample.getOdCursorPos());
+			} catch (NullPointerException e) {
+				curCell.setCellValue("");
+			}
+
+			curCell = curRow.getCell(18, Row.CREATE_NULL_AS_BLANK);
+			try {
+				curCell.setCellValue(curSample.getOdCursorAbs());
+			} catch (NullPointerException e) {
+				curCell.setCellValue("");
+			}
+
+			curCell = curRow.getCell(19, Row.CREATE_NULL_AS_BLANK);
+			try {
+				curCell.setCellValue(curSample.getOd340Raw());
+			} catch (NullPointerException e) {
 				curCell.setCellValue("");
 			}
 
@@ -269,7 +358,7 @@ public class SampleListController extends BasicController {
 
 	}
 
-	private void downloadManifest(HttpServletResponse response, Workbook wb, String fileName) throws Exception {
+	private void exportSampleData(HttpServletResponse response, Workbook wb, String fileName) throws Exception {
 		// Write Excel Document as an attachment
 		ByteArrayOutputStream outByteStream = new ByteArrayOutputStream();
 		wb.write(outByteStream);
