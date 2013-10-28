@@ -49,7 +49,6 @@ import agtc.sampletracking.bus.manager.ProjectManager;
 import agtc.sampletracking.bus.manager.SampleManager;
 import agtc.sampletracking.bus.report.SatoLabelPrinter;
 import agtc.sampletracking.model.MultiSamples;
-import agtc.sampletracking.model.Patient;
 import agtc.sampletracking.model.Project;
 import agtc.sampletracking.model.Sample;
 import agtc.sampletracking.model.SampleType;
@@ -66,39 +65,6 @@ public class AddSamplesController extends BasicController implements ConstantInt
 	protected Object formBackingObject(HttpServletRequest request) throws ServletException {
 
 		MultiSamples multiSampleClass = new MultiSamples();
-
-		// Integer numSamples = ServletRequestUtils.getIntParameter(request,
-		// "ns");
-		// String samplePrefix = ServletRequestUtils.getStringParameter(request,
-		// "sampleIdPreForm");
-
-		// List autoSampleHolder = new ArrayList();
-
-		// if (samplePrefix == null) {
-		// samplePrefix = SAMPLE_PREFIX;
-		// samplePrefix = "";
-		// }
-
-		// if (numSamples != null) {
-
-		// samplePrefix = samplePrefix.toUpperCase();
-		//
-		// String largestSampleId =
-		// sampleManager.getLargestSampleId(samplePrefix);
-		// Integer largestSampleNum =
-		// Integer.parseInt(largestSampleId.replace(samplePrefix, ""));
-		//
-		// for (int i = 1; i <= numSamples; i++) {
-		// Integer intSampleNum = largestSampleNum + i;
-		// String formatNum = String.format("%04d", intSampleNum);
-		// String intSampleId = samplePrefix + formatNum;
-		// Sample sample = new Sample(intSampleId);
-		//
-		// autoSampleHolder.add(sample);
-		// }
-		// }
-
-		// multiSampleClass.setMultiSamples(autoSampleHolder);
 
 		return multiSampleClass;
 	}
@@ -638,6 +604,11 @@ public class AddSamplesController extends BasicController implements ConstantInt
 			String largestSampleId = sampleManager.getLargestSampleId(samplePrefix);
 			Integer largestSampleNum = Integer.parseInt(largestSampleId.replace(samplePrefix, ""));
 			Integer intSampleNum = largestSampleNum + 1;
+
+			if (intSampleNum > 9999) {
+				throw new Exception("Error: Maximum Sample Number (9999) reached. Please select new prefix");
+			}
+
 			String formatNum = String.format("%04d", intSampleNum);
 			intSampleId = samplePrefix + formatNum;
 			newSample = new Sample(intSampleId);
@@ -664,28 +635,31 @@ public class AddSamplesController extends BasicController implements ConstantInt
 
 			Integer sampleNum = ServletRequestUtils.getIntParameter(request, stChkboxNum, -1);
 
-			if (sampleNum != -1) {				
+			if (sampleNum != -1) {
 				noST = false;
 				newSample.setSampleType(curST);
 
 				// Add sample as long as value is not empty (defaulted to -1)
-				// Note that a value of 0 should still be added to the database. It just means 0 labels are printed
-				// If number is greater than 0, then add corresponding number of aliquots to DB and print label
+				// Note that a value of 0 should still be added to the database.
+				// It just means 0 labels are printed
+				// If number is greater than 0, then add corresponding number of
+				// aliquots to DB and print label
 				if (sampleNum > 0) {
 
 					for (int j = 1; j <= sampleNum; j++) {
-						// Clone sample based on the number of sample type to add
+						// Clone sample based on the number of sample type to
+						// add
 						Sample sampleClone = (Sample) newSample.clone();
 						sampleList.add(sampleClone);
 						labelList.add(sampleClone);
 					}
 				}
 				// If number is 0, don't add to print list
-				else
-				{
-					// Need to clone or else it will just add by reference (and end up adding the very last sampletype added)
+				else {
+					// Need to clone or else it will just add by reference (and
+					// end up adding the very last sampletype added)
 					Sample sampleClone = (Sample) newSample.clone();
-					
+
 					sampleList.add(sampleClone);
 				}
 			}
