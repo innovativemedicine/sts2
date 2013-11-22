@@ -38,7 +38,7 @@
 			<spring:bind path="command.createdOn">
 
 				<input required type="text" class="datepicker" maxlength="255" size="20" name="createdOn"
-					placeholder="DD-MM-YYYY" data-date-format="dd-mm-yy" value="<c:out value="${status.value}"/>">
+					placeholder="DD-MM-YYYY" data-date-format="dd-mm-yyyy" value="<c:out value="${status.value}"/>">
 				<FONT color="red"> <B><c:out
 							value="${status.errorMessage}" /></B>
 				</FONT>
