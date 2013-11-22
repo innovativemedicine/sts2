@@ -18,25 +18,24 @@ import agtc.sampletracking.model.Location;
 import agtc.sampletracking.model.SampleType;
 
 public class AGTCManager {
-	private Log log = LogFactory.getLog(AGTCManager.class);
-	private ContainerTypeDAO containerTypeDAO;
-	private InstrumentDAO instrumentDAO;
-	private InvestigatorDAO investigatorDAO;
-	private LocationDAO locationDAO;
-	private SampleTypeDAO sampleTypeDAO;
-	private List sampleTypes = new ArrayList();
-	private List locations = new ArrayList();
-	private List containerTypes = new ArrayList();
-	private List plateTypes = new ArrayList();
-	private List boxTypes = new ArrayList();
-	private List instruments = new ArrayList();
-	private List investigators = new ArrayList();
-	private boolean refresh = false;
+	private Log					log				= LogFactory.getLog(AGTCManager.class);
+	private ContainerTypeDAO	containerTypeDAO;
+	private InstrumentDAO		instrumentDAO;
+	private InvestigatorDAO		investigatorDAO;
+	private LocationDAO			locationDAO;
+	private SampleTypeDAO		sampleTypeDAO;
+	private List				sampleTypes		= new ArrayList();
+	private List				locations		= new ArrayList();
+	private List				containerTypes	= new ArrayList();
+	private List				plateTypes		= new ArrayList();
+	private List				boxTypes		= new ArrayList();
+	private List				instruments		= new ArrayList();
+	private List				investigators	= new ArrayList();
+	private boolean				refresh			= true;
 
 	public List getContainerTypes() {
 		if (containerTypes.isEmpty() || refresh == true) {
 			containerTypes = containerTypeDAO.getContainerTypes();
-			refresh = false;
 		}
 		return containerTypes;
 	}
@@ -44,24 +43,20 @@ public class AGTCManager {
 	public List getPlateTypes() {
 		if (plateTypes.isEmpty() || refresh == true) {
 			plateTypes = containerTypeDAO.getPlateTypes();
-			refresh = false;
 		}
 		return plateTypes;
 	}
-	
+
 	public List getBoxTypes() {
 		if (boxTypes.isEmpty() || refresh == true) {
 			boxTypes = containerTypeDAO.getBoxTypes();
-			refresh = false;
 		}
 		return boxTypes;
 	}
 
-
 	public List getInstruments() {
 		if (instruments.isEmpty() || refresh == true) {
 			instruments = instrumentDAO.getInstruments();
-			refresh = false;
 		}
 		return instruments;
 	}
@@ -72,7 +67,6 @@ public class AGTCManager {
 	public List getInvestigators() {
 		if (investigators.isEmpty() || refresh == true) {
 			investigators = investigatorDAO.getInvestigators();
-			refresh = false;
 		}
 		return investigators;
 	}
@@ -83,7 +77,6 @@ public class AGTCManager {
 	public List getLocations() {
 		if (locations.isEmpty() || refresh == true) {
 			locations = locationDAO.Locations();
-			refresh = false;
 		}
 		return locations;
 	}
@@ -91,11 +84,10 @@ public class AGTCManager {
 	public List getSampleTypes() {
 		if (sampleTypes.isEmpty() || refresh == true) {
 			sampleTypes = sampleTypeDAO.getSampleTypes();
-			refresh = false;
 		}
 		return sampleTypes;
 	}
-	
+
 	public SampleType getSampleType(Integer SampleTypeID) {
 		return sampleTypeDAO.getSampleType(SampleTypeID);
 	}
@@ -106,7 +98,6 @@ public class AGTCManager {
 
 	public void saveSampleType(SampleType stock) throws Exception {
 		sampleTypeDAO.saveSampleType(stock);
-		refresh = true;
 	}
 
 	public SampleTypeDAO getSampleTypeDAO() {
@@ -144,7 +135,6 @@ public class AGTCManager {
 
 	public void saveContainerType(ContainerType stock) throws Exception {
 		containerTypeDAO.saveContainerType(stock);
-		refresh = true;
 	}
 
 	public ContainerTypeDAO getContainerTypeDAO() {
@@ -165,7 +155,6 @@ public class AGTCManager {
 
 	public void saveInstrument(Instrument stock) throws Exception {
 		instrumentDAO.saveInstrument(stock);
-		refresh = true;
 	}
 
 	public InstrumentDAO getInstrumentDAO() {
@@ -182,7 +171,6 @@ public class AGTCManager {
 
 	public void saveInvestigator(Investigator stock) throws Exception {
 		investigatorDAO.saveInvestigator(stock);
-		refresh = true;
 	}
 
 	public InvestigatorDAO getInvestigatorDAO() {
