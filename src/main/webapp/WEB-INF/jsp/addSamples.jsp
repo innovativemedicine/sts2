@@ -137,6 +137,8 @@
 								</c:forEach>
 
 							</fieldset>
+							<br>
+							Note: <b>2</b> labels are printed for each count of a sample
 						</div>
 					</div>
 				</form>
