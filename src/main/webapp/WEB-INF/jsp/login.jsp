@@ -33,14 +33,35 @@
 		<div class="span10">
 
 			<h2>Updates:</h2>
-
 			<div class="accordion" id="accordion2">
+
 				<div class="accordion-group">
 					<div class="accordion-heading">
-						<a class="act act-primary accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
+						<a class="act act-primary accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#november">
+							November 2013 </a>
+					</div>
+					<div id="november" class="accordion-body collapse in">
+						<div class="accordion-inner">
+
+							<h4>
+								<span class="label label-info">New</span> Sample Details Interface
+							</h4>
+
+							<ul>
+								<li>Swapped location of Patient and Sample Info</li>
+								<li>Differentiate Patient and Sample links from Search Sample Results</li>
+								<li>Improved Delete Sample Redirection</li>
+							</ul>
+
+						</div>
+					</div>
+				</div>
+				<div class="accordion-group">
+					<div class="accordion-heading">
+						<a class="act act-primary accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#september">
 							September 2013 </a>
 					</div>
-					<div id="collapseOne" class="accordion-body collapse in">
+					<div id="september" class="accordion-body collapse">
 						<div class="accordion-inner">
 							<h4>
 								<span class="label label-info">New</span> Minor UI Improvements
@@ -50,7 +71,7 @@
 								<li>Patient Details and Sample Details are now merged into the same page</li>
 								<li>Updating ReceivedDate now updates ReceivedDate of all samples types with same Internal ID</li>
 							</ul>
-						
+
 							<h4>
 								<span class="label label-info">New</span> Toggle buttons for Sample Types in Register Sample
 							</h4>
@@ -80,12 +101,13 @@
 							<ul>
 								<li>Plate tracking will be implemented as a separate system.</li>
 							</ul>
-							
+
 							<h4>
 								<span class="label label-important">Del</span> Register Multiple Samples
 							</h4>
 							<ul>
-								<li> This function is rarely used and it needs to be redefined b/c Register Single Samples changed a bit since release.</li>
+								<li>This function is rarely used and it needs to be redefined b/c Register Single Samples changed a bit since
+									release.</li>
 							</ul>
 
 						</div>
@@ -93,10 +115,10 @@
 				</div>
 				<div class="accordion-group">
 					<div class="accordion-heading">
-						<a class="act act-primary accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">
-							August 2013 </a>
+						<a class="act act-primary accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#august"> August
+							2013 </a>
 					</div>
-					<div id="collapseTwo" class="accordion-body collapse">
+					<div id="august" class="accordion-body collapse">
 						<div class="accordion-inner">
 
 							<h4>
