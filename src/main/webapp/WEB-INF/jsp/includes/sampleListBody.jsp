@@ -33,7 +33,7 @@
 					<input type="checkbox" name="chk<c:out value="${sampleCounter.index}" />" checked />
 					<a class="act act-primary"
 						href="<c:url value="/sampleDetails.htm">
-							<c:param name="sampleId" value="${sample.sampleId}"/></c:url>"> <c:out
+							<c:param name="intSampleId" value="${sample.patient.intSampleId}"/></c:url>"> <c:out
 							value="${sample.patient.intSampleId}" /> <a class="act act-info"
 						href="<c:url value="/sampleDetails.htm">
     					<c:param name="sampleId" value="${sample.sampleId}"/></c:url>">(<c:out

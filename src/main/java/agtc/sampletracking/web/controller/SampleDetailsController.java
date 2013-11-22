@@ -1,10 +1,7 @@
 package agtc.sampletracking.web.controller;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -20,13 +17,10 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import agtc.sampletracking.ConstantInterface;
 import agtc.sampletracking.bus.manager.AGTCManager;
-import agtc.sampletracking.bus.manager.ContainerManager;
 import agtc.sampletracking.bus.manager.ProjectManager;
 import agtc.sampletracking.bus.manager.SampleManager;
 import agtc.sampletracking.bus.report.SatoLabelPrinter;
-import agtc.sampletracking.model.Container;
 import agtc.sampletracking.model.Patient;
-import agtc.sampletracking.model.Project;
 import agtc.sampletracking.model.Sample;
 import agtc.sampletracking.model.SampleType;
 
@@ -41,32 +35,33 @@ public class SampleDetailsController extends BasicController implements Constant
 	}
 
 	protected Object formBackingObject(HttpServletRequest request) throws ServletException {
-		// Can't use patient as is because it returns a lazy instance... figure
-		// it out later. Uses referneceData to pull patient right now.
-		// Patient patient =
-		// sampleManager.getPatient(ServletRequestUtils.getStringParameter(request,
-		// "intSampleId", ""));
-		Integer sampleId = ServletRequestUtils.getRequiredIntParameter(request, "sampleId");
 
-		Sample sample = sampleManager.getSample(sampleId);
+		Sample sample = new Sample();
 		return sample;
 	}
 
 	protected ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response, Object command,
 			BindException errors) throws Exception {
 
-		Sample sample = (Sample) command;
+		String intSampleId = ServletRequestUtils.getStringParameter(request, "intSampleId", "");
+		Integer sampleId = ServletRequestUtils.getIntParameter(request, "sampleId", -1);
+
+		Patient patient = new Patient();
+
+		if (!intSampleId.isEmpty()) {
+			patient = sampleManager.getPatient(intSampleId);
+		}
+
+		if (sampleId >= 0) {
+			Sample sample = sampleManager.getSample(sampleId);
+			patient = sampleManager.getPatient(sample.getPatient().getIntSampleId());
+		}
 
 		String action = ServletRequestUtils.getStringParameter(request, "action", "");
 		// String intSampleId = ServletRequestUtils.getStringParameter(request,
 		// "intSampleId", "");
 
 		if (action.equalsIgnoreCase("addst")) {
-			// Patient patient =
-			// sampleManager.getPatient(ServletRequestUtils.getStringParameter(request,
-			// "intSampleId",""));
-
-			Patient patient = sample.getPatient();
 
 			String notes = ServletRequestUtils.getStringParameter(request, "addST_notes");
 
@@ -126,13 +121,13 @@ public class SampleDetailsController extends BasicController implements Constant
 
 			ModelAndView mav = new ModelAndView(new RedirectView(getFormView() + ".htm"));
 			mav.addObject("message", "New Sample Type Added");
-			mav.addObject("sampleId", sample.getSampleId());
+			mav.addObject("intSampleId", patient.getIntSampleId());
 
 			return mav;
 		}
 		ModelAndView mav = new ModelAndView(new RedirectView(getFormView() + ".htm"));
 
-		mav.addObject("sampleId", sample.getSampleId());
+		mav.addObject("intSampleId", patient.getIntSampleId());
 
 		return mav;
 	}
@@ -141,9 +136,23 @@ public class SampleDetailsController extends BasicController implements Constant
 			throws ServletException {
 
 		Map<String, Object> models = new HashMap<String, Object>();
-		
-		Integer sampleId = ServletRequestUtils.getRequiredIntParameter(request, "sampleId");
-		Sample sample = sampleManager.getSample(sampleId);
+
+		String intSampleId = ServletRequestUtils.getStringParameter(request, "intSampleId", "");
+		Integer sampleId = ServletRequestUtils.getIntParameter(request, "sampleId", -1);
+		Patient patient = new Patient();
+
+		if (!intSampleId.isEmpty()) {
+			patient = sampleManager.getPatient(intSampleId);
+		}
+
+		if (sampleId >= 0) {
+			Sample sample = sampleManager.getSample(sampleId);
+			patient = sampleManager.getPatient(sample.getPatient().getIntSampleId());
+
+			models.put("sample", sample);
+		}
+
+		models.put("patient", patient);
 
 		List<SampleType> allSampleTypes = sampleManager.getAllSampleTypes();
 		models.put("allSampleTypes", allSampleTypes);

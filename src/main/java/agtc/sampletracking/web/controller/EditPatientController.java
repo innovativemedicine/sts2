@@ -61,14 +61,11 @@ public class EditPatientController extends BasicController {
 		Patient patient = (Patient) command;
 		sampleManager.updatePatient(patient);
 
-		String sampleId = ServletRequestUtils.getStringParameter(request, "sampleId", "");
-
-
-			ModelAndView view = new ModelAndView(new RedirectView(getSuccessView()));
-			Map myModel = view.getModel();
-			myModel.put("message", "Have successfully updated patient info!");
-			myModel.put("sampleId", sampleId);
-			return view;
+		ModelAndView view = new ModelAndView(new RedirectView(getSuccessView()));
+		Map myModel = view.getModel();
+		myModel.put("message", "Have successfully updated patient info!");
+		myModel.put("intSampleId", patient.getIntSampleId());
+		return view;
 	}
 
 	protected Map referenceData(HttpServletRequest request, Object command, Errors errors) {

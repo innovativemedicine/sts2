@@ -39,12 +39,10 @@ import agtc.sampletracking.bus.manager.TestManager;
 import agtc.sampletracking.model.Assay;
 import agtc.sampletracking.model.Container;
 import agtc.sampletracking.model.ContainerType;
-import agtc.sampletracking.model.Patient;
 import agtc.sampletracking.model.Project;
 import agtc.sampletracking.model.Result;
 import agtc.sampletracking.model.Run;
 import agtc.sampletracking.model.Sample;
-import agtc.sampletracking.model.SampleType;
 import agtc.sampletracking.model.Test;
 
 /**
@@ -303,8 +301,18 @@ public class StsController extends MultiActionController implements Initializing
 			throws ServletException {
 		int id = ServletRequestUtils.getRequiredIntParameter(request, "sampleId");
 		Sample sample = sampleManager.getSample(new Integer(id));
+		String intSampleId = sample.getPatient().getIntSampleId();
+		String sampleType = sample.getSampleType().getSuffix();
+		Integer sampleDup = sample.getSampleDupNo();
+
 		sampleManager.removeSample(new Integer(id));
-		return new ModelAndView("login", "message", "Sample deleted");
+
+		ModelAndView mav = new ModelAndView(new RedirectView("sampleDetails.htm"));
+		mav.addObject("message", "Sample " + intSampleId + ":" + sampleType + "-" + sampleDup + " deleted");
+		mav.addObject("intSampleId", intSampleId);
+
+		return mav;
+
 	}
 
 	public ModelAndView deleteAllSamplesInContainerHandler(HttpServletRequest request, HttpServletResponse response)
