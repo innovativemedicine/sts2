@@ -73,6 +73,7 @@ fieldset.column2 {
 	-webkit-border-radius: 4px;
 	-moz-border-radius: 4px;
 	border-radius: 4px;
+	-webkit-column-width: 150px;
 }
 
 fieldset.column3 {
@@ -84,6 +85,7 @@ fieldset.column3 {
 	-webkit-border-radius: 4px;
 	-moz-border-radius: 4px;
 	border-radius: 4px;
+	-webkit-column-width: 150px;
 }
 
 label.checkbox {
