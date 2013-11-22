@@ -181,6 +181,7 @@ public class AddSamplesController extends BasicController implements ConstantInt
 
 		// Save samples to DB
 		try {
+
 			sampleManager.saveSamples(finalSampleList);
 
 			// Print Labels
@@ -582,37 +583,25 @@ public class AddSamplesController extends BasicController implements ConstantInt
 		// Project
 		Project project = projectManager.getProject(projectId);
 
-		// Validation
-
 		// Catch empty Project
 		if (projectId < 0) {
 			throw new Exception("Error: Project required");
 		}
 
-		// Check if external ID + project + birthDate ALREADY exists.
-		Sample prevSampleDupe = sampleManager.getSampleByExtId(externalId, recDate, project.getProjectId());
-
 		Sample newSample = null;
 		String intSampleId = "";
 
-		// If not, assign a new sampleId (using the next largest number)
-		if (prevSampleDupe != null && recDate != null) {
-			intSampleId = prevSampleDupe.getPatient().getIntSampleId();
-			newSample = new Sample(intSampleId);
+		String largestSampleId = sampleManager.getLargestSampleId(samplePrefix);
+		Integer largestSampleNum = Integer.parseInt(largestSampleId.replace(samplePrefix, ""));
+		Integer intSampleNum = largestSampleNum + 1;
 
-		} else {
-			String largestSampleId = sampleManager.getLargestSampleId(samplePrefix);
-			Integer largestSampleNum = Integer.parseInt(largestSampleId.replace(samplePrefix, ""));
-			Integer intSampleNum = largestSampleNum + 1;
-
-			if (intSampleNum > 9999) {
-				throw new Exception("Error: Maximum Sample Number (9999) reached. Please select new prefix");
-			}
-
-			String formatNum = String.format("%04d", intSampleNum);
-			intSampleId = samplePrefix + formatNum;
-			newSample = new Sample(intSampleId);
+		if (intSampleNum > 9999) {
+			throw new Exception("Error: Maximum Sample Number (9999) reached. Please select new prefix");
 		}
+
+		String formatNum = String.format("%04d", intSampleNum);
+		intSampleId = samplePrefix + formatNum;
+		newSample = new Sample(intSampleId);
 
 		// Setting Sample Attributes
 		newSample.getPatient().setExtSampleId(externalId);
