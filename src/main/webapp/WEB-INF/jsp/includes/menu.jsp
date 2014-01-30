@@ -1,95 +1,157 @@
 <div class="navbar navbar-inverse navbar-static-top">
 	<div class="navbar-inner">
 		<div class="container-fluid">
-			<button type="button" class="btn btn-navbar" data-toggle="collapse"
-				data-target=".nav-collapse">
-				<span class="icon-bar"></span> <span class="icon-bar"></span> <span
-					class="icon-bar"></span>
+			<button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+				<span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
 			</button>
-			<a class="brand" href="index.htm">STS 2.0&nbsp;<i class="iconic-beaker"></i></a>
+			<a class="brand" href="index.htm"><i class="iconic-beaker"></i>&nbsp;STS2</a>
 			<div class="nav-collapse collapse">
 				<ul class="nav">
 					<!-- Sample Dropdown -->
-					<li class="dropdown"><a href="#" class="dropdown-toggle"
-						data-toggle="dropdown">Samples <b class="caret"></b></a>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Samples <b class="caret"></b></a>
 						<ul class="dropdown-menu">
 							<li class="nav-header">Samples</li>
-							<li><a href="searchSamples.htm">Search Samples</a></li>
-							<li><a href="addSamples.htm">Register Samples</a></li>
-<!-- 							<li class="divider"></li> -->
-<!-- 							<li class="nav-header">Plates</li> -->
-<!-- 							<li><a href="searchPlates.htm">Search Plates (Demo) </a></li> -->
-<!-- 							<li><a href="addPlate.htm">Register Plates (Demo)</a></li> -->
+							<li>
+								<a href="searchSamples.htm">Search Samples</a>
+							</li>
+							<li>
+								<a href="addSamples.htm">Register Samples</a>
+							</li>
 							<li class="divider"></li>
-							<li><a href="barcode.htm">Barcode (Demo)</a></li>
-						</ul></li>
+							<li>
+								<a href="barcode.htm">Barcode (Demo)</a>
+							</li>
+						</ul>
+					</li>
 
 					<!-- Container Dropdown -->
-					<li class="dropdown"><a href="#" class="dropdown-toggle"
-						data-toggle="dropdown">Containers <b class="caret"></b></a>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Containers <b class="caret"></b></a>
 						<ul class="dropdown-menu">
-							<li><a href="searchContainers.htm">Search Containers</a></li>
-							<li><a href="editContainer.htm">Register Containers</a></li>
+							<li>
+								<a href="searchContainers.htm">Search Containers</a>
+							</li>
+							<li>
+								<a href="editContainer.htm">Register Containers</a>
+							</li>
 
-						</ul></li>
+						</ul>
+					</li>
 
 					<!-- Project Dropdown -->
-					<li class="dropdown"><a href="#" class="dropdown-toggle"
-						data-toggle="dropdown">Projects <b class="caret"></b></a>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Projects <b class="caret"></b></a>
 						<ul class="dropdown-menu">
 							<li class="nav-header">Projects</li>
-							<li><a href="projects.htm">Search Projects</a></li>
-							<li><a href="editProject.htm">Register Projects</a></li>
+							<li>
+								<a href="projects.htm">Search Projects</a>
+							</li>
+							<li>
+								<a href="editProject.htm">Register Projects</a>
+							</li>
 							<li class="divider"></li>
 							<li class="nav-header">Tests</li>
-							<li><a href="tests.htm">Search Tests</a></li>
-							<li><a href="assays.htm">Search Assays</a></li>
+							<li>
+								<a href="tests.htm">Search Tests</a>
+							</li>
+							<li>
+								<a href="assays.htm">Search Assays</a>
+							</li>
 
-						</ul></li>
+						</ul>
+					</li>
 
 					<!-- Results Dropdown -->
-					<li class="dropdown"><a href="#" class="dropdown-toggle"
-						data-toggle="dropdown">Results <b class="caret"></b></a>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Results <b class="caret"></b></a>
 						<ul class="dropdown-menu">
 							<li class="nav-header">Results</li>
 
-							<li><a href="results.htm">Search Results</a></li>
-							<li><a href="addResult.htm">Add Results</a></li>
+							<li>
+								<a href="results.htm">Search Results</a>
+							</li>
+							<li>
+								<a href="addResult.htm">Add Results</a>
+							</li>
 							<li class="divider"></li>
 							<li class="nav-header">Runs</li>
-							<li><a href="runs.htm">Show Runs</a></li>
-							<li><a href="editRun.htm">Add Runs</a></li>
+							<li>
+								<a href="runs.htm">Show Runs</a>
+							</li>
+							<li>
+								<a href="editRun.htm">Add Runs</a>
+							</li>
 
-						</ul></li>
+						</ul>
+					</li>
 				</ul>
 				<ul class="nav pull-right">
 					<c:if test="${sessionScope.userRole != 'GUEST'}">
-						<li class="dropdown"><a href="#" class="dropdown-toggle"
-							data-toggle="dropdown">STS <i class="iconic-cog"></i>
-						</a>
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">STS <i class="iconic-cog"></i>
+							</a>
 							<ul class="dropdown-menu">
-								<li><a href="sampleType.htm">Edit Sample Types</a></li>
-								<li><a href="containerType.htm">Edit Container Types</a></li>
-								<li><a href="location.htm">Edit Locations</a></li>
-								<li><a href="instrument.htm">Edit Instruments</a></li>
+								<li>
+									<a href="sampleType.htm">Edit Sample Types</a>
+								</li>
+								<li>
+									<a href="containerType.htm">Edit Container Types</a>
+								</li>
+								<li>
+									<a href="location.htm">Edit Locations</a>
+								</li>
+								<li>
+									<a href="instrument.htm">Edit Instruments</a>
+								</li>
 								<c:if test="${sessionScope.userRole == 'ADMINISTRATOR'}">
 									<li class="divider"></li>
 									<li class="nav-header">Admin Options</li>
-									<li><a href="investigator.htm">Edit Investigators</a></li>
-									<li><a href="adminAddEditUser.htm">Edit Users</a></li>
+									<li>
+										<a href="investigator.htm">Edit Investigators</a>
+									</li>
+									<li>
+										<a href="adminAddEditUser.htm">Edit Users</a>
+									</li>
 								</c:if>
 
-							</ul></li>
+							</ul>
+						</li>
 					</c:if>
 
 					<!-- User Dropdown -->
-					<li class="dropdown"><a href="#" class="dropdown-toggle"
-						data-toggle="dropdown"><c:out value="${sessionScope.userName}" />&nbsp;<i
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><c:out value="${sessionScope.userName}" />&nbsp;<i
 							class="iconic-user"></i></a>
 						<ul class="dropdown-menu">
-							<li><a href="editProfile.htm">Profile Settings</a></li>
-							<li><a href="index.htm?login=on">Logout</a></li>
-						</ul></li>
+							<li>
+								<a href="editProfile.htm">Profile Settings</a>
+							</li>
+							<li>
+								<a href="index.htm?login=on">Logout</a>
+							</li>
+						</ul>
+					</li>
+					
+					<!-- Apps -->
+					<a href="#" class="btn btn-inverse" data-toggle="dropdown"><i class="icon-th icon-white"></i></a>
+					<ul class="dropdown-menu">
+						<li class="disabled">
+							<a href="http://172.31.104.12/sts2"><i class="iconic-beaker"></i>&nbsp;STS2</a>
+						</li>
+						<li>
+							<a href="http://172.31.104.12/pts"><i class="iconic-layers"></i>&nbsp;PTS</a>
+						</li>
+						<li>
+							<a href="http://172.31.104.12/seqDB"><i class="iconic-box"></i>&nbsp;SeqDB</a>
+						</li>
+						<li>
+							<a href="http://172.31.104.12/serviceData"><i class="iconic-document-alt-stroke"></i>&nbsp;Service Data</a>
+						</li>
+						<li>
+							<a href="http://172.31.104.12/ap"><i class="iconic-aperture"></i>&nbsp;Analysis Portal</a>
+						</li>
+					</ul>
 				</ul>
 			</div>
 			<!--/.nav-collapse -->
