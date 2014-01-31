@@ -18,10 +18,6 @@
 				<div class="control-group">
 					<label class="control-label">Internal ID:</label>
 					<div class="controls">
-						<!-- 						<span style="display: inline-block; vertical-align: middle; padding: 6px 8px"><a class="act act-primary" -->
-						<%-- 							href="<c:url value="/patientDetails.htm"><c:param name="intSampleId" value="${sample.patient.intSampleId}"/></c:url>"> --%>
-						<%-- 								<c:out value="${sample.patient.intSampleId}" /> --%>
-						<!-- 						</a></span> -->
 						<input class="input-medium" type="text" value="<c:out value="${patient.intSampleId}" />" readonly />
 					</div>
 				</div>
