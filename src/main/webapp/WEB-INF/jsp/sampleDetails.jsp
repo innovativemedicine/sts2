@@ -8,9 +8,14 @@
 		</h2>
 
 		<div class="alert alert-success">
-			Patient Information <a class="btn btn-mini pull-right"
-				href="<c:url value="/editPatient.htm"><c:param name="intSampleId" value="${patient.intSampleId}"/></c:url>"><i
-				class="iconic-pen-alt2"> EDIT</i></a>
+			Patient Information
+				<div class="pull-right">
+					<a class="btn btn-mini"
+						href='<c:url value="/deletePatient.htm"><c:param name="intSampleId" value="${patient.intSampleId}"/></c:url>'
+						onclick="return (confirm('Warning: Are you sure you want to delete this patient?')) "><i class="iconic-x"> DEL </i></a>
+					<a class="btn btn-mini" href="<c:url value="/editPatient.htm"><c:param name="intSampleId" value="${patient.intSampleId}"/></c:url>">
+					<i class="iconic-pen-alt2"> EDIT</i></a>
+				</div>
 		</div>
 
 		<form class="form-horizontal">
