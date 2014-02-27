@@ -61,7 +61,7 @@
 				<prop key="/deleteAssay.htm">stsController</prop>
 				<prop key="/deleteRunAssay.htm">stsController</prop>
 				<prop key="/deleteSample.htm">stsController</prop>
-
+				<prop key="/deletePatient.htm">stsController</prop>
 				<prop key="/deleteProject.htm">stsController</prop>
 				<prop key="/deleteContainer.htm">stsController</prop>
 				<prop key="/deleteResult.htm">stsController</prop>
@@ -368,31 +368,6 @@
 			<ref bean="projectManager" />
 		</property>
 	</bean>
-
-	<!-- <bean id="patientDetailsController" -->
-	<!-- class="agtc.sampletracking.web.controller.PatientDetailsController"> -->
-	<!-- <property name="sessionForm"> -->
-	<!-- <value>true</value> -->
-	<!-- </property> -->
-	<!-- <property name="requireSession"> -->
-	<!-- <value>true</value> -->
-	<!-- </property> -->
-	<!-- <property name="formView"> -->
-	<!-- <value>patientDetails</value> -->
-	<!-- </property> -->
-	<!-- <property name="successView"> -->
-	<!-- <value>patientDetails.htm</value> -->
-	<!-- </property> -->
-	<!-- <property name="sampleManager"> -->
-	<!-- <ref bean="sampleManager" /> -->
-	<!-- </property> -->
-	<!-- <property name="agtcManager"> -->
-	<!-- <ref bean="agtcManager" /> -->
-	<!-- </property> -->
-	<!-- <property name="projectManager"> -->
-	<!-- <ref bean="projectManager" /> -->
-	<!-- </property> -->
-	<!-- </bean> -->
 
 	<bean id="sampleDetailsController"
 		class="agtc.sampletracking.web.controller.SampleDetailsController">
@@ -904,6 +879,7 @@
 				<prop key="/deleteAssay.htm">deleteAssayHandler</prop>
 				<prop key="/deleteRunAssay.htm">deleteRunAssayHandler</prop>
 				<prop key="/deleteSample.htm">deleteSampleHandler</prop>
+				<prop key="/deletePatient.htm">deletePatientHandler</prop>
 				<prop key="/deleteResult.htm">deleteResultHandler</prop>
 				<prop key="/deleteSampleFromContainer.htm">deleteSampleFromContainerHandler</prop>
 				<prop key="/deleteProject.htm">deleteProjectHandler</prop>
