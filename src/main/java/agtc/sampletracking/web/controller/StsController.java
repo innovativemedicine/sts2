@@ -277,8 +277,6 @@ public class StsController extends MultiActionController implements Initializing
 		return new ModelAndView("login", "message", "Assay Deleted");
 	}
 
-	// Delete all results of select assay(s) from a RUN
-	// Jianan Xiao 2006-03-01
 	public ModelAndView deleteRunAssayHandler(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException {
 		int runId = ServletRequestUtils.getRequiredIntParameter(request, "runId");
@@ -312,6 +310,36 @@ public class StsController extends MultiActionController implements Initializing
 		mav.addObject("intSampleId", intSampleId);
 
 		return mav;
+
+	}
+
+	public ModelAndView deletePatientHandler(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException {
+
+		// deletePatientHandler
+
+		String intSampleId = ServletRequestUtils.getRequiredStringParameter(request, "intSampleId");
+
+		Sample sample = sampleManager.getSample(intSampleId);
+
+		// Check if patient has any samples associated with it. If so, abort
+		// with a message "Cannot delete. Redirect to sampleDetails.htm"
+
+		// Else if no samples are associated with it.
+		// "Delete patient & redirect to login."
+		if (sample == null) {
+			sampleManager.removePatient(intSampleId);
+			String message = "Patient" + intSampleId + "successfully deleted.";
+			return new ModelAndView("login", "message", message);
+
+		} else {
+			String message = "Cannot delete patient because it still has associated samples.";
+			ModelAndView mav = new ModelAndView(new RedirectView("sampleDetails.htm"));
+			mav.addObject("message", message);
+			mav.addObject("intSampleId", intSampleId);
+
+			return mav;
+		}
 
 	}
 
