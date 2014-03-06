@@ -2,7 +2,7 @@
 	<tr class="info">
 		<td><b>Name</b></td>
 		<td><b>Location</b></td>
-		<td><b>Project</b></td>
+		<td><b>Container Type</b></td>
 		<td><b>Created Date</b></td>
 	</tr>
 
@@ -14,7 +14,7 @@
 
 			<td><c:out value="${container.location.name}" /></td>
 						
-			<td><c:out value="${container.project.name}" /></td>
+			<td><c:out value="${container.containerType.name}" /></td>
 
 			<td><fmt:formatDate pattern="yyyy-MM-dd" value="${container.createdDate}" /></td>
 
