@@ -55,7 +55,7 @@
 			<div class="control-group">
 				<label class="control-label">Notes:</label>
 				<div class="controls">
-					<input class="input-medium" type="text" value="<c:out value="${patient.note}" />" readonly />
+					<textarea class="input-medium" rows="3" readonly><c:out value="${patient.note}"/></textarea>
 				</div>
 			</div>
 
@@ -139,8 +139,7 @@
 				<div class="control-group">
 					<label class="control-label">Notes:</label>
 					<div class="controls">
-						<input class="input-medium" type="text" value="<c:out value="${sample.notes}" />" readonly />
-
+						<textarea class="span10" rows="3" readonly><c:out value="${sample.notes}" /></textarea>
 					</div>
 				</div>
 				<div class="control-group">
@@ -214,7 +213,7 @@
 						<td>
 							<a
 								href='<c:url value="/containerDetails.htm"><c:param name="containerId" value="${siContainer.container.containerId}"/></c:url>'><c:out
-									value="${siContalociner.container.name}" /></a>
+									value="${siContainer.container.name}" /></a>
 						</td>
 						<td>
 							<c:out value="${siContainer.well}" />
