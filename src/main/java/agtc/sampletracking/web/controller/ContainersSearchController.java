@@ -89,9 +89,8 @@ public class ContainersSearchController extends BasicSearchController {
 
 		List<Container> containerList = (List<Container>) WebUtils.getSessionAttribute(request, "containerList");
 
-		
 		if (containerList == null) {
-			containerList = containerManager.getAllBoxes();
+			containerList = containerManager.getAllContainers();
 			WebUtils.setSessionAttribute(request, "containerList", containerList);
 		}
 
@@ -101,6 +100,8 @@ public class ContainersSearchController extends BasicSearchController {
 		models.put("LProjects", LProjects);
 		models.put("message", message);
 		models.put("err", err);
+
+		WebUtils.setSessionAttribute(request, "sampleList", null);
 
 		return models;
 	}
