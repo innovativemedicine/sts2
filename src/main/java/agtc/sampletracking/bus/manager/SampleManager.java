@@ -182,7 +182,7 @@ public class SampleManager implements ConstantInterface {
 		sampleDAO.saveSample(sample);
 	}
 
-	public Container storeSampleInContainer(Container container, Sample sample) throws Exception {
+	public Container storeSampleInContainer(Container container, Sample sample, String wellLabel) throws Exception {
 		// New Save Samples In Container Function - Added Dec 2012
 
 		// Instantiate new SIC
@@ -191,51 +191,23 @@ public class SampleManager implements ConstantInterface {
 		// Set container to SIC
 		samplesInContainer.setContainer(container);
 
-		// Set well to SIC. Look for empty wells??
-		ContainerType ct = container.getContainerType();
-
-		Integer maxCol = ct.getColumnNo();
-		Integer maxRow = ct.getRowNo();
-
-		Integer containerId = container.getContainerId();
-		List wells = samplesInContainerDAO.getWellsInContainersByContainer(containerId);
-
 		// Set operation to SIC
 		samplesInContainer.setOperation("I");
 		samplesInContainer.setOperationDate(new Date());
 
 		// Add Sample to SIC
 		Integer sampleId = sample.getSampleId();
+		samplesInContainer.setSample(sample);
+		sample.setStatus("Stored");
 
-		if (samplesInContainerDAO.containsSample(sampleId)) {
-			throw new Exception("Error: Sample already exists in container");
-		} else {
-			samplesInContainer.setSample(sample);
-			sample.setStatus("Stored");
-		}
+		samplesInContainer.setWell(wellLabel);
 
-		// Set well
-		for (int r = 1; r <= maxRow; r++) {
-			int rowASCII = r + 64;
-			char rowLabel = (char) rowASCII;
+		// Add SIC into a set and save.
+		Set sics = new HashSet();
+		sics.add(samplesInContainer);
+		container.setSamplesInContainers(sics);
 
-			for (int c = 1; c <= maxCol; c++) {
-				String wellLabel = rowLabel + String.valueOf(c);
-				if (!wells.contains(wellLabel)) {
-					samplesInContainer.setWell(wellLabel);
-
-					// Add SIC into a set and save.
-					Set sics = new HashSet();
-					sics.add(samplesInContainer);
-					container.setSamplesInContainers(sics);
-
-					return container;
-				}
-			}
-		}
-
-		// Return null - Container is full
-		throw new Exception("<b>Error</b>(Container is full):");
+		return container;
 	}
 
 	public void saveSamples(List samples) throws Exception {
