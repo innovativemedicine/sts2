@@ -4,7 +4,10 @@
  */
 package agtc.sampletracking.web.controller;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,6 +21,8 @@ import org.springframework.web.util.WebUtils;
 
 import agtc.sampletracking.model.Container;
 import agtc.sampletracking.model.Sample;
+import agtc.sampletracking.web.command.ContainerContentCellUnit;
+import agtc.sampletracking.web.command.ContainerContentCommand;
 
 public class AddSample2ContainerController extends ContainerContentsController {
 	public AddSample2ContainerController() {
@@ -35,9 +40,9 @@ public class AddSample2ContainerController extends ContainerContentsController {
 
 		models.put("message", message);
 
-		List samples = (List) WebUtils.getSessionAttribute(request, "sampleList");
+		List sampleList = (List) WebUtils.getSessionAttribute(request, "sampleList");
 		List containerList = containerManager.getAllContainers();
-		models.put("sampleList", samples);
+		models.put("sampleList", sampleList);
 		models.put("containerList", containerList);
 		return models;
 	}
@@ -46,43 +51,46 @@ public class AddSample2ContainerController extends ContainerContentsController {
 			BindException errors) throws Exception {
 
 		int containerId = ServletRequestUtils.getIntParameter(request, "containerId", -1);
-		String[] samplesToAdd = ServletRequestUtils.getStringParameters(request, "samplesToAdd");
-		List samplesToAddList = Arrays.asList(samplesToAdd);
+		// String[] samplesToAdd =
+		// ServletRequestUtils.getStringParameters(request, "samplesToAdd");
+		// List samplesToAddList = Arrays.asList(samplesToAdd);
+		List sampleList = (List) WebUtils.getSessionAttribute(request, "sampleList");
 
 		ModelAndView view = new ModelAndView(new RedirectView(getSuccessView()));
 		Map myModel = view.getModel();
-		String message = "No samples selected";
-		
-		if (samplesToAddList.size() > 0) {
+		String message = "";
 
-			List samplesList = (List) WebUtils.getSessionAttribute(request, "sampleList");
-			List samplesRemainingList = new ArrayList();
-			Container container = containerManager.getContainer(new Integer(containerId));
+		ContainerContentCommand containerContent = (ContainerContentCommand) command;
+		ContainerContentCellUnit[][] containerCell = containerContent.getCells();
 
-	
-			String isOrdered = "ordered";
+		Container container = containerManager.getContainer(new Integer(containerId));
+		String isOrdered = "ordered";
 
+		myModel.put("containerId", new Integer(containerId));
+		myModel.put("isOrdered", isOrdered);
 
+		for (int row = 0; row < containerCell.length; row++) {
+			int rowASCII = row + 65;
+			char rowLabel = (char) rowASCII;
 
-			myModel.put("containerId", new Integer(containerId));
-			myModel.put("isOrdered", isOrdered);
+			for (int col = 0; col < containerCell[row].length; col++) {
+				String wellLabel = rowLabel + String.valueOf(col + 1);
 
-			int spaceAvailable = container.getContainerType().getCapacity() - container.getTotalSamples();
-			if (samplesToAddList.size() > spaceAvailable) {
-				message = "Error: There are only " + spaceAvailable
-						+ " spaces available in container. You tried to store " + samplesToAdd.length + " samples.";
-				myModel.put("message", message);
-				return view;
-			} else {
-				Iterator sampleListIr = samplesToAddList.iterator();
+				String curSampleDesc = containerCell[row][col].getSampleDesc();
+				Integer curSicId = containerCell[row][col].getSicId();
 
-				while (sampleListIr.hasNext()) {
-					int curSampleId = Integer.parseInt((String) sampleListIr.next());
+				if (curSicId == null && !curSampleDesc.isEmpty()) {
 
-					Sample curSample = sampleManager.getSample(curSampleId);
+					Sample curSample = getSampleFromDesc(curSampleDesc);
+
+					if (curSample == null) {
+						message = "Error: Sample " + curSampleDesc + " does not exist";
+						myModel.put("message", message);
+						return view;
+					}
 
 					try {
-						container = sampleManager.storeSampleInContainer(container, curSample);
+						container = sampleManager.storeSampleInContainer(container, curSample, wellLabel);
 					} catch (Exception e1) {
 						message = e1.getMessage();
 						e1.printStackTrace();
@@ -92,7 +100,7 @@ public class AddSample2ContainerController extends ContainerContentsController {
 
 					try {
 						containerManager.saveContainer(container);
-						message = samplesToAdd.length + " samples saved successfully";
+						message = "Samples saved in container successfully";
 					} catch (Exception e) {
 						message = e.getMessage();
 						e.printStackTrace();
@@ -100,24 +108,30 @@ public class AddSample2ContainerController extends ContainerContentsController {
 						return view;
 					}
 				}
-
-				// Remove saved samples from sample list
-				Iterator sampleRemainIr = samplesList.iterator();
-
-				while (sampleRemainIr.hasNext()) {
-					Sample chkSample = (Sample) sampleRemainIr.next();
-
-					if (!Arrays.toString(samplesToAdd).contains(String.valueOf(chkSample.getSampleId()))) {
-						samplesRemainingList.add(chkSample);
-					}
-				}
-
-				WebUtils.setSessionAttribute(request, "sampleList", samplesRemainingList);
 			}
 		}
 
+		WebUtils.setSessionAttribute(request, "sampleList", sampleList);
 		myModel.put("message", message.toString());
 
 		return view;
+	}
+
+	private Sample getSampleFromDesc(String sampleDesc) {
+
+		String[] descToken = sampleDesc.split("-");
+
+		if (descToken.length == 3) {
+			String intSampleId = descToken[0];
+			String sampleTypeSuffix = descToken[1];
+			Integer dupNo = Integer.parseInt(descToken[2]);
+
+			Sample sample = sampleManager.getSample(intSampleId, sampleTypeSuffix, dupNo);
+
+			return sample;
+		} else {
+			return null;
+		}
+
 	}
 }
