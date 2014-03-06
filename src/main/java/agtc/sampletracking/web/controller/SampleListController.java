@@ -184,36 +184,39 @@ public class SampleListController extends BasicController {
 		curCell.setCellValue("Status");
 
 		curCell = curRow.getCell(9, Row.CREATE_NULL_AS_BLANK);
-		curCell.setCellValue("Location");
+		curCell.setCellValue("# Aliquots");
 
 		curCell = curRow.getCell(10, Row.CREATE_NULL_AS_BLANK);
-		curCell.setCellValue("Conc. (ng/uL)");
+		curCell.setCellValue("Container Loc (Well@Box@Freezer)");
 
 		curCell = curRow.getCell(11, Row.CREATE_NULL_AS_BLANK);
-		curCell.setCellValue("Conc. Date");
+		curCell.setCellValue("Conc. (ng/uL)");
 
 		curCell = curRow.getCell(12, Row.CREATE_NULL_AS_BLANK);
-		curCell.setCellValue("A260");
+		curCell.setCellValue("Conc. Date");
 
 		curCell = curRow.getCell(13, Row.CREATE_NULL_AS_BLANK);
-		curCell.setCellValue("A280");
+		curCell.setCellValue("A260");
 
 		curCell = curRow.getCell(14, Row.CREATE_NULL_AS_BLANK);
-		curCell.setCellValue("260/280");
+		curCell.setCellValue("A280");
 
 		curCell = curRow.getCell(15, Row.CREATE_NULL_AS_BLANK);
-		curCell.setCellValue("260/230");
+		curCell.setCellValue("260/280");
 
 		curCell = curRow.getCell(16, Row.CREATE_NULL_AS_BLANK);
-		curCell.setCellValue("Conc. Factor (ng/uL");
+		curCell.setCellValue("260/230");
 
 		curCell = curRow.getCell(17, Row.CREATE_NULL_AS_BLANK);
-		curCell.setCellValue("Cursor Pos.");
+		curCell.setCellValue("Conc. Factor (ng/uL");
 
 		curCell = curRow.getCell(18, Row.CREATE_NULL_AS_BLANK);
-		curCell.setCellValue("Cursor Abs.");
+		curCell.setCellValue("Cursor Pos.");
 
 		curCell = curRow.getCell(19, Row.CREATE_NULL_AS_BLANK);
+		curCell.setCellValue("Cursor Abs.");
+
+		curCell = curRow.getCell(20, Row.CREATE_NULL_AS_BLANK);
 		curCell.setCellValue("340 Raw");
 		Integer rowCounter = 1;
 
@@ -268,15 +271,36 @@ public class SampleListController extends BasicController {
 			List sics = sampleManager.getSamplesInContainersInBySample(curSample.getSampleId());
 
 			curCell = curRow.getCell(9, Row.CREATE_NULL_AS_BLANK);
+			if (!sics.isEmpty()) {
+				curCell.setCellValue(sics.size());
+			} else {
+				curCell.setCellValue("-");
+			}
+
+			curCell = curRow.getCell(10, Row.CREATE_NULL_AS_BLANK);
 			// Location is available
 			if (!sics.isEmpty()) {
-				SamplesInContainer sic = (SamplesInContainer) sics.get(0);
-				String containerName = sic.getContainer().getName();
-				String containerLoc = "";
-				if (sic.getContainer().getLocation() != null) {
-					containerLoc = "@" + sic.getContainer().getLocation().getName();
+
+				String sampleLocation = "";
+
+				for (Object o : sics) {
+					SamplesInContainer sic = (SamplesInContainer) o;
+
+					String containerName = sic.getContainer().getName();
+
+					String sampleLoc = "";
+					String containerLoc = "";
+
+					if (sic.getWell() != null) {
+						sampleLoc = sic.getWell() + "@";
+					}
+
+					if (sic.getContainer().getLocation() != null) {
+						containerLoc = "@" + sic.getContainer().getLocation().getName();
+					}
+
+					sampleLocation = sampleLocation + sampleLoc + containerName + containerLoc + ";";
 				}
-				String sampleLocation = containerName + containerLoc;
 
 				curCell.setCellValue(sampleLocation);
 
@@ -285,7 +309,7 @@ public class SampleListController extends BasicController {
 				curCell.setCellValue("");
 			}
 
-			curCell = curRow.getCell(10, Row.CREATE_NULL_AS_BLANK);
+			curCell = curRow.getCell(11, Row.CREATE_NULL_AS_BLANK);
 			try {
 				curCell.setCellStyle(cellDecimalStyle);
 				curCell.setCellValue(curSample.getOd());
@@ -293,7 +317,7 @@ public class SampleListController extends BasicController {
 				curCell.setCellValue("");
 			}
 
-			curCell = curRow.getCell(11, Row.CREATE_NULL_AS_BLANK);
+			curCell = curRow.getCell(12, Row.CREATE_NULL_AS_BLANK);
 			try {
 				curCell.setCellStyle(cellDateStyle);
 				curCell.setCellValue(curSample.getOdDate());
@@ -301,7 +325,7 @@ public class SampleListController extends BasicController {
 				curCell.setCellValue("");
 			}
 
-			curCell = curRow.getCell(12, Row.CREATE_NULL_AS_BLANK);
+			curCell = curRow.getCell(13, Row.CREATE_NULL_AS_BLANK);
 			try {
 				curCell.setCellStyle(cellDecimalStyle);
 				curCell.setCellValue(curSample.getOdA260());
@@ -309,7 +333,7 @@ public class SampleListController extends BasicController {
 				curCell.setCellValue("");
 			}
 
-			curCell = curRow.getCell(13, Row.CREATE_NULL_AS_BLANK);
+			curCell = curRow.getCell(14, Row.CREATE_NULL_AS_BLANK);
 			try {
 				curCell.setCellStyle(cellDecimalStyle);
 				curCell.setCellValue(curSample.getOdA280());
@@ -317,7 +341,7 @@ public class SampleListController extends BasicController {
 				curCell.setCellValue("");
 			}
 
-			curCell = curRow.getCell(14, Row.CREATE_NULL_AS_BLANK);
+			curCell = curRow.getCell(15, Row.CREATE_NULL_AS_BLANK);
 			try {
 				curCell.setCellStyle(cellDecimalStyle);
 				curCell.setCellValue(curSample.getOd260280());
@@ -325,7 +349,7 @@ public class SampleListController extends BasicController {
 				curCell.setCellValue("");
 			}
 
-			curCell = curRow.getCell(15, Row.CREATE_NULL_AS_BLANK);
+			curCell = curRow.getCell(16, Row.CREATE_NULL_AS_BLANK);
 			try {
 				curCell.setCellStyle(cellDecimalStyle);
 				curCell.setCellValue(curSample.getOd260230());
@@ -333,21 +357,21 @@ public class SampleListController extends BasicController {
 				curCell.setCellValue("");
 			}
 
-			curCell = curRow.getCell(16, Row.CREATE_NULL_AS_BLANK);
+			curCell = curRow.getCell(17, Row.CREATE_NULL_AS_BLANK);
 			try {
 				curCell.setCellValue(curSample.getOdFactor());
 			} catch (NullPointerException e) {
 				curCell.setCellValue("");
 			}
 
-			curCell = curRow.getCell(17, Row.CREATE_NULL_AS_BLANK);
+			curCell = curRow.getCell(18, Row.CREATE_NULL_AS_BLANK);
 			try {
 				curCell.setCellValue(curSample.getOdCursorPos());
 			} catch (NullPointerException e) {
 				curCell.setCellValue("");
 			}
 
-			curCell = curRow.getCell(18, Row.CREATE_NULL_AS_BLANK);
+			curCell = curRow.getCell(19, Row.CREATE_NULL_AS_BLANK);
 			try {
 				curCell.setCellStyle(cellDecimalStyle);
 				curCell.setCellValue(curSample.getOdCursorAbs());
@@ -355,7 +379,7 @@ public class SampleListController extends BasicController {
 				curCell.setCellValue("");
 			}
 
-			curCell = curRow.getCell(19, Row.CREATE_NULL_AS_BLANK);
+			curCell = curRow.getCell(20, Row.CREATE_NULL_AS_BLANK);
 			try {
 				curCell.setCellStyle(cellDecimalStyle);
 				curCell.setCellValue(curSample.getOd340Raw());
