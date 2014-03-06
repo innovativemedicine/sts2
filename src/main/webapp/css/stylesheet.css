@@ -96,11 +96,15 @@ label.checkbox {
 	width: 20px;
 }
 
-input[readonly]
+input[readonly], textarea[readonly], select[readonly]
 {
 	background-color: #fff;
 }
 
 .input-append .active, .input-prepend .active {
 	border-color: #ccc;
+}
+
+.container-well {
+	width: 90%;	
 }
