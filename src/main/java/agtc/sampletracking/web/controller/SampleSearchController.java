@@ -32,47 +32,34 @@ public class SampleSearchController extends BasicSearchController
 	private List			LSampleTypes;
 	private Log				log	= LogFactory.getLog(SampleSearchController.class);
 
-	protected ModelAndView onSubmit(HttpServletRequest request,
-			HttpServletResponse response, Object command, BindException errors)
-			throws Exception {
+	protected ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response, Object command,
+			BindException errors) throws Exception {
 
 		// String action = RequestUtils.getStringParameter(request, "action",
 		// "");
 
-		String sampleIdsInTextArea = ServletRequestUtils.getStringParameter(
-				request, "sampleIdsInTextArea", "");
-		String sampleIdFrom = ServletRequestUtils.getStringParameter(request,
-				"sampleIdFrom", "");
-		String sampleIdTo = ServletRequestUtils.getStringParameter(request,
-				"sampleIdTo", "");
-		String externalIdFrom = ServletRequestUtils.getStringParameter(request,
-				"externalIdFrom", "");
-		String externalIdTo = ServletRequestUtils.getStringParameter(request,
-				"externalIdTo", "");
-		String[] sampletypes = ServletRequestUtils.getStringParameters(request,
-				"sampleTypeFilter");
-		String[] projects = ServletRequestUtils.getStringParameters(request,
-				"projectFilter");
+		String sampleIdsInTextArea = ServletRequestUtils.getStringParameter(request, "sampleIdsInTextArea", "");
+		String sampleIdFrom = ServletRequestUtils.getStringParameter(request, "sampleIdFrom", "");
+		String sampleIdTo = ServletRequestUtils.getStringParameter(request, "sampleIdTo", "");
+		String externalIdFrom = ServletRequestUtils.getStringParameter(request, "externalIdFrom", "");
+		String externalIdTo = ServletRequestUtils.getStringParameter(request, "externalIdTo", "");
+		String[] sampletypes = ServletRequestUtils.getStringParameters(request, "sampleTypeFilter");
+		String[] projects = ServletRequestUtils.getStringParameters(request, "projectFilter");
 
 		List sampleTypeIds = String2IntList(sampletypes);
 		List projectIds = String2IntList(projects);
 		List<Sample> searchResults = new ArrayList<Sample>();
 
-		if (sampleIdFrom.isEmpty() && sampleIdsInTextArea.isEmpty()
-				&& externalIdFrom.isEmpty() && projectIds.isEmpty()) {
-			ModelAndView mav = new ModelAndView(new RedirectView(
-					"searchSamples.htm"));
-			mav.addObject("message",
-					"Error: Must enter value for either Sample ID, External ID, or Project ID.");
+		if (sampleIdFrom.isEmpty() && sampleIdsInTextArea.isEmpty() && externalIdFrom.isEmpty() && projectIds.isEmpty()) {
+			ModelAndView mav = new ModelAndView(new RedirectView("searchSamples.htm"));
+			mav.addObject("message", "Error: Must enter value for either Sample ID, External ID, or Project ID.");
 			return mav;
 		}
 		// Search single Sample or range
 		else if (!sampleIdFrom.isEmpty() || !externalIdFrom.isEmpty()) {
 
-			List simpleSearchSamples = sampleManager.getSampleDAO()
-					.simpleSearchSamples(sampleIdFrom, sampleIdTo,
-							externalIdFrom, externalIdTo, sampleTypeIds,
-							projectIds);
+			List simpleSearchSamples = sampleManager.getSampleDAO().simpleSearchSamples(sampleIdFrom, sampleIdTo,
+					externalIdFrom, externalIdTo, sampleTypeIds, projectIds);
 
 			searchResults.addAll(simpleSearchSamples);
 
@@ -84,23 +71,19 @@ public class SampleSearchController extends BasicSearchController
 
 			MultipartHttpServletRequest mrequest = (MultipartHttpServletRequest) request;
 			MultipartFile aFile = mrequest.getFile("file");
-			
-			String optionsID = ServletRequestUtils.getStringParameter(request,
-					"optionsID", "");
-			
+
+			String optionsID = ServletRequestUtils.getStringParameter(request, "optionsID", "");
+
 			if (sampleIdsInTextArea.trim().length() > 0) {
-				if(optionsID.equalsIgnoreCase("internal"))
-				{
+				if (optionsID.equalsIgnoreCase("internal")) {
 					sampleIds = String2List(sampleIdsInTextArea);
-				}
-				else if (optionsID.equalsIgnoreCase("external"))
-				{
+				} else if (optionsID.equalsIgnoreCase("external")) {
 					extSampleIds = String2List(sampleIdsInTextArea);
 				}
 			}
 
-			List<Sample> simpleSearchSamples = sampleManager.getSampleDAO()
-					.simpleSearchSamples(sampleIds, extSampleIds, sampleTypeIds, projectIds);
+			List<Sample> simpleSearchSamples = sampleManager.getSampleDAO().simpleSearchSamples(sampleIds,
+					extSampleIds, sampleTypeIds, projectIds);
 
 			searchResults.addAll(simpleSearchSamples);
 		}
@@ -133,6 +116,8 @@ public class SampleSearchController extends BasicSearchController
 		models.put("LSampleTypes", LSampleTypes);
 		models.put("LProjects", LProjects);
 		models.put("message", message);
+
+		WebUtils.setSessionAttribute(request, "sampleList", null);
 
 		return models;
 	}
