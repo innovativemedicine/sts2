@@ -4,7 +4,7 @@
 		<c:forEach begin="0" end="${command.rowNo-1}" var="rowCount">
 			<tr>
 				<c:forEach begin="0" end="${command.columnNo-1}" var="columnCount">
-					<td class="span1">					
+					<td class="input-small">					
 						<span class="container-header"><c:out value="${command.cells[rowCount][columnCount].well}" /></span>
 						<c:if test="${!command.cells[rowCount][columnCount].notOccupied}">
 							<a class="close"
@@ -14,15 +14,28 @@
 						<br>
 
 						<c:if test="${command.cells[rowCount][columnCount].notOccupied}">
-							<spring:bind
-								path="command.cells[${rowCount}][${columnCount}].sampleDesc">
-								<input class="span12" disabled placeholder="Empty" type="text"
-									name='<c:out value="${status.expression}" />' />
+							<spring:bind path="command.cells[${rowCount}][${columnCount}].sampleDesc">
+								
+									<c:if test="${not empty sampleList}">
+										<select class="container-well container-details" name='<c:out value="${status.expression}"/>'>
+											<option value="">Empty</option>
+											<c:forEach items="${sampleList}" var="sample">
+												<option value="<c:out value="${sample.patient.intSampleId}"/>-<c:out value="${sample.sampleType.suffix}"/>-<c:out value="${sample.sampleDupNo}"/>"><c:out value="${sample.patient.intSampleId}"/>-<c:out value="${sample.sampleType.suffix}"/>-<c:out value="${sample.sampleDupNo}"/>
+												</option>
+											</c:forEach>
+										</select>
+									</c:if>
+									
+									<c:if test="${empty sampleList}">
+										<input class="container-well container-details" placeholder="Empty" type="text"
+										name='<c:out value="${status.expression}"/>' />
+									</c:if>								
+								
 							</spring:bind>
 						</c:if> 
 						
 						<c:if test="${!command.cells[rowCount][columnCount].notOccupied}">
-							<p class="uneditable-input input-mini container-details"><c:out value="${command.cells[rowCount][columnCount].sampleDesc}" /> </p>
+							<p class="uneditable-input container-well container-details"><c:out value="${command.cells[rowCount][columnCount].sampleDesc}" /> </p>
 						</c:if>
 						
 						</td>

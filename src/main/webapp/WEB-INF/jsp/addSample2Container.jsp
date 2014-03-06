@@ -4,28 +4,6 @@
 
 <form method="post" enctype="multipart/form-data">
 	<div class="row-fluid">
-		<c:choose>
-			<c:when test="${not empty sampleList}">
-				<div class="span2">
-
-					<h3>Samples:</h3>
-					<select class="span12" size="25" name="samplesToAdd" multiple>
-						<c:forEach items="${sampleList}" var="sample">
-							<option value="<c:out value="${sample.sampleId}"/>">
-								<c:out value="${sample.patient.intSampleId}" />
-								-
-								<c:out value="${sample.sampleType.suffix}" />
-							</option>
-						</c:forEach>
-					</select>
-				</div>
-
-				<div class="span10">
-			</c:when>
-			<c:otherwise>
-				<div class="span12">
-			</c:otherwise>
-		</c:choose>
 
 		<h3>Container:</h3>
 
