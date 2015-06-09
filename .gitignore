@@ -1,7 +1,6 @@
 *.iws
 *.jar
 *.csv
-*.war
 *.dat
 .DS_Store
 .settings
